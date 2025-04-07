@@ -1,8 +1,10 @@
 .header {
     width: 100%;
+    height: 600px;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(120deg, #ffc8f8, #aabdf8, #aabdf8);
 }
 
 .sliderContent {
@@ -14,7 +16,7 @@
 }
 
 .sliderWrapper {
-    width: 20%; /* ajuste conforme necessário */
+    width: 50%; /* ajuste conforme necessário */
     height: auto;
     overflow: hidden;
     position: relative;

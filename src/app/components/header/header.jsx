@@ -30,8 +30,8 @@ export default function Header() {
                                 <Image
                                     src={slide.src}
                                     alt={slide.alt}
-                                    width={500}
-                                    height={300}
+                                    width={100}
+                                    height={100}
                                     unoptimized
                                     style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
                                     priority
@@ -39,11 +39,6 @@ export default function Header() {
                             </div>
                         ))}
                     </div>
-                </div>
-
-                <div className={styles.textBox}>
-                    <h1>Bem-vindo ao site!</h1>
-                    <p>Coloque aqui uma descrição interessante.</p>
                 </div>
             </div>
         </header>

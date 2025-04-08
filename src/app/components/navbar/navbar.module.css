@@ -51,7 +51,7 @@
 
 .bottomContent ul a {
     font-size: 20pt;
-    margin: 0 40px;
+    margin: 0 20px;
 }
 
 .Bars {
@@ -71,6 +71,7 @@
     .Bars {
         display: block;
         margin-right: 20px;
+        z-index: 3;
     }
 
     .todosBars {
@@ -83,6 +84,33 @@
     }
 
     .gp2 {
-        display: none;
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        top: 0;
+        left: -100%;
+        background-color: rgb(76, 139, 170);
+        display: flex;
+        justify-content: flex-start;
+        align-items: start;
+        flex-direction: column;
+        transition: all 0.3s ease-in-out;
+        padding-left: 40%;
+        padding-top: 200px;
+        z-index: 2;
+    }
+
+    .gp2 li {
+        margin: 10px 0;
+    }
+
+    .gp2.active {
+        left: -40%;
+    }
+}
+
+@media (max-width: 380px) {
+    .gp1 li {
+        margin: 25px 0;
     }
 }

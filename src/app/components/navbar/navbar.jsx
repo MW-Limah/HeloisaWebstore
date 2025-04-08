@@ -1,9 +1,43 @@
+'use client';
+
 import styles from './navbar.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import { FaBars } from 'react-icons/fa';
+import { IoCloseSharp } from 'react-icons/io5';
 
 export default function Navbar() {
+    const [isActive, setIsActive] = useState(false);
+
+    const toggleMenu = () => {
+        setIsActive(!isActive);
+    };
+
+    useEffect(() => {
+        const closeMenu = (e) => {
+            if (isActive && !e.target.closest(`.${styles.navbarContent}`)) {
+                setIsActive(false);
+            }
+        };
+
+        document.addEventListener('click', closeMenu);
+        return () => document.removeEventListener('click', closeMenu);
+    }, [isActive]);
+
+    /* const scrollToProjects = () => {
+        const projectsSection = document.getElementById('anotherLinks');
+        if (projectsSection) {
+            const offset = -100; // Ajuste fino, negativo sobe mais
+            const top = projectsSection.getBoundingClientRect().top + window.scrollY + offset;
+
+            window.scrollTo({
+                top: top,
+                behavior: 'smooth', // Deve funcionar no Chrome, Firefox e Edge
+            });
+        } 
+    };*/
+
     return (
         <nav className={styles.navbar}>
             <div className={styles.topContent}>
@@ -18,8 +52,12 @@ export default function Navbar() {
             <div className={styles.bottomContent}>
                 <ul>
                     <div className={styles.gp1}>
-                        <li className={styles.todosBars}>
-                            <FaBars className={styles.Bars} />
+                        <li className={styles.Bars} onClick={toggleMenu}>
+                            {isActive ? (
+                                <IoCloseSharp style={{ color: 'white' }} />
+                            ) : (
+                                <FaBars style={{ color: 'white' }} />
+                            )}
                         </li>
                         <li>
                             <Link href={'#'}>Brincos</Link>
@@ -28,7 +66,7 @@ export default function Navbar() {
                             <Link href={'#'}>Piranhas</Link>
                         </li>
                     </div>
-                    <div className={styles.gp2}>
+                    <div className={`${styles.gp2} ${isActive ? styles.active : ''}`}>
                         <li>
                             <Link href={'#'}>Maquiagem</Link>
                         </li>

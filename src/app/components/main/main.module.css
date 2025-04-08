@@ -1,0 +1,8 @@
+.main {
+    height: 1200px;
+    background: linear-gradient(150deg, #ffc8f8, #aabdf8, #aabdf8);
+}
+
+.boxContent {
+    height: 100px;
+}

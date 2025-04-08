@@ -1,11 +1,18 @@
-.main {
-    height: 1200px;
-    background: linear-gradient(150deg, #ffc8f8, #aabdf8, #aabdf8);
+.Main {
+    min-height: 100vh;
+    padding: 50px 0;
+    overflow-x: hidden;
 }
 
 .boxContent {
-    height: 100px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 0 20px;
+}
+
+.lineContent {
+    margin-top: 50px;
 }

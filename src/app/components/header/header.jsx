@@ -16,30 +16,26 @@ export default function Header() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrent((prev) => (prev + 1) % slides.length);
-        }, 5000);
+        }, 8000);
         return () => clearInterval(interval);
     }, []);
 
     return (
         <header className={styles.header}>
-            <div className={styles.sliderContent}>
-                <div className={styles.sliderWrapper}>
-                    <div className={styles.slider} style={{ transform: `translateX(-${current * 100}%)` }}>
-                        {slides.map((slide) => (
-                            <div key={slide.id} className={styles.slide}>
-                                <Image
-                                    src={slide.src}
-                                    alt={slide.alt}
-                                    width={100}
-                                    height={100}
-                                    unoptimized
-                                    style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
-                                    priority
-                                />
-                            </div>
-                        ))}
+            <div className={styles.slider}>
+                {slides.map((slide, index) => (
+                    <div key={slide.id} className={`${styles.slide} ${index === current ? styles.active : ''}`}>
+                        <Image
+                            src={slide.src}
+                            alt={slide.alt}
+                            width={1000}
+                            height={500}
+                            unoptimized
+                            style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
+                            priority
+                        />
                     </div>
-                </div>
+                ))}
             </div>
         </header>
     );

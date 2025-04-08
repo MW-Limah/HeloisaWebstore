@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
     title: 'Heloisa Moda Feminina',
-    description: 'Loja virtual, ecommerce, Heloisa Moda Feminina, moda feminina, acessórios para mulheres',
+    description: 'Loja virtual, ecommerce, Heloisa Moda Feminina, moda feminina, acessorios para mulheres',
 };
 
 export default function RootLayout({ children }) {

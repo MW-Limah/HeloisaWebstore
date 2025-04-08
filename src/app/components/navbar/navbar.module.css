@@ -109,8 +109,12 @@
     }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 405px) {
     .gp1 li {
         margin: 25px 0;
+    }
+
+    .rightContent {
+        display: none;
     }
 }

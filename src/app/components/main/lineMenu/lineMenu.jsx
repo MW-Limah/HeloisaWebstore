@@ -60,36 +60,42 @@ export default function LineMenu() {
                     {/* Clones à esquerda */}
                     {items.map((i) => (
                         <div className={styles.LineItem} key={`left-${i}`}>
-                            <Image
-                                src={`/images/lineMenu/itens/item${i + 1}.jpg`}
-                                width={300}
-                                height={300}
-                                alt={`Item ${i}`}
-                            />
+                            <div className={styles.ImageWrapper}>
+                                <Image
+                                    src={`/images/lineMenu/itens/item${i + 1}.jpg`}
+                                    alt={`Item ${i}`}
+                                    fill
+                                    style={{ objectFit: 'contain' }}
+                                />
+                            </div>
                         </div>
                     ))}
 
                     {/* Itens Reais */}
                     {items.map((i) => (
                         <div className={styles.LineItem} key={`main-${i}`}>
-                            <Image
-                                src={`/images/lineMenu/itens/item${i + 1}.jpg`}
-                                width={300}
-                                height={300}
-                                alt={`Item ${i}`}
-                            />
+                            <div className={styles.ImageWrapper}>
+                                <Image
+                                    src={`/images/lineMenu/itens/item${i + 1}.jpg`}
+                                    alt={`Item ${i}`}
+                                    fill
+                                    style={{ objectFit: 'contain' }}
+                                />
+                            </div>
                         </div>
                     ))}
 
                     {/* Clones à direita */}
                     {items.map((i) => (
                         <div className={styles.LineItem} key={`right-${i}`}>
-                            <Image
-                                src={`/images/lineMenu/itens/item${i + 1}.jpg`}
-                                width={300}
-                                height={300}
-                                alt={`Item ${i}`}
-                            />
+                            <div className={styles.ImageWrapper}>
+                                <Image
+                                    src={`/images/lineMenu/itens/item${i + 1}.jpg`}
+                                    alt={`Item ${i}`}
+                                    fill
+                                    style={{ objectFit: 'contain' }}
+                                />
+                            </div>
                         </div>
                     ))}
                 </div>

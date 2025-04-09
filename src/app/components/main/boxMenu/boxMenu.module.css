@@ -1,7 +1,46 @@
 .boxContent {
-    background-color: white;
-    height: 500px;
-    width: 400px;
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 1 / 1.2; /* Mantém uma proporção mais próxima de quadrado */
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #000;
+    background-color: white;
+    box-shadow: 0 4px 10px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; /* Centraliza */
+    box-sizing: border-box;
+}
+
+.boxMenu {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Cada item se adapta ao container e mantém proporção quadrada */
+.boxItem {
+    flex: 1 1 calc(50% - 10px);
+    aspect-ratio: 1 / 1;
+    border: 1px solid;
+    box-sizing: border-box;
+    min-width: 120px;
+    max-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+/* Telas pequenas: aumenta a quantidade de colunas */
+@media (max-width: 500px) {
+    .boxItem {
+        flex: 1 1 calc(45% - 10px);
+    }
+}
+
+@media (max-width: 350px) {
+    .boxItem {
+        flex: 1 1 calc(100% - 10px);
+    }
 }

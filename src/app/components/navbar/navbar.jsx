@@ -26,7 +26,7 @@ export default function Navbar() {
     }, [isActive]);
 
     return (
-        <nav className={styles.navbar}>
+        <nav className={styles.navbar} id="Início">
             <div className={styles.topContent}>
                 <div className={styles.leftContent}>
                     <Image src={'/logo_1.png'} width={100} height={100} alt="Logo Principal Heloisa Moda Feminina" />

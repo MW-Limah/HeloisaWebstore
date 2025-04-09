@@ -1,5 +1,6 @@
 import styles from './main.module.css';
 import BoxMenu from './boxMenu/boxMenu';
+import LineMenu from './lineMenu/lineMenu';
 
 export default function Main() {
     return (
@@ -8,10 +9,12 @@ export default function Main() {
                 <BoxMenu />
                 <BoxMenu />
                 <BoxMenu />
-                <BoxMenu />
             </div>
             {/* Div que irá receber o boxItem */}
-            <div className={styles.lineContent}></div> {/* Div que irá receber o lineItem */}
+            <div className={styles.lineContent}>
+                <LineMenu />
+            </div>
+            {/* Div que irá receber o lineItem */}
         </main>
     );
 }

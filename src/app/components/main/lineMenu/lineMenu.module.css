@@ -1,0 +1,50 @@
+.LineMenu {
+    margin: 200px 0;
+    height: 500px;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 20px;
+}
+
+.LineScrollContainer {
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.LineScrollContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.LineScroll {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    padding: 10px 0;
+}
+
+.LineItem {
+    flex: 0 0 25px;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+    box-shadow: 0px 10px 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.NavButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

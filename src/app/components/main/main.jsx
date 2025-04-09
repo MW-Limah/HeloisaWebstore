@@ -14,6 +14,7 @@ export default function Main() {
             <div className={styles.lineContent}>
                 <LineMenu />
             </div>
+            <h3 style={{ color: 'black', position: 'relative', top: '-180px' }}>Toque na tulipaaa</h3>
             {/* Div que irá receber o lineItem */}
         </main>
     );

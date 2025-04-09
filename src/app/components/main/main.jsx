@@ -7,8 +7,6 @@ export default function Main() {
         <main className={styles.Main}>
             <div className={styles.boxContent}>
                 <BoxMenu />
-                <BoxMenu />
-                <BoxMenu />
             </div>
             {/* Div que irá receber o boxItem */}
             <div className={styles.lineContent}>

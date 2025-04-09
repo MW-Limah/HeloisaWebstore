@@ -31,6 +31,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
 .active {
@@ -38,9 +39,29 @@
     z-index: 1;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
     .slide {
         width: 80%;
         left: 20%;
+    }
+}
+
+@media (max-width: 768px) {
+    .slide {
+        width: 100%;
+        left: 10%;
+    }
+}
+
+/* CELULARES: slide ocupa 100% da largura */
+@media (max-width: 500px) {
+    .header {
+        aspect-ratio: 4 / 3; /* Mais vertical para celular */
+    }
+
+    .slide {
+        width: 100%;
+        left: 10%;
+        transform: none;
     }
 }

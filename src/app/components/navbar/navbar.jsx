@@ -25,19 +25,6 @@ export default function Navbar() {
         return () => document.removeEventListener('click', closeMenu);
     }, [isActive]);
 
-    /* const scrollToProjects = () => {
-        const projectsSection = document.getElementById('anotherLinks');
-        if (projectsSection) {
-            const offset = -100; // Ajuste fino, negativo sobe mais
-            const top = projectsSection.getBoundingClientRect().top + window.scrollY + offset;
-
-            window.scrollTo({
-                top: top,
-                behavior: 'smooth', // Deve funcionar no Chrome, Firefox e Edge
-            });
-        } 
-    };*/
-
     return (
         <nav className={styles.navbar}>
             <div className={styles.topContent}>
@@ -60,22 +47,22 @@ export default function Navbar() {
                             )}
                         </li>
                         <li>
-                            <Link href={'#'}>Brincos</Link>
+                            <Link href={'#Brincos'}>Brincos</Link>
                         </li>
                         <li>
-                            <Link href={'#'}>Piranhas</Link>
+                            <Link href={'#Piranhas'}>Piranhas</Link>
                         </li>
                     </div>
                     <div className={`${styles.gp2} ${isActive ? styles.active : ''}`}>
                         <li>
-                            <Link href={'#'}>Maquiagem</Link>
+                            <Link href={'#Maquiagens'}>Maquiagem</Link>
                         </li>
 
                         <li>
-                            <Link href={'#'}>Pulseiras</Link>
+                            <Link href={'#Pulseiras'}>Pulseiras</Link>
                         </li>
                         <li>
-                            <Link href={'#'}>Anéis</Link>
+                            <Link href={'#Aneis'}>Anéis</Link>
                         </li>
                     </div>
                 </ul>

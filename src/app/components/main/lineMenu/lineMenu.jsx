@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 
 const items = [...Array(8).keys()]; // [0, 1, 2, ..., 7]
 
-export default function LineMenu() {
+export default function LineMenu({ id }) {
     const scrollRef = useRef(null);
     const itemWidth = 400; // valor estimado (ajuste conforme necessário)
 
@@ -50,7 +50,7 @@ export default function LineMenu() {
     };
 
     return (
-        <section className={styles.LineMenu}>
+        <section id={id} className={styles.LineMenu}>
             <button onClick={scrollLeft} className={styles.NavButton}>
                 <Image src={'/images/lineMenu/tulipinha.png'} width={80} height={200} alt="Scroll Left" />
             </button>

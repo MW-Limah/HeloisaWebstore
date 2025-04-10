@@ -40,6 +40,10 @@ export default function BoxMenu() {
                         alt="Pinceis de maquiagem"
                     />
                 </div>
+                <div className={styles.PriceBuy}>
+                    <p>R$ 20,00</p>
+                    <button>Comprar</button>
+                </div>
             </div>
         </article>
     );

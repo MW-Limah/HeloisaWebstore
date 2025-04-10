@@ -46,6 +46,37 @@
     display: block;
 }
 
+.PriceBuy {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+    font-size: 16pt;
+}
+
+.PriceBuy p {
+    font-size: 26pt;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.PriceBuy button {
+    font-size: 16pt;
+    margin-top: 25px;
+    margin-bottom: -25px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    color: #000;
+    background-color: #f9c1d3;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.PriceBuy button:hover {
+    background-color: #f0a2ba;
+}
+
 /* Telas pequenas: aumenta a quantidade de colunas */
 @media (max-width: 500px) {
     .boxItem {

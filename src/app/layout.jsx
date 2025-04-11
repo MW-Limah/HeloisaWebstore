@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import AuthSessionProvider from './SessionProvider'; // Importando
 
 // Fontes
 const geistSans = Geist({
@@ -18,16 +19,15 @@ const geistMono = Geist_Mono({
 export const metadata = {
     title: 'Heloisa Moda Feminina',
     description: 'Loja virtual, ecommerce, Heloisa Moda Feminina, moda feminina, acessórios para mulheres',
-    icons: {
-        icon: '/favicon.png',
-    },
 };
 
 // Layout principal
 export default function RootLayout({ children }) {
     return (
         <html lang="pt-BR">
-            <body className={`${geistSans.variable} ${geistMono.variable}`}>{children}</body>
+            <body className={`${geistSans.variable} ${geistMono.variable}`}>
+                <AuthSessionProvider>{children}</AuthSessionProvider>
+            </body>
         </html>
     );
 }

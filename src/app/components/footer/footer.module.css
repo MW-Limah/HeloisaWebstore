@@ -48,7 +48,7 @@
 .fstBox {
     width: 25%;
     padding: 10px 50px 0 0;
-    font-size: 17pt;
+    font-size: 16pt;
 }
 
 .fstBox p {
@@ -58,7 +58,12 @@
 .sdBox {
     width: 15%;
 }
-.sdBox a {
+.sdBox h2 {
+    margin-bottom: 20px;
+}
+.sdBox li {
+    margin-top: 10px;
+    font-size: 16pt;
     font-family: 'Times New Roman', Times, serif;
 }
 

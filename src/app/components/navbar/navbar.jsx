@@ -34,6 +34,7 @@ export default function Navbar() {
                 <div className={styles.rightContent}>
                     <Link href={'#'}>Olá, inscreva-se para atualizações</Link>
                     <Link href={'#'}>Entre em contato!</Link>
+                    <Link href="/pages/Login">Acessar área Admin</Link>
                 </div>
             </div>
             <div className={styles.bottomContent}>

@@ -55,16 +55,21 @@ export default function Navbar() {
                         </li>
                     </div>
                     <div className={`${styles.gp2} ${isActive ? styles.active : ''}`}>
-                        <li>
-                            <Link href={'#Maquiagens'}>Maquiagem</Link>
-                        </li>
+                        <div className={styles.linksMenu}>
+                            <li>
+                                <Link href={'#Maquiagens'}>Maquiagem</Link>
+                            </li>
 
-                        <li>
-                            <Link href={'#Pulseiras'}>Pulseiras</Link>
-                        </li>
-                        <li>
-                            <Link href={'#Aneis'}>Anéis</Link>
-                        </li>
+                            <li>
+                                <Link href={'#Pulseiras'}>Pulseiras</Link>
+                            </li>
+                            <li>
+                                <Link href={'#Aneis'}>Anéis</Link>
+                            </li>
+                        </div>
+                        <div className={styles.Admin}>
+                            <Link href="/pages/Login">Acessar área Admin</Link>
+                        </div>
                     </div>
                 </ul>
             </div>

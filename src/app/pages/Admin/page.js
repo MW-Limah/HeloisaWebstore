@@ -1,6 +1,8 @@
 'use client';
 
 import { useSession, signOut } from 'next-auth/react';
+import styles from './Admin.module.css';
+import Form from './form/form';
 
 export default function AdminPage() {
     const { data: session, status } = useSession();
@@ -10,10 +12,12 @@ export default function AdminPage() {
     if (!session) return <p>Você não está autenticado.</p>;
 
     return (
-        <main>
+        <main className={styles.container}>
             <h1>Bem-vindo, {session.user.name}</h1>
             <button onClick={() => signOut()}>Sair</button>
-            {/* Coloque aqui o conteúdo protegido */}
+            <div className={styles.containerForm}>
+                <Form />
+            </div>
         </main>
     );
 }

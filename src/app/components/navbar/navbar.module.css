@@ -94,7 +94,7 @@
         height: 60%;
         position: relative;
         left: 35px;
-        top: -200px;
+        top: -100px;
         display: flex;
         flex-direction: column;
     }

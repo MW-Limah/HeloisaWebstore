@@ -30,9 +30,11 @@ export default function LoginAdmin() {
     return (
         <div className={styles.container}>
             <form onSubmit={handleLogin} className={styles.form}>
-                <input type="text" placeholder="Usuário" value={email} onChange={(e) => setEmail(e.target.value)} />
-                <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
-                <button type="submit">Entrar</button>
+                <h4>Admin</h4>
+                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <h4>Senha</h4>
+                <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
+                <button type="submit">Entre</button>
             </form>
         </div>
     );

@@ -5,14 +5,51 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .form {
-    width: 25rem;
-    height: 50vh;
+    width: 30rem;
+    height: 70vh;
+    border-radius: 25px;
+    color: #000;
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.form input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0 20px;
+    background: none;
+    border-top: none;
+    border-bottom: 1px solid #000;
+    border-left: none;
+    border-right: none;
+    outline: none;
+    color: #000;
+    font-size: 14pt;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.form h4 {
+    align-self: flex-start;
+    margin: 0 0 0 3rem;
+    font-size: 14pt;
+}
+
+.form button {
+    width: 25%;
+    padding: 8px;
+    margin: 20% 0 0 0;
+    background-color: #57b49e;
+    border: none;
+    color: #000;
+    border-radius: 5px;
+    font-family: Georgia, Times, 'Times New Roman', serif;
+    font-weight: 600;
+    cursor: pointer;
 }

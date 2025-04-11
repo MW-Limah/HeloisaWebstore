@@ -65,6 +65,10 @@
     display: none;
 }
 
+.linksMenu {
+    display: flex;
+}
+
 @media (max-width: 1230) {
     .bottomContent ul a {
         font-size: 16pt;

@@ -7,7 +7,7 @@
 .boxContent {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
     align-items: flex-start;
     gap: 40px;
     padding: 0 20px;

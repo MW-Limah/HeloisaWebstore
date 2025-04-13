@@ -3,7 +3,7 @@
 import styles from './form.module.css';
 import { useState } from 'react';
 import LineMenu from './LineMenu/LineMenu';
-import BoxMenu from './BoxMenu/BoxMenu';
+import BoxMenu from './BoxMenu/BoxForm';
 import Slides from './Slides/Slides';
 
 export default function Form() {

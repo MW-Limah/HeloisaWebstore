@@ -4,6 +4,15 @@ import { useState } from 'react';
 import { supabase } from '@/app/lib/supabase';
 import styles from './BoxForm.module.css';
 
+// (Opcional) Função para sanitizar o nome do arquivo – remova acentos, espaços e caracteres especiais, se necessário
+function sanitizeFileName(fileName: string): string {
+    return fileName
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/[^a-zA-Z0-9\-_.]/g, '');
+}
+
 export default function BoxForm() {
     const [title, setTitle] = useState('');
     const [theme, setTheme] = useState('');
@@ -19,22 +28,24 @@ export default function BoxForm() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
         setUploading(true);
 
         try {
             const imageUrls: string[] = [];
 
-            // Fazendo o upload das imagens e gerando as URLs públicas
+            // Faz o upload das imagens e gera as URLs públicas
             for (const file of images) {
-                const filePath = `${Date.now()}-${file.name}`;
+                // Se desejar, use sanitizeFileName para o nome do arquivo:
+                // const safeFileName = sanitizeFileName(file.name);
+                // Inclua o diretório "public/" no caminho
+                const filePath = `public/${Date.now()}-${file.name}`;
                 const { data, error } = await supabase.storage.from('box-items').upload(filePath, file);
 
                 if (error) throw error;
 
                 const { data: publicUrlData } = supabase.storage.from('box-items').getPublicUrl(filePath);
 
-                imageUrls.push(publicUrlData.publicUrl); // Adiciona URL pública ao array
+                imageUrls.push(publicUrlData.publicUrl); // Adiciona a URL pública ao array
             }
 
             // Inserindo os dados na tabela 'box-items'

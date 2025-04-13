@@ -15,9 +15,12 @@ interface BoxItemData {
 
 export default function BoxItem() {
     const [items, setItems] = useState<BoxItemData[]>([]);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         async function fetchItems() {
+            setLoading(true);
             const { data, error } = await supabase
                 .from('box-items') // Nome correto da tabela
                 .select('*')
@@ -25,13 +28,18 @@ export default function BoxItem() {
 
             if (error) {
                 console.error('Erro ao buscar itens:', error);
+                setError(error.message);
             } else {
                 setItems(data as BoxItemData[]);
             }
+            setLoading(false);
         }
 
         fetchItems();
     }, []);
+
+    if (loading) return <p>Carregando...</p>;
+    if (error) return <p>Erro ao carregar os itens: {error}</p>;
 
     return (
         <section>
@@ -43,7 +51,7 @@ export default function BoxItem() {
 
                     <div className={styles.boxMenu}>
                         {item.images.slice(0, 4).map((imgUrl, index) => (
-                            <div key={index} className={styles.boxItem}>
+                            <div key={`${item.id}-${index}`} className={styles.boxItem}>
                                 <Image
                                     src={imgUrl}
                                     alt={`Imagem ${index + 1} de ${item.title}`}
@@ -52,7 +60,6 @@ export default function BoxItem() {
                                 />
                             </div>
                         ))}
-
                         <div className={styles.PriceBuy}>
                             <p>{item.description}</p>
                             <button>Comprar</button>

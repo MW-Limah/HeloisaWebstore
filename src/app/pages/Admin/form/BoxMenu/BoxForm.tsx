@@ -82,6 +82,7 @@ export default function BoxForm() {
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
+            <h3>Adicione o conteúdo da sua caixinha</h3>
             <input type="text" placeholder="Título" value={title} onChange={(e) => setTitle(e.target.value)} required />
 
             <input

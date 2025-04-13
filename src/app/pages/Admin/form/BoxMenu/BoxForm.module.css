@@ -4,16 +4,21 @@
     gap: 1rem;
     padding: 2rem;
     background-color: #f9f9ff;
-    border-radius: 12px;
+    border-radius: 5px;
     max-width: 500px;
 }
 
 .form input,
 .form textarea {
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+    padding: 10px;
+    border: 1px solid #000;
     font-size: 14px;
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    outline: none;
+    color: #000;
 }
 
 .form button {
@@ -23,6 +28,11 @@
     border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form button:hover {
+    transform: translateY(-2px);
 }
 
 .feedback {

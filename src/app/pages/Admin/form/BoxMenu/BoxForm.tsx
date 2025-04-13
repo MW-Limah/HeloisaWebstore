@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { supabase } from '@/app/lib/supabase';
 import styles from './BoxForm.module.css';
 
-// (Opcional) Função para sanitizar o nome do arquivo – remova acentos, espaços e caracteres especiais, se necessário
 function sanitizeFileName(fileName: string): string {
     return fileName
         .normalize('NFD')
@@ -16,43 +15,50 @@ function sanitizeFileName(fileName: string): string {
 export default function BoxForm() {
     const [title, setTitle] = useState('');
     const [theme, setTheme] = useState('');
+    const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
     const [images, setImages] = useState<File[]>([]);
     const [uploading, setUploading] = useState(false);
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) return;
-        const filesArray = Array.from(e.target.files).slice(0, 4); // no máximo 4 imagens
-        setImages(filesArray);
+
+        const selectedFiles = Array.from(e.target.files);
+        const newFiles = [...images, ...selectedFiles].slice(0, 4); // junta e limita a 4
+        setImages(newFiles);
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (images.length === 0) {
+            alert('Envie pelo menos uma imagem!');
+            return;
+        }
+
         setUploading(true);
 
         try {
             const imageUrls: string[] = [];
 
-            // Faz o upload das imagens e gera as URLs públicas
             for (const file of images) {
-                // Se desejar, use sanitizeFileName para o nome do arquivo:
-                // const safeFileName = sanitizeFileName(file.name);
-                // Inclua o diretório "public/" no caminho
-                const filePath = `public/${Date.now()}-${file.name}`;
-                const { data, error } = await supabase.storage.from('box-items').upload(filePath, file);
+                const safeFileName = sanitizeFileName(file.name);
+                const filePath = `public/${Date.now()}-${safeFileName}`;
 
-                if (error) throw error;
+                const { error: uploadError } = await supabase.storage.from('box-items').upload(filePath, file);
+
+                if (uploadError) throw uploadError;
 
                 const { data: publicUrlData } = supabase.storage.from('box-items').getPublicUrl(filePath);
 
-                imageUrls.push(publicUrlData.publicUrl); // Adiciona a URL pública ao array
+                imageUrls.push(publicUrlData.publicUrl);
             }
 
-            // Inserindo os dados na tabela 'box-items'
             const { error: insertError } = await supabase.from('box-items').insert([
                 {
                     title,
                     theme,
+                    price,
                     description,
                     images: imageUrls,
                 },
@@ -63,6 +69,7 @@ export default function BoxForm() {
             alert('Item criado com sucesso!');
             setTitle('');
             setTheme('');
+            setPrice('');
             setDescription('');
             setImages([]);
         } catch (err: any) {
@@ -76,6 +83,7 @@ export default function BoxForm() {
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
             <input type="text" placeholder="Título" value={title} onChange={(e) => setTitle(e.target.value)} required />
+
             <input
                 type="text"
                 placeholder="Tema (único)"
@@ -83,9 +91,14 @@ export default function BoxForm() {
                 onChange={(e) => setTheme(e.target.value)}
                 required
             />
-            <textarea placeholder="Descrição" value={description} onChange={(e) => setDescription(e.target.value)} />
-            <input type="file" accept="image/*" multiple onChange={handleImageChange} />
+
+            <input type="file" accept="image/*" multiple onChange={handleImageChange} required={images.length === 0} />
             {images.length > 0 && <p>{images.length} imagem(ns) selecionada(s)</p>}
+
+            <input type="text" placeholder="Preço" value={price} onChange={(e) => setPrice(e.target.value)} required />
+
+            <textarea placeholder="Descrição" value={description} onChange={(e) => setDescription(e.target.value)} />
+
             <button type="submit" disabled={uploading}>
                 {uploading ? 'Enviando...' : 'Salvar'}
             </button>

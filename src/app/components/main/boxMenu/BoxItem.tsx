@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from '@/app/lib/supabase'; // cliente configurado
+import { supabase } from '@/app/lib/supabase';
 import styles from './boxMenu.module.css';
 import Image from 'next/image';
 
@@ -11,6 +11,7 @@ interface BoxItemData {
     images: string[];
     description: string;
     theme: string;
+    price: string;
 }
 
 export default function BoxItem() {
@@ -22,7 +23,7 @@ export default function BoxItem() {
         async function fetchItems() {
             setLoading(true);
             const { data, error } = await supabase
-                .from('box-items') // Nome correto da tabela
+                .from('box-items')
                 .select('*')
                 .order('created_at', { ascending: false });
 
@@ -62,6 +63,7 @@ export default function BoxItem() {
                         ))}
                         <div className={styles.PriceBuy}>
                             <p>{item.description}</p>
+                            {item.price && <strong className={styles.price}>R$ {item.price}</strong>}
                             <button>Comprar</button>
                         </div>
                     </div>

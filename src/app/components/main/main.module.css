@@ -1,16 +1,7 @@
 .Main {
     min-height: 100vh;
-    padding: 50px 0;
+    padding: 50px 2rem;
     overflow-x: hidden;
-}
-
-.boxContent {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: flex-start;
-    gap: 40px;
-    padding: 0 20px;
 }
 
 .lineContent {

@@ -1,95 +1,90 @@
 .boxContent {
     width: 100%;
-    max-width: 500px;
-    aspect-ratio: 1 / 1.2; /* Mantém uma proporção mais próxima de quadrado */
-    padding: 20px;
-    color: #000;
+    padding: 2rem;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
-    align-items: center;
     flex-direction: column;
-    background-color: white;
-    box-shadow: 0 4px 10px 6px rgba(0, 0, 0, 0.1);
-    margin: 0 auto; /* Centraliza */
-    box-sizing: border-box;
-}
-
-.boxMenu {
-    margin: 20px 0;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    gap: 10px;
-    height: 100%;
+    justify-content: space-around;
 }
 
 .boxMenutitle {
-    font-size: 18px;
-    margin: 0 20px;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 
-/* Cada item se adapta ao container e mantém proporção quadrada */
-.boxItem {
-    flex: 1 1 calc(50% - 10px);
-    aspect-ratio: 1 / 1;
-    position: relative; /* necessário para Image with fill */
-    box-sizing: border-box;
-    min-width: 120px;
-    max-width: 200px;
-    display: flex;
-    align-items: center;
+.boxMenutitle h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.imagesContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
     justify-content: center;
-    box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, 0.2);
-    overflow: hidden; /* evita que a imagem vaze para fora */
+    margin-bottom: 1.5rem;
 }
 
-.boxItem img {
+.boxItem {
+    position: relative;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
+    aspect-ratio: 1 / 1;
+    background-color: #f0f0f0;
+
+    overflow: hidden;
 }
 
 .PriceBuy {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 20px;
-    font-size: 16pt;
+    text-align: center;
 }
 
-.PriceBuy p {
-    font-size: 26pt;
-    font-family: 'Times New Roman', Times, serif;
+.PriceBuy .price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 0.5rem;
+}
+
+.PriceBuy .description {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #666;
 }
 
 .PriceBuy button {
-    font-size: 16pt;
-    margin-top: 25px;
-    margin-bottom: -25px;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 10px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #c9c3fd, #aabdf8);
     border: none;
-    color: #000;
-    background-color: #f9c1d3;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease;
 }
 
 .PriceBuy button:hover {
-    background-color: #f0a2ba;
+    background: linear-gradient(135deg, #b0a8fc, #92a8f7);
+    transform: scale(1.05);
 }
 
-/* Telas pequenas: aumenta a quantidade de colunas */
-@media (max-width: 500px) {
-    .boxItem {
-        flex: 1 1 calc(45% - 10px);
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .gridContainer {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 350px) {
-    .boxItem {
-        flex: 1 1 calc(100% - 10px);
+@media (max-width: 600px) {
+    .gridContainer {
+        grid-template-columns: 1fr;
     }
 }

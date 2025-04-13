@@ -43,14 +43,16 @@ export default function BoxItem() {
     if (error) return <p>Erro ao carregar os itens: {error}</p>;
 
     return (
-        <section>
+        <section className={styles.gridContainer}>
             {items.map((item) => (
                 <article key={item.id} className={styles.boxContent}>
+                    {/* Título */}
                     <div className={styles.boxMenutitle}>
                         <h2>{item.title}</h2>
                     </div>
 
-                    <div className={styles.boxMenu}>
+                    {/* Imagens */}
+                    <div className={styles.imagesContainer}>
                         {item.images.slice(0, 4).map((imgUrl, index) => (
                             <div key={`${item.id}-${index}`} className={styles.boxItem}>
                                 <Image
@@ -61,11 +63,13 @@ export default function BoxItem() {
                                 />
                             </div>
                         ))}
-                        <div className={styles.PriceBuy}>
-                            <p>{item.description}</p>
-                            {item.price && <strong className={styles.price}>R$ {item.price}</strong>}
-                            <button>Comprar</button>
-                        </div>
+                    </div>
+
+                    {/* Preço, descrição e botão */}
+                    <div className={styles.PriceBuy}>
+                        {item.price && <p className={styles.price}>R$ {item.price}</p>}
+                        {item.description && <p className={styles.description}>{item.description}</p>}
+                        <button>Comprar</button>
                     </div>
                 </article>
             ))}

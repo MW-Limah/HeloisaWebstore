@@ -5,9 +5,7 @@ import LineMenu from './lineMenu/lineMenu';
 export default function Main() {
     return (
         <main className={styles.Main}>
-            <div className={styles.boxContent}>
-                <BoxMenu />
-            </div>
+            <BoxMenu />
 
             <div className={styles.lineContent}>
                 <LineMenu id="Piranhas" />

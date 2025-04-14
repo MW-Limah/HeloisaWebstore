@@ -65,7 +65,7 @@ export default function BoxItem() {
                         ))}
                     </div>
 
-                    {/* Preço, descrição e botão */}
+                    {/* Preço, Descrição e Botão */}
                     <div className={styles.PriceBuy}>
                         {item.price && <p className={styles.price}>R$ {item.price}</p>}
                         {item.description && <p className={styles.description}>{item.description}</p>}

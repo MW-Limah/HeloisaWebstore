@@ -1,3 +1,17 @@
+/* Container do Grid - garante centralização e adaptação */
+.gridContainer {
+    display: grid;
+    /* Define que cada célula tenha um tamanho mínimo e se expanda conforme o espaço */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+/* Card individual (boxContent) */
 .boxContent {
     width: 100%;
     padding: 2rem;
@@ -9,6 +23,7 @@
     justify-content: space-around;
 }
 
+/* Título do Box */
 .boxMenutitle {
     margin-bottom: 1.5rem;
     text-align: center;
@@ -21,22 +36,39 @@
 }
 
 .imagesContainer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    display: flex;
     justify-content: center;
-    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
+/* Cada item, por padrão, ocupa 50% do espaço da linha */
+.imagesContainer > .boxItem {
+    flex: 0 0 calc(50% - 0.5rem);
+}
+
+/* Se houver apenas um item, faça-o ocupar 100% da linha */
+.imagesContainer > .boxItem:only-child {
+    flex: 0 0 100%;
+}
+
+/* Se o número total de itens for ímpar, centraliza o último item na linha final */
+.imagesContainer > .boxItem:nth-child(odd):last-child {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Estilo individual para cada imagem */
 .boxItem {
     position: relative;
     width: 100%;
     aspect-ratio: 1 / 1;
     background-color: #f0f0f0;
-
+    border-radius: 10px;
     overflow: hidden;
 }
 
+/* Área de Preço, Descrição e Botão */
 .PriceBuy {
     text-align: center;
 }
@@ -70,16 +102,11 @@
     transform: scale(1.05);
 }
 
-.gridContainer {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    width: 100%;
-}
-
+/* Media Queries para telas menores */
 @media (max-width: 1024px) {
     .gridContainer {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Continua adaptando conforme o espaço */
+        gap: 1.5rem;
     }
 }
 

@@ -1,6 +1,6 @@
 /* styles/TermosDeUso.module.css */
 
-:root {
+.container :root {
     --cor1: #000000;
     --cor2: #fff;
     --cor3: #6b3697;

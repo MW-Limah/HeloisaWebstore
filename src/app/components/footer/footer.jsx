@@ -37,7 +37,7 @@ export default function Footer() {
                         <Link href={'#'}>Contate-nos</Link>
                     </li>
                     <li>
-                        <Link href={'#'}>Termos de Uso</Link>
+                        <Link href={'/termos-de-uso'}>Termos de Uso</Link>
                     </li>
                     <li>
                         <Link href={'#'}>Perguntas Frequentes</Link>

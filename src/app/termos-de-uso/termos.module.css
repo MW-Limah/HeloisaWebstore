@@ -1,0 +1,132 @@
+/* styles/TermosDeUso.module.css */
+
+:root {
+    --cor1: #000000;
+    --cor2: #fff;
+    --cor3: #6b3697;
+    --font-body: 'Arial', sans-serif;
+}
+
+.headerTermos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--cor3);
+}
+
+.headerTermos h4 {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: var(--cor3);
+    cursor: pointer;
+    margin: 0;
+}
+
+.back {
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+    transition: transform 0.2s ease-in-out;
+}
+
+.back:hover {
+    transform: translateX(-3px);
+}
+
+.container {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 2rem 10rem;
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--cor1);
+    background-color: var(--cor2);
+    width: 100%;
+}
+
+/* Estilo para a data de atualização */
+.container h4 {
+    font-size: 1rem;
+    color: var(--cor3);
+    text-align: right;
+    margin-bottom: 1rem;
+}
+
+/* Títulos principais */
+.container h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--cor1);
+    text-align: center;
+}
+
+/* Subtítulos */
+.container h2 {
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+    color: var(--cor3);
+    border-bottom: 1px solid var(--cor3);
+    padding-bottom: 0.3rem;
+}
+
+/* Parágrafos */
+.container p {
+    font-size: 1.3rem;
+    margin: 1rem 0;
+}
+
+/* Listas */
+.container ul {
+    font-size: 1.2rem;
+    list-style: disc;
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+/* Links */
+.container a {
+    color: var(--cor3);
+    text-decoration: none;
+}
+
+.container a:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 914px) {
+    .container {
+        padding: 1.5rem 2rem;
+        max-width: 95%;
+    }
+    .container h1 {
+        font-size: 1.8rem;
+    }
+    .container h2 {
+        font-size: 1.2rem;
+    }
+    .container p,
+    .container ul {
+        font-size: 1.1rem;
+    }
+}
+/* Responsividade */
+@media (max-width: 477px) {
+    .container {
+        padding: 1.5rem 1.2rem;
+        max-width: 95%;
+    }
+    .container h1 {
+        font-size: 1.2rem;
+    }
+    .container h2 {
+        font-size: 1.1rem;
+    }
+    .container p,
+    .container ul {
+        font-size: 1.1rem;
+    }
+}

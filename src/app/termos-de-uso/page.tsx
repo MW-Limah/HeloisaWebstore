@@ -10,7 +10,7 @@ export default function TermosDeUso() {
     return (
         <>
             <Head>
-                <title>Termos de Uso – Heloisa Moda Feminina</title>
+                <title>Termos de Uso - Heloisa Moda Feminina</title>
             </Head>
 
             <div className={styles.container}>
@@ -22,7 +22,7 @@ export default function TermosDeUso() {
                     </h4>
                     <h4>Atualizado em 15/04/2025</h4>
                 </div>
-                <h1>Termos de Uso – Heloisa Moda Feminina</h1>
+                <h1>Termos de Uso - Heloisa Moda Feminina</h1>
 
                 <p>
                     Bem-vinda(o) à Heloisa Moda Feminina! Antes de realizar suas compras, pedimos que leia atentamente
@@ -56,7 +56,7 @@ export default function TermosDeUso() {
 
                 <h2>4. Entregas</h2>
                 <p>
-                    As entregas são realizadas exclusivamente na cidade de Manaus – AM, com prazo estimado entre 1 a 3
+                    As entregas são realizadas exclusivamente na cidade de Manaus - AM, com prazo estimado entre 1 a 3
                     dias úteis, dependendo da localização.
                 </p>
 

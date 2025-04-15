@@ -67,7 +67,7 @@ export default function BoxItem() {
 
                     {/* Preço, Descrição e Botão */}
                     <div className={styles.PriceBuy}>
-                        {item.price && <p className={styles.price}>R$ {item.price}</p>}
+                        {item.price && <p className={styles.price}>R$ {item.price} a unidade</p>}
                         {item.description && <p className={styles.description}>{item.description}</p>}
                         <button className={styles.button}>Comprar</button>
                     </div>

@@ -6,7 +6,7 @@
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 3rem 2rem;
+    padding: 2rem;
     box-sizing: border-box;
 }
 
@@ -14,7 +14,6 @@
 .boxContent {
     width: 100%;
     padding: 2.5rem;
-    border-radius: 12px;
     background-color: #ffffff;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     display: flex;
@@ -27,10 +26,14 @@
     transform: scale(1.01);
 }
 
-/* Título */
+/* Título com área fixa para manter alinhamento */
 .boxMenutitle {
-    margin-bottom: 2rem;
+    height: 60px; /* Altura fixa para o título */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    margin-bottom: 2rem;
 }
 
 .boxMenutitle h2 {

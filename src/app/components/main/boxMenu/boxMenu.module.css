@@ -1,58 +1,60 @@
-/* Container do Grid - garante centralização e adaptação */
+/* Container do Grid */
 .gridContainer {
     display: grid;
-    /* Define que cada célula tenha um tamanho mínimo e se expanda conforme o espaço */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 5px;
     width: 100%;
-    max-width: 1300px;
+    max-width: 1600px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 3rem 2rem;
     box-sizing: border-box;
 }
 
-/* Card individual (boxContent) */
+/* Card do item */
 .boxContent {
     width: 100%;
-    padding: 2rem;
-    border-radius: 5px;
+    padding: 2.5rem;
+    border-radius: 12px;
     background-color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
+    transition: all 0.1s ease-in-out;
 }
 
-/* Título do Box */
+.boxContent:hover {
+    transform: scale(1.01);
+}
+
+/* Título */
 .boxMenutitle {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     text-align: center;
 }
 
 .boxMenutitle h2 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: #333;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #222;
 }
 
+/* Imagens */
 .imagesContainer {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
-/* Cada item, por padrão, ocupa 50% do espaço da linha */
 .imagesContainer > .boxItem {
-    flex: 0 0 calc(50% - 0.5rem);
+    flex: 0 0 calc(50% - 0.75rem);
 }
 
-/* Se houver apenas um item, faça-o ocupar 100% da linha */
 .imagesContainer > .boxItem:only-child {
     flex: 0 0 100%;
 }
 
-/* Se o número total de itens for ímpar, centraliza o último item na linha final */
 .imagesContainer > .boxItem:nth-child(odd):last-child {
     margin-left: auto;
     margin-right: auto;
@@ -62,41 +64,44 @@
     flex: 0 0 50%;
 }
 
-/* Estilo individual para cada imagem */
+/* Cada imagem */
 .boxItem {
     position: relative;
     width: 100%;
     aspect-ratio: 1 / 1;
-    background-color: #f0f0f0;
-    border-radius: 10px;
+    background-color: #f7f7f7;
+    border-radius: 12px;
     overflow: hidden;
+    border: 1px solid #e0e0e0;
 }
 
+/* Preço / Descrição / Botão */
 .PriceBuy {
     text-align: center;
-    margin-top: auto;
+    margin-top: 2rem;
 }
 
 .PriceBuy .price {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     font-weight: bold;
-    color: #444;
+    color: #333;
     margin-bottom: 0.5rem;
 }
 
 .PriceBuy .description {
-    font-size: 1rem;
-    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
     color: #666;
+    line-height: 1.5;
 }
 
 .PriceBuy button {
-    padding: 10px 30px;
-    font-size: 1rem;
-    font-weight: bold;
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
     background: linear-gradient(135deg, #c9c3fd, #aabdf8);
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -106,11 +111,24 @@
     transform: scale(1.05);
 }
 
-/* Media Queries para telas menores */
+/* Responsivo */
 @media (max-width: 1024px) {
     .gridContainer {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Continua adaptando conforme o espaço */
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 1.5rem;
+    }
+
+    .boxMenutitle h2 {
+        font-size: 1.7rem;
+    }
+
+    .PriceBuy .price {
+        font-size: 1.4rem;
+    }
+
+    .PriceBuy button {
+        padding: 10px 30px;
+        font-size: 1rem;
     }
 }
 

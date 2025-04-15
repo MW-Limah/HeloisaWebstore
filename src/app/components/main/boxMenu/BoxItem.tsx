@@ -45,7 +45,7 @@ export default function BoxItem() {
     return (
         <section className={styles.gridContainer}>
             {items.map((item) => (
-                <article key={item.id} className={styles.boxContent}>
+                <article key={item.id} id={item.theme} className={styles.boxContent}>
                     {/* Título */}
                     <div className={styles.boxMenutitle}>
                         <h2>{item.title}</h2>

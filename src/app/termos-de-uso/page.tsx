@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Footer from '../components/footer/footer';
 import { FaPix } from 'react-icons/fa6';
 import { TbArrowBackUp } from 'react-icons/tb';
+import Link from 'next/link';
 
 export default function TermosDeUso() {
     return (
@@ -15,7 +16,9 @@ export default function TermosDeUso() {
             <div className={styles.container}>
                 <div className={styles.headerTermos}>
                     <h4>
-                        Voltar à página principal <TbArrowBackUp className={styles.back} />
+                        <Link href="/">
+                            Voltar à página principal <TbArrowBackUp className={styles.back} />
+                        </Link>
                     </h4>
                     <h4>Atualizado em 15/04/2025</h4>
                 </div>

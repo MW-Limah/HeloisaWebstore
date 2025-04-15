@@ -129,4 +129,7 @@
     .container ul {
         font-size: 1.1rem;
     }
+    .headerTermos {
+        text-align: left;
+    }
 }

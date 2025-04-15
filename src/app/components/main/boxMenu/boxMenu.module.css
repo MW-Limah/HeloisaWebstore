@@ -2,8 +2,8 @@
 .gridContainer {
     display: grid;
     /* Define que cada célula tenha um tamanho mínimo e se expanda conforme o espaço */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2px;
     width: 100%;
     max-width: 1300px;
     margin: 0 auto;
@@ -58,6 +58,10 @@
     margin-right: auto;
 }
 
+.imagesContainer:has(> .boxItem:nth-child(2):nth-last-child(1)) > .boxItem {
+    flex: 0 0 50%;
+}
+
 /* Estilo individual para cada imagem */
 .boxItem {
     position: relative;
@@ -68,9 +72,9 @@
     overflow: hidden;
 }
 
-/* Área de Preço, Descrição e Botão */
 .PriceBuy {
     text-align: center;
+    margin-top: auto;
 }
 
 .PriceBuy .price {

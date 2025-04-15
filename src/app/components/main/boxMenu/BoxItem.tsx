@@ -69,7 +69,7 @@ export default function BoxItem() {
                     <div className={styles.PriceBuy}>
                         {item.price && <p className={styles.price}>R$ {item.price}</p>}
                         {item.description && <p className={styles.description}>{item.description}</p>}
-                        <button>Comprar</button>
+                        <button className={styles.button}>Comprar</button>
                     </div>
                 </article>
             ))}

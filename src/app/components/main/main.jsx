@@ -7,11 +7,9 @@ export default function Main() {
         <main className={styles.Main}>
             <BoxMenu />
 
-            <div className={styles.lineContent}>
+            {/* <div className={styles.lineContent}>
                 <LineMenu id="Piranhas" />
-            </div>
-            <h3 style={{ color: 'black', position: 'relative', top: '-180px' }}>Toque na tulipaaa</h3>
-            {/* Div que irá receber o lineItem */}
+            </div> */}
         </main>
     );
 }

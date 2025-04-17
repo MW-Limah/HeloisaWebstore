@@ -23,6 +23,13 @@
             }
         ]
     },
-    "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "src/app/layout.jsx"],
+    "include": [
+        "next-env.d.ts",
+        ".next/types/**/*.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        "src/app/layout.jsx",
+        "src/app/pages/Admin/form/form/form.tsx"
+    ],
     "exclude": ["node_modules"]
 }

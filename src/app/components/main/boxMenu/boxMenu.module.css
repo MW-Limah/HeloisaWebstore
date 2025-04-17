@@ -47,7 +47,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 0.5rem;
 }
 
 .imagesContainer > .boxItem {
@@ -73,9 +73,14 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     background-color: #f7f7f7;
-    border-radius: 12px;
     overflow: hidden;
     border: 1px solid #e0e0e0;
+    box-shadow: -1px 1px 5px 1px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.boxItem:hover {
+    transform: scale(1.02);
 }
 
 /* Preço / Descrição / Botão */

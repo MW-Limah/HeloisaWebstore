@@ -2,7 +2,8 @@
 
 import { useSession, signOut } from 'next-auth/react';
 import styles from './Admin.module.css';
-import Form from './form/form';
+import Form from './form/form'; /* 
+import UserCreationForm from '@/app/components/UserCreation/UserCreationForm'; */
 
 export default function AdminPage() {
     const { data: session, status } = useSession();
@@ -17,6 +18,7 @@ export default function AdminPage() {
             <button onClick={() => signOut()}>Sair</button>
             <div className={styles.containerForm}>
                 <Form />
+                {/* <UserCreationForm /> */}
             </div>
         </main>
     );

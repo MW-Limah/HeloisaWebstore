@@ -12,7 +12,12 @@ function sanitizeFileName(fileName: string): string {
         .replace(/[^a-zA-Z0-9\-_.]/g, '');
 }
 
-export default function BoxForm() {
+interface BoxFormProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+export default function BoxForm({ isOpen, onClose }: BoxFormProps) {
     const [title, setTitle] = useState('');
     const [theme, setTheme] = useState('');
     const [price, setPrice] = useState('');
@@ -22,9 +27,8 @@ export default function BoxForm() {
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) return;
-
         const selectedFiles = Array.from(e.target.files);
-        const newFiles = [...images, ...selectedFiles].slice(0, 4); // junta e limita a 4
+        const newFiles = [...images, ...selectedFiles].slice(0, 4);
         setImages(newFiles);
     };
 
@@ -44,26 +48,16 @@ export default function BoxForm() {
             for (const file of images) {
                 const safeFileName = sanitizeFileName(file.name);
                 const filePath = `public/${Date.now()}-${safeFileName}`;
-
                 const { error: uploadError } = await supabase.storage.from('box-items').upload(filePath, file);
-
                 if (uploadError) throw uploadError;
 
                 const { data: publicUrlData } = supabase.storage.from('box-items').getPublicUrl(filePath);
-
                 imageUrls.push(publicUrlData.publicUrl);
             }
 
-            const { error: insertError } = await supabase.from('box-items').insert([
-                {
-                    title,
-                    theme,
-                    price,
-                    description,
-                    images: imageUrls,
-                },
-            ]);
-
+            const { error: insertError } = await supabase
+                .from('box-items')
+                .insert([{ title, theme, price, description, images: imageUrls }]);
             if (insertError) throw insertError;
 
             alert('Item criado com sucesso!');
@@ -72,6 +66,7 @@ export default function BoxForm() {
             setPrice('');
             setDescription('');
             setImages([]);
+            onClose();
         } catch (err: any) {
             console.error('Erro ao salvar:', err.message);
             alert('Erro ao salvar item.');
@@ -80,29 +75,55 @@ export default function BoxForm() {
         }
     };
 
+    if (!isOpen) return null;
+
     return (
-        <form onSubmit={handleSubmit} className={styles.form}>
-            <h3>Adicione o conteúdo da sua caixinha</h3>
-            <input type="text" placeholder="Título" value={title} onChange={(e) => setTitle(e.target.value)} required />
-
-            <input
-                type="text"
-                placeholder="Tema (único)"
-                value={theme}
-                onChange={(e) => setTheme(e.target.value)}
-                required
-            />
-
-            <input type="file" accept="image/*" multiple onChange={handleImageChange} required={images.length === 0} />
-            {images.length > 0 && <p>{images.length} imagem(ns) selecionada(s)</p>}
-
-            <input type="text" placeholder="Preço" value={price} onChange={(e) => setPrice(e.target.value)} required />
-
-            <textarea placeholder="Descrição" value={description} onChange={(e) => setDescription(e.target.value)} />
-
-            <button type="submit" disabled={uploading}>
-                {uploading ? 'Enviando...' : 'Salvar'}
-            </button>
-        </form>
+        <div className={styles.modalOverlay}>
+            <div className={styles.modalContent}>
+                <button className={styles.closeButton} onClick={onClose}>
+                    ×
+                </button>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <h3>Adicione o conteúdo da sua caixinha</h3>
+                    <input
+                        type="text"
+                        placeholder="Título"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="text"
+                        placeholder="Tema (único)"
+                        value={theme}
+                        onChange={(e) => setTheme(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={handleImageChange}
+                        required={images.length === 0}
+                    />
+                    {images.length > 0 && <p>{images.length} imagem(ns) selecionada(s)</p>}
+                    <input
+                        type="text"
+                        placeholder="Preço"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        required
+                    />
+                    <textarea
+                        placeholder="Descrição"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                    <button type="submit" disabled={uploading}>
+                        {uploading ? 'Enviando...' : 'Salvar'}
+                    </button>
+                </form>
+            </div>
+        </div>
     );
 }

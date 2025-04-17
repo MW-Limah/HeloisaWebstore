@@ -6,15 +6,16 @@ import LineMenu from './LineMenu/LineMenu';
 import BoxMenu from './BoxMenu/BoxForm';
 import Slides from './Slides/Slides';
 
+type ComponentOption = 'line' | 'box' | 'slides' | null;
+
 export default function Form() {
-    const [activeComponent, setActiveComponent] = useState(null);
+    const [activeComponent, setActiveComponent] = useState<ComponentOption>(null);
+    const [isBoxFormOpen, setIsBoxFormOpen] = useState(false);
 
     const renderComponent = () => {
         switch (activeComponent) {
             case 'line':
                 return <LineMenu />;
-            case 'box':
-                return <BoxMenu />;
             case 'slides':
                 return <Slides />;
             default:
@@ -32,7 +33,7 @@ export default function Form() {
                     <ul className={styles.optionsList}>
                         <li>
                             <h4>Caixa de Items</h4>
-                            <button onClick={() => setActiveComponent('box')}>➔</button>
+                            <button onClick={() => setIsBoxFormOpen(true)}>➔</button>
                         </li>
                         <li>
                             <h4>Linha de Items</h4>
@@ -44,7 +45,10 @@ export default function Form() {
                         </li>
                     </ul>
                 </div>
-                <div className={styles.rightSide}>{renderComponent()}</div>
+                <div className={styles.rightSide}>
+                    {renderComponent()}
+                    <BoxMenu isOpen={isBoxFormOpen} onClose={() => setIsBoxFormOpen(false)} />
+                </div>
             </div>
         </div>
     );

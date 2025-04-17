@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/app/lib/supabase';
 import styles from './boxMenu.module.css';
 import Image from 'next/image';
+import { PiShoppingCartLight } from 'react-icons/pi';
 
 interface BoxItemData {
     id: string;
@@ -46,11 +47,6 @@ export default function BoxItem() {
         <section className={styles.gridContainer}>
             {items.map((item) => (
                 <article key={item.id} id={item.theme} className={styles.boxContent}>
-                    {/* Título */}
-                    <div className={styles.boxMenutitle}>
-                        <h2>{item.title}</h2>
-                    </div>
-
                     {/* Imagens */}
                     <div className={styles.imagesContainer}>
                         {item.images.slice(0, 4).map((imgUrl, index) => (
@@ -64,12 +60,19 @@ export default function BoxItem() {
                             </div>
                         ))}
                     </div>
-
+                    {/* Título */}
+                    <div className={styles.boxMenutitle}>
+                        <h2>{item.title}</h2>
+                    </div>
                     {/* Preço, Descrição e Botão */}
                     <div className={styles.PriceBuy}>
-                        {item.price && <p className={styles.price}>R$ {item.price} a unidade</p>}
                         {item.description && <p className={styles.description}>{item.description}</p>}
-                        <button className={styles.button}>Comprar</button>
+                        <div className={styles.priceSide}>
+                            {item.price && <p className={styles.price}>R${item.price} a unidade</p>}
+                            <button className={styles.button}>
+                                <PiShoppingCartLight />
+                            </button>
+                        </div>
                     </div>
                 </article>
             ))}

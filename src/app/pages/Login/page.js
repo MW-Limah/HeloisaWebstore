@@ -3,11 +3,14 @@
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { sendPasswordReset } from '@/app/api/actions/send-reset';
 import styles from './LoginAdmin.module.css';
 
 export default function LoginAdmin() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [forgotMode, setForgotMode] = useState(false);
+    const [msg, setMsg] = useState('');
     const router = useRouter();
 
     const handleLogin = async (e) => {
@@ -27,15 +30,74 @@ export default function LoginAdmin() {
         }
     };
 
+    const handleForgotPassword = async (e) => {
+        e.preventDefault();
+
+        try {
+            const result = await sendPasswordReset(email);
+            setMsg(result);
+        } catch (err) {
+            setMsg(err.message);
+        }
+    };
+
     return (
         <div className={styles.container}>
-            <form onSubmit={handleLogin} className={styles.form}>
-                <h4>Admin</h4>
-                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-                <h4>Senha</h4>
-                <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
-                <button type="submit">Entre</button>
-            </form>
+            {!forgotMode ? (
+                <form onSubmit={handleLogin} className={styles.form}>
+                    <h4>Admin</h4>
+                    <input
+                        type="text"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <h4>Senha</h4>
+                    <input
+                        type="password"
+                        placeholder="Senha"
+                        value={senha}
+                        onChange={(e) => setSenha(e.target.value)}
+                        required
+                    />
+                    <button type="submit">Entrar</button>
+
+                    <button
+                        type="button"
+                        className={styles.link}
+                        onClick={() => {
+                            setForgotMode(true);
+                            setMsg('');
+                        }}
+                    >
+                        Esqueci minha senha
+                    </button>
+                </form>
+            ) : (
+                <form onSubmit={handleForgotPassword} className={styles.form}>
+                    <h4>Recuperar senha</h4>
+                    <input
+                        type="email"
+                        placeholder="Digite seu e-mail"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <button type="submit">Enviar link de recuperação</button>
+                    <button
+                        type="button"
+                        className={styles.link}
+                        onClick={() => {
+                            setForgotMode(false);
+                            setMsg('');
+                        }}
+                    >
+                        Voltar para login
+                    </button>
+                    {msg && <p className={styles.msg}>{msg}</p>}
+                </form>
+            )}
         </div>
     );
 }

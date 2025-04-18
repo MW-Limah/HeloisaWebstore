@@ -5,6 +5,7 @@ import styles from './Admin.module.css';
 import Form from './form/form';
 import { TbArrowBackUp } from 'react-icons/tb';
 import Link from 'next/link';
+import SignUpForm from '@/app/components/FormUser/FormUser';
 
 export default function AdminPage() {
     const { data: session, status } = useSession();
@@ -41,7 +42,7 @@ export default function AdminPage() {
             </div>
             <div className={styles.containerForm}>
                 <Form />
-                {/* <UserCreationForm /> */}
+                {/* <SignUpForm /> */}
             </div>
         </main>
     );

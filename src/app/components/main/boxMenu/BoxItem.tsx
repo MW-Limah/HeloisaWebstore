@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/app/lib/supabase';
-import styles from './boxMenu.module.css';
+import styles from './BoxItem.module.css';
 import Image from 'next/image';
 import { PiShoppingCartLight } from 'react-icons/pi';
 

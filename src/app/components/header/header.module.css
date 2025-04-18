@@ -40,6 +40,9 @@
 }
 
 @media (max-width: 1024px) {
+    .header {
+        aspect-ratio: 16 / 9; /* menos horizontal */
+    }
     .slide {
         width: 80%;
         left: 20%;

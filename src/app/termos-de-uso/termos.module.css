@@ -1,12 +1,3 @@
-/* styles/TermosDeUso.module.css */
-
-.container :root {
-    --cor1: #000000;
-    --cor2: #fff;
-    --cor3: #6b3697;
-    --font-body: 'Arial', sans-serif;
-}
-
 .headerTermos {
     display: flex;
     justify-content: space-between;
@@ -14,14 +5,14 @@
     width: 100%;
     padding: 0.5rem 0;
     margin-bottom: 1rem;
-    border-bottom: 1px solid var(--cor3);
+    border-bottom: 1px solid #6b3697;
 }
 
 .headerTermos h4 {
     display: flex;
     align-items: center;
     font-size: 1rem;
-    color: var(--cor3);
+    color: #6b3697;
     cursor: pointer;
     margin: 0;
 }
@@ -40,17 +31,16 @@
     max-width: 80%;
     margin: 0 auto;
     padding: 2rem 10rem;
-    font-family: var(--font-body);
     line-height: 1.6;
-    color: var(--cor1);
-    background-color: var(--cor2);
+    color: #000;
+    background-color: #fff;
     width: 100%;
 }
 
 /* Estilo para a data de atualização */
 .container h4 {
     font-size: 1rem;
-    color: var(--cor3);
+    color: #6b3697;
     text-align: right;
     margin-bottom: 1rem;
 }
@@ -59,7 +49,7 @@
 .container h1 {
     font-size: 2rem;
     margin-bottom: 1.5rem;
-    color: var(--cor1);
+    color: #6b3697;
     text-align: center;
 }
 
@@ -67,8 +57,8 @@
 .container h2 {
     font-size: 1.3rem;
     margin-top: 1.5rem;
-    color: var(--cor3);
-    border-bottom: 1px solid var(--cor3);
+    color: #6b3697;
+    border-bottom: 1px solid #6b3697;
     padding-bottom: 0.3rem;
 }
 
@@ -88,7 +78,7 @@
 
 /* Links */
 .container a {
-    color: var(--cor3);
+    color: #6b3697;
     text-decoration: none;
 }
 

@@ -47,9 +47,15 @@ export default function Footer() {
                     <ul>
                         <h3>Redes Sociais</h3>
                         <div className={styles.redesSociais}>
-                            <IoLogoWhatsapp />
-                            <RiInstagramFill />
-                            <FaPinterest />
+                            <a>
+                                <IoLogoWhatsapp />
+                            </a>
+                            <a>
+                                <FaPinterest />
+                            </a>
+                            <a href={'https://www.instagram.com/hanel.h.h/'} target="_blank" rel="noopener noreferrer">
+                                <RiInstagramFill />
+                            </a>
                         </div>
                     </ul>
                 </div>

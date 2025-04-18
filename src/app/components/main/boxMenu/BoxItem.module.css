@@ -3,10 +3,11 @@
 /* Container do Grid */
 .gridContainer {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(5, minmax(300px, 1fr));
     gap: 0.5rem;
     max-width: 2000px;
     margin: 0 auto;
+    flex-wrap: wrap;
 }
 
 /* Card do Item */
@@ -106,8 +107,26 @@
 .button:hover {
     transform: scale(1.05);
 }
-
 /* Responsividade */
+
+@media (max-width: 1600px) {
+    .gridContainer {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .boxMenutitle h2 {
+        font-size: 1.8rem;
+    }
+
+    .price {
+        font-size: 1.5rem;
+    }
+
+    .button {
+        font-size: 1.8rem;
+    }
+}
+
 @media (max-width: 1024px) {
     .gridContainer {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

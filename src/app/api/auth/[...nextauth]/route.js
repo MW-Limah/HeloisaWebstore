@@ -25,7 +25,7 @@ const handler = NextAuth({
                 // Verifique se o usuário tem a role 'admin' no Supabase
                 const { data: profile } = await supabase
                     .from('profiles')
-                    .select('role')
+                    .select('role, adm')
                     .eq('id', data.user.id)
                     .single();
 
@@ -33,7 +33,7 @@ const handler = NextAuth({
 
                 return {
                     id: data.user.id,
-                    name: data.user.email,
+                    name: profile.adm,
                     email: data.user.email,
                     role: profile.role,
                 };

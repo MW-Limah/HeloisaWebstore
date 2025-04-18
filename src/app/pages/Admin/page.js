@@ -5,7 +5,6 @@ import styles from './Admin.module.css';
 import Form from './form/form';
 import { TbArrowBackUp } from 'react-icons/tb';
 import Link from 'next/link';
-import SignUpForm from '@/app/components/FormUser/FormUser';
 
 export default function AdminPage() {
     const { data: session, status } = useSession();
@@ -38,11 +37,10 @@ export default function AdminPage() {
                         Sair <TbArrowBackUp className={styles.back} />
                     </button>
                 </div>
-                <h1>Bem-vindo, {session.user.name}</h1>
+                <h1>Bem-vindo, {session.user.name} </h1>
             </div>
             <div className={styles.containerForm}>
                 <Form />
-                {/* <SignUpForm /> */}
             </div>
         </main>
     );

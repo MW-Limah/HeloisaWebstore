@@ -24,30 +24,32 @@ export default function Form() {
     };
 
     return (
-        <div className={styles.container}>
-            <div className={styles.topSide}>
-                <h1>O que você deseja fazer?</h1>
-            </div>
-            <div className={styles.downSide}>
-                <div className={styles.leftSide}>
-                    <ul className={styles.optionsList}>
-                        <li>
-                            <h4>Caixa de Items</h4>
-                            <button onClick={() => setIsBoxFormOpen(true)}>➔</button>
-                        </li>
-                        <li>
-                            <h4>Linha de Items</h4>
-                            <button onClick={() => setActiveComponent('line')}>➔</button>
-                        </li>
-                        <li>
-                            <h4>Editar Slides</h4>
-                            <button onClick={() => setActiveComponent('slides')}>➔</button>
-                        </li>
-                    </ul>
+        <div className={styles.page}>
+            <div className={styles.container}>
+                <div className={styles.topSide}>
+                    <h1>O que você deseja fazer?</h1>
                 </div>
-                <div className={styles.rightSide}>
-                    {renderComponent()}
-                    <BoxMenu isOpen={isBoxFormOpen} onClose={() => setIsBoxFormOpen(false)} />
+                <div className={styles.downSide}>
+                    <div className={styles.leftSide}>
+                        <ul className={styles.optionsList}>
+                            <li>
+                                <h4>Caixa de Items</h4>
+                                <button onClick={() => setIsBoxFormOpen(true)}>➔</button>
+                            </li>
+                            <li>
+                                <h4>Linha de Items</h4>
+                                <button onClick={() => setActiveComponent('line')}>➔</button>
+                            </li>
+                            <li>
+                                <h4>Editar Slides</h4>
+                                <button onClick={() => setActiveComponent('slides')}>➔</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className={styles.rightSide}>
+                        {renderComponent()}
+                        <BoxMenu isOpen={isBoxFormOpen} onClose={() => setIsBoxFormOpen(false)} />
+                    </div>
                 </div>
             </div>
         </div>

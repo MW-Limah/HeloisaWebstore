@@ -53,6 +53,8 @@
 .rightContent {
     display: flex;
     gap: 20px;
+    font-weight: 600;
+    font-size: 14pt;
 }
 
 @media (max-width: 899px) {

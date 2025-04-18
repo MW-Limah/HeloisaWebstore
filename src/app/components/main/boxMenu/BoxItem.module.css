@@ -3,7 +3,7 @@
 /* Container do Grid */
 .gridContainer {
     display: grid;
-    grid-template-columns: repeat(5, minmax(300px, 1fr));
+    grid-template-columns: repeat(4, minmax(300px, 1fr));
     gap: 0.5rem;
     max-width: 2000px;
     margin: 0 auto;

@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { sendPasswordReset } from '@/app/api/actions/send-reset';
 import styles from './LoginAdmin.module.css';
+import Link from 'next/link';
+import { TbArrowBackUp } from 'react-icons/tb';
 
 export default function LoginAdmin() {
     const [email, setEmail] = useState('');
@@ -43,6 +45,11 @@ export default function LoginAdmin() {
 
     return (
         <div className={styles.container}>
+            <button className={styles.buttonBack}>
+                <Link href={'/'}>
+                    Voltar <TbArrowBackUp />
+                </Link>
+            </button>
             {!forgotMode ? (
                 <form onSubmit={handleLogin} className={styles.form}>
                     <h4>Admin</h4>
@@ -61,18 +68,20 @@ export default function LoginAdmin() {
                         onChange={(e) => setSenha(e.target.value)}
                         required
                     />
-                    <button type="submit">Entrar</button>
+                    <div className={styles.buttonContainer}>
+                        <button type="submit">Entrar</button>
 
-                    <button
-                        type="button"
-                        className={styles.link}
-                        onClick={() => {
-                            setForgotMode(true);
-                            setMsg('');
-                        }}
-                    >
-                        Esqueci minha senha
-                    </button>
+                        <button
+                            type="button"
+                            className={styles.link}
+                            onClick={() => {
+                                setForgotMode(true);
+                                setMsg('');
+                            }}
+                        >
+                            Esqueci minha senha
+                        </button>
+                    </div>
                 </form>
             ) : (
                 <form onSubmit={handleForgotPassword} className={styles.form}>

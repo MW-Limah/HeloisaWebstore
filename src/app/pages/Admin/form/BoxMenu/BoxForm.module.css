@@ -42,18 +42,19 @@
 
 .form button {
     padding: 12px 24px;
-    background: linear-gradient(to right, #aabdf8, #c9c3fd);
-    border: none;
+    background: #aabdf8;
+    border: 1px solid #aabdf8;
     border-radius: 8px;
     font-weight: bold;
     font-size: 16px;
     cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease;
+    transition: all 0.2s ease-in-out;
 }
 
 .form button:hover {
-    transform: translateY(-2px);
-    background: linear-gradient(to right, #92a8f7, #b0a8fc);
+    background: none;
+    border: 1px solid #000;
+    color: #000;
 }
 
 .feedback {

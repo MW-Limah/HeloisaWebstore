@@ -27,12 +27,12 @@ export default function AdminPage() {
         <main className={styles.container}>
             <div className={styles.formHeader}>
                 <div className={styles.buttonContainer}>
-                    <button className={styles.buttonBack}>
-                        <Link href={'/'}>
+                    <Link href={'/'}>
+                        <button className={styles.buttonBack}>
                             Voltar a tela incial
                             <TbArrowBackUp />
-                        </Link>
-                    </button>
+                        </button>
+                    </Link>
                     <button className={styles.buttonOut} onClick={() => signOut()}>
                         Sair <TbArrowBackUp className={styles.back} />
                     </button>

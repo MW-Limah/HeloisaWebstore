@@ -27,15 +27,24 @@
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    font-weight: 600;
 }
 
 .buttonBack {
+    border: 1px solid #fff;
     background-color: #ffffff;
     color: #000;
 }
 .buttonOut {
+    border: 1px solid #cf3a3a;
     background-color: #cf3a3a;
     color: #000;
+}
+
+.buttonBack:hover,
+.buttonOut:hover {
+    border: 1px solid #000;
+    background: none;
 }
 
 .formHeader h1 {
@@ -50,6 +59,33 @@
     border-radius: 8px;
     position: relative;
     bottom: 200px;
+}
+
+/* Não autenticado */
+
+.notAuth {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pOut {
+    color: #fff;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.notAuth button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 5px 20px;
+    font-size: 14pt;
+    border-radius: 10px;
+    border: none;
+    background-color: #fff;
+    color: #000;
 }
 
 /* Responsividade */

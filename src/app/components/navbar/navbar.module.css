@@ -1,140 +1,106 @@
 .navbar {
     width: 100%;
     display: flex;
-    align-items: start;
     flex-direction: column;
     background-color: #365b6d;
 }
 
-/* Conteudo superior da navbar */
-
 .topContent {
     width: 100%;
-    padding: 7.2px;
+    padding: 10px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.rightContent {
-    display: flex;
-}
-
-.rightContent a {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin: 0 20px;
-}
-
-/* Conteudo inferior da navbar */
-
-.bottomContent {
-    width: 100%;
-    height: 4rem;
-    display: flex;
-    align-items: center;
-    background-color: #289dd2;
-}
-
-.bottomContent ul {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    list-style: none;
-}
-
-.gp1,
-.gp2 {
-    display: flex;
-}
-
-.bottomContent ul a {
-    font-size: 20pt;
-    margin: 0 20px;
-}
-
 .Bars {
-    display: none; /* esconde por padrão */
+    display: none;
     cursor: pointer;
-    font-size: 1.5rem;
-    color: #333;
+    font-size: 1.8rem;
+    color: white;
 }
 
-.Admin {
-    display: none;
+/* Links de navegação */
+.gp2 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #289dd2;
 }
 
 .linksMenu {
     display: flex;
+    gap: 20px;
+    padding: 10px 0;
 }
 
-@media (max-width: 1230) {
-    .bottomContent ul a {
-        font-size: 16pt;
-    }
+.linksMenu li {
+    list-style: none;
 }
 
-@media (max-width: 910px) {
+.linksMenu li a {
+    font-size: 18pt;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+}
+
+.Admin {
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.rightContent {
+    display: flex;
+    gap: 20px;
+}
+
+@media (max-width: 899px) {
     .Bars {
         display: block;
-        margin-right: 20px;
-        z-index: 3;
-    }
-
-    .Admin {
-        display: block;
-        align-items: center;
-        justify-content: center;
-        font-weight: 600;
-        margin-left: 20px;
-    }
-
-    .linksMenu {
-        height: 60%;
-        position: relative;
-        left: 35px;
-        top: -100px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .linksMenu li a {
-        font-size: 18pt;
+        z-index: 5;
     }
 
     .gp2 {
         position: fixed;
-        height: 100vh;
-        width: 100%;
         top: 0;
         left: -100%;
-        background-color: rgb(76, 139, 170);
-        display: flex;
-        justify-content: center;
-        align-items: start;
+        width: 100%;
+        height: 100vh;
+        background-color: #4c8baa;
         flex-direction: column;
-        transition: all 0.3s ease-in-out;
-        padding-top: 200px;
-        padding-left: 20%;
-        z-index: 2;
-    }
-
-    .gp2 li {
-        margin: 10px 0;
+        align-items: flex-start;
+        padding: 150px 20px 0 20px;
+        transition: left 0.3s ease-in-out;
+        z-index: 4;
     }
 
     .gp2.active {
-        left: -20%;
+        left: 0;
+    }
+
+    .linksMenu {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .linksMenu li a {
+        font-size: 20pt;
+    }
+
+    .Admin {
+        margin-top: 20px;
+    }
+    .rightContent {
+        display: none;
+    }
+    .mobileOnly {
+        display: block;
     }
 }
 
-@media (max-width: 405px) {
-    .gp1 li {
-        margin: 25px 0;
-    }
-
-    .rightContent {
+@media (min-width: 900px) {
+    .mobileOnly {
         display: none;
     }
 }

@@ -19,6 +19,7 @@ export default function BoxItem() {
     const [items, setItems] = useState<BoxItemData[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+    const [hoveredIndex, setHoveredIndex] = useState<{ [key: string]: boolean }>({});
 
     useEffect(() => {
         async function fetchItems() {
@@ -45,37 +46,46 @@ export default function BoxItem() {
 
     return (
         <section className={styles.gridContainer}>
-            {items.map((item) => (
-                <article key={item.id} id={item.theme} className={styles.boxContent}>
-                    {/* Imagens */}
-                    <div className={styles.imagesContainer}>
-                        {item.images.slice(0, 4).map((imgUrl, index) => (
-                            <div key={`${item.id}-${index}`} className={styles.boxItem}>
-                                <Image
-                                    src={imgUrl}
-                                    alt={`Imagem ${index + 1} de ${item.title}`}
-                                    fill
-                                    style={{ objectFit: 'cover', objectPosition: 'center' }}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                    {/* Título */}
-                    <div className={styles.boxMenutitle}>
-                        <h2>{item.title}</h2>
-                    </div>
-                    {/* Preço, Descrição e Botão */}
-                    <div className={styles.PriceBuy}>
-                        {item.description && <p className={styles.description}>{item.description}</p>}
-                        <div className={styles.priceSide}>
-                            {item.price && <p className={styles.price}>R${item.price} a unidade</p>}
-                            <button className={styles.button}>
-                                <PiShoppingCartLight />
-                            </button>
+            {items.map((item) => {
+                const firstImage = item.images[0];
+                const secondImage = item.images[1] || item.images[0]; // fallback para a primeira imagem
+
+                const isHovered = hoveredIndex[item.id];
+
+                return (
+                    <article key={item.id} id={item.theme} className={styles.boxContent}>
+                        {/* Imagem principal com hover */}
+                        <div
+                            className={styles.boxItem}
+                            onMouseEnter={() => setHoveredIndex((prev) => ({ ...prev, [item.id]: true }))}
+                            onMouseLeave={() => setHoveredIndex((prev) => ({ ...prev, [item.id]: false }))}
+                        >
+                            <Image
+                                src={isHovered ? secondImage : firstImage}
+                                alt={`Imagem do item ${item.title}`}
+                                fill
+                                style={{ objectFit: 'cover', objectPosition: 'center' }}
+                            />
                         </div>
-                    </div>
-                </article>
-            ))}
+
+                        {/* Título */}
+                        <div className={styles.boxMenutitle}>
+                            <h2>{item.title}</h2>
+                        </div>
+
+                        {/* Preço, Descrição e Botão */}
+                        <div className={styles.PriceBuy}>
+                            {item.description && <p className={styles.description}>{item.description}</p>}
+                            <div className={styles.priceSide}>
+                                {item.price && <p className={styles.price}>R${item.price} a unidade</p>}
+                                <button className={styles.button}>
+                                    <PiShoppingCartLight />
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                );
+            })}
         </section>
     );
 }

@@ -101,6 +101,7 @@
 
     .buttonBack,
     .buttonOut {
+        z-index: 5;
         padding: 12px;
     }
 

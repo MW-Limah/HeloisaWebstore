@@ -45,11 +45,10 @@ export default function LoginAdmin() {
 
     return (
         <div className={styles.container}>
-            <button className={styles.buttonBack}>
-                <Link href={'/'}>
-                    Voltar <TbArrowBackUp />
-                </Link>
-            </button>
+            <Link href={'/'} className={styles.buttonBack}>
+                Voltar <TbArrowBackUp />
+            </Link>
+
             {!forgotMode ? (
                 <form onSubmit={handleLogin} className={styles.form}>
                     <h4>Admin</h4>

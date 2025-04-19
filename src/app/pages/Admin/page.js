@@ -15,11 +15,10 @@ export default function AdminPage() {
         return (
             <div className={styles.notAuth}>
                 <p className={styles.pOut}>Você não está autenticado {':('}</p>
-                <button>
-                    <Link href={'/'}>
-                        Voltar <TbArrowBackUp />
-                    </Link>
-                </button>
+
+                <Link href={'/'} className={styles.buttonBack}>
+                    Voltar <TbArrowBackUp />
+                </Link>
             </div>
         );
 
@@ -27,12 +26,10 @@ export default function AdminPage() {
         <main className={styles.container}>
             <div className={styles.formHeader}>
                 <div className={styles.buttonContainer}>
-                    <button className={styles.buttonBack}>
-                        <Link href={'/'}>
-                            Voltar a tela incial
-                            <TbArrowBackUp />
-                        </Link>
-                    </button>
+                    <Link href={'/'} className={styles.buttonBack}>
+                        Voltar <TbArrowBackUp />
+                    </Link>
+
                     <button className={styles.buttonOut} onClick={() => signOut()}>
                         Sair <TbArrowBackUp className={styles.back} />
                     </button>

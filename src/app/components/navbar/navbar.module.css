@@ -13,41 +13,16 @@
     justify-content: space-between;
 }
 
+.leftContent {
+    display: flex;
+    align-items: center;
+}
+
 .Bars {
     display: none;
     cursor: pointer;
     font-size: 1.8rem;
     color: white;
-}
-
-/* Links de navegação */
-.gp2 {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    background-color: #289dd2;
-}
-
-.linksMenu {
-    display: flex;
-    gap: 20px;
-    padding: 10px 0;
-}
-
-.linksMenu li {
-    list-style: none;
-}
-
-.linksMenu li a {
-    font-size: 18pt;
-    font-weight: 500;
-    color: white;
-    text-decoration: none;
-}
-
-.Admin {
-    margin-left: 20px;
-    font-weight: bold;
 }
 
 .rightContent {
@@ -57,52 +32,96 @@
     font-size: 14pt;
 }
 
+/* Links sempre na parte inferior */
+.linksMenu {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 20px 10px 30px; /* margem esquerda aumentada */
+    background-color: #289dd2;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    width: 100%;
+}
+
+.linksMenu::-webkit-scrollbar {
+    display: none;
+}
+
+.linksMenu li {
+    list-style: none;
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+}
+
+.linksMenu li a {
+    font-size: 18pt;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.Admin {
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.mobileOnly {
+    display: none;
+}
+
+/* Drawer lateral apenas para conteúdos extras no mobile */
+.menuDrawer {
+    display: none;
+}
+
 @media (max-width: 899px) {
     .Bars {
         display: block;
         z-index: 5;
     }
 
-    .gp2 {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100vh;
-        background-color: #4c8baa;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 150px 20px 0 20px;
-        transition: left 0.3s ease-in-out;
-        z-index: 4;
-    }
-
-    .gp2.active {
-        left: 0;
-    }
-
-    .linksMenu {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .linksMenu li a {
-        font-size: 20pt;
-    }
-
-    .Admin {
-        margin-top: 20px;
-    }
     .rightContent {
         display: none;
     }
+
+    .linksMenu {
+        flex-direction: row;
+        white-space: nowrap;
+        padding-left: 20px; /* Garantir padding no mobile também */
+        scroll-padding-left: 20px; /* para snap inicial funcionar */
+    }
+
     .mobileOnly {
         display: block;
     }
-}
 
-@media (min-width: 900px) {
-    .mobileOnly {
-        display: none;
+    .menuDrawer {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        height: 100vh;
+        width: 100%;
+        background-color: rgba(76, 139, 170, 0.95);
+        padding: 80px 20px 20px 20px;
+        z-index: 4;
+        transition: left 0.3s ease-in-out;
+    }
+
+    .menuDrawer.active {
+        left: 0;
+    }
+
+    .Admin {
+        margin-left: 0;
+        margin-top: 10px;
     }
 }

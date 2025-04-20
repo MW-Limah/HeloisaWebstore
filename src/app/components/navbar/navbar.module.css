@@ -29,13 +29,13 @@
     display: flex;
     gap: 20px;
     font-weight: 600;
-    font-size: 14pt;
+    font-size: 16pt;
 }
 
 /* Links sempre na parte inferior */
 .linksMenu {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     gap: 20px;
     padding: 10px 20px 10px 30px; /* margem esquerda aumentada */
@@ -59,7 +59,7 @@
 }
 
 .linksMenu li a {
-    font-size: 18pt;
+    font-size: 1.5rem;
     font-weight: 500;
     color: white;
     text-decoration: none;
@@ -93,7 +93,7 @@
     .linksMenu {
         flex-direction: row;
         white-space: nowrap;
-        padding-left: 20px; /* Garantir padding no mobile também */
+        padding-left: 100%; /* Garantir padding no mobile também */
         scroll-padding-left: 20px; /* para snap inicial funcionar */
     }
 

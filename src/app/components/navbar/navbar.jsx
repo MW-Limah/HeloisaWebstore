@@ -99,6 +99,16 @@ export default function Navbar() {
                         Anéis
                     </Link>
                 </li>
+                <li>
+                    <Link href={'#Fones'} onClick={handleLinkClick}>
+                        Fones
+                    </Link>
+                </li>
+                <li>
+                    <Link href={'#Capas'} onClick={handleLinkClick}>
+                        Capinhas de Celular
+                    </Link>
+                </li>
             </ul>
         </nav>
     );

@@ -25,6 +25,13 @@ export default function Navbar() {
         return () => document.removeEventListener('click', closeMenu);
     }, [isActive]);
 
+    // Função para forçar o recarregamento da página ao clicar nos links
+    const handleLinkClick = () => {
+        setTimeout(() => {
+            window.location.reload(); // Recarrega a página após 2 segundos
+        }, 1000); // 2000ms = 2 segundos
+    };
+
     return (
         <nav className={styles.navbar} id="Início">
             {/* Topo da Navbar */}
@@ -60,19 +67,29 @@ export default function Navbar() {
             {/* Barra inferior com scroll (slider de links) */}
             <ul className={styles.linksMenu}>
                 <li>
-                    <Link href={'#Brincos'}>Brincos</Link>
+                    <Link href={'#Brincos'} onClick={handleLinkClick}>
+                        Brincos
+                    </Link>
                 </li>
                 <li>
-                    <Link href={'#Piranhas'}>Piranhas</Link>
+                    <Link href={'#Piranhas'} onClick={handleLinkClick}>
+                        Piranhas
+                    </Link>
                 </li>
                 <li>
-                    <Link href={'#Maquiagens'}>Maquiagem</Link>
+                    <Link href={'#Maquiagens'} onClick={handleLinkClick}>
+                        Maquiagem
+                    </Link>
                 </li>
                 <li>
-                    <Link href={'#Pulseiras'}>Pulseiras</Link>
+                    <Link href={'#Pulseiras'} onClick={handleLinkClick}>
+                        Pulseiras
+                    </Link>
                 </li>
                 <li>
-                    <Link href={'#Aneis'}>Anéis</Link>
+                    <Link href={'#Aneis'} onClick={handleLinkClick}>
+                        Anéis
+                    </Link>
                 </li>
             </ul>
         </nav>

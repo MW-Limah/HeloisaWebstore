@@ -95,7 +95,7 @@
         white-space: nowrap;
         padding-left: 800px; /* Garantir padding no mobile também */
         scroll-padding-left: 20px; /* para snap inicial funcionar */
-        min-width: max-content;
+        min-width: 100%;
     }
 
     .linksMenu li {

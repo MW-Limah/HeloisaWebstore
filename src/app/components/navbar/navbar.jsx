@@ -25,11 +25,14 @@ export default function Navbar() {
         return () => document.removeEventListener('click', closeMenu);
     }, [isActive]);
 
-    // Função para forçar o recarregamento da página ao clicar nos links
     const handleLinkClick = () => {
         setTimeout(() => {
-            window.location.reload(); // Recarrega a página após 2 segundos
-        }, 1000); // 2000ms = 2 segundos
+            window.location.reload();
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 500);
+        }, 1260);
     };
 
     return (
@@ -66,6 +69,11 @@ export default function Navbar() {
 
             {/* Barra inferior com scroll (slider de links) */}
             <ul className={styles.linksMenu}>
+                <li>
+                    <Link href={'/'} onClick={handleLinkClick}>
+                        Todos
+                    </Link>
+                </li>
                 <li>
                     <Link href={'#Brincos'} onClick={handleLinkClick}>
                         Brincos

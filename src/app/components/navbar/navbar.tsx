@@ -103,7 +103,11 @@ export default function Navbar() {
                                 Fones
                             </a>
                         </li>
-
+                        <li>
+                            <a href={'#Lacos'} onClick={handleLinkClick('Lacos')}>
+                                Laços
+                            </a>
+                        </li>
                         <li>
                             <a href={'#Maquiagens'} onClick={handleLinkClick('Maquiagens')}>
                                 Maquiagem

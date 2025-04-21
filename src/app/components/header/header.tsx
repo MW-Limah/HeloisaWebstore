@@ -30,18 +30,18 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <div className={styles.slider}>
-                {/* {slides.map((slide, index) => (
+                {slides.map((slide, index) => (
                     <div key={slide.id} className={`${styles.slide} ${index === current ? styles.active : ''}`}>
                         <Image
                             src={slide.src}
                             alt={slide.alt}
-                            width={1000}
+                            width={350}
                             height={500}
                             style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
                             priority // ok para o primeiro slide
                         />
                     </div>
-                ))} */}
+                ))}
             </div>
         </header>
     );

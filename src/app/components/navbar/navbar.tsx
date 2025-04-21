@@ -66,7 +66,7 @@ export default function Navbar() {
                 </div>
                 <div className={styles.rightContent}>
                     <Link href={'#'}>Olá, inscreva-se para atualizações</Link>
-                    <Link href={'#'}>Entre em contato!</Link>
+                    <Link href={'/contato'}>Entre em contato!</Link>
                     <Link href="/pages/Login">Acessar área Admin</Link>
                 </div>
                 <div className={styles.Bars} onClick={toggleMenu}>

@@ -1,0 +1,89 @@
+.navbar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #365b6d;
+}
+
+.topContent {
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.leftContent {
+    display: flex;
+    align-items: center;
+}
+
+.rightContent {
+    display: flex;
+    gap: 20px;
+    font-weight: 600;
+    font-size: 16pt;
+}
+.Bars {
+    display: none;
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: white;
+}
+/* Drawer lateral apenas para conteúdos extras no mobile */
+.menuDrawer {
+    display: none;
+}
+
+.mobileOnly {
+    display: none;
+}
+
+.Admin {
+    margin-left: 20px;
+    font-weight: bold;
+}
+@media (max-width: 899px) {
+    .Bars {
+        display: block;
+        z-index: 5;
+    }
+    .arrow {
+        display: none;
+    }
+    .scrollContainer {
+        overflow-x: auto;
+    }
+
+    .rightContent {
+        display: none;
+    }
+
+    .mobileOnly {
+        display: block;
+    }
+
+    .menuDrawer {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        height: 100vh;
+        width: 100%;
+        background-color: rgba(76, 139, 170, 0.95);
+        padding: 80px 20px 20px 20px;
+        z-index: 4;
+        transition: left 0.3s ease-in-out;
+    }
+
+    .menuDrawer.active {
+        left: 0;
+    }
+
+    .Admin {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}

@@ -46,7 +46,7 @@ export default function Header() {
 
     const imageSizes = {
         low: { width: 380, height: 100 },
-        high: { width: 1000, height: 500 },
+        high: { width: 800, height: 500 },
     };
 
     return (

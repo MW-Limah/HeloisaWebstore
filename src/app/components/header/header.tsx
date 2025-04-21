@@ -35,8 +35,8 @@ export default function Header() {
                         <Image
                             src={slide.src}
                             alt={slide.alt}
-                            width={350}
-                            height={500}
+                            width={200}
+                            height={200}
                             style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
                             priority // ok para o primeiro slide
                         />

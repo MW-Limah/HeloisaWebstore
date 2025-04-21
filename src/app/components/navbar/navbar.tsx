@@ -48,13 +48,14 @@ export default function Navbar() {
         return () => window.removeEventListener('resize', checkOverflow);
     }, []);
 
-    const handleLinkClick = () => {
-        setTimeout(() => {
-            window.location.reload();
-            setTimeout(() => {
-                window.location.reload();
-            }, 500);
-        }, 1260);
+    const handleLinkClick = (hash: string) => (e: React.MouseEvent) => {
+        e.preventDefault();
+        if (window.location.hash === `#${hash}`) {
+            // Força manualmente o evento se o hash já for o mesmo
+            window.dispatchEvent(new HashChangeEvent('hashchange'));
+        } else {
+            window.location.hash = hash;
+        }
     };
 
     return (
@@ -91,46 +92,47 @@ export default function Navbar() {
                         className={`${styles.arrow} ${styles.leftArrow}`}
                         onClick={() => linksRef.current?.scrollBy({ left: -200, behavior: 'smooth' })}
                     >
-                        ‹
+                        {'‹'}
                     </button>
                 )}
 
                 <div className={styles.scrollWrapper}>
                     <ul className={styles.linksMenu} ref={linksRef}>
                         <li>
-                            <Link href={'#Fones'} onClick={handleLinkClick}>
+                            <a href="#Fones" onClick={handleLinkClick('Fones')}>
                                 Fones
-                            </Link>
+                            </a>
                         </li>
+
                         <li>
-                            <Link href={'#Maquiagens'} onClick={handleLinkClick}>
+                            <a href={'#Maquiagens'} onClick={handleLinkClick('Maquiagens')}>
                                 Maquiagem
-                            </Link>
+                            </a>
                         </li>
                         <li>
-                            <Link href={'#Aneis'} onClick={handleLinkClick}>
+                            <a href={'#Aneis'} onClick={handleLinkClick('Aneis')}>
                                 Anéis
-                            </Link>
+                            </a>
                         </li>
                         <li>
-                            <Link href={'#Pulseiras'} onClick={handleLinkClick}>
+                            <a href={'#Pulseiras'} onClick={handleLinkClick('Pulseiras')}>
                                 Pulseiras
-                            </Link>
+                            </a>
                         </li>
                         <li>
-                            <Link href={'#Brincos'} onClick={handleLinkClick}>
+                            <a href={'#Brincos'} onClick={handleLinkClick('Brincos')}>
                                 Brincos
-                            </Link>
+                            </a>
                         </li>
                         <li>
-                            <Link href={'#Piranhas'} onClick={handleLinkClick}>
+                            <a href={'#Piranhas'} onClick={handleLinkClick('Piranhas')}>
                                 Piranhas
-                            </Link>
+                            </a>
                         </li>
                         <li>
-                            <Link href={'/'} onClick={handleLinkClick}>
+                            <a href={'/'} onClick={handleLinkClick('')}>
                                 Todos
-                            </Link>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -140,7 +142,7 @@ export default function Navbar() {
                         className={`${styles.arrow} ${styles.rightArrow}`}
                         onClick={() => linksRef.current?.scrollBy({ left: 200, behavior: 'smooth' })}
                     >
-                        ›
+                        {'›'}
                     </button>
                 )}
             </div>

@@ -13,7 +13,11 @@
 }
 
 .gridContainer:has(> *:only-child) {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 450px));
+    justify-content: center;
+}
+.gridContainer:has(> *:nth-child(2)) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 500px));
     justify-content: center;
 }
 

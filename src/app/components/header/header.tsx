@@ -5,9 +5,9 @@ import Image from 'next/image';
 import styles from './header.module.css';
 
 const slides = [
-    { id: 1, src: '/images/slide1.png', alt: 'Slide 1' },
-    { id: 2, src: '/images/slide2.png', alt: 'Slide 2' },
-    { id: 3, src: '/images/slide3.png', alt: 'Slide 3' },
+    { id: 1, src: '/images/slide1.webp', alt: 'Slide 1' },
+    { id: 2, src: '/images/slide2.webp', alt: 'Slide 2' },
+    { id: 3, src: '/images/slide3.webp', alt: 'Slide 3' },
 ];
 
 export default function Header() {
@@ -46,7 +46,7 @@ export default function Header() {
 
     const imageSizes = {
         low: { width: 380, height: 100 },
-        high: { width: 800, height: 500 },
+        high: { width: 1000, height: 500 },
     };
 
     return (

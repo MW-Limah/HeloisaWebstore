@@ -59,7 +59,7 @@ export default function BoxItem() {
         fetchItems(filteredTheme);
     }, [filteredTheme]);
 
-    if (loading) return <p>Carregando...</p>;
+    if (loading) return <p className={styles.loading}></p>;
     if (error) return <p>Erro ao carregar os itens: {error}</p>;
 
     return (

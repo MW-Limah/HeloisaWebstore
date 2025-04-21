@@ -91,16 +91,26 @@
         display: none;
     }
 
+    .scrollWrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        width: 100%;
+    }
+
     .linksMenu {
         display: flex;
         flex-direction: row-reverse;
         white-space: nowrap;
-        padding-left: 20px; /* Espaço inicial */
-        padding-right: 500px; /* Espaço final para não cortar o último item */
+        padding-left: 20px;
         scroll-padding-left: 200px;
-        scroll-snap-type: x mandatory;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        gap: 20px;
+        width: max-content; /* ← cresce com os itens */
+        justify-content: flex-start;
+    }
+
+    .linksMenu li {
+        flex-shrink: 0; /* ← impede compressão */
     }
 
     .mobileOnly {

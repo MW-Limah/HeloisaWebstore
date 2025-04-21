@@ -73,53 +73,45 @@ export default function Navbar() {
             </div>
 
             {/* Barra inferior normal, sem clonagem */}
-            <ul className={styles.linksMenu} ref={linksRef}>
-                <li>
-                    <Link href={'#Capas'} onClick={handleLinkClick}>
-                        Esmaltes
-                    </Link>
-                </li>
-                <li>
-                    <Link href={'#Capas'} onClick={handleLinkClick}>
-                        Capas de Celular
-                    </Link>
-                </li>
-                <li>
-                    <Link href={'#Fones'} onClick={handleLinkClick}>
-                        Fones
-                    </Link>
-                </li>
-                <li>
-                    <Link href={'#Maquiagens'} onClick={handleLinkClick}>
-                        Maquiagem
-                    </Link>
-                </li>
-                <li>
-                    <Link href={'#Aneis'} onClick={handleLinkClick}>
-                        Anéis
-                    </Link>
-                </li>
-                <li>
-                    <Link href={'#Pulseiras'} onClick={handleLinkClick}>
-                        Pulseiras
-                    </Link>
-                </li>
-                <li>
-                    <Link href={'#Brincos'} onClick={handleLinkClick}>
-                        Brincos
-                    </Link>
-                </li>
-                <li>
-                    <Link href={'#Piranhas'} onClick={handleLinkClick}>
-                        Piranhas
-                    </Link>
-                </li>
-                <li>
-                    <Link href={'/'} onClick={handleLinkClick}>
-                        Todos
-                    </Link>
-                </li>
-            </ul>
+            <div className={styles.scrollWrapper}>
+                <ul className={styles.linksMenu} ref={linksRef}>
+                    <li>
+                        <Link href={'#Fones'} onClick={handleLinkClick}>
+                            Fones
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href={'#Maquiagens'} onClick={handleLinkClick}>
+                            Maquiagem
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href={'#Aneis'} onClick={handleLinkClick}>
+                            Anéis
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href={'#Pulseiras'} onClick={handleLinkClick}>
+                            Pulseiras
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href={'#Brincos'} onClick={handleLinkClick}>
+                            Brincos
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href={'#Piranhas'} onClick={handleLinkClick}>
+                            Piranhas
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href={'/'} onClick={handleLinkClick}>
+                            Todos
+                        </Link>
+                    </li>
+                </ul>
+            </div>
         </nav>
     );
 }

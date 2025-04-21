@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { supabase } from '@/app/lib/supabase';
 import styles from './BoxItem.module.css';
 import Image from 'next/image';
@@ -22,19 +22,21 @@ export default function BoxItem() {
     const [hoveredIndex, setHoveredIndex] = useState<{ [key: string]: boolean }>({});
     const [filteredTheme, setFilteredTheme] = useState<string | null>(null);
 
-    // 1. Escuta a mudança de hash na URL
+    const itemRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+
+    // Captura o hash da URL
     useEffect(() => {
         const handleHashChange = () => {
             const hash = window.location.hash.replace('#', '');
-            setFilteredTheme(hash || null); // mesmo que vazio, zera o filtro
+            setFilteredTheme(hash || null);
         };
 
-        handleHashChange(); // aplica filtro na carga inicial
+        handleHashChange(); // aplica na carga inicial
         window.addEventListener('hashchange', handleHashChange);
         return () => window.removeEventListener('hashchange', handleHashChange);
     }, []);
 
-    // 2. Refetch no banco sempre que o filtro mudar
+    // Busca os dados do Supabase com ou sem filtro
     useEffect(() => {
         async function fetchItems(theme?: string | null) {
             setLoading(true);
@@ -59,6 +61,23 @@ export default function BoxItem() {
         fetchItems(filteredTheme);
     }, [filteredTheme]);
 
+    // Scroll para o primeiro item após o carregamento
+    useEffect(() => {
+        if (!loading && filteredTheme && items.length > 0) {
+            const targetItem = items[0];
+            const targetRef = itemRefs.current[targetItem.id];
+
+            if (targetRef) {
+                setTimeout(() => {
+                    targetRef.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center',
+                    });
+                }, 300);
+            }
+        }
+    }, [items, loading, filteredTheme]);
+
     if (loading) return <p className={styles.loading}></p>;
     if (error) return <p>Erro ao carregar os itens: {error}</p>;
 
@@ -70,7 +89,13 @@ export default function BoxItem() {
                 const isHovered = hoveredIndex[item.id];
 
                 return (
-                    <article key={item.id} className={styles.boxContent}>
+                    <article
+                        key={item.id}
+                        className={styles.boxContent}
+                        ref={(el: HTMLDivElement | null) => {
+                            itemRefs.current[item.id] = el;
+                        }}
+                    >
                         <div
                             className={styles.boxItem}
                             onMouseEnter={() => setHoveredIndex((prev) => ({ ...prev, [item.id]: true }))}

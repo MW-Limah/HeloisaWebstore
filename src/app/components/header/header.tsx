@@ -12,12 +12,22 @@ const slides = [
 
 export default function Header() {
     const [current, setCurrent] = useState(0);
+    const [imageQuality, setImageQuality] = useState<'low' | 'high'>('high');
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrent((prev) => (prev + 1) % slides.length);
-        }, 5000);
-        return () => clearInterval(interval);
+        // simples detecção de desempenho e qualidade de tela
+        const start = performance.now();
+        requestAnimationFrame(() => {
+            const duration = performance.now() - start;
+            const dpr = window.devicePixelRatio;
+
+            // Se renderização for lenta OU DPR for baixo, baixa qualidade
+            if (duration > 16 || dpr <= 1) {
+                setImageQuality('low');
+            } else {
+                setImageQuality('high');
+            }
+        });
     }, []);
 
     useEffect(() => {
@@ -27,6 +37,18 @@ export default function Header() {
         });
     }, []);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrent((prev) => (prev + 1) % slides.length);
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const imageSizes = {
+        low: { width: 380, height: 100 },
+        high: { width: 1000, height: 500 },
+    };
+
     return (
         <header className={styles.header}>
             <div className={styles.slider}>
@@ -35,10 +57,10 @@ export default function Header() {
                         <Image
                             src={slide.src}
                             alt={slide.alt}
-                            width={200}
-                            height={200}
+                            width={imageSizes[imageQuality].width}
+                            height={imageSizes[imageQuality].height}
                             style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
-                            priority // ok para o primeiro slide
+                            priority={index === 0}
                         />
                     </div>
                 ))}

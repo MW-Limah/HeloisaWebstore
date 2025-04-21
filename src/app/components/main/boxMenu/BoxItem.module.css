@@ -4,10 +4,17 @@
 .gridContainer {
     display: grid;
     grid-template-columns: repeat(4, minmax(300px, 1fr));
+    justify-content: center;
+    align-items: center;
     gap: 0.5rem;
     max-width: 2000px;
     margin: 0 auto;
     flex-wrap: wrap;
+}
+
+.gridContainer:has(> *:only-child) {
+    grid-template-columns: repeat(1, minmax(300px, 480px));
+    justify-content: center;
 }
 
 /* Card do Item */
@@ -20,6 +27,7 @@
     height: 100%;
     text-align: left;
     padding-bottom: 1rem;
+    cursor: pointer;
     transition: transform 0.2s ease-in-out;
 }
 

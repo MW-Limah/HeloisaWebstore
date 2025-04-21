@@ -18,6 +18,46 @@
     align-items: center;
 }
 
+.scrollContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.scrollWrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 60px;
+    width: 100%;
+}
+
+.arrow {
+    background: none;
+    border: none;
+    font-size: 2.2rem;
+    color: white;
+    cursor: pointer;
+    padding: 0 10px;
+    z-index: 10;
+    transition: opacity 0.3s ease;
+    user-select: none;
+}
+.leftArrow {
+    position: absolute;
+    left: 0;
+    background-color: #289dd2;
+    height: 100%;
+}
+
+.rightArrow {
+    position: absolute;
+    right: 0;
+    background-color: #289dd2;
+    height: 100%;
+}
+
 .Bars {
     display: none;
     cursor: pointer;
@@ -32,14 +72,11 @@
     font-size: 16pt;
 }
 
-/* Links sempre na parte inferior */
 .linksMenu {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: row-reverse;
     gap: 20px;
-    padding: 10px 20px 10px 30px; /* margem esquerda aumentada */
+    padding: 10px 30px 10px 60px; /* margem para não cortar o primeiro item */
     background-color: #289dd2;
     list-style: none;
     overflow-x: auto;
@@ -47,6 +84,18 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
     width: 100%;
+    justify-content: center;
+}
+
+.linksMenu li {
+    list-style: none;
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+}
+
+/* Garante espaço antes do primeiro item visível */
+.linksMenu li:first-child {
+    margin-right: 0; /* opcional para controle fino */
 }
 
 .linksMenu::-webkit-scrollbar {
@@ -85,6 +134,12 @@
     .Bars {
         display: block;
         z-index: 5;
+    }
+    .arrow {
+        display: none;
+    }
+    .scrollContainer {
+        overflow-x: auto;
     }
 
     .rightContent {

@@ -30,7 +30,7 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <div className={styles.slider}>
-                {slides.map((slide, index) => (
+                {/* {slides.map((slide, index) => (
                     <div key={slide.id} className={`${styles.slide} ${index === current ? styles.active : ''}`}>
                         <Image
                             src={slide.src}
@@ -41,7 +41,7 @@ export default function Header() {
                             priority // ok para o primeiro slide
                         />
                     </div>
-                ))}
+                ))} */}
             </div>
         </header>
     );

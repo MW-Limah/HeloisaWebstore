@@ -30,9 +30,8 @@ export default function Header() {
                             alt={slide.alt}
                             width={1000}
                             height={500}
-                            unoptimized
                             style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
-                            priority
+                            priority // ok para o primeiro slide
                         />
                     </div>
                 ))}

@@ -94,13 +94,9 @@
         flex-direction: row;
         white-space: nowrap;
         padding-left: 800px; /* Garantir padding no mobile também */
-        scroll-padding-left: 200px; /* para snap inicial funcionar */
-        min-width: 100%;
+        scroll-padding-left: 100px; /* para snap inicial funcionar */
     }
 
-    .linksMenu li {
-        flex: 0 0 auto;
-    }
     .mobileOnly {
         display: block;
     }

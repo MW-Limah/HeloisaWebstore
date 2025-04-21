@@ -20,6 +20,13 @@ export default function Header() {
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        slides.forEach((slide) => {
+            const img = new window.Image();
+            img.src = slide.src;
+        });
+    }, []);
+
     return (
         <header className={styles.header}>
             <div className={styles.slider}>

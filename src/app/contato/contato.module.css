@@ -1,0 +1,144 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: 'Times New Roman', Times, serif;
+    background: linear-gradient(135deg, #ffc8f8, #ddc8ff, #aabdf8);
+}
+
+.content {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+}
+
+.form,
+.info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+    height: 600px;
+    padding: 5%;
+    margin: 45px;
+    border-radius: 8px;
+    color: #000;
+}
+
+.form {
+    margin-top: -10%;
+}
+
+.form h2,
+.info h2 {
+    border-bottom: 2px solid white;
+    padding-bottom: 0.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.form h2 {
+    margin-bottom: 1rem;
+}
+
+.name {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.name input {
+    flex: 1;
+}
+
+.container input,
+.container textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 10px 0 1rem;
+    font-size: 1rem;
+    background: none;
+    border: 1px solid #000;
+    outline: none;
+    font-family: inherit;
+}
+
+.container input {
+    border: none;
+    border-bottom: 1px solid #000;
+    border-radius: 0;
+    color: #000;
+}
+
+.container textarea {
+    resize: vertical;
+    max-height: 280px;
+    border-style: dashed;
+}
+
+.container input::placeholder {
+    color: #000;
+    font-size: 1.2rem;
+    font-weight: 500;
+    position: relative;
+    top: 5px;
+    left: -10px;
+}
+
+.form h3 {
+    margin: 50px 0 1px;
+    font-weight: 400;
+}
+
+.form p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.info {
+    position: relative;
+    top: -12%;
+}
+
+.info h2 {
+    margin-bottom: 1rem;
+    border-bottom: 2px solid white;
+    padding-bottom: 0.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.info h3 {
+    color: #ab307b;
+    font-weight: 500;
+    font-size: 1.4rem;
+}
+
+.info p {
+    margin-bottom: 5%;
+    font-size: 1.2rem;
+}
+
+.redesSociais ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.redesSociais li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.redesSociais li a {
+    color: #2e50b6;
+    text-decoration: none;
+}

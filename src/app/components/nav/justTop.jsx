@@ -20,7 +20,7 @@ export default function JustTop() {
                     <Image src={'/logo_1.webp'} width={100} height={100} alt="Logo Principal Heloisa Moda Feminina" />
                 </div>
                 <div className={styles.rightContent}>
-                    <Link href={'#'} className={styles.back}>
+                    <Link href={'/'} className={styles.back}>
                         Voltar ao início
                     </Link>
                     <Link href={'#'}>Olá, inscreva-se para atualizações</Link>

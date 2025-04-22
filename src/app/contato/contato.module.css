@@ -63,6 +63,7 @@
     border: 1px solid #000;
     outline: none;
     font-family: inherit;
+    color: #000;
 }
 
 .container input {

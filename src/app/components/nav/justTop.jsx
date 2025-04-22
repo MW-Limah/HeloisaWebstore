@@ -14,7 +14,7 @@ export default function JustTop() {
     };
 
     return (
-        <navbar className={styles.navbar}>
+        <div className={styles.navbar}>
             <div className={styles.topContent}>
                 <div className={styles.leftContent}>
                     <Image src={'/logo_1.webp'} width={100} height={100} alt="Logo Principal Heloisa Moda Feminina" />
@@ -42,6 +42,6 @@ export default function JustTop() {
                     <Link href="/pages/Login">Acessar área Admin</Link>
                 </li>
             </div>
-        </navbar>
+        </div>
     );
 }

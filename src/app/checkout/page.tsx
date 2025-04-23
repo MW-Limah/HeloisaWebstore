@@ -48,9 +48,17 @@ export default function CheckOut() {
                         </div>
                     </div>
 
-                    <div className={styles.comments}>
+                    <div className={styles.commentsT}>
                         <h2>Comentários</h2>
+                    </div>
+                    <div className={styles.comments}>
                         <h3>Pessoa 1</h3>
+                        <p>este produto é incrível!</p>
+                        <h3>Pessoa 2</h3>
+                        <p>este produto é incrível!</p>
+                        <h3>Pessoa 3</h3>
+                        <p>este produto é incrível!</p>
+                        <h3>Pessoa 4</h3>
                         <p>este produto é incrível!</p>
                     </div>
                 </div>

@@ -52,20 +52,33 @@
 }
 
 /* Comentários */
-.comments {
+.commentsT {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #fafafa;
     margin-top: 5px;
-    padding: 1.5rem;
+    padding: 10px 1rem;
+    color: #333;
+}
+
+.comments {
+    background-color: #fafafa;
+    padding: 0 1.5rem;
     width: 600px;
+    height: 200px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow-y: auto;
 }
 
 .comments h2 {
     font-size: 1.25rem;
     color: #222;
+    background-color: #e0e0e0;
     margin-bottom: 1rem;
     border-bottom: 1px solid #e0e0e0;
     padding-bottom: 0.5rem;
+    z-index: 5;
 }
 
 .comments h3 {

@@ -95,7 +95,9 @@ export default function CheckOut() {
                         <div className={styles.finishing}>
                             <div className={styles.topFinish}>
                                 <div className={styles.finishItem}>
-                                    <label htmlFor="quantity">Em estoque</label>
+                                    <label className={styles.labell} htmlFor="quantity">
+                                        Em estoque
+                                    </label>
                                     <select id="quantity" name="quantity" defaultValue="1">
                                         <option value="1">1</option>
                                         <option value="2">2</option>

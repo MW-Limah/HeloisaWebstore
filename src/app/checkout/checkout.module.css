@@ -104,20 +104,27 @@
 }
 
 /* Lado do Check-out */
+/* Lado do Check-out */
 .rightSide {
-    font-family: Georgia, serif;
-    width: 900px;
-    max-width: 800px;
-    margin: 0 auto;
+    font-family: 'Times New Roman', Times, serif;
+    flex: 1;
+    max-width: 500px;
+    width: 100%;
 }
 
 .checkoutForm {
-    height: 700px;
     display: flex;
     flex-direction: column;
     background-color: white;
     padding: 2rem;
     color: #333;
+    height: 700px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.checkoutForm input {
+    outline: none;
+    color: #000;
 }
 
 .checkoutForm h2 {
@@ -127,7 +134,7 @@
 }
 
 .finishing {
-    padding-top: 20px;
+    padding-top: 1rem;
 }
 
 .inputGroup {
@@ -168,39 +175,46 @@
 
 .inputGroupContact {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    padding: 20px 5px;
+    align-items: center;
+    gap: 1rem;
 }
 
 .inputGroupContact label {
-    display: block;
     font-weight: bold;
+    width: 40%;
 }
 
 .inputGroupContact input {
-    outline: none;
     width: 60%;
     border: none;
-    color: #000;
     border-bottom: 1px solid black;
     background: none;
     font-size: 1rem;
+    outline: none;
+    color: #000;
+}
+
+.finishing {
+    margin-top: 1rem;
 }
 
 .topFinish {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .finishItem {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.5rem;
     font-weight: bold;
+    flex: 1;
+    min-width: 120px;
 }
 
-.finishItem label {
+.labell {
     color: #00cccc;
 }
 
@@ -211,6 +225,7 @@
     border: none;
     font-weight: bold;
     font-size: 0.9rem;
+    color: #000;
 }
 
 .bottomFinish {
@@ -220,12 +235,13 @@
 }
 
 .price {
-    font-size: 1.2rem;
+    padding-top: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
 .buttonFinish {
-    margin-top: 0.8rem;
+    margin-top: 1rem;
     background-color: #f8a7b4;
     border: none;
     border-radius: 20px;
@@ -234,6 +250,29 @@
     font-weight: bold;
     cursor: pointer;
     color: black;
-    width: fit-content;
     align-self: flex-end;
+}
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column-reverse;
+        padding: 1rem;
+    }
+
+    .gridImages {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    .imageFocused {
+        max-width: 90vw;
+    }
+
+    .rightSide {
+        max-width: 100%;
+    }
+
+    .comments {
+        max-width: 100%;
+    }
 }

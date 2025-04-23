@@ -8,6 +8,8 @@
 
 .content {
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 2rem;
     padding: 10px 20%;
 }
@@ -104,7 +106,6 @@
 }
 
 /* Lado do Check-out */
-/* Lado do Check-out */
 .rightSide {
     font-family: 'Times New Roman', Times, serif;
     flex: 1;
@@ -119,6 +120,7 @@
     padding: 2rem;
     color: #333;
     height: 700px;
+    width: 500px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -253,26 +255,42 @@
     align-self: flex-end;
 }
 
-@media (max-width: 768px) {
+/* Responsividade */
+@media (max-width: 1200px) {
     .content {
-        flex-direction: column-reverse;
-        padding: 1rem;
-    }
-
-    .gridImages {
-        grid-template-columns: 1fr;
-        justify-items: center;
+        padding: 10px 10%;
     }
 
     .imageFocused {
-        max-width: 90vw;
+        width: 400px;
+        height: auto;
+        margin-left: 0;
     }
 
-    .rightSide {
+    .checkoutForm {
+        width: 100%;
         max-width: 100%;
     }
+}
 
-    .comments {
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+        padding: 10px 5%;
+    }
+
+    .gridImages {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .imageFocused {
+        width: 100%;
+        height: auto;
+        margin-left: 0;
+    }
+
+    .checkoutForm {
+        width: 100%;
         max-width: 100%;
     }
 }

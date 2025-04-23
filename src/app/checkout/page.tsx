@@ -31,8 +31,8 @@ export default function CheckOut() {
                                 <Image
                                     key={index}
                                     src={src}
-                                    width={150}
-                                    height={150}
+                                    width={147}
+                                    height={147}
                                     alt={`Imagem ${index + 1}`}
                                     onClick={() => handleImageClick(src, index)}
                                     style={{
@@ -47,8 +47,8 @@ export default function CheckOut() {
                         <div className={styles.imageFocused}>
                             <Image
                                 src={highlighted}
-                                width={455}
-                                height={455}
+                                width={500}
+                                height={500}
                                 alt="Imagem em destaque"
                                 className={styles.fadeIn}
                             />

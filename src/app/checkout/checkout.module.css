@@ -9,17 +9,13 @@
 .content {
     display: flex;
     gap: 2rem;
-    padding: 10px 10%;
-}
-
-.leftSide {
-    flex: 1;
+    padding: 10px 20%;
 }
 
 /* Grid de imagens */
 .gridImages {
-    display: flex;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 200px);
 }
 
 .sideImages {
@@ -30,23 +26,30 @@
 
 .sideImages img {
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .sideImages img:hover {
-    transform: scale(1.02);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .imageFocused {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 450px;
+    height: 450px;
+    margin: 1px;
+    margin-left: -24%;
 }
 
 .imageFocused img {
     max-width: 100%;
-    height: auto;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-height: 455px;
+
+    object-fit: cover;
 }
 
 /* Animação ao trocar imagem */
@@ -67,60 +70,162 @@
 
 /* Comentários */
 .comments {
-    background-color: #f9f9f9;
+    background-color: #fafafa;
+    margin-top: 2rem;
     padding: 1.5rem;
-    border-radius: 8px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .comments h2 {
+    font-size: 1.25rem;
+    color: #222;
     margin-bottom: 1rem;
-    font-size: 1.5rem;
-    color: #333;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 1px solid #e0e0e0;
     padding-bottom: 0.5rem;
 }
 
 .comments h3 {
     margin-top: 1rem;
-    margin-bottom: 0.3rem;
     font-size: 1rem;
-    color: #333;
+    font-weight: 600;
+    color: #444;
 }
 
 .comments p {
     font-size: 0.95rem;
-    color: #555;
-    margin: 0;
+    color: #666;
+    line-height: 1.4;
 }
 
 /* Lado do Check-out */
 .rightSide {
-    flex: 1;
+    font-family: Georgia, serif;
     padding: 2rem;
-    background: #fff;
-    border-left: 2px solid #eee;
-    display: flex;
-    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .checkoutForm {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    background-color: white;
+    padding: 2rem;
     color: #333;
 }
 
 .checkoutForm h2 {
-    font-family: 'Times New Roman', Times, serif;
     font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #222;
-    border-bottom: 2px solid;
+    border-bottom: 2px solid black;
+    margin-bottom: 1.5rem;
 }
 
 .inputGroup {
+    margin-bottom: 1.5rem;
+}
+
+.inputGroup label {
+    display: block;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.inputGroup input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 0.4rem;
+    background: none;
+    font-size: 1rem;
+}
+
+.contactClient {
+    margin-bottom: 1.5rem;
+}
+
+.contactClient h3 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.contactInputs {
+    display: flex;
+    gap: 1rem;
+}
+
+.inputGroupContact {
+    flex: 1;
+}
+
+.inputGroupContact label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+}
+
+.inputGroupContact input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 0.4rem;
+    background: none;
+    font-size: 1rem;
+}
+
+.finishing {
+    margin-top: 2rem;
+    border-top: 1px solid #999;
+    padding-top: 1rem;
+}
+
+.topFinish {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.finishItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-weight: bold;
+}
+
+.finishItem label {
+    color: #00cccc;
+}
+
+.finishItem select {
+    background-color: #d6d6ff;
+    padding: 0.5rem;
+    border-radius: 12px;
+    border: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.bottomFinish {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    font-family: 'Times New Roman', Times;
+}
+
+.price {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.buttonFinish {
+    margin-top: 0.8rem;
+    background-color: #f8a7b4;
+    border: none;
+    border-radius: 20px;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: black;
+    width: fit-content;
 }

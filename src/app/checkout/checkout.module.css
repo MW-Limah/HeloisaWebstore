@@ -1,0 +1,198 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: #babff7;
+}
+
+.content {
+    display: flex;
+    gap: 2rem;
+    padding: 1%;
+}
+
+.leftSide {
+    flex: 1;
+}
+
+/* Lado das Imagens */
+
+.gridImages {
+    display: flex;
+    gap: 20px;
+}
+.sideImages {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.sideImages img {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.sideImages img:hover {
+    transform: scale(1.05);
+}
+
+.imageFocused {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageFocused img {
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Comentários */
+
+.comments {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.comments h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #333;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+.comments h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+    font-size: 1rem;
+    color: #333;
+}
+
+.comments p {
+    font-size: 0.95rem;
+    color: #555;
+    margin: 0;
+}
+
+/* Animação para troca de imagem */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.fadeIn {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Lado do check-out */
+
+.rightSide {
+    flex: 1;
+    padding: 2rem;
+    background: #fff;
+    border-left: 2px solid #eee;
+    display: flex;
+    flex-direction: column;
+}
+
+.checkoutForm {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.inputGroup input {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.contactClient {
+    display: flex;
+    flex-direction: column;
+}
+
+.contactInputs {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.finishing {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: #fafafa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+.topFinish {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.finishItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.bottomFinish {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.price {
+    font-size: 1.5rem;
+    color: #222;
+}
+
+.buttonFinish {
+    margin-top: 1rem;
+    background: #00a86b;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.buttonFinish:hover {
+    background: #008c59;
+}
+
+.finishing select {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: white;
+    appearance: none;
+}

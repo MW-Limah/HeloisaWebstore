@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { supabase } from '@/app/lib/supabase';
 import styles from './BoxItem.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
 import { PiShoppingCartLight } from 'react-icons/pi';
 
 interface BoxItemData {
@@ -118,7 +119,9 @@ export default function BoxItem() {
                             <div className={styles.priceSide}>
                                 {item.price && <p className={styles.price}>R${item.price} a unidade</p>}
                                 <button className={styles.button}>
-                                    <PiShoppingCartLight />
+                                    <Link href={'/checkout'}>
+                                        <PiShoppingCartLight />
+                                    </Link>
                                 </button>
                             </div>
                         </div>

@@ -60,6 +60,8 @@ export default function CheckOut() {
                         <p>este produto é incrível!</p>
                         <h3>Pessoa 4</h3>
                         <p>este produto é incrível!</p>
+                        <h3>Pessoa 4</h3>
+                        <p>este produto é incrível!</p>
                     </div>
                 </div>
                 <div className={styles.rightSide}>

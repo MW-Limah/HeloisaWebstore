@@ -66,7 +66,7 @@
     background-color: #fafafa;
     padding: 0 1.5rem;
     width: 600px;
-    height: 200px;
+    height: 193px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     overflow-y: auto;
 }
@@ -90,19 +90,29 @@
 
 .comments p {
     font-size: 0.95rem;
-    color: #666;
+    color: #333;
     line-height: 1.4;
+}
+
+.comments::-webkit-scrollbar {
+    width: 0.8rem;
+    border-radius: 15px;
+}
+.comments::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 15px;
 }
 
 /* Lado do Check-out */
 .rightSide {
     font-family: Georgia, serif;
-    padding: 2rem;
-    max-width: 400px;
+    width: 900px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
 .checkoutForm {
+    height: 700px;
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -114,6 +124,10 @@
     font-size: 2rem;
     border-bottom: 2px solid black;
     margin-bottom: 1.5rem;
+}
+
+.finishing {
+    padding-top: 20px;
 }
 
 .inputGroup {
@@ -148,38 +162,35 @@
 
 .contactInputs {
     display: flex;
+    flex-direction: column;
     gap: 1rem;
 }
 
 .inputGroupContact {
-    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 5px;
 }
 
 .inputGroupContact label {
     display: block;
     font-weight: bold;
-    margin-bottom: 0.4rem;
 }
 
 .inputGroupContact input {
-    width: 100%;
+    outline: none;
+    width: 60%;
     border: none;
+    color: #000;
     border-bottom: 1px solid black;
-    padding: 0.4rem;
     background: none;
     font-size: 1rem;
-}
-
-.finishing {
-    margin-top: 2rem;
-    border-top: 1px solid #999;
-    padding-top: 1rem;
 }
 
 .topFinish {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1rem;
 }
 
 .finishItem {
@@ -224,4 +235,5 @@
     cursor: pointer;
     color: black;
     width: fit-content;
+    align-self: flex-end;
 }

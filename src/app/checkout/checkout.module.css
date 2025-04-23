@@ -1,3 +1,4 @@
+/* Container principal e estrutura */
 .container {
     display: flex;
     flex-direction: column;
@@ -8,23 +9,23 @@
 .content {
     display: flex;
     gap: 2rem;
-    padding: 1%;
+    padding: 10px 10%;
 }
 
 .leftSide {
     flex: 1;
 }
 
-/* Lado das Imagens */
-
+/* Grid de imagens */
 .gridImages {
     display: flex;
     gap: 10px;
 }
+
 .sideImages {
-    gap: 5px;
     display: flex;
     flex-direction: column;
+    gap: 5px;
 }
 
 .sideImages img {
@@ -48,8 +49,23 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Comentários */
+/* Animação ao trocar imagem */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
 
+.fadeIn {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Comentários */
 .comments {
     background-color: #f9f9f9;
     padding: 1.5rem;
@@ -77,25 +93,7 @@
     margin: 0;
 }
 
-/* Animação para troca de imagem */
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.98);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.fadeIn {
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-/* Lado do check-out */
-
+/* Lado do Check-out */
 .rightSide {
     flex: 1;
     padding: 2rem;
@@ -112,89 +110,17 @@
     color: #333;
 }
 
+.checkoutForm h2 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #222;
+    border-bottom: 2px solid;
+}
+
 .inputGroup {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-}
-
-.inputGroup input {
-    border: 1px solid #ccc;
-    padding: 15px;
-    background: none;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-}
-
-.contactClient {
-    display: flex;
-    flex-direction: column;
-}
-
-.contactInputs {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.finishing {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    background: #fafafa;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
-}
-
-.topFinish {
-    display: flex;
-    gap: 1rem;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.finishItem {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    flex: 1;
-}
-
-.bottomFinish {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.price {
-    font-size: 1.5rem;
-    color: #222;
-}
-
-.buttonFinish {
-    margin-top: 1rem;
-    background: #00a86b;
-    color: white;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.buttonFinish:hover {
-    background: #008c59;
-}
-
-.finishing select {
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    background-color: white;
-    appearance: none;
+    font-family: 'Times New Roman', Times;
 }

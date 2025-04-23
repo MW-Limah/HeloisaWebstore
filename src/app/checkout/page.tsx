@@ -73,11 +73,11 @@ export default function CheckOut() {
                         <div className={styles.contactClient}>
                             <h3>Seu contato</h3>
                             <div className={styles.contactInputs}>
-                                <div className={styles.inputGroup}>
+                                <div className={styles.inputGroupContact}>
                                     <label htmlFor="phone">Telefone</label>
                                     <input type="text" id="phone" name="phone" required />
                                 </div>
-                                <div className={styles.inputGroup}>
+                                <div className={styles.inputGroupContact}>
                                     <label htmlFor="email">E-mail</label>
                                     <input type="email" id="email" name="email" required />
                                 </div>

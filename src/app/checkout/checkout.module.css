@@ -19,12 +19,12 @@
 
 .gridImages {
     display: flex;
-    gap: 20px;
+    gap: 10px;
 }
 .sideImages {
+    gap: 5px;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
 }
 
 .sideImages img {
@@ -33,11 +33,10 @@
 }
 
 .sideImages img:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .imageFocused {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;

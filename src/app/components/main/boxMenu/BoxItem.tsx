@@ -97,34 +97,34 @@ export default function BoxItem() {
                             itemRefs.current[item.id] = el;
                         }}
                     >
-                        <div
-                            className={styles.boxItem}
-                            onMouseEnter={() => setHoveredIndex((prev) => ({ ...prev, [item.id]: true }))}
-                            onMouseLeave={() => setHoveredIndex((prev) => ({ ...prev, [item.id]: false }))}
-                        >
-                            <Image
-                                src={isHovered ? secondImage : firstImage}
-                                alt={`Imagem do item ${item.title}`}
-                                fill
-                                style={{ objectFit: 'cover', objectPosition: 'center' }}
-                            />
-                        </div>
-
-                        <div className={styles.boxMenutitle}>
-                            <h2>{item.title}</h2>
-                        </div>
-
-                        <div className={styles.PriceBuy}>
-                            {item.description && <p className={styles.description}>{item.description}</p>}
-                            <div className={styles.priceSide}>
-                                {item.price && <p className={styles.price}>R${item.price} a unidade</p>}
-                                <button className={styles.button}>
-                                    <Link href={'/checkout'}>
-                                        <PiShoppingCartLight />
-                                    </Link>
-                                </button>
+                        <Link href={'/checkout'}>
+                            <div
+                                className={styles.boxItem}
+                                onMouseEnter={() => setHoveredIndex((prev) => ({ ...prev, [item.id]: true }))}
+                                onMouseLeave={() => setHoveredIndex((prev) => ({ ...prev, [item.id]: false }))}
+                            >
+                                <Image
+                                    src={isHovered ? secondImage : firstImage}
+                                    alt={`Imagem do item ${item.title}`}
+                                    fill
+                                    style={{ objectFit: 'cover', objectPosition: 'center' }}
+                                />
                             </div>
-                        </div>
+
+                            <div className={styles.boxMenutitle}>
+                                <h2>{item.title}</h2>
+                            </div>
+
+                            <div className={styles.PriceBuy}>
+                                {item.description && <p className={styles.description}>{item.description}</p>}
+                                <div className={styles.priceSide}>
+                                    {item.price && <p className={styles.price}>R${item.price} a unidade</p>}
+                                    <button className={styles.button}>
+                                        <PiShoppingCartLight />
+                                    </button>
+                                </div>
+                            </div>
+                        </Link>
                     </article>
                 );
             })}

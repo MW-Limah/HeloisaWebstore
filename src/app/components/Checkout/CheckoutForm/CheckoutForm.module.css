@@ -201,7 +201,14 @@
 
 @media (max-width: 550px) {
     .checkoutForm {
-        width: 21.6rem;
-        margin-top: -15px;
+        width: 100%;
+        margin: -15px 0 0;
+    }
+
+    .checkoutForm::-webkit-scrollbar {
+        display: none;
+    }
+    .checkoutForm::-webkit-scrollbar-thumb {
+        display: none;
     }
 }

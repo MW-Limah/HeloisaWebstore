@@ -97,7 +97,7 @@ export default function BoxItem() {
                             itemRefs.current[item.id] = el;
                         }}
                     >
-                        <Link href={'/checkout'}>
+                        <Link href={`/checkout/${item.id}`}>
                             <div
                                 className={styles.boxItem}
                                 onMouseEnter={() => setHoveredIndex((prev) => ({ ...prev, [item.id]: true }))}

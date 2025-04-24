@@ -1,9 +1,19 @@
+'use client';
+
 import styles from './CheckoutForm.module.css';
 
-export default function CheckoutForm() {
+interface CheckoutFormProps {
+    title: string;
+    description: string;
+    price: string;
+}
+
+export default function CheckoutForm({ title, description, price }: CheckoutFormProps) {
     return (
         <form className={styles.checkoutForm}>
             <h2>Check-out</h2>
+            <h3>{title}</h3>
+            <p>{description}</p>
 
             <div className={styles.inputGroup}>
                 <label htmlFor="name">Qual seu nome?</label>
@@ -56,8 +66,8 @@ export default function CheckoutForm() {
                 </div>
 
                 <div className={styles.bottomFinish}>
-                    <h3 className={styles.price}>R$ 22,00</h3>
-                    <p>20,00 + 2,00 (entrega)</p>
+                    <h3 className={styles.price}>R$ {price}</h3>
+                    <p>{Number(price) - 2},00 + 2,00 (entrega)</p>
                     <button type="submit" className={styles.buttonFinish}>
                         Finalizar compra
                     </button>

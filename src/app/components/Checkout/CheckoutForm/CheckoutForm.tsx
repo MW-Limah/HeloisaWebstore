@@ -12,8 +12,8 @@ export default function CheckoutForm({ title, description, price }: CheckoutForm
     return (
         <form className={styles.checkoutForm}>
             <h2>Check-out</h2>
-            <h3>{title}</h3>
-            <p>{description}</p>
+            <h3 className={styles.itemTitle}>{title}</h3>
+            <p className={styles.itemDescription}>{description}</p>
 
             <div className={styles.inputGroup}>
                 <label htmlFor="name">Qual seu nome?</label>

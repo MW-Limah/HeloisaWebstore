@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
 /* Lado do Check-out */
 .rightSide {
     font-family: 'Times New Roman', Times, serif;
@@ -15,6 +26,20 @@
     height: 700px;
     width: 600px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.itemTitle {
+    font-size: 24pt;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+}
+.itemDescription {
+    font-size: 14pt;
+    color: #555;
+    margin-bottom: 1.1rem;
+    min-width: 300px;
 }
 
 .checkoutForm input {

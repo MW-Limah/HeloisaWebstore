@@ -1,0 +1,81 @@
+/* Grid de imagens */
+.gridImages {
+    display: grid;
+    grid-template-columns: repeat(2, 200px);
+}
+
+.sideImages {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.sideImages img {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sideImages img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.imageFocused {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 450px;
+    height: 450px;
+    margin: 1px;
+    margin-left: -24%;
+}
+
+.imageFocused img {
+    max-width: 100%;
+    max-height: 455px;
+    object-fit: cover;
+}
+
+/* Responsivade */
+@media (max-width: 1200px) {
+    .gridImages {
+        display: flex;
+        align-items: center;
+    }
+
+    .imageFocused {
+        width: 100%;
+        height: auto;
+        margin-left: 1px;
+    }
+
+    .imageFocused img {
+        max-width: 25rem;
+        max-height: 25rem;
+        margin-left: 5px;
+    }
+
+    .sideImages {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .sideImages img {
+        max-width: 8rem;
+        max-height: 8rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .imageFocused img {
+        max-width: 16rem;
+        max-height: 16rem;
+    }
+    .sideImages img {
+        max-width: 5.1rem;
+        max-height: 5.1rem;
+    }
+}
+
+/* Responsividade para telas menores */

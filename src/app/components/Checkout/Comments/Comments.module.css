@@ -13,7 +13,7 @@
     background-color: #fafafa;
     padding: 0 1.5rem;
     width: 600px;
-    height: 193px;
+    height: 24vh;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     overflow-y: auto;
 }
@@ -42,8 +42,8 @@
 }
 
 .comments::-webkit-scrollbar {
-    width: 0.8rem;
-    border-radius: 15px;
+    width: 8px;
+    background-color: #f1f1f1;
 }
 .comments::-webkit-scrollbar-thumb {
     background-color: #555;

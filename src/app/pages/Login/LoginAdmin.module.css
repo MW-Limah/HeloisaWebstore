@@ -5,10 +5,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Times New Roman', Times, serif;
 }
 
 .form {
+    font-family: 'Times New Roman', Times, serif;
     width: 30rem;
     height: 70vh;
     border-radius: 25px;
@@ -71,11 +71,9 @@
 .buttonBack {
     position: absolute;
     top: 20px;
-    left: 20px;
+    left: 40px;
     padding: 5px 20px;
     font-size: 14pt;
     border-radius: 10px;
     border: none;
-    background-color: #fff;
-    color: #000;
 }

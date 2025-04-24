@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { sendPasswordReset } from '@/app/api/actions/send-reset';
 import styles from './LoginAdmin.module.css';
 import Link from 'next/link';
-import { TbArrowBackUp } from 'react-icons/tb';
+import ButtonBack from '@/app/components/buttonBack/buttonBack';
 
 export default function LoginAdmin() {
     const [email, setEmail] = useState('');
@@ -45,9 +45,9 @@ export default function LoginAdmin() {
 
     return (
         <div className={styles.container}>
-            <Link href={'/'} className={styles.buttonBack}>
-                Voltar <TbArrowBackUp />
-            </Link>
+            <div className={styles.buttonBack}>
+                <ButtonBack />
+            </div>
 
             {!forgotMode ? (
                 <form onSubmit={handleLogin} className={styles.form}>

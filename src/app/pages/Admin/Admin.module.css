@@ -30,18 +30,12 @@
     font-weight: 600;
 }
 
-.buttonBack {
-    border: 1px solid #fff;
-    background-color: #ffffff;
-    color: #000;
-}
 .buttonOut {
     border: 1px solid #cf3a3a;
     background-color: #cf3a3a;
     color: #000;
 }
 
-.buttonBack:hover,
 .buttonOut:hover {
     border: 1px solid #000;
     background: none;

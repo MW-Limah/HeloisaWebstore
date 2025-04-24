@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { IoCloseSharp } from 'react-icons/io5';
 import { FaBars } from 'react-icons/fa';
+import ButtonBack from '@/app/components/buttonBack/buttonBack';
 
 export default function JustTop() {
     const [isActive, setIsActive] = useState(false);
@@ -20,9 +21,7 @@ export default function JustTop() {
                     <Image src={'/logo_1.webp'} width={100} height={100} alt="Logo Principal Heloisa Moda Feminina" />
                 </div>
                 <div className={styles.rightContent}>
-                    <Link href={'/'} className={styles.back}>
-                        Voltar ao início
-                    </Link>
+                    <ButtonBack />
                     <Link href={'#'}>Olá, inscreva-se para atualizações</Link>
                     <Link href="/pages/Login">Acessar área Admin</Link>
                 </div>

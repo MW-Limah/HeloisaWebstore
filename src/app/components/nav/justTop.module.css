@@ -20,6 +20,7 @@
 
 .rightContent {
     display: flex;
+    align-items: center;
     gap: 20px;
     font-weight: 600;
     font-size: 16pt;
@@ -43,6 +44,25 @@
     margin-left: 20px;
     font-weight: bold;
 }
+
+.back {
+    border: 2px solid #000;
+    background-color: white;
+    color: #000;
+    border-radius: 15px;
+    font-size: 12pt;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease;
+}
+
+.back:hover {
+    background: none;
+    color: #fff;
+}
+
 @media (max-width: 899px) {
     .Bars {
         display: block;

@@ -3,8 +3,9 @@
 import { useSession, signOut } from 'next-auth/react';
 import styles from './Admin.module.css';
 import Form from './form/form';
-import { TbArrowBackUp } from 'react-icons/tb';
+import ButtonBack from '@/app/components/buttonBack/buttonBack';
 import Link from 'next/link';
+import { TbArrowBackUp } from 'react-icons/tb';
 
 export default function AdminPage() {
     const { data: session, status } = useSession();
@@ -16,9 +17,9 @@ export default function AdminPage() {
             <div className={styles.notAuth}>
                 <p className={styles.pOut}>Você não está autenticado {':('}</p>
 
-                <Link href={'/'} className={styles.buttonBack}>
-                    Voltar <TbArrowBackUp />
-                </Link>
+                <div className={styles.buttonBack}>
+                    <ButtonBack />
+                </div>
             </div>
         );
 
@@ -26,9 +27,9 @@ export default function AdminPage() {
         <main className={styles.container}>
             <div className={styles.formHeader}>
                 <div className={styles.buttonContainer}>
-                    <Link href={'/'} className={styles.buttonBack}>
-                        Voltar <TbArrowBackUp />
-                    </Link>
+                    <div className={styles.buttonBack}>
+                        <ButtonBack />
+                    </div>
 
                     <button className={styles.buttonOut} onClick={() => signOut()}>
                         Sair <TbArrowBackUp className={styles.back} />

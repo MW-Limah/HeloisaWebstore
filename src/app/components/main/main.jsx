@@ -6,10 +6,6 @@ export default function Main() {
     return (
         <main className={styles.Main}>
             <BoxMenu />
-
-            {/* <div className={styles.lineContent}>
-                <LineMenu id="Piranhas" />
-            </div> */}
         </main>
     );
 }

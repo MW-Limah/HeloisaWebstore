@@ -6,6 +6,7 @@ import { useCart } from '@/app/components/Cart/CartContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './cart.module.css';
+import { TbShoppingCartCopy } from 'react-icons/tb';
 
 export default function CartPage() {
     const { cart, removeFromCart, updateQuantity, clearCart, getTotal } = useCart();
@@ -14,7 +15,9 @@ export default function CartPage() {
         return (
             <div className={styles.empty}>
                 <h1>Seu carrinho está vazio 😢</h1>
-                <Link href="/">Continuar comprando</Link>
+                <Link href="/">
+                    Continuar comprando <TbShoppingCartCopy />
+                </Link>
             </div>
         );
     }

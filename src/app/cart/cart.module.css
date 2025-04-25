@@ -6,7 +6,21 @@
 }
 
 .empty {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
+}
+
+.empty h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.empty a {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
 }
 
 .content {

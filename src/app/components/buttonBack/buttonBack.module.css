@@ -12,7 +12,6 @@
 
 .buttonBack:hover {
     background: none;
-    border: none;
+    border: 2px solid #fff;
     color: #fff;
-    transform: translateX(-40px);
 }

@@ -44,9 +44,15 @@ export default function Navbar() {
             setShowArrows(el.scrollWidth > el.clientWidth);
         };
 
+        let resizeTimeout: NodeJS.Timeout;
+        const handleResize = () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(checkOverflow, 200);
+        };
+
         checkOverflow();
-        window.addEventListener('resize', checkOverflow);
-        return () => window.removeEventListener('resize', checkOverflow);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     const handleLinkClick = (hash: string) => (e: React.MouseEvent) => {
@@ -71,26 +77,27 @@ export default function Navbar() {
                     <Link href="/pages/Login">Acessar área Admin</Link>
                     <Cart />
                 </div>
-                <li className={styles.mobileOnly}>
-                    <Cart />
-                </li>
                 <div className={styles.Bars} onClick={toggleMenu}>
                     {isActive ? <IoCloseSharp /> : <FaBars />}
                 </div>
             </div>
 
-            <div className={`${styles.menuDrawer} ${isActive ? styles.active : ''}`}>
-                <li className={styles.mobileOnly}>
-                    <Link href={'#'}>Olá, inscreva-se para atualizações</Link>
-                </li>
-                <li className={styles.mobileOnly}>
-                    <Link href={'#'}>Entre em contato!</Link>
-                </li>
-
-                <li className={`${styles.mobileOnly} ${styles.Admin}`}>
-                    <Link href="/pages/Login">Acessar área Admin</Link>
-                </li>
-            </div>
+            {isActive && (
+                <ul className={`${styles.menuDrawer} ${styles.active}`}>
+                    <li>
+                        <Cart />
+                    </li>
+                    <li>
+                        <Link href="#">Olá, inscreva-se para atualizações</Link>
+                    </li>
+                    <li>
+                        <Link href="/contato">Entre em contato!</Link>
+                    </li>
+                    <li className={styles.Admin}>
+                        <Link href="/pages/Login">Acessar área Admin</Link>
+                    </li>
+                </ul>
+            )}
 
             <div className={styles.scrollContainer}>
                 {showArrows && (

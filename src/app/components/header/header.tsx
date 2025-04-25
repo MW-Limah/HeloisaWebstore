@@ -15,25 +15,14 @@ export default function Header() {
     const [imageQuality, setImageQuality] = useState<'low' | 'high'>('high');
 
     useEffect(() => {
-        // simples detecção de desempenho e qualidade de tela
         const start = performance.now();
         requestAnimationFrame(() => {
             const duration = performance.now() - start;
             const dpr = window.devicePixelRatio;
 
-            // Se renderização for lenta OU DPR for baixo, baixa qualidade
             if (duration > 16 || dpr <= 1) {
                 setImageQuality('low');
-            } else {
-                setImageQuality('high');
             }
-        });
-    }, []);
-
-    useEffect(() => {
-        slides.forEach((slide) => {
-            const img = new window.Image();
-            img.src = slide.src;
         });
     }, []);
 
@@ -44,11 +33,6 @@ export default function Header() {
         return () => clearInterval(interval);
     }, []);
 
-    const imageSizes = {
-        low: { width: 380, height: 100 },
-        high: { width: 1000, height: 500 },
-    };
-
     return (
         <header className={styles.header}>
             <div className={styles.slider}>
@@ -57,10 +41,11 @@ export default function Header() {
                         <Image
                             src={slide.src}
                             alt={slide.alt}
-                            width={imageSizes[imageQuality].width}
-                            height={imageSizes[imageQuality].height}
-                            style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
+                            fill
                             priority={index === 0}
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                            quality={imageQuality === 'high' ? 75 : 30}
+                            className={styles.image}
                         />
                     </div>
                 ))}

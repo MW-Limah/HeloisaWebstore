@@ -1,35 +1,31 @@
 .header {
     width: 100%;
     height: auto;
-    aspect-ratio: 26/9;
+    aspect-ratio: 24 / 12; /* você pode ajustar isso conforme sua preferência */
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
+    margin: -8% 0;
+    left: 5%;
 }
+
 .slider {
     position: relative;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 .slide {
     position: absolute;
-    top: 0;
-    left: 30%;
     width: 50%;
-    height: 100%;
+    height: 50%;
     opacity: 0;
     transition: opacity 1s ease-in-out;
     will-change: opacity;
     z-index: 0;
-}
-
-.slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+    display: flex;
 }
 
 .slide.active {
@@ -41,32 +37,39 @@
     object-fit: cover;
 }
 
+/* Responsivo */
 @media (max-width: 1024px) {
     .header {
-        aspect-ratio: 16 / 9; /* menos horizontal */
+        aspect-ratio: 16 / 9;
+        left: 10%;
     }
+
     .slide {
         width: 80%;
-        left: 20%;
+        height: 60%;
     }
 }
 
 @media (max-width: 768px) {
+    .header {
+        aspect-ratio: 3 / 2;
+        left: 15%;
+    }
+
     .slide {
         width: 100%;
-        left: 10%;
+        height: 60%;
     }
 }
 
-/* CELULARES: slide ocupa 100% da largura */
 @media (max-width: 500px) {
     .header {
-        aspect-ratio: 4 / 3; /* Mais vertical para celular */
+        margin: 5% 0;
+        aspect-ratio: 6 / 3;
     }
 
     .slide {
         width: 100%;
-        left: 10%;
-        transform: none;
+        height: 100%;
     }
 }

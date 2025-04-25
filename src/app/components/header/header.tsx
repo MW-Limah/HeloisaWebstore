@@ -35,7 +35,7 @@ export default function Header() {
 
     return (
         <header className={styles.header}>
-            {/*  <div className={styles.slider}>
+            <div className={styles.slider}>
                 {slides.map((slide, index) => (
                     <div key={slide.id} className={`${styles.slide} ${index === current ? styles.active : ''}`}>
                         <Image
@@ -43,13 +43,13 @@ export default function Header() {
                             alt={slide.alt}
                             fill
                             priority={index === 0}
-                            sizes="(max-width: 768px) 100vw, 50vw"
+                            sizes="(max-width: 768px) 100vw, 80vw"
                             quality={imageQuality === 'high' ? 75 : 30}
                             className={styles.image}
                         />
                     </div>
                 ))}
-            </div> */}
+            </div>
         </header>
     );
 }

@@ -1,6 +1,9 @@
+// src/app/layout.tsx
+
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import AuthSessionProvider from './SessionProvider'; // Importando
+import AuthSessionProvider from './SessionProvider';
+import { CartProvider } from './components/Cart/CartContext'; // <-- importe o CartProvider
 
 // Fontes
 const geistSans = Geist({
@@ -22,11 +25,13 @@ export const metadata = {
 };
 
 // Layout principal
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="pt-BR">
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
-                <AuthSessionProvider>{children}</AuthSessionProvider>
+                <AuthSessionProvider>
+                    <CartProvider>{children}</CartProvider>
+                </AuthSessionProvider>
             </body>
         </html>
     );

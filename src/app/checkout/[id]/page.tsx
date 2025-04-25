@@ -58,7 +58,13 @@ export default function CheckoutPage() {
                     <Comments />
                 </div>
                 <div className={styles.rightSide}>
-                    <CheckoutForm title={item.title} description={item.description} price={item.price} />
+                    <CheckoutForm
+                        id={item.id}
+                        title={item.title}
+                        description={item.description}
+                        price={item.price}
+                        image={item.images[0]} // primeira imagem
+                    />
                 </div>
             </div>
         </div>

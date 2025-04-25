@@ -1,14 +1,35 @@
 'use client';
 
 import styles from './CheckoutForm.module.css';
+import { useCart } from '@/app/components/Cart/CartContext';
+import { useState } from 'react';
 
 interface CheckoutFormProps {
+    id: string;
     title: string;
     description: string;
     price: string;
+    image: string;
 }
 
-export default function CheckoutForm({ title, description, price }: CheckoutFormProps) {
+export default function CheckoutForm({ id, title, description, price, image }: CheckoutFormProps) {
+    const { addToCart } = useCart();
+    const [quantity, setQuantity] = useState(1);
+    const [color, setColor] = useState('verde');
+
+    const handleAddToCart = () => {
+        addToCart({
+            id,
+            title,
+            price: Number(price),
+            image,
+            quantity,
+            color,
+        });
+
+        alert('Produto adicionado ao carrinho! 🛒');
+    };
+
     return (
         <form className={styles.checkoutForm}>
             <h2>Check-out</h2>
@@ -45,7 +66,12 @@ export default function CheckoutForm({ title, description, price }: CheckoutForm
                         <label className={styles.labell} htmlFor="quantity">
                             Em estoque
                         </label>
-                        <select id="quantity" name="quantity" defaultValue="1">
+                        <select
+                            id="quantity"
+                            name="quantity"
+                            value={quantity}
+                            onChange={(e) => setQuantity(Number(e.target.value))}
+                        >
                             {[1, 2, 3, 4, 5].map((num) => (
                                 <option key={num} value={num}>
                                     {num}
@@ -55,7 +81,7 @@ export default function CheckoutForm({ title, description, price }: CheckoutForm
                     </div>
                     <div className={styles.finishItem}>
                         <label htmlFor="color">Cor</label>
-                        <select id="color" name="color" defaultValue="verde">
+                        <select id="color" name="color" value={color} onChange={(e) => setColor(e.target.value)}>
                             {['verde', 'vermelho', 'azul', 'preto'].map((cor) => (
                                 <option key={cor} value={cor}>
                                     {cor}
@@ -68,9 +94,16 @@ export default function CheckoutForm({ title, description, price }: CheckoutForm
                 <div className={styles.bottomFinish}>
                     <h3 className={styles.price}>R$ {price}</h3>
                     <p>{Number(price) - 2},00 + 2,00 (entrega)</p>
-                    <button type="submit" className={styles.buttonFinish}>
-                        Finalizar compra
-                    </button>
+
+                    <div className={styles.buttonsWrapper}>
+                        <button type="button" className={styles.buttonAddCart} onClick={handleAddToCart}>
+                            Adicionar ao carrinho
+                        </button>
+
+                        <button type="submit" className={styles.buttonFinish}>
+                            Finalizar compra
+                        </button>
+                    </div>
                 </div>
             </div>
         </form>

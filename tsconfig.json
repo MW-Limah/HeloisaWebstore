@@ -28,7 +28,7 @@
         ".next/types/**/*.ts",
         "**/*.ts",
         "**/*.tsx",
-        "src/app/layout.jsx",
+        "src/app/layout.tsx",
         "src/app/pages/Admin/form/form/form.tsx",
         "src/app/api/signup/route.ts",
         "src/app/components/nav/justTop.jsx"

@@ -31,6 +31,10 @@
     font-size: 1.8rem;
     color: white;
 }
+
+.ButtonBack {
+    z-index: 5;
+}
 /* Drawer lateral apenas para conteúdos extras no mobile */
 .menuDrawer {
     display: none;

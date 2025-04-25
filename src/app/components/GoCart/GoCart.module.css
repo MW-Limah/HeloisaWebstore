@@ -1,0 +1,13 @@
+.GoCart {
+    display: flex;
+    align-items: center;
+    position: relative;
+    bottom: 1px;
+    font-weight: 600;
+}
+
+@media (max-width: 550px) {
+    .GoCart {
+        font-size: 1.2rem;
+    }
+}

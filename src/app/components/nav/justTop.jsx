@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { IoCloseSharp } from 'react-icons/io5';
 import { FaBars } from 'react-icons/fa';
 import ButtonBack from '@/app/components/buttonBack/buttonBack';
+import Cart from '@/app/components/GoCart/GoCart';
 
 export default function JustTop() {
     const [isActive, setIsActive] = useState(false);
@@ -24,7 +25,11 @@ export default function JustTop() {
                     <ButtonBack />
                     <Link href={'#'}>Olá, inscreva-se para atualizações</Link>
                     <Link href="/pages/Login">Acessar área Admin</Link>
+                    <Cart />
                 </div>
+                <li className={styles.mobileOnly}>
+                    <Cart />
+                </li>
                 <div className={styles.Bars} onClick={toggleMenu}>
                     {isActive ? <IoCloseSharp /> : <FaBars />}
                 </div>
@@ -32,7 +37,7 @@ export default function JustTop() {
 
             <div className={`${styles.menuDrawer} ${isActive ? styles.active : ''}`}>
                 <li className={styles.mobileOnly}>
-                    <Link href={'#'}>Voltar ao início</Link>
+                    <Link href={'/'}>Voltar ao início</Link>
                 </li>
                 <li className={styles.mobileOnly}>
                     <Link href={'#'}>Olá, inscreva-se para atualizações</Link>

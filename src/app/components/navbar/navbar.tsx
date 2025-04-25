@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { FaBars } from 'react-icons/fa';
 import { IoCloseSharp } from 'react-icons/io5';
+import Cart from '@/app/components/GoCart/GoCart';
 
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
@@ -68,7 +69,11 @@ export default function Navbar() {
                     <Link href={'#'}>Olá, inscreva-se para atualizações</Link>
                     <Link href={'/contato'}>Entre em contato!</Link>
                     <Link href="/pages/Login">Acessar área Admin</Link>
+                    <Cart />
                 </div>
+                <li className={styles.mobileOnly}>
+                    <Cart />
+                </li>
                 <div className={styles.Bars} onClick={toggleMenu}>
                     {isActive ? <IoCloseSharp /> : <FaBars />}
                 </div>
@@ -81,6 +86,7 @@ export default function Navbar() {
                 <li className={styles.mobileOnly}>
                     <Link href={'#'}>Entre em contato!</Link>
                 </li>
+
                 <li className={`${styles.mobileOnly} ${styles.Admin}`}>
                     <Link href="/pages/Login">Acessar área Admin</Link>
                 </li>

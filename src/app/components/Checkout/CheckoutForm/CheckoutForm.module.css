@@ -26,7 +26,7 @@
     height: 740px;
     width: 600px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
+    position: absolute;
 }
 
 .itemTitle {
@@ -244,10 +244,17 @@
         display: none;
     }
 
-    .bottomFinish {
-        display: flex;
+    .buttonsWrapper {
+        position: relative;
         flex-direction: column;
-        gap: 0.5rem;
-        margin-top: 1rem;
+        left: 0;
+        bottom: 70px;
+        margin: 20px -10px;
+    }
+
+    .buttonsWrapper button {
+        width: 50%;
+        margin: -5px 0;
+        font-size: 0.8rem;
     }
 }

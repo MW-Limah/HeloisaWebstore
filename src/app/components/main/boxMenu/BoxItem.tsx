@@ -20,75 +20,62 @@ export default function BoxItem() {
     const [items, setItems] = useState<BoxItemData[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-    const [hoveredIndex, setHoveredIndex] = useState<{ [key: string]: boolean }>({});
     const [filteredTheme, setFilteredTheme] = useState<string | null>(null);
-
     const itemRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
-    // Captura o hash da URL
+    // Filtro baseado no hash da URL
     useEffect(() => {
-        const handleHashChange = () => {
+        const applyHash = () => {
             const hash = window.location.hash.replace('#', '');
             setFilteredTheme(hash || null);
         };
-
-        handleHashChange(); // aplica na carga inicial
-        window.addEventListener('hashchange', handleHashChange);
-        return () => window.removeEventListener('hashchange', handleHashChange);
+        applyHash();
+        window.addEventListener('hashchange', applyHash);
+        return () => window.removeEventListener('hashchange', applyHash);
     }, []);
 
-    // Busca os dados do Supabase com ou sem filtro
+    // Busca dados do Supabase
     useEffect(() => {
-        async function fetchItems(theme?: string | null) {
+        async function fetchItems() {
             setLoading(true);
-            let query = supabase.from('box-items').select('*');
+            try {
+                let query = supabase.from('box-items').select('*');
+                if (filteredTheme) query = query.eq('theme', filteredTheme);
 
-            if (theme) {
-                query = query.eq('theme', theme);
-            }
+                const { data, error } = await query.order('created_at', { ascending: false });
 
-            const { data, error } = await query.order('created_at', { ascending: false });
-
-            if (error) {
-                console.error('Erro ao buscar itens:', error);
-                setError(error.message);
-            } else {
+                if (error) throw error;
                 setItems(data as BoxItemData[]);
+            } catch (err: any) {
+                console.error('Erro ao buscar itens:', err.message);
+                setError('Não foi possível carregar os itens.');
+            } finally {
+                setLoading(false);
             }
-
-            setLoading(false);
         }
 
-        fetchItems(filteredTheme);
+        fetchItems();
     }, [filteredTheme]);
 
-    // Scroll para o primeiro item após o carregamento
+    // Scroll para o primeiro item ao carregar
     useEffect(() => {
         if (!loading && filteredTheme && items.length > 0) {
-            const targetItem = items[0];
-            const targetRef = itemRefs.current[targetItem.id];
-
-            if (targetRef) {
+            const firstItemRef = itemRefs.current[items[0].id];
+            if (firstItemRef) {
                 setTimeout(() => {
-                    targetRef.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center',
-                    });
-                }, 300);
+                    firstItemRef.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 200);
             }
         }
     }, [items, loading, filteredTheme]);
 
-    if (loading) return <p className={styles.loading}></p>;
-    if (error) return <p>Erro ao carregar os itens: {error}</p>;
+    if (loading) return <p className={styles.loading}>Carregando...</p>;
+    if (error) return <p>{error}</p>;
 
     return (
         <section className={styles.gridContainer}>
             {items.map((item) => {
-                const firstImage = item.images[0];
-                const secondImage = item.images[1] || item.images[0];
-                const isHovered = hoveredIndex[item.id];
-
+                const [firstImage, secondImage] = item.images;
                 return (
                     <article
                         key={item.id}
@@ -98,16 +85,14 @@ export default function BoxItem() {
                         }}
                     >
                         <Link href={`/checkout/${item.id}`}>
-                            <div
-                                className={styles.boxItem}
-                                onMouseEnter={() => setHoveredIndex((prev) => ({ ...prev, [item.id]: true }))}
-                                onMouseLeave={() => setHoveredIndex((prev) => ({ ...prev, [item.id]: false }))}
-                            >
+                            <div className={styles.boxItem}>
                                 <Image
-                                    src={isHovered ? secondImage : firstImage}
+                                    src={firstImage}
                                     alt={`Imagem do item ${item.title}`}
                                     fill
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    quality={70}
+                                    loading="lazy"
                                     style={{ objectFit: 'cover', objectPosition: 'center' }}
                                 />
                             </div>

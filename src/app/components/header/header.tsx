@@ -14,6 +14,7 @@ export default function Header() {
     const [current, setCurrent] = useState(0);
     const [imageQuality, setImageQuality] = useState<'low' | 'high'>('high');
 
+    // Reduz qualidade se desempenho estiver baixo
     useEffect(() => {
         const start = performance.now();
         requestAnimationFrame(() => {
@@ -26,6 +27,7 @@ export default function Header() {
         });
     }, []);
 
+    // Avança os slides automaticamente
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrent((prev) => (prev + 1) % slides.length);
@@ -33,22 +35,37 @@ export default function Header() {
         return () => clearInterval(interval);
     }, []);
 
+    // Preload do próximo slide
+    useEffect(() => {
+        const nextIndex = (current + 1) % slides.length;
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = slides[nextIndex].src;
+        document.head.appendChild(link);
+
+        return () => {
+            if (document.head.contains(link)) {
+                document.head.removeChild(link);
+            }
+        };
+    }, [current]);
+
+    const currentSlide = slides[current];
+
     return (
         <header className={styles.header}>
             <div className={styles.slider}>
-                {slides.map((slide, index) => (
-                    <div key={slide.id} className={`${styles.slide} ${index === current ? styles.active : ''}`}>
-                        <Image
-                            src={slide.src}
-                            alt={slide.alt}
-                            fill
-                            priority={index === 0}
-                            sizes="(max-width: 768px) 100vw, 80vw"
-                            quality={imageQuality === 'high' ? 75 : 30}
-                            className={styles.image}
-                        />
-                    </div>
-                ))}
+                <Image
+                    key={currentSlide.id}
+                    src={currentSlide.src}
+                    alt={currentSlide.alt}
+                    fill
+                    priority={current === 0}
+                    sizes="(max-width: 768px) 100vw, 80vw"
+                    quality={imageQuality === 'high' ? 75 : 30}
+                    className={styles.image}
+                />
             </div>
         </header>
     );

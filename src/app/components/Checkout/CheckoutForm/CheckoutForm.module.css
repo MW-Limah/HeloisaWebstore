@@ -235,26 +235,45 @@
     .checkoutForm {
         width: 100%;
         margin: -15px 0 0;
+        height: auto;
+        padding: 1.5rem;
+        box-sizing: border-box;
+        overflow-y: auto;
     }
 
-    .checkoutForm::-webkit-scrollbar {
-        display: none;
-    }
+    .checkoutForm::-webkit-scrollbar,
     .checkoutForm::-webkit-scrollbar-thumb {
         display: none;
     }
 
     .buttonsWrapper {
-        position: relative;
+        display: flex;
         flex-direction: column;
-        left: 0;
-        bottom: 70px;
-        margin: 20px -10px;
+        margin-top: 1rem;
+        padding: 0;
     }
 
-    .buttonsWrapper button {
+    .priceGroup {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .priceGroup .price {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .priceGroup button {
         width: 50%;
-        margin: -5px 0;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .buttonFinish,
+    .buttonAddCart {
+        width: 60%;
+        font-size: 1rem;
+        border-radius: 12px;
     }
 }

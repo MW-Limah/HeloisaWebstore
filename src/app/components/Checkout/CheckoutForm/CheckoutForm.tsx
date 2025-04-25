@@ -17,6 +17,18 @@ export default function CheckoutForm({ id, title, description, price, image }: C
     const [quantity, setQuantity] = useState(1);
     const [color, setColor] = useState('verde');
 
+    const [formData, setFormData] = useState({
+        name: '',
+        phone: '',
+        email: '',
+        address: '',
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+
     const handleAddToCart = () => {
         addToCart({
             id,
@@ -30,15 +42,25 @@ export default function CheckoutForm({ id, title, description, price, image }: C
         alert('Produto adicionado ao carrinho! 🛒');
     };
 
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        console.log('Finalizando compra com dados:', {
+            ...formData,
+            product: { id, title, quantity, color },
+        });
+
+        alert('Compra finalizada com sucesso! 🎉');
+    };
+
     return (
-        <form className={styles.checkoutForm}>
+        <form className={styles.checkoutForm} onSubmit={handleSubmit}>
             <h2>Check-out</h2>
             <h3 className={styles.itemTitle}>{title}</h3>
             <p className={styles.itemDescription}>{description}</p>
 
             <div className={styles.inputGroup}>
                 <label htmlFor="name">Qual seu nome?</label>
-                <input type="text" id="name" name="name" required />
+                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
             </div>
 
             <div className={styles.contactClient}>
@@ -46,25 +68,46 @@ export default function CheckoutForm({ id, title, description, price, image }: C
                 <div className={styles.contactInputs}>
                     <div className={styles.inputGroupContact}>
                         <label htmlFor="phone">Telefone</label>
-                        <input type="text" id="phone" name="phone" required />
+                        <input
+                            type="text"
+                            id="phone"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            required
+                        />
                     </div>
                     <div className={styles.inputGroupContact}>
                         <label htmlFor="email">E-mail</label>
-                        <input type="email" id="email" name="email" required />
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
                     </div>
                 </div>
             </div>
 
             <div className={styles.inputGroup}>
                 <label htmlFor="address">Qual seu endereço?</label>
-                <input type="text" id="address" name="address" required />
+                <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    required
+                />
             </div>
 
             <div className={styles.finishing}>
                 <div className={styles.topFinish}>
                     <div className={styles.finishItem}>
                         <label className={styles.labell} htmlFor="quantity">
-                            Em estoque
+                            Quantidade
                         </label>
                         <select
                             id="quantity"
@@ -93,7 +136,7 @@ export default function CheckoutForm({ id, title, description, price, image }: C
 
                 <div className={styles.bottomFinish}>
                     <h3 className={styles.price}>R$ {price}</h3>
-                    <p>{Number(price) - 2},00 + 2,00 (entrega)</p>
+                    <p>R$ {Number(price) - 2},00 + 2,00 (entrega)</p>
 
                     <div className={styles.buttonsWrapper}>
                         <button type="button" className={styles.buttonAddCart} onClick={handleAddToCart}>

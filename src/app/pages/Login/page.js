@@ -1,8 +1,7 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { sendPasswordReset } from '@/app/api/actions/send-reset';
 import styles from './LoginAdmin.module.css';
 import Link from 'next/link';
@@ -13,7 +12,14 @@ export default function LoginAdmin() {
     const [senha, setSenha] = useState('');
     const [forgotMode, setForgotMode] = useState(false);
     const [msg, setMsg] = useState('');
+    const { data: session, status } = useSession();
     const router = useRouter();
+
+    useEffect(() => {
+        if (status === 'authenticated') {
+            router.push('/pages/Admin');
+        }
+    }, [status, router]);
 
     const handleLogin = async (e) => {
         e.preventDefault();

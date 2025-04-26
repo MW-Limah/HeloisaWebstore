@@ -10,12 +10,22 @@ interface CheckoutFormProps {
     description: string;
     price: string;
     image: string;
+    colors?: string[];
+    quantities?: number[];
 }
 
-export default function CheckoutForm({ id, title, description, price, image }: CheckoutFormProps) {
+export default function CheckoutForm({
+    id,
+    title,
+    description,
+    price,
+    image,
+    colors = [],
+    quantities = [],
+}: CheckoutFormProps) {
     const { addToCart } = useCart();
-    const [quantity, setQuantity] = useState(1);
-    const [color, setColor] = useState('verde');
+    const [quantity, setQuantity] = useState<number>(quantities.length > 0 ? quantities[0] : 0);
+    const [color, setColor] = useState<string>(colors.length > 0 ? colors[0] : '');
 
     const [formData, setFormData] = useState({
         name: '',
@@ -30,6 +40,11 @@ export default function CheckoutForm({ id, title, description, price, image }: C
     };
 
     const handleAddToCart = () => {
+        if (quantity === 0 || color === '') {
+            alert('Selecione uma quantidade e uma cor antes de adicionar ao carrinho.');
+            return;
+        }
+
         addToCart({
             id,
             title,
@@ -44,6 +59,12 @@ export default function CheckoutForm({ id, title, description, price, image }: C
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (quantity === 0 || color === '') {
+            alert('Selecione uma quantidade e uma cor antes de finalizar a compra.');
+            return;
+        }
+
         console.log('Finalizando compra com dados:', {
             ...formData,
             product: { id, title, quantity, color },
@@ -115,21 +136,30 @@ export default function CheckoutForm({ id, title, description, price, image }: C
                             value={quantity}
                             onChange={(e) => setQuantity(Number(e.target.value))}
                         >
-                            {[1, 2, 3, 4, 5].map((num) => (
-                                <option key={num} value={num}>
-                                    {num}
-                                </option>
-                            ))}
+                            {quantities.length > 0 ? (
+                                quantities.map((qtd) => (
+                                    <option key={qtd} value={qtd}>
+                                        {qtd}
+                                    </option>
+                                ))
+                            ) : (
+                                <option value={0}>Nenhuma quantidade disponível</option>
+                            )}
                         </select>
                     </div>
+
                     <div className={styles.finishItem}>
                         <label htmlFor="color">Cor</label>
                         <select id="color" name="color" value={color} onChange={(e) => setColor(e.target.value)}>
-                            {['verde', 'vermelho', 'azul', 'preto'].map((cor) => (
-                                <option key={cor} value={cor}>
-                                    {cor}
-                                </option>
-                            ))}
+                            {colors.length > 0 ? (
+                                colors.map((cor) => (
+                                    <option key={cor} value={cor}>
+                                        {cor}
+                                    </option>
+                                ))
+                            ) : (
+                                <option value="">Nenhuma cor disponível</option>
+                            )}
                         </select>
                     </div>
                 </div>

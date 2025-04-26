@@ -23,6 +23,8 @@ export default function BoxForm({ isOpen, onClose }: BoxFormProps) {
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
     const [images, setImages] = useState<File[]>([]);
+    const [colors, setColors] = useState('');
+    const [quantities, setQuantities] = useState('');
     const [uploading, setUploading] = useState(false);
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,6 +39,11 @@ export default function BoxForm({ isOpen, onClose }: BoxFormProps) {
 
         if (images.length === 0) {
             alert('Envie pelo menos uma imagem!');
+            return;
+        }
+
+        if (!colors.trim() || !quantities.trim()) {
+            alert('Preencha as cores e quantidades corretamente!');
             return;
         }
 
@@ -55,9 +62,24 @@ export default function BoxForm({ isOpen, onClose }: BoxFormProps) {
                 imageUrls.push(publicUrlData.publicUrl);
             }
 
-            const { error: insertError } = await supabase
-                .from('box-items')
-                .insert([{ title, theme, price, description, images: imageUrls }]);
+            // 🚀 Aqui convertemos corretamente antes do insert:
+            const colorsArray = colors.split(',').map((color) => color.trim());
+            const quantitiesArray = quantities.includes(',')
+                ? quantities.split(',').map((qty) => parseInt(qty.trim(), 10))
+                : Array.from({ length: parseInt(quantities.trim(), 10) }, (_, i) => i + 1);
+
+            const { error: insertError } = await supabase.from('box-items').insert([
+                {
+                    title,
+                    theme,
+                    price,
+                    description,
+                    images: imageUrls,
+                    colors: colorsArray, // ✅ array real aqui
+                    quantities: quantitiesArray, // ✅ array real aqui
+                },
+            ]);
+
             if (insertError) throw insertError;
 
             alert('Item criado com sucesso!');
@@ -66,6 +88,8 @@ export default function BoxForm({ isOpen, onClose }: BoxFormProps) {
             setPrice('');
             setDescription('');
             setImages([]);
+            setColors('');
+            setQuantities('');
             onClose();
         } catch (err: any) {
             console.error('Erro ao salvar:', err.message);
@@ -119,6 +143,21 @@ export default function BoxForm({ isOpen, onClose }: BoxFormProps) {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
+
+                    {/* NOVOS CAMPOS */}
+                    <input
+                        type="text"
+                        placeholder="Cores disponíveis (Separe as cores por vírgula, ex: Vermelho, Azul)"
+                        value={colors}
+                        onChange={(e) => setColors(e.target.value)}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Quantidades disponíveis (Coloque o apenas número total disponível ex: 4)"
+                        value={quantities}
+                        onChange={(e) => setQuantities(e.target.value)}
+                    />
+
                     <button type="submit" disabled={uploading}>
                         {uploading ? 'Enviando...' : 'Salvar'}
                     </button>

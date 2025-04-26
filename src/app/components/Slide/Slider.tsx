@@ -9,22 +9,22 @@ const slides = [
         id: 1,
         src: '/images/slide1.png',
         alt: 'Slide 1',
-        title: 'Novo lançamento',
-        subtitle: 'Coleção Primavera 2025',
+        title: 'Pente e espelhos portáteis',
+        subtitle: 'Perfeitos para qualquer ocasião',
     },
     {
         id: 2,
         src: '/images/slide2.png',
         alt: 'Slide 2',
-        title: 'Pente e espelhos portáteis',
-        subtitle: 'Perfeitos para qualquer ocasião',
+        title: 'Coleção de Verão',
+        subtitle: 'Flor Havaina, a beleza mais tropical',
     },
     {
         id: 3,
         src: '/images/slide3.png',
         alt: 'Slide 3',
         title: 'Batom Matte',
-        subtitle: 'Lindo Batom Matte, para durar o dia todo',
+        subtitle: 'Feito para durar o dia todo',
     },
 ];
 

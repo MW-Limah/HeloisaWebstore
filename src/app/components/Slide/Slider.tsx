@@ -32,6 +32,7 @@ export default function SlideShow() {
     const [current, setCurrent] = useState(0);
     const [imageQuality, setImageQuality] = useState<'low' | 'high'>('high');
 
+    // Ajusta qualidade baseado no desempenho inicial
     useEffect(() => {
         const start = performance.now();
         requestAnimationFrame(() => {
@@ -41,24 +42,13 @@ export default function SlideShow() {
         });
     }, []);
 
+    // Avança os slides automaticamente
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrent((prev) => (prev + 1) % slides.length);
         }, 5000);
         return () => clearInterval(interval);
     }, []);
-
-    useEffect(() => {
-        const nextIndex = (current + 1) % slides.length;
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'image';
-        link.href = slides[nextIndex].src;
-        document.head.appendChild(link);
-        return () => {
-            if (document.head.contains(link)) document.head.removeChild(link);
-        };
-    }, [current]);
 
     const currentSlide = slides[current];
 

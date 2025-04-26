@@ -1,12 +1,16 @@
 .slider {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 2rem;
     padding: 2rem;
-    flex-wrap: wrap; /* Garante responsividade */
-    position: relative;
-    right: 50px;
+    box-sizing: border-box;
 }
 
 .imageWrapper {
@@ -19,6 +23,8 @@
 .image {
     object-fit: contain;
     border-radius: 0.75rem;
+    width: 100%;
+    height: 100%;
 }
 
 .overlay {
@@ -41,20 +47,92 @@
     color: #666;
 }
 
-/* Responsivo */
-@media (max-width: 768px) {
+/* === MEDIA QUERIES === */
+
+/* Até 1370px */
+@media (max-width: 1370px) {
     .slider {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+        transform: translateX(-50%);
     }
 
     .imageWrapper {
-        width: 150px;
-        height: 180px;
+        width: 220px;
+        height: 220px;
+    }
+    .title {
+        font-size: 1.4rem;
+    }
+}
+
+/* Até 1200px */
+@media (max-width: 1200px) {
+    .slider {
+        transform: translateX(-50%);
     }
 
+    .imageWrapper {
+        width: 200px;
+        height: 180px;
+    }
+}
+
+/* Até 850px */
+@media (max-width: 850px) {
+    .slider {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        transform: translateX(-50%);
+    }
+    .imageWrapper {
+        width: 160px;
+        height: 160px;
+    }
     .overlay {
         align-items: center;
+        text-align: center;
+        max-width: 90%;
+    }
+    .title {
+        font-size: 1.3rem;
+    }
+    .subtitle {
+        font-size: 0.9rem;
+    }
+}
+
+/* Até 620px */
+@media (max-width: 620px) {
+    .slider {
+        padding: 1rem;
+        transform: translateX(-50%);
+    }
+    .imageWrapper {
+        width: 120px;
+        height: 120px;
+    }
+    .title {
+        font-size: 1.1rem;
+    }
+    .subtitle {
+        font-size: 0.85rem;
+    }
+}
+
+/* Até 460px */
+@media (max-width: 460px) {
+    .slider {
+        padding: 1rem;
+        transform: translateX(-50%);
+    }
+    .imageWrapper {
+        width: 100px;
+        height: 90px;
+    }
+    .title {
+        font-size: 1.1rem;
+    }
+    .subtitle {
+        font-size: 0.85rem;
     }
 }

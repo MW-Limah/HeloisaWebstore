@@ -1,12 +1,27 @@
 .header {
-    width: 50%;
+    position: relative; /* necessário para o filho absoluto */
+    width: 100%; /* ocupa toda a largura do pai */
+    max-width: 1200px; /* opcional: limita o tamanho máximo */
     height: auto;
     aspect-ratio: 30 / 12;
-    position: relative;
     overflow: hidden;
+    margin: 4% auto; /* centraliza horizontalmente */
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 4% 0;
-    left: 28%;
+}
+
+/* Se quiser manter 50% somente em telas grandes */
+@media (min-width: 1200px) {
+    .header {
+        width: 50%;
+    }
+}
+
+/* Ajuste para telas médias */
+@media (max-width: 986px) {
+    .header {
+        width: 100%;
+        aspect-ratio: 24 / 12; /* ou outro ratio que funcione melhor */
+    }
 }

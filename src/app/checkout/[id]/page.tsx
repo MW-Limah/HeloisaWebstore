@@ -16,8 +16,8 @@ interface BoxItemData {
     description: string;
     theme: string;
     price: string;
-    quantities: number[]; // ✅ Já é array de número
-    colors: string[]; // ✅ Já é array de string
+    quantities: number[];
+    colors: string[];
 }
 
 export default function CheckoutPage() {
@@ -65,9 +65,10 @@ export default function CheckoutPage() {
                         title={item.title}
                         description={item.description}
                         price={item.price}
-                        image={item.images[0]}
-                        colors={item.colors || []} // ✅ Agora pega direto o array colors
-                        quantities={item.quantities || []} // ✅ Agora pega direto o array quantities
+                        image={item.images[0]} // imagem principal
+                        images={item.images} // ✅ passar todas as imagens
+                        colors={item.colors || []}
+                        quantities={item.quantities || []}
                     />
                 </div>
             </div>

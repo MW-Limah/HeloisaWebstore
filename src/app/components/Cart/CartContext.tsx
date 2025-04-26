@@ -6,16 +6,18 @@ export interface CartItem {
     id: string;
     title: string;
     price: number;
-    image: string;
+    image: string; // imagem principal
+    images: string[]; // ✅ nova propriedade: todas as imagens disponíveis
     quantity: number;
     color: string;
+    maxQuantity: number;
 }
 
 interface CartContextType {
     cart: CartItem[];
     addToCart: (item: CartItem) => void;
-    removeFromCart: (id: string) => void;
-    updateQuantity: (id: string, quantity: number) => void;
+    removeFromCart: (id: string, color: string) => void;
+    updateQuantity: (id: string, color: string, quantity: number) => void;
     clearCart: () => void;
     getTotal: () => number;
 }
@@ -25,7 +27,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: ReactNode }) {
     const [cart, setCart] = useState<CartItem[]>([]);
 
-    // Persistência simples
+    // LocalStorage
     useEffect(() => {
         const stored = localStorage.getItem('cart');
         if (stored) setCart(JSON.parse(stored));
@@ -40,19 +42,27 @@ export function CartProvider({ children }: { children: ReactNode }) {
             const existing = prev.find((i) => i.id === item.id && i.color === item.color);
             if (existing) {
                 return prev.map((i) =>
-                    i.id === item.id && i.color === item.color ? { ...i, quantity: i.quantity + item.quantity } : i
+                    i.id === item.id && i.color === item.color
+                        ? { ...i, quantity: Math.min(i.quantity + item.quantity, i.maxQuantity) }
+                        : i
                 );
             }
             return [...prev, item];
         });
     };
 
-    const removeFromCart = (id: string) => {
-        setCart((prev) => prev.filter((item) => item.id !== id));
+    const removeFromCart = (id: string, color: string) => {
+        setCart((prev) => prev.filter((item) => !(item.id === id && item.color === color)));
     };
 
-    const updateQuantity = (id: string, quantity: number) => {
-        setCart((prev) => prev.map((item) => (item.id === id ? { ...item, quantity } : item)));
+    const updateQuantity = (id: string, color: string, quantity: number) => {
+        setCart((prev) =>
+            prev.map((item) =>
+                item.id === id && item.color === color
+                    ? { ...item, quantity: Math.min(quantity, item.maxQuantity) }
+                    : item
+            )
+        );
     };
 
     const clearCart = () => setCart([]);

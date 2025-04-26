@@ -10,6 +10,7 @@ interface CheckoutFormProps {
     description: string;
     price: string;
     image: string;
+    images: string[];
     colors?: string[];
     quantities?: number[];
 }
@@ -20,6 +21,7 @@ export default function CheckoutForm({
     description,
     price,
     image,
+    images = [],
     colors = [],
     quantities = [],
 }: CheckoutFormProps) {
@@ -50,8 +52,10 @@ export default function CheckoutForm({
             title,
             price: Number(price),
             image,
+            images: images.length > 0 ? images : [image], // ✅ array de imagens
             quantity,
             color,
+            maxQuantity: quantities.length > 0 ? Math.max(...quantities) : 1,
         });
 
         alert('Produto adicionado ao carrinho! 🛒');

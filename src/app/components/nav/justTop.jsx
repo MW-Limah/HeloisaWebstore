@@ -1,16 +1,18 @@
 'use client';
 
-import Link from 'next/link';
-import styles from './justTop.module.css';
 import { useState } from 'react';
-import Image from 'next/image';
 import { IoCloseSharp } from 'react-icons/io5';
 import { FaBars } from 'react-icons/fa';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import Image from 'next/image';
+import styles from './justTop.module.css';
 import ButtonBack from '@/app/components/buttonBack/buttonBack';
 import Cart from '@/app/components/GoCart/GoCart';
 
 export default function JustTop() {
     const [isActive, setIsActive] = useState(false);
+    const pathname = usePathname();
     const toggleMenu = () => {
         setIsActive(!isActive);
     };
@@ -25,11 +27,10 @@ export default function JustTop() {
                     <ButtonBack />
                     <Link href={'#'}>Olá, inscreva-se para atualizações</Link>
                     <Link href="/pages/Login">Acessar área Admin</Link>
-                    <Cart />
+                    {pathname !== '/contato' && <Link href={'/contato'}>Entre em contato!</Link>}
+                    {pathname !== '/cart' && <Cart />}
                 </div>
-                <li className={styles.mobileOnly}>
-                    <Cart />
-                </li>
+                <li className={styles.mobileOnly}>{pathname !== '/cart' && <Cart />}</li>
                 <div className={styles.Bars} onClick={toggleMenu}>
                     {isActive ? <IoCloseSharp /> : <FaBars />}
                 </div>

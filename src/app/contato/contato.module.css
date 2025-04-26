@@ -6,46 +6,51 @@
 }
 
 .content {
-    height: 100vh;
+    flex: 1; /* Para ocupar o espaço restante (90%) */
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #000;
-    font-family: 'Times New Roman', Times, serif;
+    gap: 2rem;
+    padding: 2rem;
 }
 
 .form,
 .info {
     display: flex;
     flex-direction: column;
+    justify-content: center; /* Centraliza o conteúdo verticalmente */
+    align-items: center; /* Centraliza o conteúdo horizontalmente */
     width: 100%;
     max-width: 600px;
-    height: 600px;
-    padding: 5%;
-    margin: 45px;
+    height: 100%;
+    max-height: 650px;
+    padding: 2rem;
+    margin: 0; /* Sem margem extra */
     border-radius: 8px;
+    background: linear-gradient(135deg, #fff, #fafafa, #dbdbdb);
     color: #000;
 }
 
-.form {
-    margin-top: -10%;
+.info {
+    align-items: flex-start;
+    justify-content: flex-start; /* Alinha o conteúdo ao topo */
+    padding: 2.5rem;
+    width: 100%;
 }
 
 .form h2,
 .info h2 {
     border-bottom: 2px solid white;
     padding-bottom: 0.5rem;
-    display: flex;
-    justify-content: center;
-}
-
-.form h2 {
     margin-bottom: 1rem;
+    width: 100%;
+    text-align: center;
 }
 
 .name {
     display: flex;
     gap: 1rem;
+    width: 100%;
     margin-bottom: 1rem;
 }
 
@@ -70,12 +75,11 @@
     border: none;
     border-bottom: 1px solid #000;
     border-radius: 0;
-    color: #000;
 }
 
 .container textarea {
     resize: vertical;
-    max-height: 280px;
+    max-height: 200px;
     border-style: dashed;
 }
 
@@ -89,46 +93,44 @@
 }
 
 .form h3 {
-    margin: 50px 0 1px;
+    margin: 1.5rem 0 0.5rem;
     font-weight: 400;
+    align-self: flex-start;
 }
 
 .form p {
-    font-size: 1.2rem;
-    font-weight: 600;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 0.5rem;
-}
-
-.info {
-    position: relative;
-    top: -12%;
-}
-
-.info h2 {
-    margin-bottom: 1rem;
-    border-bottom: 2px solid white;
-    padding-bottom: 0.5rem;
-    display: flex;
-    justify-content: center;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    text-align: center;
 }
 
 .info h3 {
     color: #ab307b;
     font-weight: 500;
     font-size: 1.4rem;
+    margin-top: 1rem;
+    align-self: flex-start;
 }
 
 .info p {
-    margin-bottom: 5%;
+    margin-bottom: 1rem;
     font-size: 1.2rem;
+    align-self: flex-start;
+}
+
+.redesSociais {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 .redesSociais ul {
     list-style: none;
     padding: 0;
-    margin-top: 10px;
+    margin-top: 1rem;
+    width: 100%;
 }
 
 .redesSociais li {
@@ -136,10 +138,25 @@
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.5rem;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 .redesSociais li a {
     color: #2e50b6;
     text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+        font-size: 0.8rem;
+    }
+
+    .content input::placeholder {
+        font-size: 0.8rem;
+    }
+
+    .info p {
+        font-size: 1rem;
+    }
 }

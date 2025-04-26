@@ -104,7 +104,7 @@ export default function BoxItem() {
                             <div className={styles.PriceBuy}>
                                 {item.description && <p className={styles.description}>{item.description}</p>}
                                 <div className={styles.priceSide}>
-                                    {item.price && <p className={styles.price}>R${item.price} a unidade</p>}
+                                    {item.price && <p className={styles.price}>R${item.price},00 a unidade</p>}
                                     <button className={styles.button}>
                                         <PiShoppingCartLight />
                                     </button>

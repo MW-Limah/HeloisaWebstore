@@ -7,21 +7,21 @@ import styles from './Slider.module.css';
 const slides = [
     {
         id: 1,
-        src: '/images/slide1.webp',
+        src: '/images/slide1.png',
         alt: 'Slide 1',
         title: 'Novo lançamento',
         subtitle: 'Coleção Primavera 2025',
     },
     {
         id: 2,
-        src: '/images/slide2.webp',
+        src: '/images/slide2.png',
         alt: 'Slide 2',
         title: 'Pente e espelhos portáteis',
         subtitle: 'Perfeitos para qualquer ocasião',
     },
     {
         id: 3,
-        src: '/images/slide3.webp',
+        src: '/images/slide3.png',
         alt: 'Slide 3',
         title: 'Batom Matte',
         subtitle: 'Lindo Batom Matte, para durar o dia todo',

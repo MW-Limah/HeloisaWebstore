@@ -3,7 +3,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #365b6d;
+    background-color: var(--fst);
 }
 
 .topContent {
@@ -78,11 +78,12 @@
 .linksMenu {
     display: flex;
     flex-direction: row-reverse;
-    gap: 20px;
+    gap: 40px;
     padding: 10px 30px 10px 60px;
     width: 100%;
     list-style: none;
-    background-color: #289dd2;
+    background-color: var(--sd);
+    color: var(--text-color);
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;

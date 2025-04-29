@@ -25,7 +25,6 @@ export default function JustTop() {
                 </div>
                 <div className={styles.rightContent}>
                     <ButtonBack />
-                    <Link href={'#'}>Olá, inscreva-se para atualizações</Link>
                     <Link href="/pages/Login">Acessar área Admin</Link>
                     {pathname !== '/contato' && <Link href={'/contato'}>Entre em contato!</Link>}
                     {pathname !== '/cart' && <Cart />}

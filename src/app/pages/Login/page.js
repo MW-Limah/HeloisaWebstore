@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { sendPasswordReset } from '@/app/api/actions/send-reset';
 import styles from './LoginAdmin.module.css';
-import Link from 'next/link';
+
 import ButtonBack from '@/app/components/buttonBack/buttonBack';
 
 export default function LoginAdmin() {

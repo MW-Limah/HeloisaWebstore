@@ -4,13 +4,13 @@ import { useSession, signOut } from 'next-auth/react';
 import styles from './Admin.module.css';
 import Form from './form/form';
 import ButtonBack from '@/app/components/buttonBack/buttonBack';
-import Link from 'next/link';
+import Loading from '@/app/components/Loading/Loading';
 import { TbArrowBackUp } from 'react-icons/tb';
 
 export default function AdminPage() {
     const { data: session, status } = useSession();
 
-    if (status === 'loading') return <p>Carregando...</p>;
+    if (status === 'loading') return <Loading />;
 
     if (!session)
         return (

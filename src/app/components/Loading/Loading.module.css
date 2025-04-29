@@ -1,0 +1,32 @@
+.loading {
+    position: fixed; /* ← sobrepõe todo o conteúdo */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    font-size: 15pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.08);
+    z-index: 6; /* acima de tudo */
+}
+
+.loading::before {
+    content: '';
+    width: 60px;
+    height: 60px;
+    border: 6px solid #fcfcfc;
+    border-top-color: #b1dafc; /* cor do spinner */
+    border-radius: 50%;
+    animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

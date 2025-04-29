@@ -72,7 +72,6 @@ export default function Navbar() {
                     <Image src={'/logo_1.webp'} width={100} height={100} alt="Logo Principal Heloisa Moda Feminina" />
                 </div>
                 <div className={styles.rightContent}>
-                    <Link href={'#'}>Olá, inscreva-se para atualizações</Link>
                     <Link href={'/contato'}>Entre em contato!</Link>
                     <Link href="/pages/Login">Acessar área Admin</Link>
                     <Cart />

@@ -14,13 +14,20 @@
 }
 
 .empty h1 {
+    color: var(--fst);
     font-size: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .empty a {
-    padding: 0.5rem;
+    color: var(--sd);
+    padding: 0.2rem 0;
     font-size: 1.5rem;
+    border: 2px solid var(--sd);
+    background-color: var(--background);
+    width: 20%;
+    border-radius: 15px;
+    align-self: center;
 }
 
 .content {

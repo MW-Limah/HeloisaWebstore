@@ -17,10 +17,6 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 450px));
     justify-content: center;
 }
-.gridContainer:has(> *:nth-child(2)) {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 500px));
-    justify-content: center;
-}
 
 /* Card do Item */
 .boxContent {
@@ -224,4 +220,11 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+.groupBox {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(4, minmax(375px, 600px));
+    gap: 1rem;
 }

@@ -1,0 +1,83 @@
+.Address {
+    background: #ffffff;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.Address h3 {
+    font-size: 22px;
+    color: #333;
+}
+
+.FormContent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.FormContent input {
+    padding: 10px;
+    border: none;
+    background: none;
+    border-bottom: 2px solid #000;
+    color: #000;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+}
+
+.FormContent input:focus {
+    border-bottom-color: var(--sd);
+}
+
+.SectionTitle {
+    font-size: 18px;
+    color: #444;
+    margin-top: 10px;
+}
+
+.AddressGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.FieldGroup {
+    flex: 1 1 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.FieldGroup label {
+    font-size: 14px;
+    color: #666;
+}
+
+.Note {
+    font-size: 14px;
+    color: #666;
+}
+
+.Button {
+    background-color: #41c076;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    align-self: flex-end;
+    transition: background 0.3s;
+}
+
+.Button:hover {
+    background-color: #1999c6;
+}

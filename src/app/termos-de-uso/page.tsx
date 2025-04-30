@@ -23,6 +23,44 @@ export default function TermosDeUso() {
                     <h4>Atualizado em 15/04/2025</h4>
                 </div>
                 <h1>Termos de Uso - Heloisa Moda Feminina</h1>
+                <div className={styles.LinksMap}>
+                    <h2>Índice</h2>
+                    <ul>
+                        <a href="#1">
+                            <li>Sobre a loja</li>
+                        </a>
+                        <a href="#2">
+                            <li>Responsável da Loja</li>
+                        </a>
+                        <a href="#3">
+                            <li>Formas de Pagamento</li>
+                        </a>
+                        <a href="#4">
+                            <li>Entregas</li>
+                        </a>
+                        <a href="#5">
+                            <li>Trocas e Devoluções</li>
+                        </a>
+                        <a href="#6">
+                            <li>Cancelamentos e Reembolsos</li>
+                        </a>
+                        <a href="#7">
+                            <li>Atendimento e suporte ao cliente</li>
+                        </a>
+                        <a href="#8">
+                            <li>Privacidade, uso e Proteção de Dados</li>
+                        </a>
+                        <a href="#9">
+                            <li>Alterações nos Termos</li>
+                        </a>
+                        <a href="#10">
+                            <li>Limitação de Responsabilidade</li>
+                        </a>
+                        <a href="#11">
+                            <li>Propriedade Intelectual</li>
+                        </a>
+                    </ul>
+                </div>
 
                 <p>
                     Bem-vinda(o) à Heloisa Moda Feminina! Antes de realizar suas compras, pedimos que leia atentamente
@@ -30,7 +68,7 @@ export default function TermosDeUso() {
                     abaixo.
                 </p>
 
-                <h2>1. Sobre a Loja</h2>
+                <h2 id="1">1. Sobre a Loja</h2>
                 <p>
                     A Heloisa Moda Feminina é uma loja virtual dedicada à venda de acessórios para cabelo (como
                     piranhas, laços e pompoms), maquiagens (batons, esponjas, sombras, etc.) e joias/bijuterias (anéis,
@@ -38,13 +76,13 @@ export default function TermosDeUso() {
                     estilo!
                 </p>
 
-                <h2>2. Responsável Legal</h2>
+                <h2 id="2">2. Responsável Legal</h2>
                 <p>
                     A loja é gerenciada por uma empreendedora individual e, no momento, não possui CNPJ. Todas as vendas
                     são feitas com responsabilidade e comprometimento.
                 </p>
 
-                <h2>3. Formas de Pagamento</h2>
+                <h2 id="3">3. Formas de Pagamento</h2>
                 <p>Atualmente, aceitamos:</p>
                 <ul>
                     <li>
@@ -54,13 +92,13 @@ export default function TermosDeUso() {
                 </ul>
                 <p>Em breve, também passaremos a aceitar cartões de débito.</p>
 
-                <h2>4. Entregas</h2>
+                <h2 id="4">4. Entregas</h2>
                 <p>
                     As entregas são realizadas exclusivamente na cidade de Manaus - AM, com prazo estimado entre 1 a 3
                     dias úteis, dependendo da localização.
                 </p>
 
-                <h2>5. Trocas e Devoluções</h2>
+                <h2 id="5">5. Trocas e Devoluções</h2>
                 <p>
                     Aceitamos devoluções em até 7 dias corridos após o recebimento do produto, conforme previsto no
                     Código de Defesa do Consumidor.
@@ -76,16 +114,16 @@ export default function TermosDeUso() {
                     Em qualquer um desses casos o cliente pode pedir um novo produto de mesmo valor ou ser ressarcido.
                 </p>
 
-                <h2>6. Cancelamentos e Reembolsos</h2>
+                <h2 id="6">6. Cancelamentos e Reembolsos</h2>
                 <p>O cancelamento deve ser solicitado em até 24 horas após a compra.</p>
                 <p>
                     Para reembolsos, entre em contato diretamente conosco com o recibo ou comprovante de pagamento em
                     mãos.
                 </p>
 
-                <h2>7. Atendimento</h2>
+                <h2 id="7">7. Atendimento</h2>
                 <p>Você pode falar conosco através dos nossos canais oficiais:</p>
-                <ul>
+                <ul className={styles.Lista}>
                     <li>
                         Instagram:{' '}
                         <a href="https://instagram.com/hanel.h.h" target="_blank">
@@ -95,7 +133,7 @@ export default function TermosDeUso() {
                     <li>E-mail e WhatsApp: disponibilizados em nossa página de contato e no rodapé da página.</li>
                 </ul>
 
-                <h2>8. Privacidade e Proteção de Dados</h2>
+                <h2 id="8">8. Privacidade e Proteção de Dados</h2>
                 <p>
                     As informações fornecidas pelos clientes, como nome, endereço e dados de contato, são utilizadas
                     exclusivamente para processar pedidos, efetuar entregas e prestar um melhor atendimento. Garantimos
@@ -112,21 +150,21 @@ export default function TermosDeUso() {
                     </b>
                 </p>
 
-                <h2>9. Alterações nos Termos</h2>
+                <h2 id="9">9. Alterações nos Termos</h2>
                 <p>
                     Reservamo-nos o direito de alterar estes Termos de Uso a qualquer momento, sendo as alterações
                     publicadas nesta página. O uso contínuo da loja após tais mudanças constitui aceitação dos novos
                     termos.
                 </p>
 
-                <h2>10. Limitação de Responsabilidade</h2>
+                <h2 id="10">10. Limitação de Responsabilidade</h2>
                 <p>
                     A Heloisa Moda Feminina não se responsabiliza por danos ou prejuízos resultantes do uso incorreto
                     dos produtos adquiridos. Recomendamos sempre a leitura de instruções e cuidados de uso, quando
                     aplicáveis.
                 </p>
 
-                <h2>11. Propriedade Intelectual</h2>
+                <h2 id="11">11. Propriedade Intelectual</h2>
                 <p>
                     Todas as imagens, descrições e conteúdos exibidos na loja são de uso exclusivo da Heloisa Moda
                     Feminina. É proibida a reprodução, distribuição ou modificação sem autorização expressa da loja.

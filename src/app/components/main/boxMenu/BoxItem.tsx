@@ -6,7 +6,7 @@ import styles from './BoxItem.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PiShoppingCartLight } from 'react-icons/pi';
-import Loading from '@/app/components/loading/Loading';
+import Loading from '@/app/components/Loading/Loading';
 
 interface BoxItemData {
     id: string;

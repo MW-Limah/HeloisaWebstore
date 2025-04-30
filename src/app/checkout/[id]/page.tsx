@@ -8,6 +8,7 @@ import JustTop from '@/app/components/nav/justTop';
 import Gallery from '@/app/components/Checkout/Gallery/Gallery';
 import Comments from '@/app/components/Checkout/Comments/Comments';
 import CheckoutForm from '@/app/components/Checkout/CheckoutForm/CheckoutForm';
+import Loading from '@/app/components/Loading/Loading';
 
 interface BoxItemData {
     id: string;
@@ -49,7 +50,7 @@ export default function CheckoutPage() {
         setHighlighted(clickedImage);
     };
 
-    if (!item) return <p>Carregando...</p>;
+    if (!item) return <Loading />;
 
     return (
         <div className={styles.container}>

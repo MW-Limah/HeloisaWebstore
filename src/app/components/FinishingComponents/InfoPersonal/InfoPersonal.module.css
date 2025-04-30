@@ -1,28 +1,94 @@
 .InfoPersonal {
-    background: white;
-    padding: 25px;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-.ContentTitle {
-    width: 100%;
+.content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.ContentTitle ul {
+.InfoPersonal h3 {
+    font-size: 22px;
+    color: #333;
+}
+
+.InfoList {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
-}
-
-.ContentTitle ul li {
     list-style: none;
-    font-size: 14px;
-    font-weight: 500;
-    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
     color: var(--p-color);
 }
 
-.ContentTitle a {
+.InfoList li {
+    margin-bottom: 6px;
+    font-size: 0.8rem;
+}
+
+.InfoList a {
     text-decoration: underline;
     color: #22b3e1;
+}
+
+.ContentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ContentForm input {
+    padding: 10px;
+    border: none;
+    background: none;
+    border-bottom: 2px solid #000;
+    color: #000;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.ContentForm p {
+    font-size: 1rem;
+}
+
+.ContentForm input:focus {
+    border-bottom-color: var(--sd);
+}
+
+.NameInputs {
+    display: flex;
+    gap: 12px;
+}
+
+.NameInputs input {
+    flex: 1;
+}
+
+.Bottom {
+    margin-top: 20px;
+    padding: 5px;
+    background-color: #365b6d;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+}
+
+.Bottom p {
+    color: white;
+}
+
+.Bottom a {
+    color: #22b3e1;
+    text-decoration: underline;
 }

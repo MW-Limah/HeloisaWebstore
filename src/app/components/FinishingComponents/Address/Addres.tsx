@@ -23,7 +23,7 @@ export default function Address() {
                     </div>
                 </div>
 
-                <p className={styles.Note}>No momento, fazemos entregas apenas em Manaus-AM.</p>
+                <p>No momento, fazemos entregas apenas em Manaus-AM.</p>
                 <button className={styles.Button}>Confirmar endereço</button>
             </form>
         </div>

@@ -3,17 +3,16 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    gap: 20px;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 20px 0;
     font-family: 'Segoe UI', sans-serif;
 }
 
 .content {
-    padding: 20px;
+    padding: 25px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 1px;
 }
 
 .InfoPersonal h3 {
@@ -32,7 +31,6 @@
 }
 
 .InfoList li {
-    margin-bottom: 6px;
     font-size: 0.8rem;
 }
 
@@ -44,7 +42,7 @@
 .ContentForm {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
 }
 
 .ContentForm input {
@@ -68,7 +66,8 @@
 
 .NameInputs {
     display: flex;
-    gap: 12px;
+    gap: 50px;
+    width: 50%;
 }
 
 .NameInputs input {
@@ -76,12 +75,11 @@
 }
 
 .Bottom {
-    margin-top: 20px;
     padding: 5px;
     background-color: #365b6d;
     border: none;
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .Bottom p {

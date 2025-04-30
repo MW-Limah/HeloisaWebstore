@@ -3,10 +3,8 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    gap: 20px;
     font-family: 'Segoe UI', sans-serif;
     max-width: 600px;
-    margin: 0 0;
 }
 
 .content {
@@ -20,14 +18,13 @@
 
 .content p {
     font-size: 1rem;
-    color: #666;
+    color: #333;
 }
 
 .methodRow {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
     width: 100%;
     flex-wrap: wrap;
 }
@@ -40,7 +37,7 @@
 }
 
 .SelectWrapper select {
-    padding: 12px;
+    padding: 10px;
     border-radius: 5px;
     font-size: 16px;
     color: #000;
@@ -67,6 +64,5 @@
     justify-content: flex-end;
     gap: 10px;
     padding: 5px;
-    margin-top: 20px;
     background-color: #365b6d;
 }

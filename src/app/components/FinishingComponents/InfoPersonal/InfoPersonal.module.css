@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     max-width: 600px;
-    margin: 20px 0;
+    margin: 10px 0;
     font-family: 'Segoe UI', sans-serif;
 }
 
@@ -25,7 +25,6 @@
     justify-content: space-between;
     list-style: none;
     padding: 0;
-    margin: 0;
     font-size: 15px;
     color: var(--p-color);
 }
@@ -42,7 +41,7 @@
 .ContentForm {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
 }
 
 .ContentForm input {

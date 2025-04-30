@@ -1,6 +1,7 @@
 import styles from './Finishing.module.css';
 import { InfoPersonal } from '../components/FinishingComponents/InfoPersonal/InfoPersonal';
 import Address from '../components/FinishingComponents/Address/Addres';
+import PayMethods from '../components/FinishingComponents/PayMethods/PayMethods';
 
 export default function Finishing() {
     return (
@@ -11,6 +12,7 @@ export default function Finishing() {
                 <div>
                     <InfoPersonal />
                     <Address />
+                    <PayMethods />
                 </div>
                 <div></div>
             </div>

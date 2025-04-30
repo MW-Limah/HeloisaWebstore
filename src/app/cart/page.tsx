@@ -83,7 +83,7 @@ export default function CartPage() {
                 <div className={styles.summary}>
                     <h2>Total: R$ {getTotal()}</h2>
                     <div className={styles.actions}>
-                        <Link href="/checkout">
+                        <Link href="/Finishing">
                             <button className={styles.checkoutBtn}>Ir para Checkout</button>
                         </Link>
                         <button className={styles.clearBtn} onClick={clearCart}>

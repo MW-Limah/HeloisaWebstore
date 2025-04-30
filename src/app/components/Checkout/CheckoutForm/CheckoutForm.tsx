@@ -3,6 +3,7 @@
 import styles from './CheckoutForm.module.css';
 import { useCart } from '@/app/components/Cart/CartContext';
 import { useState } from 'react';
+import Link from 'next/link';
 
 interface CheckoutFormProps {
     id: string;
@@ -83,51 +84,6 @@ export default function CheckoutForm({
             <h3 className={styles.itemTitle}>{title}</h3>
             <p className={styles.itemDescription}>{description}</p>
 
-            <div className={styles.inputGroup}>
-                <label htmlFor="name">Qual seu nome?</label>
-                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
-            </div>
-
-            <div className={styles.contactClient}>
-                <h3>Seu contato</h3>
-                <div className={styles.contactInputs}>
-                    <div className={styles.inputGroupContact}>
-                        <label htmlFor="phone">Telefone</label>
-                        <input
-                            type="text"
-                            id="phone"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className={styles.inputGroupContact}>
-                        <label htmlFor="email">E-mail</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                </div>
-            </div>
-
-            <div className={styles.inputGroup}>
-                <label htmlFor="address">Qual seu endereço?</label>
-                <input
-                    type="text"
-                    id="address"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-
             <div className={styles.finishing}>
                 <div className={styles.topFinish}>
                     <div className={styles.finishItem}>
@@ -176,10 +132,11 @@ export default function CheckoutForm({
                         <button type="button" className={styles.buttonAddCart} onClick={handleAddToCart}>
                             Adicionar ao carrinho
                         </button>
-
-                        <button type="submit" className={styles.buttonFinish}>
-                            Finalizar compra
-                        </button>
+                        <Link href={'/Finishing'}>
+                            <button type="submit" className={styles.buttonFinish}>
+                                Finalizar compra
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>

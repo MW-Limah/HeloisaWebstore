@@ -2,6 +2,7 @@ import styles from './Finishing.module.css';
 import { InfoPersonal } from '../components/FinishingComponents/InfoPersonal/InfoPersonal';
 import Address from '../components/FinishingComponents/Address/Addres';
 import PayMethods from '../components/FinishingComponents/PayMethods/PayMethods';
+import ResumeCart from '../components/FinishingComponents/ResumeCart/ResumeCart';
 
 export default function Finishing() {
     return (
@@ -14,7 +15,9 @@ export default function Finishing() {
                     <Address />
                     <PayMethods />
                 </div>
-                <div></div>
+                <div>
+                    <ResumeCart />
+                </div>
             </div>
         </div>
     );

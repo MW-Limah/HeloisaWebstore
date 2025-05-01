@@ -1,0 +1,98 @@
+.ResumeCart {
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    height: 80vh;
+    overflow-y: auto;
+    margin: 10px 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.Content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ResumeCart h3 {
+    font-size: 22px;
+    color: #333;
+}
+
+.itemsResume {
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.item {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.imageWrapper {
+    flex-shrink: 0;
+}
+
+.itemDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.itemDetails h4 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.Details {
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+}
+
+.priceDetails,
+.priceTotal {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.priceDetails li,
+.priceTotal li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+
+.priceTotal li {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.Button {
+    background-color: #41c076;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    align-self: flex-end;
+    transition: background 0.3s;
+}
+
+.Button:hover {
+    background-color: #1999c6;
+}

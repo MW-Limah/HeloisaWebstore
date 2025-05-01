@@ -70,6 +70,7 @@
 @media (max-width: 768px) {
     .PayMethods {
         max-width: 100%;
+        margin-bottom: -20px;
     }
 
     .methodRow {

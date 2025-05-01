@@ -88,6 +88,7 @@
 
 @media (max-width: 1145px) {
     .Address {
+        margin-top: 1px;
         padding: 20px;
         max-width: 100%;
     }

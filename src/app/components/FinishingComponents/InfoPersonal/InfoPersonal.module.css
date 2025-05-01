@@ -89,3 +89,29 @@
     color: #22b3e1;
     text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+    .InfoPersonal {
+        max-width: 100%;
+    }
+
+    .InfoList {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .NameInputs {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .Bottom {
+        font-size: 14px;
+    }
+
+    .ContentForm p {
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+}

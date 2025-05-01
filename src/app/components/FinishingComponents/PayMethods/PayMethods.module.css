@@ -66,3 +66,30 @@
     padding: 5px;
     background-color: #365b6d;
 }
+
+@media (max-width: 768px) {
+    .PayMethods {
+        max-width: 100%;
+    }
+
+    .methodRow {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .SelectWrapper {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .dinamicPayment {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .bottom {
+        justify-content: center;
+        padding: 10px 0;
+    }
+}

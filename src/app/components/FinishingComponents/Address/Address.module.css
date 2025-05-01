@@ -85,3 +85,25 @@
 .Button:hover {
     background-color: #1999c6;
 }
+
+@media (max-width: 1145px) {
+    .Address {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .AddressGrid {
+        gap: 1px;
+    }
+
+    .FieldGroup {
+        flex-direction: column;
+        flex: 1 1 100%;
+        gap: 0;
+    }
+
+    .Button {
+        align-self: stretch;
+        margin-top: 10px;
+    }
+}

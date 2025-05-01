@@ -20,13 +20,13 @@ export const InfoPersonal = () => {
                         <input type="email" placeholder="E-mail para confirmação*" />
                     </div>
                     <div className={styles.NameInputs}>
-                        <input type="text" placeholder="Primeiro nome*" />
-                        <input type="text" placeholder="Segundo nome*" />
+                        <input type="text" placeholder="Nome*" />
+                        <input type="text" placeholder="Sobrenome*" />
                     </div>
                     <div>
                         <input type="tel" placeholder="Telefone para confirmação" />
                     </div>
-                    <p>Nenhum desses dados serão usados senão para fazer essa entrega.</p>
+                    <p>Esses dados serão usados apenas para processar entregas.</p>
                 </form>
             </div>
 

@@ -16,7 +16,7 @@ export default function PayMethods() {
                         </select>
                     </div>
 
-                    <div className={styles.dinamicPayment}>{/* Aqui será injetado o formulário dinâmico */}</div>
+                    {/* <div className={styles.dinamicPayment}> Aqui será injetado o formulário dinâmico </div>*/}
                 </div>
             </div>
             <div className={styles.bottom}>

@@ -124,6 +124,11 @@
     display: none;
 }
 
+.navbar ul li {
+    list-style: none;
+    font-size: 1.2rem;
+}
+
 @media (max-width: 899px) {
     .Bars {
         display: block;

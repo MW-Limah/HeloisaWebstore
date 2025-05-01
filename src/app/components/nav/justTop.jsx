@@ -29,7 +29,7 @@ export default function JustTop() {
                     {pathname !== '/contato' && <Link href={'/contato'}>Entre em contato!</Link>}
                     {pathname !== '/cart' && <Cart />}
                 </div>
-                <li className={styles.mobileOnly}>{pathname !== '/cart' && <Cart />}</li>
+                <div className={styles.mobileOnly}>{pathname !== '/cart' && <Cart />}</div>
                 <div className={styles.Bars} onClick={toggleMenu}>
                     {isActive ? <IoCloseSharp /> : <FaBars />}
                 </div>

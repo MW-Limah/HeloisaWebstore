@@ -6,13 +6,14 @@ import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { FaBars } from 'react-icons/fa';
 import { IoCloseSharp } from 'react-icons/io5';
+import { usePathname } from 'next/navigation';
 import Cart from '@/app/components/GoCart/GoCart';
 
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
     const linksRef = useRef<HTMLUListElement | null>(null);
     const [showArrows, setShowArrows] = useState(false);
-
+    const pathname = usePathname();
     const toggleMenu = () => {
         setIsActive(!isActive);
     };
@@ -76,6 +77,7 @@ export default function Navbar() {
                     <Link href="/pages/Login">Acessar área Admin</Link>
                     <Cart />
                 </div>
+                <div className={styles.mobileOnly}>{pathname !== '/cart' && <Cart />}</div>
                 <div className={styles.Bars} onClick={toggleMenu}>
                     {isActive ? <IoCloseSharp /> : <FaBars />}
                 </div>
@@ -83,9 +85,6 @@ export default function Navbar() {
 
             {isActive && (
                 <ul className={`${styles.menuDrawer} ${styles.active}`}>
-                    <li>
-                        <Cart />
-                    </li>
                     <li>
                         <Link href="#">Olá, inscreva-se para atualizações</Link>
                     </li>

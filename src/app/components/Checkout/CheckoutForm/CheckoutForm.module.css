@@ -112,6 +112,7 @@
 .bottomFinish {
     display: flex;
     flex-direction: column;
+    align-self: flex-end;
     gap: 0.5rem;
 }
 
@@ -170,7 +171,7 @@
     .checkoutForm {
         width: 33.5rem;
         margin-top: -31px;
-        margin-bottom: -10px;
+        height: 35vh;
     }
 
     .checkoutForm h2 {
@@ -195,8 +196,8 @@
 @media (max-width: 550px) {
     .checkoutForm {
         width: 100%;
-        margin: -15px 0 0;
-        height: auto;
+        margin-top: 5px;
+        height: 40vh;
         padding: 1.5rem;
         box-sizing: border-box;
         overflow-y: auto;
@@ -210,8 +211,8 @@
 
     .buttonsWrapper {
         display: flex;
-        flex-direction: column;
-        margin-top: 1rem;
+        justify-content: center;
+        align-items: center;
         padding: 0;
     }
 
@@ -237,5 +238,9 @@
         width: 60%;
         font-size: 1rem;
         border-radius: 12px;
+    }
+
+    .buttonFinish {
+        width: 100%;
     }
 }

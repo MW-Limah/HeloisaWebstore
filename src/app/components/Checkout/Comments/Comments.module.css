@@ -1,6 +1,7 @@
-/* Comentários */
 .CommentsBox {
-    max-width: 428px;
+    width: 650px;
+    max-width: 100%;
+    margin-top: 1rem;
 }
 
 .commentsT {
@@ -8,16 +9,13 @@
     justify-content: space-between;
     align-items: center;
     background-color: #fafafa;
-    margin-top: 5px;
     padding: 10px 1rem;
     color: #333;
 }
 
 .comments {
-    background-color: #fafafa;
-    padding: 0 1.5rem;
-    height: 40vh;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+    height: 300px;
     overflow-y: auto;
 }
 
@@ -28,7 +26,6 @@
     margin-bottom: 1rem;
     border-bottom: 1px solid #e0e0e0;
     padding-bottom: 0.5rem;
-    z-index: 5;
 }
 
 .comments h3 {

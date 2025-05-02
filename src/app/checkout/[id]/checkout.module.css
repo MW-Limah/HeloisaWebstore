@@ -1,26 +1,26 @@
 .container {
-    height: 100vh;
     width: 100%;
+    min-height: 100vh;
 }
 
 .content {
+    max-width: 1500px; /* ou o valor desejado para a largura do "box page" */
+    margin: 0 auto;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    height: 80vh;
+    gap: 2rem;
+    padding: 2rem;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
 }
 
 .leftSide {
-    min-height: 80vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 2rem;
 }
 
 .rightSide {
-    min-height: 80vh;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }

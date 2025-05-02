@@ -8,18 +8,16 @@
     background-color: #555;
     border-radius: 15px;
 }
-
 .checkoutForm {
     display: flex;
     flex-direction: column;
-    background-color: white;
-    padding: 2rem;
     color: #333;
+    max-width: 100%;
     width: 600px;
-    height: 80vh;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: auto; /* ajuste para altura automática */
+    margin: 0 auto; /* centraliza horizontalmente */
+    padding: 2rem;
 }
-
 .itemTitle {
     font-size: 24pt;
     margin-bottom: 5px;
@@ -105,7 +103,8 @@
 .bottomFinish {
     display: flex;
     flex-direction: column;
-    align-self: flex-end;
+    text-align: left;
+
     gap: 0.5rem;
 }
 

@@ -84,8 +84,31 @@ export default function CheckoutForm({
             <h3 className={styles.itemTitle}>{title}</h3>
             <p className={styles.itemDescription}>{description}</p>
 
+            {/* Campos do comprador */}
+            <div className={styles.inputGroup}>
+                <label htmlFor="name">Nome</label>
+                <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} />
+            </div>
+
+            <div className={styles.inputGroup}>
+                <label htmlFor="phone">Telefone</label>
+                <input type="text" name="phone" id="phone" value={formData.phone} onChange={handleChange} />
+            </div>
+
+            <div className={styles.inputGroup}>
+                <label htmlFor="email">Email</label>
+                <input type="email" name="email" id="email" value={formData.email} onChange={handleChange} />
+            </div>
+
+            <div className={styles.inputGroup}>
+                <label htmlFor="address">Endereço</label>
+                <input type="text" name="address" id="address" value={formData.address} onChange={handleChange} />
+            </div>
+
+            {/* Seções movidas para o final */}
             <div className={styles.finishing}>
                 <div className={styles.topFinish}>
+                    {/* Quantidade */}
                     <div className={styles.finishItem}>
                         <label className={styles.labell} htmlFor="quantity">
                             Quantidade
@@ -108,6 +131,7 @@ export default function CheckoutForm({
                         </select>
                     </div>
 
+                    {/* Cor */}
                     <div className={styles.finishItem}>
                         <label htmlFor="color">Cor</label>
                         <select id="color" name="color" value={color} onChange={(e) => setColor(e.target.value)}>

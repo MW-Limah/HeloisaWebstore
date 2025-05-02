@@ -118,7 +118,7 @@ export default function BoxForm({ isOpen, onClose }: BoxFormProps) {
                     />
                     <input
                         type="text"
-                        placeholder="Tema (único)"
+                        placeholder="Tema (Que tipo de produto estamos adicionando?)"
                         value={theme}
                         onChange={(e) => setTheme(e.target.value)}
                         required

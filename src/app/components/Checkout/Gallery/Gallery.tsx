@@ -19,8 +19,8 @@ export default function Gallery({ highlighted, thumbnails, onImageClick }: Galle
                     <Image
                         key={index}
                         src={src}
-                        width={100}
-                        height={100}
+                        width={200}
+                        height={200}
                         alt={`Miniatura ${index + 1}`}
                         onClick={() => onImageClick(src)}
                         className={styles.thumbnail}
@@ -28,7 +28,7 @@ export default function Gallery({ highlighted, thumbnails, onImageClick }: Galle
                 ))}
             </div>
             <div className={styles.imageFocused}>
-                <Image src={highlighted} width={320} height={320} alt="Imagem em destaque" />
+                <Image src={highlighted} width={500} height={500} alt="Imagem em destaque" />
             </div>
         </div>
     );

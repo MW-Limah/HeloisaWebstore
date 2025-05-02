@@ -1,0 +1,41 @@
+.container {
+    height: 100vh;
+    width: 100%;
+}
+.gallery {
+    display: grid;
+    grid-template-columns: 100px 1fr; /* Sidebar com largura fixa, imagem principal ocupa o restante */
+    align-items: stretch; /* Estica os itens para mesma altura */
+    height: 300px; /* Defina uma altura padrão, opcional */
+    max-width: 450px;
+    overflow: hidden;
+}
+
+.SideImages {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.SideImages :global(img) {
+    width: 100%;
+    height: 100px; /* Altura de cada miniatura */
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.ImageFocused {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+/* Comments */
+
+.comments {
+    display: flex;
+    background-color: white;
+}

@@ -1,4 +1,8 @@
 /* Comentários */
+.CommentsBox {
+    max-width: 428px;
+}
+
 .commentsT {
     display: flex;
     justify-content: space-between;
@@ -12,8 +16,7 @@
 .comments {
     background-color: #fafafa;
     padding: 0 1.5rem;
-    width: 600px;
-    height: 24vh;
+    height: 40vh;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     overflow-y: auto;
 }
@@ -48,33 +51,4 @@
 .comments::-webkit-scrollbar-thumb {
     background-color: #555;
     border-radius: 15px;
-}
-
-/* Responsividade */
-
-@media (max-width: 1200px) {
-    .CommentsBox {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .comments {
-        width: 100%;
-        height: auto;
-        max-height: 250px;
-    }
-
-    .commentsT {
-        margin: 0;
-        width: 100%;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .commentsT h2 {
-        font-size: 1.5rem;
-    }
 }

@@ -1,38 +1,26 @@
-/* Container principal e estrutura */
 .container {
-    display: flex;
-    flex-direction: column;
     height: 100vh;
-    background: #babff7;
+    width: 100%;
 }
 
 .content {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
-    padding: 10px 20%;
+    gap: 5px;
+    height: 80vh;
+}
+
+.leftSide {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .rightSide {
+    min-height: 80vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    padding: 1rem;
-}
-
-/* Responsividade */
-
-@media (max-width: 1200px) {
-    .content {
-        flex-direction: column;
-        align-items: center;
-        padding: 10px 5%;
-    }
-}
-
-@media (max-width: 768px) {
-    .content {
-        padding: 10px 2%;
-        gap: 1rem;
-    }
 }

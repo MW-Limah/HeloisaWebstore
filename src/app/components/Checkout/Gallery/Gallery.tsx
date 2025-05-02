@@ -13,14 +13,14 @@ export default function Gallery({ highlighted, thumbnails, onImageClick }: Galle
     const filteredThumbnails = thumbnails.filter((src) => src !== highlighted);
 
     return (
-        <div className={styles.gridImages}>
-            <div className={styles.sideImages}>
+        <div className={styles.gallery}>
+            <div className={styles.SideImages}>
                 {filteredThumbnails.map((src, index) => (
                     <Image
                         key={index}
                         src={src}
-                        width={150}
-                        height={148}
+                        width={100}
+                        height={100}
                         alt={`Miniatura ${index + 1}`}
                         onClick={() => onImageClick(src)}
                         className={styles.thumbnail}
@@ -28,7 +28,7 @@ export default function Gallery({ highlighted, thumbnails, onImageClick }: Galle
                 ))}
             </div>
             <div className={styles.imageFocused}>
-                <Image src={highlighted} width={450} height={450} alt="Imagem em destaque" />
+                <Image src={highlighted} width={320} height={320} alt="Imagem em destaque" />
             </div>
         </div>
     );

@@ -9,22 +9,14 @@
     border-radius: 15px;
 }
 
-/* Lado do Check-out */
-.rightSide {
-    font-family: 'Times New Roman', Times, serif;
-    flex: 1;
-    max-width: 400px;
-    width: 100%;
-}
-
 .checkoutForm {
     display: flex;
     flex-direction: column;
     background-color: white;
     padding: 2rem;
     color: #333;
-    height: 740px;
     width: 600px;
+    height: 80vh;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -34,6 +26,7 @@
     font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
 }
+
 .itemDescription {
     font-size: 14pt;
     color: #555;
@@ -165,82 +158,4 @@
 .buttonAddCart:hover {
     background-color: #ffc107;
     transition: all 0.3s ease;
-}
-
-@media (max-width: 1200px) {
-    .checkoutForm {
-        width: 33.5rem;
-        margin-top: -31px;
-        height: 35vh;
-    }
-
-    .checkoutForm h2 {
-        font-size: 1.8rem;
-    }
-
-    .inputGroup label,
-    .inputGroup input {
-        font-size: 1rem;
-    }
-
-    .price {
-        font-size: 1.5rem;
-    }
-
-    .buttonFinish {
-        font-size: 1rem;
-        padding: 0.5rem 1rem;
-    }
-}
-
-@media (max-width: 550px) {
-    .checkoutForm {
-        width: 100%;
-        margin-top: 5px;
-        height: 40vh;
-        padding: 1.5rem;
-        box-sizing: border-box;
-        overflow-y: auto;
-        position: absolute;
-    }
-
-    .checkoutForm::-webkit-scrollbar,
-    .checkoutForm::-webkit-scrollbar-thumb {
-        display: none;
-    }
-
-    .buttonsWrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0;
-    }
-
-    .priceGroup {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-    }
-
-    .priceGroup .price {
-        font-size: 1.2rem;
-        font-weight: bold;
-    }
-
-    .priceGroup button {
-        width: 50%;
-        font-size: 0.9rem;
-    }
-
-    .buttonFinish,
-    .buttonAddCart {
-        width: 60%;
-        font-size: 1rem;
-        border-radius: 12px;
-    }
-
-    .buttonFinish {
-        width: 100%;
-    }
 }

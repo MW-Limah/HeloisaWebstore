@@ -2,13 +2,15 @@
 .gridImages {
     display: grid;
     grid-template-columns: repeat(2, 200px);
-    background-color: white;
+    overflow: hidden;
+    height: 450px;
 }
 
 .sideImages {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 2px;
+    margin-top: 2px;
 }
 
 .sideImages img {
@@ -26,10 +28,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 450px;
-    height: 450px;
-    margin: 1px;
-    margin-left: -24%;
+    width: 455px;
+    height: 455px;
+    margin-left: -25%;
 }
 
 .imageFocused img {
@@ -44,7 +45,6 @@
         display: flex;
         align-items: center;
         position: relative;
-        left: 0;
     }
 
     .imageFocused {
@@ -56,7 +56,6 @@
     .imageFocused img {
         max-width: 20rem;
         max-height: 25rem;
-        margin-left: 5px;
     }
 
     .sideImages {
@@ -80,5 +79,3 @@
         max-height: 6rem;
     }
 }
-
-/* Responsividade para telas menores */

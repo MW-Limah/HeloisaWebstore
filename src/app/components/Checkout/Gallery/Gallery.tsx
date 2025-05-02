@@ -10,7 +10,6 @@ type GalleryProps = {
 };
 
 export default function Gallery({ highlighted, thumbnails, onImageClick }: GalleryProps) {
-    // Filtra a imagem em foco da lista de miniaturas
     const filteredThumbnails = thumbnails.filter((src) => src !== highlighted);
 
     return (
@@ -20,16 +19,16 @@ export default function Gallery({ highlighted, thumbnails, onImageClick }: Galle
                     <Image
                         key={index}
                         src={src}
-                        width={148}
+                        width={150}
                         height={148}
-                        alt={`Imagem ${index + 1}`}
+                        alt={`Miniatura ${index + 1}`}
                         onClick={() => onImageClick(src)}
-                        className={`${styles.thumbnail} ${src === highlighted ? styles.active : ''}`}
+                        className={styles.thumbnail}
                     />
                 ))}
             </div>
             <div className={styles.imageFocused}>
-                <Image src={highlighted} width={500} height={500} alt="Imagem em destaque" />
+                <Image src={highlighted} width={450} height={450} alt="Imagem em destaque" />
             </div>
         </div>
     );

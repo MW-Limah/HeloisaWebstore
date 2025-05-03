@@ -160,6 +160,18 @@
         grid-template-columns: 1fr;
     }
 
+    .empty {
+        width: 100%;
+    }
+
+    .empty h1 {
+        font-size: 1.5rem;
+    }
+
+    .empty a {
+        width: 50%;
+    }
+
     .item {
         flex-direction: column;
         align-items: center;

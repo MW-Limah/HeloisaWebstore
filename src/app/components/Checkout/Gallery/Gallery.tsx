@@ -27,8 +27,16 @@ export default function Gallery({ highlighted, thumbnails, onImageClick }: Galle
                     />
                 ))}
             </div>
-            <div className={styles.imageFocused}>
-                <Image src={highlighted} width={500} height={500} alt="Imagem em destaque" />
+            <div className={styles.ImageFocused}>
+                <div className={styles.imageWrapper}>
+                    <Image
+                        src={highlighted}
+                        alt="Imagem em destaque"
+                        fill
+                        className={styles.imageResponsive}
+                        sizes="(max-width: 768px) 90vw, (max-width: 1200px) 400px, 500px"
+                    />
+                </div>
             </div>
         </div>
     );

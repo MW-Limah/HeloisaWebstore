@@ -3,7 +3,7 @@
 import { useSession, signOut } from 'next-auth/react';
 import styles from './Admin.module.css';
 import Form from './form/form';
-import ButtonBackAll from '@/app/components/ButtonBackAll/buttonBack';
+import ButtonBackAll from '@/app/components/buttonBackAll/buttonBack';
 import Loading from '@/app/components/Loading/Loading';
 import { TbArrowBackUp } from 'react-icons/tb';
 

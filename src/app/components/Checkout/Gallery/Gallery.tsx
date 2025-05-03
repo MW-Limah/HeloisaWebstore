@@ -14,18 +14,20 @@ export default function Gallery({ highlighted, thumbnails, onImageClick }: Galle
 
     return (
         <div className={styles.gallery}>
-            <div className={styles.SideImages}>
-                {filteredThumbnails.map((src, index) => (
-                    <Image
-                        key={index}
-                        src={src}
-                        width={200}
-                        height={200}
-                        alt={`Miniatura ${index + 1}`}
-                        onClick={() => onImageClick(src)}
-                        className={styles.thumbnail}
-                    />
-                ))}
+            <div className={styles.SideContent}>
+                <div className={styles.SideImages}>
+                    {filteredThumbnails.map((src, index) => (
+                        <Image
+                            key={index}
+                            src={src}
+                            width={200}
+                            height={200}
+                            alt={`Miniatura ${index + 1}`}
+                            onClick={() => onImageClick(src)}
+                            className={styles.thumbnail}
+                        />
+                    ))}
+                </div>
             </div>
             <div className={styles.ImageFocused}>
                 <div className={styles.imageWrapper}>

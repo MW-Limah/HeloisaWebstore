@@ -30,7 +30,7 @@ export default function BoxForm({ isOpen, onClose }: BoxFormProps) {
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) return;
         const selectedFiles = Array.from(e.target.files);
-        const newFiles = [...images, ...selectedFiles].slice(0, 4);
+        const newFiles = [...images, ...selectedFiles].slice(0, 8);
         setImages(newFiles);
     };
 

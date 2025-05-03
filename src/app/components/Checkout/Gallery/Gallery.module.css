@@ -93,16 +93,19 @@
     .SideContent {
         display: flex;
         flex-direction: row;
+        align-items: flex-start; /* alinhamento vertical ao topo */
+        justify-content: flex-start; /* alinhamento horizontal ao início */
         width: 100%;
         overflow-y: hidden;
         overflow-x: auto;
-        padding-left: 30%;
+        padding-left: 1rem; /* ajuste conforme necessário */
     }
 
     .SideImages {
         flex-direction: row;
-        justify-content: center;
-        width: 100%;
+        justify-content: flex-start; /* alinha as imagens à esquerda */
+        align-items: flex-start; /* alinha ao topo */
+        width: auto;
     }
 
     .SideImages img {
@@ -113,8 +116,8 @@
     .imageWrapper {
         width: 100%;
         max-width: 90vw;
-        height: 300px; /* altura fixa para evitar colapso */
-        aspect-ratio: 1/1; /* remove o aspect-ratio para priorizar height */
+        height: 300px;
+        aspect-ratio: 1/1;
     }
 
     .imageResponsive {
@@ -126,6 +129,10 @@
 
 @media (max-width: 380px) {
     .SideContent {
-        padding-left: 80%;
+        padding-left: 1rem; /* ou 0, se quiser colado à borda */
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
     }
 }

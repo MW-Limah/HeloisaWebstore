@@ -49,3 +49,45 @@
     background-color: #555;
     border-radius: 15px;
 }
+
+@media (max-width: 658px) {
+    .CommentsBox {
+        width: 95%;
+    }
+
+    .commentsT {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .comments h2 {
+        font-size: 1rem;
+    }
+
+    .comments h3 {
+        font-size: 0.9rem;
+    }
+
+    .comments p {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .comments {
+        padding: 0.6rem;
+    }
+
+    .comments h2 {
+        font-size: 0.95rem;
+    }
+
+    .comments h3 {
+        font-size: 0.85rem;
+    }
+
+    .comments p {
+        font-size: 0.8rem;
+    }
+}

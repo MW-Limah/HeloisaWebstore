@@ -56,7 +56,6 @@
         grid-template-columns: 100px 1fr;
     }
 }
-
 @media (max-width: 768px) {
     .gallery {
         grid-template-columns: 1fr;
@@ -78,8 +77,8 @@
     .imageWrapper {
         width: 100%;
         max-width: 90vw;
-        height: auto;
-        aspect-ratio: 1 / 1;
+        height: 300px; /* altura fixa para evitar colapso */
+        aspect-ratio: 1/1; /* remove o aspect-ratio para priorizar height */
     }
 
     .imageResponsive {

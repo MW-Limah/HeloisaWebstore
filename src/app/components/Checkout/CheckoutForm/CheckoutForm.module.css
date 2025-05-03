@@ -165,3 +165,78 @@
         margin-left: -1%;
     }
 }
+
+@media (max-width: 900px) {
+    .checkoutForm {
+        width: 90%;
+        padding: 1.5rem;
+    }
+
+    .itemTitle {
+        font-size: 20pt;
+    }
+
+    .itemDescription {
+        font-size: 12pt;
+    }
+
+    .checkoutForm h2 {
+        font-size: 1.5rem;
+    }
+
+    .price {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .checkoutForm {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    .itemTitle {
+        font-size: 18pt;
+    }
+
+    .itemDescription {
+        font-size: 11pt;
+    }
+
+    .topFinish {
+        flex-direction: column;
+    }
+
+    .buttonsWrapper {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .buttonFinish,
+    .buttonAddCart {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .checkoutForm {
+        padding: 0.8rem;
+    }
+
+    .itemTitle {
+        font-size: 16pt;
+    }
+
+    .checkoutForm h2 {
+        font-size: 1.3rem;
+    }
+
+    .finishItem select {
+        font-size: 0.85rem;
+    }
+
+    .inputGroup input {
+        font-size: 0.9rem;
+    }
+}

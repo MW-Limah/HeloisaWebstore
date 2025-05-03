@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background: linear-gradient(135deg, #ffc8f8, #ddc8ff, #aabdf8);
 }
 
 .content {
@@ -27,7 +26,7 @@
     padding: 2rem;
     margin: 0; /* Sem margem extra */
     border-radius: 8px;
-    background: linear-gradient(135deg, #fff, #fafafa, #dbdbdb);
+    background: #fff;
     color: #000;
 }
 

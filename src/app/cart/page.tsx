@@ -8,7 +8,17 @@ import styles from './cart.module.css';
 import { TbShoppingCartCopy } from 'react-icons/tb';
 
 export default function CartPage() {
-    const { cart, removeFromCart, updateQuantity, clearCart, getTotal } = useCart();
+    const {
+        cart,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+        getTotal,
+        toggleSelectItem,
+        getSelectedItems,
+        getSelectedTotal,
+    } = useCart();
 
     if (cart.length === 0) {
         return (
@@ -67,7 +77,14 @@ export default function CartPage() {
                                         <p>
                                             Subtotal: <strong>R$ {item.price * item.quantity}</strong>
                                         </p>
+                                        {'Quero esse'}{' '}
+                                        <input
+                                            type="checkbox"
+                                            checked={item.selected}
+                                            onChange={() => toggleSelectItem(item.id, item.color)}
+                                        />
                                     </div>
+
                                     <button
                                         className={styles.removeBtn}
                                         onClick={() => removeFromCart(item.id, item.color)}
@@ -81,11 +98,14 @@ export default function CartPage() {
                 </ul>
 
                 <div className={styles.summary}>
-                    <h2>Total: R$ {getTotal()}</h2>
+                    <h2>Total selecionado: R$ {getSelectedTotal()}</h2>
                     <div className={styles.actions}>
                         <Link href="/Finishing">
-                            <button className={styles.checkoutBtn}>Ir para Checkout</button>
+                            <button className={styles.checkoutBtn} disabled={getSelectedItems().length === 0}>
+                                Ir para Checkout
+                            </button>
                         </Link>
+
                         <button className={styles.clearBtn} onClick={clearCart}>
                             Limpar Carrinho
                         </button>

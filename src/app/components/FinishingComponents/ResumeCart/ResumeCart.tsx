@@ -4,10 +4,24 @@ import { useCart } from '@/app/components/Cart/CartContext';
 import Image from 'next/image';
 import { useState } from 'react';
 import styles from './ResumeCart.module.css';
+import { useRouter } from 'next/navigation';
 
-export default function ResumeCart() {
-    const { cart, getTotal } = useCart();
+export default function ResumeCart({ paymentMethod }) {
+    const { cart, getTotal, getSelectedItems, getSelectedTotal } = useCart();
     const [showPopup, setShowPopup] = useState(false);
+    const router = useRouter();
+    const selectedItems = getSelectedItems();
+    const selectedTotal = getSelectedTotal();
+
+    const handleCheckout = () => {
+        if (paymentMethod === 'pix') {
+            router.push('/Finishing/qrcode');
+        } else if (paymentMethod === 'boleto') {
+            router.push('/checkout/boleto');
+        } else {
+            router.push('/checkout/card');
+        }
+    };
 
     return (
         <div className={styles.ResumeCart}>
@@ -22,39 +36,17 @@ export default function ResumeCart() {
 
                 {/* Itens normais (desktop) */}
                 <div className={styles.itemsResume}>
-                    {cart.map((item) => {
-                        const colorImage =
-                            item.images.find((img) => img.toLowerCase().includes(item.color.toLowerCase())) ||
-                            item.image;
-                        return (
-                            <div key={`${item.id}-${item.color}`} className={styles.item}>
-                                <div className={styles.imageWrapper}>
-                                    <Image
-                                        src={colorImage}
-                                        alt={item.title}
-                                        width={100}
-                                        height={100}
-                                        style={{ objectFit: 'cover', borderRadius: '8px' }}
-                                    />
-                                </div>
-                                <div className={styles.itemDetails}>
-                                    <h4>{item.title}</h4>
-                                    <p>
-                                        Cor escolhida: <strong>{item.color}</strong>
-                                    </p>
-                                    <p>
-                                        Quantidade: <strong>{item.quantity}</strong>
-                                    </p>
-                                    <p>
-                                        Preço unitário: <strong>R$ {item.price.toFixed(2)}</strong>
-                                    </p>
-                                    <p>
-                                        Subtotal: <strong>R$ {(item.price * item.quantity).toFixed(2)}</strong>
-                                    </p>
-                                </div>
+                    {selectedItems.map((item) => (
+                        <div key={`${item.id}-${item.color}`} className={styles.item}>
+                            <Image width={100} height={100} src={item.image} alt={item.title} />
+                            <div className={styles.itemInfo}>
+                                <h3>{item.title}</h3>
+                                <p>Cor: {item.color}</p>
+                                <p>Qtd: {item.quantity}</p>
+                                <p>Preço: R$ {(item.price * item.quantity).toFixed(2)}</p>
                             </div>
-                        );
-                    })}
+                        </div>
+                    ))}
                 </div>
 
                 {/* Sticky footer com detalhes e botão */}
@@ -64,21 +56,24 @@ export default function ResumeCart() {
                         <ul className={styles.priceDetails}>
                             <li>
                                 <h4>Subtotal</h4>
-                                <p>R$ {(getTotal() - 4).toFixed(2)}</p>
+                                <p>R$ {selectedTotal.toFixed(2)}</p>
                             </li>
                             <li>
                                 <h4>Taxa de entrega</h4>
-                                <p>R$ 4,00</p>
+                                <p>R$ 1,00</p>
                             </li>
                         </ul>
+
                         <ul className={styles.priceTotal}>
                             <li>
                                 <h4>TOTAL</h4>
-                                <p>R$ {getTotal().toFixed(2)}</p>
+                                <p>R$ {(selectedTotal + 1).toFixed(2)}</p>
                             </li>
                         </ul>
                     </div>
-                    <button className={styles.Button}>Finalizar compra</button>
+                    <button className={styles.Button} onClick={handleCheckout}>
+                        Finalizar compra
+                    </button>
                 </div>
             </div>
 
@@ -90,7 +85,7 @@ export default function ResumeCart() {
                             Fechar
                         </button>
                         <div className={styles.popupItemsResume}>
-                            {cart.map((item) => {
+                            {selectedItems.map((item) => {
                                 const colorImage =
                                     item.images.find((img) => img.toLowerCase().includes(item.color.toLowerCase())) ||
                                     item.image;

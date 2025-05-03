@@ -57,6 +57,7 @@ export default function CheckoutForm({
             quantity,
             color,
             maxQuantity: quantities.length > 0 ? Math.max(...quantities) : 1,
+            selected: false,
         });
 
         alert('Produto adicionado ao carrinho! 🛒');

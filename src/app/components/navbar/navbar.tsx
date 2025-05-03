@@ -135,6 +135,11 @@ export default function Navbar() {
                             </a>
                         </li>
                         <li>
+                            <a href={'#Calcados'} onClick={handleLinkClick('Calcados')}>
+                                Calçados
+                            </a>
+                        </li>
+                        <li>
                             <a href={'#Brincos'} onClick={handleLinkClick('Brincos')}>
                                 Brincos
                             </a>

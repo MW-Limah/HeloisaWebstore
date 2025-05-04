@@ -2,7 +2,7 @@
 
 import styles from './Finishing.module.css';
 import { InfoPersonal } from '../components/FinishingComponents/InfoPersonal/InfoPersonal';
-import Address from '../components/FinishingComponents/Address/Addres';
+import Address from '../components/FinishingComponents/Address/Address';
 import PayMethods from '../components/FinishingComponents/PayMethods/PayMethods';
 import ResumeCart from '../components/FinishingComponents/ResumeCart/ResumeCart';
 import JustTop from '../components/nav/justTop';

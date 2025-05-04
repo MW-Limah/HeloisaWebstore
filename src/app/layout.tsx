@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import AuthSessionProvider from './SessionProvider';
 import { CartProvider } from './components/Cart/CartContext'; // <-- importe o CartProvider
+import Head from 'next/head';
 
 // Fontes
 const geistSans = Geist({

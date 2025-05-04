@@ -16,7 +16,7 @@ export default function PayMethods({ onPaymentMethodChange }) {
         <div className={styles.PayMethods}>
             <div className={styles.content}>
                 <h3>Métodos de pagamento</h3>
-                <p className={styles.Subtitle}>Como você prefere continuar?</p>
+                <p className={styles.Subtitle}>Como você prefere fazer o pagamento?</p>
                 <div className={styles.methodRow}>
                     <div className={styles.SelectWrapper}>
                         <select onChange={handleChange} value={paymentMethod}>

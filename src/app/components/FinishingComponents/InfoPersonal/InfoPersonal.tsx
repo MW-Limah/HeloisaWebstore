@@ -9,7 +9,6 @@ export const InfoPersonal = () => {
             <div className={styles.content}>
                 <h3>Informações pessoais</h3>
                 <ul className={styles.InfoList}>
-                    <li>Para quem vou enviar esse pedido?</li>
                     <li>
                         Para saber mais sobre o uso de dados <Link href="/termos-de-uso">clique aqui.</Link>
                     </li>
@@ -17,14 +16,14 @@ export const InfoPersonal = () => {
 
                 <form className={styles.ContentForm}>
                     <div>
-                        <input type="email" placeholder="E-mail para confirmação*" />
+                        <input type="email" placeholder="E-mail*" />
                     </div>
                     <div className={styles.NameInputs}>
                         <input type="text" placeholder="Nome*" />
                         <input type="text" placeholder="Sobrenome*" />
                     </div>
                     <div>
-                        <input type="tel" placeholder="Telefone para confirmação" />
+                        <input type="tel" placeholder="Telefone*" />
                     </div>
                     <p>Esses dados serão usados apenas para processar entregas.</p>
                 </form>

@@ -7,7 +7,7 @@ import PayMethods from '../components/FinishingComponents/PayMethods/PayMethods'
 import ResumeCart from '../components/FinishingComponents/ResumeCart/ResumeCart';
 import JustTop from '../components/nav/justTop';
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function Finishing() {
     const [paymentMethod, setPaymentMethod] = useState('pix');

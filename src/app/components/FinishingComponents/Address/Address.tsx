@@ -1,8 +1,9 @@
 import styles from './Address.module.css';
 
-export default function Address() {
+export default function Address({ formData, updateFormData }) {
     function address(event: React.FocusEvent<HTMLInputElement>) {
         const cep = (event.target as HTMLInputElement).value;
+        updateFormData('cep', cep);
 
         fetch('https://viacep.com.br/ws/' + cep + '/json/')
             .then((response) => {
@@ -17,6 +18,9 @@ export default function Address() {
                 // Exemplo de preenchimento dos campos, se existirem:
                 const bairroInput = document.getElementById('bairro') as HTMLInputElement;
                 const logradouroInput = document.getElementById('logradouro') as HTMLInputElement;
+
+                updateFormData('bairro', data.bairro || '');
+                updateFormData('rua', data.logradouro || '');
 
                 if (bairroInput && logradouroInput) {
                     bairroInput.value = data.bairro || '';
@@ -34,17 +38,36 @@ export default function Address() {
             <h3>Endereço de entrega</h3>
 
             <form className={styles.FormContent}>
-                <input type="text" id="cep" placeholder="Digite seu CEP*" onBlur={address} onSubmit={address} />
+                <input
+                    type="text"
+                    id="cep"
+                    placeholder="Digite seu CEP*"
+                    value={formData.cep}
+                    onBlur={address}
+                    onChange={(e) => updateFormData('cep', e.target.value)}
+                />
                 <label className={styles.confirmCEP}>Confirmar CEP</label>
                 <h4 className={styles.SectionTitle}>Resumo do Endereço</h4>
                 <div className={styles.AddressGrid}>
                     <div className={styles.FieldGroup}>
                         <label>Bairro</label>
-                        <input type="text" id="bairro" />
+                        <input
+                            type="text"
+                            id="bairro"
+                            placeholder="Bairro*"
+                            value={formData.bairro}
+                            onChange={(e) => updateFormData('bairro', e.target.value)}
+                        />
                     </div>
                     <div className={styles.FieldGroup}>
                         <label>Rua</label>
-                        <input type="text" id="logradouro" />
+                        <input
+                            type="text"
+                            id="logradouro"
+                            placeholder="Rua*"
+                            value={formData.rua}
+                            onChange={(e) => updateFormData('rua', e.target.value)}
+                        />
                     </div>
                     <div className={styles.FieldGroup}>
                         <label>Nº da Casa</label>

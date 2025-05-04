@@ -3,7 +3,7 @@
 import styles from './InfoPersonal.module.css';
 import Link from 'next/link';
 
-export const InfoPersonal = () => {
+export const InfoPersonal = ({ formData, updateFormData }) => {
     return (
         <div className={styles.InfoPersonal}>
             <div className={styles.content}>
@@ -15,16 +15,32 @@ export const InfoPersonal = () => {
                 </ul>
 
                 <form className={styles.ContentForm}>
-                    <div>
-                        <input type="email" placeholder="E-mail*" />
-                    </div>
+                    <input
+                        type="email"
+                        placeholder="E-mail*"
+                        value={formData.email}
+                        onChange={(e) => updateFormData('email', e.target.value)}
+                    />
                     <div className={styles.NameInputs}>
-                        <input type="text" placeholder="Nome*" />
-                        <input type="text" placeholder="Sobrenome*" />
+                        <input
+                            type="text"
+                            placeholder="Nome*"
+                            value={formData.nome}
+                            onChange={(e) => updateFormData('nome', e.target.value)}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Sobrenome*"
+                            value={formData.sobrenome}
+                            onChange={(e) => updateFormData('sobrenome', e.target.value)}
+                        />
                     </div>
-                    <div>
-                        <input type="tel" placeholder="Telefone*" />
-                    </div>
+                    <input
+                        type="tel"
+                        placeholder="Telefone*"
+                        value={formData.telefone}
+                        onChange={(e) => updateFormData('telefone', e.target.value)}
+                    />
                     <p>Esses dados serão usados apenas para processar entregas.</p>
                 </form>
             </div>

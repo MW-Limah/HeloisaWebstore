@@ -40,7 +40,6 @@ export default function Finishing() {
                         <InfoPersonal />
                         <Address />
                         <PayMethods onPaymentMethodChange={setPaymentMethod} />
-                        <button onClick={handleFinalize}>Finalizar compra</button>
                     </div>
                     <div>
                         <ResumeCart paymentMethod={paymentMethod} />

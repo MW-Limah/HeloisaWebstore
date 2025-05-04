@@ -7,28 +7,41 @@ import PayMethods from '../components/FinishingComponents/PayMethods/PayMethods'
 import ResumeCart from '../components/FinishingComponents/ResumeCart/ResumeCart';
 import JustTop from '../components/nav/justTop';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Finishing() {
     const [paymentMethod, setPaymentMethod] = useState('pix');
+    const [formData, setFormData] = useState({
+        email: '',
+        nome: '',
+        sobrenome: '',
+        telefone: '',
+        cep: '',
+        bairro: '',
+        rua: '',
+        numero: '',
+    });
 
-    const handleFinalize = async () => {
-        const res = await fetch('/api/payment', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                paymentMethod,
-                // Adicione aqui os dados do pedido, total, produtos etc.
-            }),
-        });
+    const router = useRouter();
 
-        const data = await res.json();
-        if (data.init_point) {
-            // redireciona para o link do Mercado Pago (Pix/Boleto/etc)
-            window.location.href = data.init_point;
-        } else {
-            alert('Erro ao iniciar pagamento');
-        }
+    const updateFormData = (field, value) => {
+        setFormData((prev) => ({
+            ...prev,
+            [field]: value,
+        }));
     };
+
+    const handleFinish = () => {
+        const { email, nome, sobrenome, telefone, cep, bairro, rua, numero } = formData;
+
+        if (!email || !nome || !sobrenome || !telefone || !cep || !bairro || !rua || !numero) {
+            alert('Por favor, Preencha todos os campos');
+            return;
+        }
+
+        router.push(`/checkout/payment?method=${paymentMethod}`);
+    };
+
     return (
         <div className={styles.allContent}>
             <JustTop />
@@ -37,12 +50,12 @@ export default function Finishing() {
                 <p>Preencha os campos abaixo, depois clique em finalizar compra ✨</p>
                 <div className={styles.content}>
                     <div>
-                        <InfoPersonal />
-                        <Address />
+                        <InfoPersonal formData={formData} updateFormData={updateFormData} />
+                        <Address formData={formData} updateFormData={updateFormData} />
                         <PayMethods onPaymentMethodChange={setPaymentMethod} />
                     </div>
                     <div>
-                        <ResumeCart paymentMethod={paymentMethod} />
+                        <ResumeCart paymentMethod={handleFinish} />
                     </div>
                 </div>
             </div>

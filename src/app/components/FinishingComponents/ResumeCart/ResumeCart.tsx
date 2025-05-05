@@ -15,7 +15,7 @@ export default function ResumeCart({ onFinish, paymentMethod }) {
 
     const handleFinish = () => {
         if (paymentMethod) {
-            router.push(`/checkout/payment?method=${paymentMethod}`);
+            router.push(`/Finishing/payment?method=${paymentMethod}`);
         } else {
             alert('Por favor, selecione um método de pagamento.');
         }

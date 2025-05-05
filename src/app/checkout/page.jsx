@@ -33,13 +33,18 @@ export default function Finishing() {
 
     const handleFinish = () => {
         const { email, nome, sobrenome, telefone, cep, bairro, rua, numero } = formData;
-
         if (!email || !nome || !sobrenome || !telefone || !cep || !bairro || !rua || !numero) {
-            alert('Por favor, Preencha todos os campos');
+            alert('Por favor, preencha todos os campos');
             return;
         }
 
+        // grava tudo no localStorage
+        localStorage.setItem('checkoutData', JSON.stringify({ ...formData, paymentMethod }));
+
+        // então navega
         window.location.href = `/checkout/payment?method=${paymentMethod}`;
+        // ou, se preferir:
+        // router.push(`/checkout/payment?method=${paymentMethod}`);
     };
 
     return (

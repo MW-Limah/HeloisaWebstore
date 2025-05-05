@@ -83,7 +83,7 @@ export default function ResumeCart({ formData, paymentMethod, onFinish }: Resume
                             </li>
                         </ul>
                     </div>
-                    <button className={styles.Button} onClick={onFinish}>
+                    <button className={styles.Button} onClick={handleFinish}>
                         Finalizar compra
                     </button>
                 </div>

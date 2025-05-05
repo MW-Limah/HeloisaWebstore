@@ -1,31 +1,38 @@
+// src/app/checkout/components/ResumeCart.tsx
 'use client';
 
 import { useCart } from '@/app/components/Cart/CartContext';
-import Image from 'next/image';
 import { useState } from 'react';
-import styles from './ResumeCart.module.css';
 import { useRouter } from 'next/navigation';
+import styles from './ResumeCart.module.css';
+import Image from 'next/image';
 
-type ResumeCartProps = {
-    formData: any;
-    onFinish: () => void;
+export type ResumeCartProps = {
+    formData: {
+        email: string;
+        nome: string;
+        sobrenome: string;
+        telefone: string;
+        cep: string;
+        bairro: string;
+        rua: string;
+        numero: string;
+    };
     paymentMethod: 'pix' | 'boleto' | 'card';
+    onFinish: () => void;
 };
 
-export default function ResumeCart({ formData, onFinish, paymentMethod }: ResumeCartProps) {
-    const { cart, getTotal, getSelectedItems, getSelectedTotal } = useCart();
+export default function ResumeCart({ formData, paymentMethod, onFinish }: ResumeCartProps) {
+    const { getSelectedItems, getSelectedTotal } = useCart();
     const [showPopup, setShowPopup] = useState(false);
     const router = useRouter();
     const selectedItems = getSelectedItems();
     const selectedTotal = getSelectedTotal();
 
     const handleFinish = () => {
-        if (!paymentMethod) {
-            alert('Por favor, selecione um método de pagamento.');
-            return;
-        }
+        // aqui sim salva formData + paymentMethod
         localStorage.setItem('checkoutData', JSON.stringify({ ...formData, paymentMethod }));
-        router.push(`/checkout/payment?method=${paymentMethod}`);
+        onFinish(); // ou router.push se preferir fazer aqui
     };
 
     return (

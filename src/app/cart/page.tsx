@@ -100,7 +100,7 @@ export default function CartPage() {
                 <div className={styles.summary}>
                     <h2>Total selecionado: R$ {getSelectedTotal()}</h2>
                     <div className={styles.actions}>
-                        <Link href="/Finishing">
+                        <Link href="/checkout">
                             <button className={styles.checkoutBtn} disabled={getSelectedItems().length === 0}>
                                 Ir para Checkout
                             </button>

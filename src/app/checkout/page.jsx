@@ -39,7 +39,7 @@ export default function Finishing() {
             return;
         }
 
-        router.push(`/checkout/payment?method=${paymentMethod}`);
+        window.location.href = `/checkout/payment?method=${paymentMethod}`;
     };
 
     return (
@@ -55,7 +55,7 @@ export default function Finishing() {
                         <PayMethods onPaymentMethodChange={setPaymentMethod} />
                     </div>
                     <div>
-                        <ResumeCart onFinish={handleFinish} />
+                        <ResumeCart formData={formData} paymentMethod={paymentMethod} onFinish={handleFinish} />
                     </div>
                 </div>
             </div>

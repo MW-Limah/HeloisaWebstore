@@ -70,6 +70,7 @@ export default function DynamicPayClient() {
             ) : (
                 <p>Gerando QR Code…</p>
             )}
+
             {method === 'boleto' && (
                 <div>
                     <h2>Pagamento com Boleto</h2>

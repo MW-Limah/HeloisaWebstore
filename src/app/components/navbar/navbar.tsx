@@ -135,7 +135,7 @@ export default function Navbar() {
                             </a>
                         </li>
                         <li>
-                            <a href={'#Boot'} onClick={handleLinkClick('Boot')}>
+                            <a href={'#Calcados'} onClick={handleLinkClick('Calcados')}>
                                 Calçados
                             </a>
                         </li>

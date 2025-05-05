@@ -13,7 +13,7 @@ export default function DynamicPay() {
 
     useEffect(() => {
         if (method === 'pix') {
-            fetch('http://localhost:3001/create-pix', {
+            fetch('/api/create-pix', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -29,7 +29,7 @@ export default function DynamicPay() {
         }
 
         if (method === 'boleto') {
-            fetch('http://localhost:3001/create-boleto', {
+            fetch('/api/create-boleto', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

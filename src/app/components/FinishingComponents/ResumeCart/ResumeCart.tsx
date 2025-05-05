@@ -6,12 +6,20 @@ import { useState } from 'react';
 import styles from './ResumeCart.module.css';
 import { useRouter } from 'next/navigation';
 
-export default function ResumeCart({ onFinish }) {
+export default function ResumeCart({ onFinish, paymentMethod }) {
     const { cart, getTotal, getSelectedItems, getSelectedTotal } = useCart();
     const [showPopup, setShowPopup] = useState(false);
     const router = useRouter();
     const selectedItems = getSelectedItems();
     const selectedTotal = getSelectedTotal();
+
+    const handleFinish = () => {
+        if (paymentMethod) {
+            router.push(`/checkout/payment?method=${paymentMethod}`);
+        } else {
+            alert('Por favor, selecione um método de pagamento.');
+        }
+    };
 
     return (
         <div className={styles.ResumeCart}>
@@ -61,7 +69,7 @@ export default function ResumeCart({ onFinish }) {
                             </li>
                         </ul>
                     </div>
-                    <button className={styles.Button} onClick={onFinish}>
+                    <button className={styles.Button} onClick={handleFinish}>
                         Finalizar compra
                     </button>
                 </div>

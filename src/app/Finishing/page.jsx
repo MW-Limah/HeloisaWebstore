@@ -55,7 +55,7 @@ export default function Finishing() {
                         <PayMethods onPaymentMethodChange={setPaymentMethod} />
                     </div>
                     <div>
-                        <ResumeCart paymentMethod={handleFinish} />
+                        <ResumeCart onFinish={handleFinish} />
                     </div>
                 </div>
             </div>

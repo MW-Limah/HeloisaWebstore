@@ -71,7 +71,13 @@ export default function Address({ formData, updateFormData }) {
                     </div>
                     <div className={styles.FieldGroup}>
                         <label>Nº da Casa</label>
-                        <input type="text" placeholder="Digite o número da casa" />
+                        <input
+                            type="text"
+                            id="numero"
+                            placeholder="Digite o número da casa"
+                            value={formData.numero}
+                            onChange={(e) => updateFormData('numero', e.target.value)}
+                        />
                     </div>
                 </div>
 

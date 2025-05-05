@@ -6,30 +6,46 @@ import Image from 'next/image';
 import styles from './DynamincPay.module.css';
 
 export default function DynamicPayClient() {
-    const method = useSearchParams().get('method');
+    const searchParams = useSearchParams();
+    const method = searchParams?.get('method');
     const [qrCode, setQrCode] = useState<string | null>(null);
     const [boletoUrl, setBoletoUrl] = useState<string | null>(null);
 
     useEffect(() => {
+        const localData = localStorage.getItem('checkoutData');
+        const userData = localData ? JSON.parse(localData) : null;
+
+        if (!userData) return;
+
         const payload = {
             amount: 50,
             description: 'Produto Exemplo',
-            email: 'comprador@email.com',
-            first_name: 'João',
-            last_name: 'Silva',
+            email: userData.email,
+            first_name: userData.nome,
+            last_name: userData.sobrenome,
         };
 
         if (method === 'pix') {
+            console.log('DynamicPayClient:', { method, payload });
             fetch('/api/create-pix', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
             })
-                .then((res) => res.json())
+                .then((res) => {
+                    console.log('Status da resposta PIX:', res.status);
+                    return res.json();
+                })
+                // dentro do seu useEffect, logo após .then(res => res.json())
                 .then((data) => {
-                    if (data.qrBase64) setQrCode(data.qrBase64);
-                    else console.error('Erro no response PIX', data);
-                });
+                    console.log('📡 resposta /api/create-pix →', data);
+                    if (data.qrBase64) {
+                        setQrCode(data.qrBase64);
+                    } else {
+                        console.warn('⚠️ qrBase64 não veio no JSON:', data);
+                    }
+                })
+                .catch((err) => console.error('❌ Erro no fetch /api/create-pix:', err));
         }
 
         if (method === 'boleto') {
@@ -40,8 +56,7 @@ export default function DynamicPayClient() {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    if (data.boletoUrl) setBoletoUrl(data.boletoUrl);
-                    else console.error('Erro no response BOLETO', data);
+                    if (data.qrBase64) setQrCode(data.qrBase64);
                 });
         }
     }, [method]);
@@ -50,17 +65,11 @@ export default function DynamicPayClient() {
         <div className={styles.container}>
             <h1>Finalizar Pagamento</h1>
 
-            {method === 'pix' && (
-                <div>
-                    <h2>Pagamento com Pix</h2>
-                    {qrCode ? (
-                        <Image width={300} height={300} src={`data:image/png;base64,${qrCode}`} alt="QR Code Pix" />
-                    ) : (
-                        <p>Gerando QR Code…</p>
-                    )}
-                </div>
+            {qrCode ? (
+                <Image unoptimized width={300} height={300} src={`data:image/png;base64,${qrCode}`} alt="QR Code Pix" />
+            ) : (
+                <p>Gerando QR Code…</p>
             )}
-
             {method === 'boleto' && (
                 <div>
                     <h2>Pagamento com Boleto</h2>
@@ -73,7 +82,6 @@ export default function DynamicPayClient() {
                     )}
                 </div>
             )}
-
             {method === 'card' && (
                 <div>
                     <h2>Pagamento com Cartão</h2>

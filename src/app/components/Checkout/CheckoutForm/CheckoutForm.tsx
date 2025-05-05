@@ -134,7 +134,7 @@ export default function CheckoutForm({
 
                     {/* Cor */}
                     <div className={styles.finishItem}>
-                        <label htmlFor="color">Cor</label>
+                        <label htmlFor="color">Item/Cor</label>
                         <select id="color" name="color" value={color} onChange={(e) => setColor(e.target.value)}>
                             {colors.length > 0 ? (
                                 colors.map((cor) => (

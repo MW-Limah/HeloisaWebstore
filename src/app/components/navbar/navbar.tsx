@@ -130,8 +130,8 @@ export default function Navbar() {
                             </a>
                         </li>
                         <li>
-                            <a href={'#Pulseiras'} onClick={handleLinkClick('Pulseiras')}>
-                                Pulseiras
+                            <a href={'#Cordoes'} onClick={handleLinkClick('Cordoes')}>
+                                Cordões
                             </a>
                         </li>
                         <li>

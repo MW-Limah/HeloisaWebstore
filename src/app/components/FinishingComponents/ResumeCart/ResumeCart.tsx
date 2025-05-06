@@ -88,7 +88,7 @@ export default function ResumeCart({ formData, paymentMethod, onFinish }: Resume
                         <ul className={styles.priceTotal}>
                             <li>
                                 <h4>TOTAL</h4>
-                                <p>R$ {(selectedTotal + 5).toFixed(2)}</p>
+                                <p>R$ {(selectedTotal + 4.5).toFixed(2)}</p>
                             </li>
                             <li>
                                 <h4>Método de Pagamento</h4>

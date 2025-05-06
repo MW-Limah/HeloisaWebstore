@@ -2,9 +2,48 @@
     height: 100vh;
     width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 20px;
+    margin-top: 20px;
     color: black;
+}
+.content {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.AreaPix {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.AreaPix label {
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 16pt;
+}
+.AreaPix textarea {
+    margin: 20px 0;
+    min-height: 50px;
+    background: white;
+    color: #000;
+    padding: 10px;
+    max-height: 150px;
+    resize: none;
+}
+
+.CopyPix {
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #00a28e;
+}
+
+.pTotal {
+    font-weight: 600;
+    text-align: center;
+    font-size: 14pt;
 }

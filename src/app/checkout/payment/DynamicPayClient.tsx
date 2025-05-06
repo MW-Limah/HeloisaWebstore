@@ -14,6 +14,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     const [pixCode, setPixCode] = useState<string | null>(null);
     const [boletoUrl, setBoletoUrl] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [copied, setCopied] = useState(false);
 
     // Normaliza texto: maiúsculas, remove acentos, pontuação e caracteres especiais
     // Atualize a função normalize
@@ -118,43 +119,66 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     return (
         <div className={styles.container}>
             <h1>Finalizar Pagamento</h1>
+            <div className={styles.content}>
+                {paymentMethod === 'pix' && (
+                    <>
+                        {pixCode ? (
+                            <>
+                                <QRCode value={pixCode} size={300} />
 
-            {paymentMethod === 'pix' && (
-                <>
-                    {pixCode ? (
-                        <>
-                            <QRCode value={pixCode} size={300} />
-                            <p style={{ wordBreak: 'break-word', fontSize: '0.75rem', marginTop: '1rem' }}>{pixCode}</p>
-                        </>
-                    ) : (
-                        <p>Gerando QR Code…</p>
-                    )}
-                    {/* Exibe total atualizado */}
-                    <p>Total: R$ {total.toFixed(2)}</p>
-                </>
-            )}
+                                {/* Pix Copia e Cola */}
+                                <div className={styles.AreaPix}>
+                                    <label htmlFor="pixCopyPaste">Pix Copia e Cola</label>
+                                    <textarea className={styles.textPix} id="pixCopyPaste" readOnly value={pixCode} />
+                                    <button
+                                        className={styles.CopyPix}
+                                        onClick={() => {
+                                            navigator.clipboard.writeText(pixCode || '');
+                                            setCopied(true);
+                                            setTimeout(() => setCopied(false), 3000); // Oculta após 3 segundos
+                                        }}
+                                    >
+                                        Copiar código Pix
+                                    </button>
 
-            {paymentMethod === 'boleto' && (
-                <div>
-                    <h2>Pagamento com Boleto</h2>
-                    {boletoUrl ? (
-                        <a href={boletoUrl} target="_blank" rel="noopener noreferrer">
-                            Clique aqui para abrir o boleto
-                        </a>
-                    ) : (
-                        <p>Gerando boleto…</p>
-                    )}
-                    <p>Total: R$ {total.toFixed(2)}</p>
-                </div>
-            )}
+                                    {/* Mensagem de confirmação */}
+                                    {copied && (
+                                        <p style={{ color: 'green', marginTop: '0.5rem', fontSize: '0.9rem' }}>
+                                            Código Pix copiado com sucesso!
+                                        </p>
+                                    )}
+                                </div>
 
-            {paymentMethod === 'card' && (
-                <div>
-                    <h2>Pagamento com Cartão</h2>
-                    <p>Formulário de cartão será renderizado aqui usando o SDK do Mercado Pago.</p>
-                    <p>Total: R$ {total.toFixed(2)}</p>
-                </div>
-            )}
+                                <p className={styles.pTotal}>Total: R$ {total.toFixed(2)}</p>
+                            </>
+                        ) : (
+                            <p>Gerando QR Code…</p>
+                        )}
+                    </>
+                )}
+
+                {paymentMethod === 'boleto' && (
+                    <div>
+                        <h2>Pagamento com Boleto</h2>
+                        {boletoUrl ? (
+                            <a href={boletoUrl} target="_blank" rel="noopener noreferrer">
+                                Clique aqui para abrir o boleto
+                            </a>
+                        ) : (
+                            <p>Gerando boleto…</p>
+                        )}
+                        <p>Total: R$ {total.toFixed(2)}</p>
+                    </div>
+                )}
+
+                {paymentMethod === 'card' && (
+                    <div>
+                        <h2>Pagamento com Cartão</h2>
+                        <p>Formulário de cartão será renderizado aqui usando o SDK do Mercado Pago.</p>
+                        <p>Total: R$ {total.toFixed(2)}</p>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

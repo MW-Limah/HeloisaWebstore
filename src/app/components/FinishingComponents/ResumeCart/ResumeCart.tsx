@@ -29,10 +29,19 @@ export default function ResumeCart({ formData, paymentMethod, onFinish }: Resume
     const selectedItems = getSelectedItems();
     const selectedTotal = getSelectedTotal();
 
+    const taxa = 5;
+    const valorTotalComTaxa = selectedTotal + taxa;
+
     const handleFinish = () => {
-        // aqui sim salva formData + paymentMethod
-        localStorage.setItem('checkoutData', JSON.stringify({ ...formData, paymentMethod }));
-        onFinish(); // ou router.push se preferir fazer aqui
+        // Store the total amount in localStorage
+        const checkoutData = {
+            ...formData,
+            total: valorTotalComTaxa,
+        };
+        localStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+
+        // Navigate to payment page
+        router.push('/checkout/payment');
     };
 
     return (
@@ -72,14 +81,22 @@ export default function ResumeCart({ formData, paymentMethod, onFinish }: Resume
                             </li>
                             <li>
                                 <h4>Taxa de entrega</h4>
-                                <p>R$ 1,00</p>
+                                <p>R$ 5,00</p>
                             </li>
                         </ul>
 
                         <ul className={styles.priceTotal}>
                             <li>
                                 <h4>TOTAL</h4>
-                                <p>R$ {(selectedTotal + 1).toFixed(2)}</p>
+                                <p>R$ {(selectedTotal + 5).toFixed(2)}</p>
+                            </li>
+                            <li>
+                                <h4>Método de Pagamento</h4>
+                                <p>
+                                    {paymentMethod === 'pix' && 'PIX'}
+                                    {paymentMethod === 'boleto' && 'Boleto Bancário'}
+                                    {paymentMethod === 'card' && 'Cartão de Crédito'}
+                                </p>
                             </li>
                         </ul>
                     </div>

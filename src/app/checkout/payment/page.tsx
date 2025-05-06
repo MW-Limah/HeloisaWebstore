@@ -3,22 +3,23 @@
 // src/app/checkout/payment/page.tsx
 import { Suspense, useEffect, useState } from 'react';
 import DynamicPayClient from './DynamicPayClient';
+import { useCart } from '@/app/components/Cart/CartContext';
 
 export default function PaymentPage() {
     const [paymentMethod, setPaymentMethod] = useState<'pix' | 'boleto' | 'card'>('pix');
     const [total, setTotal] = useState<number>(0);
+    const { getSelectedTotalWithFee } = useCart();
 
     useEffect(() => {
-        // Tente obter o total do localStorage ou de outro lugar
         const localData = localStorage.getItem('checkoutData');
         const checkoutData = localData ? JSON.parse(localData) : null;
 
         if (checkoutData) {
-            // Definindo o total baseado nos dados do checkout
-            setTotal(checkoutData.total || 0);
+            const totalWithFee = getSelectedTotalWithFee();
+            setTotal(totalWithFee); // ✅ valor com taxa
             setPaymentMethod(checkoutData.paymentMethod || 'pix');
         }
-    }, []);
+    }, [getSelectedTotalWithFee]);
 
     return (
         <Suspense fallback={<p>Carregando pagamento…</p>}>

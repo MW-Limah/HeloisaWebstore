@@ -24,6 +24,7 @@ interface CartContextType {
     toggleSelectItem: (id: string, color: string) => void;
     getSelectedItems: () => CartItem[];
     getSelectedTotal: () => number;
+    getSelectedTotalWithFee: () => number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -85,6 +86,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const getSelectedTotal = () =>
         cart.reduce((sum, item) => (item.selected ? sum + item.price * item.quantity : sum), 0);
 
+    const getSelectedTotalWithFee = () => {
+        const selectedTotal = getSelectedTotal();
+        return selectedTotal > 0 ? selectedTotal + 5 : 0; // Aplica taxa só se houver itens selecionados
+    };
+
     return (
         <CartContext.Provider
             value={{
@@ -97,6 +103,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
                 toggleSelectItem,
                 getSelectedItems,
                 getSelectedTotal,
+                getSelectedTotalWithFee, // 👈 Adiciona aqui
             }}
         >
             {children}

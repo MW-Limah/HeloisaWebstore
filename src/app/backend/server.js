@@ -59,3 +59,36 @@ app.post('/create-boleto', async (req, res) => {
         res.status(500).send('Erro ao criar boleto');
     }
 });
+
+// No backend/server.js ou backend/index.js
+app.post('/webhook', async (req, res) => {
+    try {
+        const { type, data } = req.body;
+
+        if (type === 'payment') {
+            const paymentId = data.id;
+
+            const payment = await mercadopago.payment.findById(paymentId);
+
+            if (payment.body.status === 'approved') {
+                // Aqui você pode salvar no banco de dados, ou atualizar o pedido como pago
+                console.log('Pagamento aprovado:');
+                console.log({
+                    id: payment.body.id,
+                    valor: payment.body.transaction_amount,
+                    comprador: payment.body.payer.email,
+                    método: payment.body.payment_method_id,
+                });
+
+                // TODO: Atualize o status do pedido no banco de dados
+            } else {
+                console.log('Pagamento não aprovado ainda:', payment.body.status);
+            }
+        }
+
+        res.status(200).send('OK');
+    } catch (err) {
+        console.error('Erro no webhook:', err);
+        res.status(500).send('Erro no webhook');
+    }
+});

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import styles from './DynamincPay.module.css';
+import styles from './DynamicPayClient.module.css';
 import { QRCode } from 'react-qrcode-logo';
 import { payload as pixPayload } from 'pix-payload';
 
@@ -13,69 +13,105 @@ type DynamicPayClientProps = {
 export default function DynamicPayClient({ paymentMethod, total }: DynamicPayClientProps) {
     const [pixCode, setPixCode] = useState<string | null>(null);
     const [boletoUrl, setBoletoUrl] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     // Normaliza texto: maiúsculas, remove acentos, pontuação e caracteres especiais
+    // Atualize a função normalize
     const normalize = useCallback((str: string, maxLen: number): string => {
         return str
             .toUpperCase()
-            .normalize('NFD') // separa acentos
-            .replace(/[̀-\u036f]/g, '') // remove diacríticos
-            .replace(/[^A-Z0-9 ]/g, '') // remove pontuação e símbolos
-            .substring(0, maxLen); // limita ao tamanho máximo
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '') // Corrigido aqui
+            .replace(/[^A-Z0-9 ]/g, '') // Mantém apenas letras, números e espaço
+            .substring(0, maxLen);
     }, []);
 
     // Gera payload Pix usando pixPayload()
     const generatePixCode = useCallback(
         (amount: number, txId: string): string => {
+            // Formata o valor com 2 casas decimais e remove zeros à direita
+            const formattedAmount = Number(amount).toFixed(2);
+
             const key = 'loja.heloisaofc@gmail.com';
             const name = normalize('Heloisa Loja Virtual', 25);
             const city = normalize('Manaus', 15);
             const transactionId = normalize(txId, 25);
 
-            const value = pixPayload({
-                key,
-                name,
-                city,
-                amount,
-                transactionId,
-            });
+            try {
+                const value = pixPayload({
+                    key,
+                    name,
+                    city,
+                    amount: Number(formattedAmount),
+                    transactionId,
+                });
 
-            console.log('Generated Pix Payload:', value);
-            return value;
+                console.log('Generated Pix Payload:', value);
+                return value;
+            } catch (error) {
+                console.error('Erro ao gerar payload PIX:', error);
+                throw error;
+            }
         },
         [normalize]
     );
 
     useEffect(() => {
-        const localData = localStorage.getItem('checkoutData');
-        const userData = localData ? JSON.parse(localData) : null;
-        if (!userData || typeof total !== 'number' || isNaN(total)) return;
+        // Recupera dados do checkout
+        let checkoutData: any = null;
+        try {
+            const stored = localStorage.getItem('checkoutData');
+            checkoutData = stored ? JSON.parse(stored) : null;
+        } catch (err) {
+            console.error('Erro ao parsear checkoutData:', err);
+            return;
+        }
+        if (!checkoutData) return;
 
-        const txId = 'TX12345HWS';
+        // Atualiza o total no localStorage se estiver ausente ou diferente
+        if (checkoutData.total !== total) {
+            const updated = { ...checkoutData, total };
+            localStorage.setItem('checkoutData', JSON.stringify(updated));
+            checkoutData = updated;
+        }
+
+        // Gera um ID de transação único baseado no timestamp
+        const txId = `TX${Date.now()}HWS`;
+
+        // Formata o valor corretamente
+        const formattedAmount = Number(total).toFixed(2);
+
         const meta = {
-            amount: total,
+            amount: Number(formattedAmount),
             description: 'Pagamento na Heloisa Store',
-            email: userData.email,
-            first_name: userData.nome,
-            last_name: userData.sobrenome,
+            email: checkoutData.email,
+            first_name: checkoutData.nome,
+            last_name: checkoutData.sobrenome,
             transactionId: txId,
         };
 
+        // Gera Pix
         if (paymentMethod === 'pix') {
-            const code = generatePixCode(total, txId);
+            const finalAmount = Number(total.toFixed(2));
+            const code = generatePixCode(finalAmount, txId);
             setPixCode(code);
         }
 
+        // Gera Boleto
         if (paymentMethod === 'boleto') {
-            fetch('/api/create-boleto', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(meta),
-            })
-                .then((res) => res.json())
-                .then((data) => {
+            (async () => {
+                try {
+                    const res = await fetch('/api/create-boleto', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(meta),
+                    });
+                    const data = await res.json();
                     if (data.boletoUrl) setBoletoUrl(data.boletoUrl);
-                });
+                } catch (err) {
+                    console.error('Erro ao criar boleto:', err);
+                }
+            })();
         }
     }, [paymentMethod, total, generatePixCode]);
 
@@ -93,6 +129,8 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                     ) : (
                         <p>Gerando QR Code…</p>
                     )}
+                    {/* Exibe total atualizado */}
+                    <p>Total: R$ {total.toFixed(2)}</p>
                 </>
             )}
 
@@ -106,6 +144,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                     ) : (
                         <p>Gerando boleto…</p>
                     )}
+                    <p>Total: R$ {total.toFixed(2)}</p>
                 </div>
             )}
 
@@ -113,6 +152,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                 <div>
                     <h2>Pagamento com Cartão</h2>
                     <p>Formulário de cartão será renderizado aqui usando o SDK do Mercado Pago.</p>
+                    <p>Total: R$ {total.toFixed(2)}</p>
                 </div>
             )}
         </div>

@@ -1,15 +1,21 @@
+// src/app/checkout/Finishing/page.tsx
 'use client';
 
-import styles from './Finishing.module.css';
+import JustTop from '../components/nav/justTop';
+import { useCart } from '@/app/components/Cart/CartContext'; // <-- importe o hook
 import { InfoPersonal } from '../components/FinishingComponents/InfoPersonal/InfoPersonal';
 import Address from '../components/FinishingComponents/Address/Address';
 import PayMethods from '../components/FinishingComponents/PayMethods/PayMethods';
 import ResumeCart from '../components/FinishingComponents/ResumeCart/ResumeCart';
-import JustTop from '../components/nav/justTop';
+import styles from './Finishing.module.css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Finishing() {
+    const { getSelectedTotal } = useCart(); // <-- pegue o total
+    const taxa = 5;
+    const totalComTaxa = getSelectedTotal() + taxa; // <-- calcule aqui
+
     const [paymentMethod, setPaymentMethod] = useState('pix');
     const [formData, setFormData] = useState({
         email: '',
@@ -25,10 +31,7 @@ export default function Finishing() {
     const router = useRouter();
 
     const updateFormData = (field, value) => {
-        setFormData((prev) => ({
-            ...prev,
-            [field]: value,
-        }));
+        setFormData((prev) => ({ ...prev, [field]: value }));
     };
 
     const handleFinish = () => {
@@ -38,13 +41,18 @@ export default function Finishing() {
             return;
         }
 
-        // grava tudo no localStorage
-        localStorage.setItem('checkoutData', JSON.stringify({ ...formData, paymentMethod }));
+        // grava dados completos, incluindo o total já calculado
+        localStorage.setItem(
+            'checkoutData',
+            JSON.stringify({
+                ...formData,
+                paymentMethod,
+                total: totalComTaxa, // <-- aqui!
+            })
+        );
 
-        // então navega
-        window.location.href = `/checkout/payment?method=${paymentMethod}`;
-        // ou, se preferir:
-        // router.push(`/checkout/payment?method=${paymentMethod}`);
+        // navega para a página de pagamento
+        router.push(`/checkout/payment`);
     };
 
     return (
@@ -52,7 +60,7 @@ export default function Finishing() {
             <JustTop />
             <div className={styles.container}>
                 <h1>Finalizar compra</h1>
-                <p>Preencha os campos abaixo, depois clique em finalizar compra ✨</p>
+                <p>Preencha os campos abaixo e clique em finalizar compra ✨</p>
                 <div className={styles.content}>
                     <div>
                         <InfoPersonal formData={formData} updateFormData={updateFormData} />

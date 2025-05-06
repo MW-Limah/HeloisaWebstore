@@ -71,16 +71,15 @@ app.post('/webhook', async (req, res) => {
             const payment = await mercadopago.payment.findById(paymentId);
 
             if (payment.body.status === 'approved') {
-                // Aqui você pode salvar no banco de dados, ou atualizar o pedido como pago
-                console.log('Pagamento aprovado:');
-                console.log({
+                console.log('Pagamento aprovado:', {
                     id: payment.body.id,
                     valor: payment.body.transaction_amount,
                     comprador: payment.body.payer.email,
                     método: payment.body.payment_method_id,
                 });
 
-                // TODO: Atualize o status do pedido no banco de dados
+                // Atualize o status do pedido no banco de dados
+                await Pedido.findByIdAndUpdate(data.order_id, { status: 'pago' });
             } else {
                 console.log('Pagamento não aprovado ainda:', payment.body.status);
             }

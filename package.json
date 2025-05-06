@@ -7,7 +7,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "server": "nodemon src/app/backend/server.js"
+        "server": "nodemon server.js"
     },
     "dependencies": {
         "@mercadopago/sdk-react": "^1.0.2",

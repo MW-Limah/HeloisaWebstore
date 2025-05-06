@@ -71,7 +71,7 @@ export default function ResumeCart({ formData, paymentMethod, onFinish }: Resume
                 </div>
 
                 {/* Sticky footer com detalhes e botão */}
-                <div className={styles.stickyFooter}>
+                <div className={styles.priceDetails}>
                     <div className={styles.Details}>
                         <h3>Detalhes da compra</h3>
                         <ul className={styles.priceDetails}>

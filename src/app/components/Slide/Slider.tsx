@@ -9,22 +9,22 @@ const slides = [
         id: 1,
         src: '/images/slide1.png',
         alt: 'Slide 1',
-        title: 'Pente e espelhos portáteis',
-        subtitle: 'Perfeitos para qualquer ocasião',
+        title: 'Brincos artesanais',
+        subtitle: 'Feitos para refletir a beleza natural',
     },
     {
         id: 2,
         src: '/images/slide2.png',
         alt: 'Slide 2',
-        title: 'Coleção de Verão',
-        subtitle: 'Flor Havaina, a beleza mais tropical',
+        title: 'Laços de cetim',
+        subtitle: 'O acessório mais fofo para seus cabelos',
     },
     {
         id: 3,
         src: '/images/slide3.png',
         alt: 'Slide 3',
-        title: 'Batom Matte',
-        subtitle: 'Feito para durar o dia todo',
+        title: 'Brilho labial',
+        subtitle: 'Brilho inteso para seus lábios',
     },
 ];
 

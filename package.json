@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "@mercadopago/sdk-react": "^1.0.2",
+        "@sendgrid/mail": "^8.1.5",
         "@supabase/auth-helpers-nextjs": "^0.10.0",
         "@supabase/supabase-js": "^2.49.4",
         "@types/qrcode.react": "^1.0.5",
@@ -17,6 +18,7 @@
         "mercadopago": "^2.5.0",
         "next": "15.2.4",
         "next-auth": "^4.24.11",
+        "nodemailer": "^6.10.1",
         "pix-payload": "^1.0.4",
         "qrcode.react": "^4.2.0",
         "react": "^19.0.0",

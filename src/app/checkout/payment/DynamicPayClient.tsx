@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import styles from './DynamicPayClient.module.css';
 import { QRCode } from 'react-qrcode-logo';
 import { payload as pixPayload } from 'pix-payload';
+import { useCart } from '@/app/components/Cart/CartContext';
 
 type DynamicPayClientProps = {
     paymentMethod: 'pix' | 'boleto' | 'card';
@@ -16,6 +17,8 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     const [copied, setCopied] = useState(false);
     const [sending, setSending] = useState(false);
     const [sentSuccess, setSentSuccess] = useState<boolean | null>(null);
+    const { getSelectedItems } = useCart();
+    const selectedItems = getSelectedItems();
 
     // ============================
     // 1) Geração de Pix
@@ -104,6 +107,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
             pixCode,
             boletoUrl,
             timestamp: new Date().toISOString(),
+            items: selectedItems.map((item) => ({ id: item.id, title: item.title })),
         };
 
         try {

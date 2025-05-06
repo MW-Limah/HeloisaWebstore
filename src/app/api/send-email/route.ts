@@ -1,4 +1,3 @@
-// src/app/api/send-email/route.ts
 import { NextResponse } from 'next/server';
 import sgMail from '@sendgrid/mail';
 
@@ -8,10 +7,22 @@ export async function POST(request: Request) {
     const data = await request.json();
     console.log('[send-email] received:', data);
 
+    // Monta a lista de itens em HTML
+    const itemsHtml =
+        Array.isArray(data.items) && data.items.length > 0
+            ? `<h2>Itens no pedido:</h2>
+       <ul>
+         ${data.items
+             .map((it: { id: string; title: string }) => `<li><strong>${it.title}</strong> (ID: ${it.id})</li>`)
+             .join('')}
+       </ul>`
+            : '';
+
     const htmlBody = `
     <h1>Novo Pedido (${data.paymentMethod.toUpperCase()})</h1>
     <p><strong>Nome:</strong> ${data.first_name} ${data.last_name}</p>
     <p><strong>Email:</strong> ${data.email}</p>
+    ${itemsHtml}
     <p><strong>Total:</strong> R$ ${data.total}</p>
     ${data.pixCode ? `<p><strong>Pix Code:</strong> ${data.pixCode}</p>` : ''}
     ${data.boletoUrl ? `<p><strong>Boleto URL:</strong> <a href="${data.boletoUrl}">Link do boleto</a></p>` : ''}

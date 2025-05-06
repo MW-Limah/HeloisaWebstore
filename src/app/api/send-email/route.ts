@@ -18,11 +18,35 @@ export async function POST(request: Request) {
        </ul>`
             : '';
 
+    const addressHtml = data.cep
+        ? `
+      <h2>Endereço de entrega</h2>
+      <p>
+        <strong>CEP:</strong> ${data.cep}<br/>
+        <strong>Bairro:</strong> ${data.bairro}<br/>
+        <strong>Rua:</strong> ${data.rua}<br/>
+        <strong>Nº:</strong> ${data.numero}
+      </p>
+    `
+        : '';
+
+    // Mescle no corpo principal:
     const htmlBody = `
     <h1>Novo Pedido (${data.paymentMethod.toUpperCase()})</h1>
     <p><strong>Nome:</strong> ${data.first_name} ${data.last_name}</p>
     <p><strong>Email:</strong> ${data.email}</p>
-    ${itemsHtml}
+
+    ${addressHtml}
+
+    ${
+        Array.isArray(data.items) && data.items.length
+            ? `<h2>Itens no pedido:</h2>
+         <ul>
+           ${data.items.map((it: any) => `<li>${it.title} (ID: ${it.id})</li>`).join('')}
+         </ul>`
+            : ''
+    }
+
     <p><strong>Total:</strong> R$ ${data.total}</p>
     ${data.pixCode ? `<p><strong>Pix Code:</strong> ${data.pixCode}</p>` : ''}
     ${data.boletoUrl ? `<p><strong>Boleto URL:</strong> <a href="${data.boletoUrl}">Link do boleto</a></p>` : ''}

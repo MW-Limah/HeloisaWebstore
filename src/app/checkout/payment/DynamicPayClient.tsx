@@ -12,14 +12,25 @@ type DynamicPayClientProps = {
 };
 
 export default function DynamicPayClient({ paymentMethod, total }: DynamicPayClientProps) {
+    // — estados de UI —
     const [pixCode, setPixCode] = useState<string | null>(null);
     const [boletoUrl, setBoletoUrl] = useState<string | null>(null);
     const [copied, setCopied] = useState(false);
     const [sending, setSending] = useState(false);
     const [sentSuccess, setSentSuccess] = useState<boolean | null>(null);
+    const [showReturnButton, setShowReturnButton] = useState(false);
+
+    // — carrinho —
     const { getSelectedItems } = useCart();
     const selectedItems = getSelectedItems();
-    const [showReturnButton, setShowReturnButton] = useState(false);
+
+    // — checkoutData lido só no cliente —
+    const [checkoutData, setCheckoutData] = useState<any>(null);
+    useEffect(() => {
+        // roda só no browser
+        const stored = localStorage.getItem('checkoutData');
+        setCheckoutData(stored ? JSON.parse(stored) : {});
+    }, []);
 
     // ============================
     // 1) Geração de Pix
@@ -41,35 +52,20 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
             const city = normalize('Manaus', 15);
             const transactionId = normalize(txId, 25);
 
-            const value = pixPayload({
-                key,
-                name,
-                city,
-                amount: Number(formattedAmount),
-                transactionId,
-            });
-            console.log('Generated Pix Payload:', value);
+            const value = pixPayload({ key, name, city, amount: Number(formattedAmount), transactionId });
             return value;
         },
         [normalize]
     );
 
     useEffect(() => {
-        const stored = localStorage.getItem('checkoutData');
-        if (!stored) return;
-        let checkoutData = JSON.parse(stored);
-        if (checkoutData.total !== total) {
-            checkoutData = { ...checkoutData, total };
-            localStorage.setItem('checkoutData', JSON.stringify(checkoutData));
-        }
-
-        const txId = `TX${Date.now()}HWS`;
-
+        if (!checkoutData) return; // aguarda o carregamento
         if (paymentMethod === 'pix') {
+            const txId = `TX${Date.now()}HWS`;
             setPixCode(generatePixCode(total, txId));
         }
-
         if (paymentMethod === 'boleto') {
+            const txId = `TX${Date.now()}HWS`;
             const meta = {
                 amount: total.toFixed(2),
                 description: 'Pagamento na Heloisa Store',
@@ -87,7 +83,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                 .then((d) => d.boletoUrl && setBoletoUrl(d.boletoUrl))
                 .catch(console.error);
         }
-    }, [paymentMethod, total, generatePixCode]);
+    }, [checkoutData, paymentMethod, total, generatePixCode]);
 
     // ============================
     // 2) Confirmação de pagamento
@@ -96,18 +92,22 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
         setSending(true);
         setSentSuccess(null);
 
-        const stored = localStorage.getItem('checkoutData');
-        const checkoutData = stored ? JSON.parse(stored) : {};
+        // usa o estado carregado (ou pode reler localStorage aqui)
+        const data = checkoutData ?? JSON.parse(localStorage.getItem('checkoutData') || '{}');
 
         const payload = {
-            first_name: checkoutData.nome,
-            last_name: checkoutData.sobrenome,
-            email: checkoutData.email,
+            first_name: data.nome,
+            last_name: data.sobrenome,
+            email: data.email,
             total: total.toFixed(2),
             paymentMethod,
             pixCode,
             boletoUrl,
             timestamp: new Date().toISOString(),
+            cep: data.cep,
+            bairro: data.bairro,
+            rua: data.rua,
+            numero: data.numero,
             items: selectedItems.map((item) => ({ id: item.id, title: item.title })),
         };
 
@@ -122,7 +122,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
 
             if (!res.ok) throw new Error(`Status ${res.status}: ${body}`);
             setSentSuccess(true);
-            setShowReturnButton(true); // <-- Só aparece se for sucesso
+            setShowReturnButton(true);
         } catch (err) {
             console.error('[handleConfirm] erro:', err);
             setSentSuccess(false);
@@ -130,7 +130,6 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
             setSending(false);
         }
     };
-
     return (
         <div className={styles.container}>
             <h1>Finalizar Pagamento</h1>
@@ -189,7 +188,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                         {sending ? 'Enviando...' : 'Finalizar pagamento'}
                     </button>
                     {sentSuccess === true && (
-                        <p className={styles.successMsg}>Dados enviados! Confira seu e-mail daqui a alguns minutos.</p>
+                        <p className={styles.successMsg}>Dados enviados! Confira seu e-mail mais tarde.</p>
                     )}
                     {sentSuccess === false && (
                         <p className={styles.errorMsg}>Falha ao enviar dados. Tente novamente.</p>

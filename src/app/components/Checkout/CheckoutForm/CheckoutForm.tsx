@@ -3,7 +3,7 @@
 import styles from './CheckoutForm.module.css';
 import { useCart } from '@/app/components/Cart/CartContext';
 import { useState } from 'react';
-import Link from 'next/link';
+import { useForm } from './FormContext';
 
 interface CheckoutFormProps {
     id: string;
@@ -36,10 +36,11 @@ export default function CheckoutForm({
         email: '',
         address: '',
     });
+    const { checkFormData, checkUpdateFormData } = useForm();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        checkUpdateFormData(name as keyof typeof checkFormData, value);
     };
 
     const handleAddToCart = () => {
@@ -84,16 +85,16 @@ export default function CheckoutForm({
             <h2>Check-out</h2>
             <h3 className={styles.itemTitle}>{title}</h3>
             <p className={styles.itemDescription}>{description}</p>
-
-            {/* Campos do comprador */}
+            {/* 
+           
             <div className={styles.inputGroup}>
                 <label htmlFor="name">Nome</label>
-                <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} />
+                <input type="text" name="name" value={formData.name} onChange={handleChange} />
             </div>
 
             <div className={styles.inputGroup}>
                 <label htmlFor="phone">Telefone</label>
-                <input type="text" name="phone" id="phone" value={formData.phone} onChange={handleChange} />
+                <input type="text" name="phone" value={formData.phone} onChange={handleChange} />
             </div>
 
             <div className={styles.inputGroup}>
@@ -104,7 +105,7 @@ export default function CheckoutForm({
             <div className={styles.inputGroup}>
                 <label htmlFor="address">Endereço</label>
                 <input type="text" name="address" id="address" value={formData.address} onChange={handleChange} />
-            </div>
+            </div> */}
 
             {/* Seções movidas para o final */}
             <div className={styles.finishing}>
@@ -157,11 +158,11 @@ export default function CheckoutForm({
                         <button type="button" className={styles.buttonAddCart} onClick={handleAddToCart}>
                             Adicionar ao carrinho
                         </button>
-                        <Link href={'/Finishing'}>
+                        {/* <Link href={'/cart'}>
                             <button type="submit" className={styles.buttonFinish}>
-                                Finalizar compra
+                                Ir para o carrinho
                             </button>
-                        </Link>
+                        </Link> */}
                     </div>
                 </div>
             </div>

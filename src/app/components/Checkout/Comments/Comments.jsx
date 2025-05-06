@@ -7,10 +7,10 @@ export default function Comments() {
                 <h2>Comentários</h2>
             </div>
             <div className={styles.comments}>
-                {[1, 2, 3, 4, 5].map((num) => (
+                {[1].map((num) => (
                     <div key={num}>
-                        <h3>Pessoa {num}</h3>
-                        <p>este produto é incrível!</p>
+                        <h3>Administrador</h3>
+                        <p>Em breve você poderá comnetar sobre os produtos!</p>
                     </div>
                 ))}
             </div>

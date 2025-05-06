@@ -55,6 +55,7 @@
     align-items: center;
     justify-content: center;
     margin-top: 40px;
+    flex-direction: column;
 }
 .ConfirmPay {
     padding: 10px;
@@ -62,4 +63,22 @@
     width: 50%;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.successMsg {
+    margin-top: 20px;
+}
+.ReturnHome {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #5ab8ab;
+    color: white;
+    border: none;
+    width: 50%;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.ReturnHome:hover {
+    background-color: #333;
 }

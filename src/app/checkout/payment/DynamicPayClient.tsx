@@ -19,6 +19,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     const [sentSuccess, setSentSuccess] = useState<boolean | null>(null);
     const { getSelectedItems } = useCart();
     const selectedItems = getSelectedItems();
+    const [showReturnButton, setShowReturnButton] = useState(false);
 
     // ============================
     // 1) Geração de Pix
@@ -121,6 +122,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
 
             if (!res.ok) throw new Error(`Status ${res.status}: ${body}`);
             setSentSuccess(true);
+            setShowReturnButton(true); // <-- Só aparece se for sucesso
         } catch (err) {
             console.error('[handleConfirm] erro:', err);
             setSentSuccess(false);
@@ -186,9 +188,16 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                     <button className={styles.ConfirmPay} onClick={handleConfirm} disabled={sending}>
                         {sending ? 'Enviando...' : 'Finalizar pagamento'}
                     </button>
-                    {sentSuccess === true && <p className={styles.successMsg}>Dados enviados! Confira seu e‑mail.</p>}
+                    {sentSuccess === true && (
+                        <p className={styles.successMsg}>Dados enviados! Confira seu e-mail daqui a alguns minutos.</p>
+                    )}
                     {sentSuccess === false && (
                         <p className={styles.errorMsg}>Falha ao enviar dados. Tente novamente.</p>
+                    )}
+                    {showReturnButton && (
+                        <button className={styles.ReturnHome} onClick={() => (window.location.href = '/')}>
+                            Voltar à tela inicial
+                        </button>
                     )}
                 </div>
             </div>

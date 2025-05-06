@@ -10,7 +10,7 @@ export default function Comments() {
                 {[1].map((num) => (
                     <div key={num}>
                         <h3>Administrador</h3>
-                        <p>Em breve você poderá comnetar sobre os produtos!</p>
+                        <p>Em breve você poderá comentar sobre os produtos!</p>
                     </div>
                 ))}
             </div>

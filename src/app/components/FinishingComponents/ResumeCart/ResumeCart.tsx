@@ -91,7 +91,7 @@ export default function ResumeCart({ formData, paymentMethod, onFinish }: Resume
                                 <p>R$ {(selectedTotal + 4.5).toFixed(2)}</p>
                             </li>
                             <li>
-                                <h4>Método de Pagamento</h4>
+                                <h4>Método de Pagamento: </h4>
                                 <p>
                                     {paymentMethod === 'pix' && 'PIX'}
                                     {paymentMethod === 'boleto' && 'Boleto Bancário'}

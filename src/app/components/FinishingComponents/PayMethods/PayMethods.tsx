@@ -21,8 +21,8 @@ export default function PayMethods({ onPaymentMethodChange }) {
                     <div className={styles.SelectWrapper}>
                         <select onChange={handleChange} value={paymentMethod}>
                             <option value="pix">Pix</option>
-                            <option value="boleto">Boleto</option>
-                            <option value="card">Cartão Crédito/Débito</option>
+                            {/* <option value="boleto">Boleto</option>
+                            <option value="card">Cartão Crédito/Débito</option> */}
                         </select>
                     </div>
                 </div>

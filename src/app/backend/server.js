@@ -1,11 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+require('dotenv').config(); // <- Carrega as variáveis do .env
 
 const mercadopago = require('mercadopago');
 
+// Configurar com token do .env
 mercadopago.configure({
-    access_token: 'TEST-5619784803285063-050418-22f1f195a5c66c6801e4e5ba01c58263-2419640875',
+    access_token: process.env.MERCADO_PAGO_ACCESS_TOKEN,
 });
 
 /* Pix */

@@ -6,8 +6,7 @@
         "dev": "next dev --turbopack",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint",
-        "server": "nodemon server.js"
+        "lint": "next lint"
     },
     "dependencies": {
         "@mercadopago/sdk-react": "^1.0.2",

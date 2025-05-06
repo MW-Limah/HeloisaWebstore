@@ -152,7 +152,6 @@ export default function CheckoutForm({
 
                 <div className={styles.bottomFinish}>
                     <h3 className={styles.price}>R$ {price}</h3>
-                    <p>R$ {Number(price) - 2},00 + 2,00 (entrega)</p>
 
                     <div className={styles.buttonsWrapper}>
                         <button type="button" className={styles.buttonAddCart} onClick={handleAddToCart}>

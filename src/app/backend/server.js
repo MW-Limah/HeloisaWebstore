@@ -3,18 +3,20 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
-const { MercadoPagoConfig, Payment } = require('mercadopago');
+const { MercadoPagoConfig } = require('mercadopago');
+const webhookRoutes = require('./routes/webhook');
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
 
 // Configuração do cliente Mercado Pago
 const client = new MercadoPagoConfig({
     accessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN,
 });
 
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
-
 /* Pix */
+const { Payment } = require('mercadopago');
 app.post('/create-pix', async (req, res) => {
     try {
         const payment_data = {
@@ -45,7 +47,7 @@ app.post('/create-boleto', async (req, res) => {
         const payment = await new Payment(client).create({
             transaction_amount: amount,
             description,
-            payment_method_id: 'bolbradesco', // Boleto Bradesco
+            payment_method_id: 'bolbradesco',
             payer: {
                 email,
                 first_name,
@@ -62,37 +64,8 @@ app.post('/create-boleto', async (req, res) => {
     }
 });
 
-/* Webhook */
-app.post('/webhook', async (req, res) => {
-    try {
-        const { type, data } = req.body;
-
-        if (type === 'payment') {
-            const paymentId = data.id;
-
-            const payment = await new Payment(client).get({ id: paymentId });
-
-            if (payment.status === 'approved') {
-                console.log('Pagamento aprovado:', {
-                    id: payment.id,
-                    valor: payment.transaction_amount,
-                    comprador: payment.payer.email,
-                    método: payment.payment_method_id,
-                });
-
-                // Simulação de atualização de pedido
-                // await Pedido.findByIdAndUpdate(data.order_id, { status: 'pago' });
-            } else {
-                console.log('Pagamento não aprovado ainda:', payment.status);
-            }
-        }
-
-        res.status(200).send('OK');
-    } catch (err) {
-        console.error('Erro no webhook:', err);
-        res.status(500).send('Erro no webhook');
-    }
-});
+/* Webhook separado */
+app.use('/webhook', webhookRoutes(client));
 
 // Porta do servidor
 const PORT = process.env.PORT || 3001;

@@ -1,21 +1,20 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-require('dotenv').config(); // <- Carrega as variáveis do .env
+require('dotenv').config();
 
-const mercadopago = require('mercadopago');
+const { MercadoPagoConfig, Payment } = require('mercadopago');
 
-// Configurar com token do .env
-mercadopago.configure({
-    access_token: process.env.MERCADO_PAGO_ACCESS_TOKEN,
+// Configuração do cliente Mercado Pago
+const client = new MercadoPagoConfig({
+    accessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN,
 });
-
-/* Pix */
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+/* Pix */
 app.post('/create-pix', async (req, res) => {
     try {
         const payment_data = {
@@ -29,9 +28,9 @@ app.post('/create-pix', async (req, res) => {
             },
         };
 
-        const payment = await mercadopago.payment.create(payment_data);
+        const payment = await new Payment(client).create(payment_data);
 
-        return res.status(200).json(payment.body.point_of_interaction.transaction_data.qr_code_base64);
+        return res.status(200).json(payment.point_of_interaction.transaction_data.qr_code_base64);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erro ao criar pagamento Pix' });
@@ -39,15 +38,14 @@ app.post('/create-pix', async (req, res) => {
 });
 
 /* Boleto */
-
 app.post('/create-boleto', async (req, res) => {
     const { amount, description, email, first_name, last_name } = req.body;
 
     try {
-        const payment = await mercadopago.payment.create({
+        const payment = await new Payment(client).create({
             transaction_amount: amount,
             description,
-            payment_method_id: 'bolbradesco', // Boleto
+            payment_method_id: 'bolbradesco', // Boleto Bradesco
             payer: {
                 email,
                 first_name,
@@ -55,14 +53,16 @@ app.post('/create-boleto', async (req, res) => {
             },
         });
 
-        res.json({ boleto_url: payment.body.transaction_details.external_resource_url });
+        res.json({
+            boleto_url: payment.transaction_details.external_resource_url,
+        });
     } catch (error) {
         console.error(error);
         res.status(500).send('Erro ao criar boleto');
     }
 });
 
-// No backend/server.js ou backend/index.js
+/* Webhook */
 app.post('/webhook', async (req, res) => {
     try {
         const { type, data } = req.body;
@@ -70,20 +70,20 @@ app.post('/webhook', async (req, res) => {
         if (type === 'payment') {
             const paymentId = data.id;
 
-            const payment = await mercadopago.payment.findById(paymentId);
+            const payment = await new Payment(client).get({ id: paymentId });
 
-            if (payment.body.status === 'approved') {
+            if (payment.status === 'approved') {
                 console.log('Pagamento aprovado:', {
-                    id: payment.body.id,
-                    valor: payment.body.transaction_amount,
-                    comprador: payment.body.payer.email,
-                    método: payment.body.payment_method_id,
+                    id: payment.id,
+                    valor: payment.transaction_amount,
+                    comprador: payment.payer.email,
+                    método: payment.payment_method_id,
                 });
 
-                // Atualize o status do pedido no banco de dados
-                await Pedido.findByIdAndUpdate(data.order_id, { status: 'pago' });
+                // Simulação de atualização de pedido
+                // await Pedido.findByIdAndUpdate(data.order_id, { status: 'pago' });
             } else {
-                console.log('Pagamento não aprovado ainda:', payment.body.status);
+                console.log('Pagamento não aprovado ainda:', payment.status);
             }
         }
 
@@ -92,4 +92,10 @@ app.post('/webhook', async (req, res) => {
         console.error('Erro no webhook:', err);
         res.status(500).send('Erro no webhook');
     }
+});
+
+// Porta do servidor
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Servidor backend rodando na porta ${PORT}`);
 });

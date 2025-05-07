@@ -108,7 +108,13 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
             bairro: data.bairro,
             rua: data.rua,
             numero: data.numero,
-            items: selectedItems.map((item) => ({ id: item.id, title: item.title })),
+            items: selectedItems.map((item) => ({
+                id: item.id,
+                title: item.title,
+                quantity: item.quantity,
+                color: item.color,
+                price: item.price,
+            })),
         };
 
         try {

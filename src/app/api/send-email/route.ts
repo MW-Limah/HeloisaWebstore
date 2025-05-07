@@ -43,7 +43,10 @@ export async function POST(request: Request) {
             ? `<h2>Itens no pedido:</h2>
          <ul>
            ${data.items
-               .map((it: any) => `<li>${it.title} (ID: ${it.id})</li><li>${it.quantity}</li><li>${it.color}</li>`)
+               .map(
+                   (it: any) =>
+                       `<li>${it.title} (ID: ${it.id})</li><li>Quantidade: ${it.quantity}</li><li>Da cor: ${it.color}</li>`
+               )
                .join('')}
          </ul>`
             : ''

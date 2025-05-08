@@ -11,6 +11,16 @@ type DynamicPayClientProps = {
     total: number;
 };
 
+type CheckoutData = {
+    nome: string;
+    sobrenome: string;
+    email: string;
+    cep: string;
+    bairro: string;
+    rua: string;
+    numero: string;
+};
+
 export default function DynamicPayClient({ paymentMethod, total }: DynamicPayClientProps) {
     // — estados de UI —
     const [pixCode, setPixCode] = useState<string | null>(null);
@@ -27,11 +37,11 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     const selectedItems = getSelectedItems();
 
     // — checkoutData lido só no cliente —
-    const [checkoutData, setCheckoutData] = useState<any>(null);
+    const [checkoutData, setCheckoutData] = useState<CheckoutData | null>(null);
+
     useEffect(() => {
-        // roda só no browser
         const stored = localStorage.getItem('checkoutData');
-        setCheckoutData(stored ? JSON.parse(stored) : {});
+        setCheckoutData(stored ? JSON.parse(stored) : null);
     }, []);
 
     // ============================
@@ -61,14 +71,16 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     );
 
     useEffect(() => {
-        if (!checkoutData) return; // aguarda o carregamento
+        if (!checkoutData) return;
+
         if (paymentMethod === 'pix') {
             const txId = `TX${Date.now()}HWS`;
-            setTransactionId(txId); // Guardar o ID da transação
+            setTransactionId(txId);
             setPaymentStatus('Gerando código Pix...');
             setPixCode(generatePixCode(total, txId));
             setPaymentStatus('Pagamento criado e pendente...');
         }
+
         if (paymentMethod === 'boleto') {
             const txId = `TX${Date.now()}HWS`;
             const meta = {
@@ -79,7 +91,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                 last_name: checkoutData.sobrenome,
                 transactionId: txId,
             };
-            setTransactionId(txId); // Guardar o ID da transação
+            setTransactionId(txId);
             setPaymentStatus('Gerando boleto...');
             fetch('/api/create-boleto', {
                 method: 'POST',
@@ -99,6 +111,18 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                     console.error(err);
                     setPaymentStatus('Erro ao gerar boleto.');
                 });
+
+            fetch('https://backend-lojaheloisa.onrender.com/webhook', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    type: 'payment',
+                    data: { id: txId },
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => console.log('Pagamento iniciado:', data))
+                .catch((error) => console.error('Erro ao notificar backend:', error));
         }
     }, [checkoutData, paymentMethod, total, generatePixCode]);
 
@@ -111,8 +135,10 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
             const data = await res.json();
             if (data.status === 'paid') {
                 setPaymentStatus('Pagamento confirmado!');
-            } else {
+            } else if (data.status === 'pending') {
                 setPaymentStatus('Pagamento ainda pendente...');
+            } else {
+                setPaymentStatus('Erro ao verificar o status do pagamento.');
             }
         } catch (error) {
             console.error('Erro ao verificar o status do pagamento:', error);
@@ -120,14 +146,12 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
         }
     }, []);
 
-    // Monitorar o status do pagamento a cada 5 segundos (exemplo)
     useEffect(() => {
         if (transactionId) {
             const intervalId = setInterval(() => {
                 checkPaymentStatus(transactionId);
-            }, 5000); // Verifica a cada 5 segundos
+            }, 5000);
 
-            // Limpa o intervalo quando o componente for desmontado
             return () => clearInterval(intervalId);
         }
     }, [transactionId, checkPaymentStatus]);
@@ -191,7 +215,6 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                 {paymentMethod === 'pix' && pixCode && (
                     <>
                         <QRCode value={pixCode} size={300} />
-
                         <div className={styles.AreaPix}>
                             <label htmlFor="pixCopyPaste">Pix Copia e Cola</label>
                             <textarea id="pixCopyPaste" className={styles.textPix} readOnly value={pixCode} />

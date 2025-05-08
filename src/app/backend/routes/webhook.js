@@ -9,7 +9,7 @@ module.exports = (client) => {
     });
 
     router.post('/', async (req, res) => {
-        console.log('✅ Webhook chamado com dados:', req.body); // 🔔 LOG DIRETO AQUI
+        console.log('✅ Webhook chamado com dados:', req.body);
 
         try {
             const { type, data } = req.body;
@@ -17,19 +17,22 @@ module.exports = (client) => {
             if (type === 'payment') {
                 const paymentId = data.id;
 
-                const payment = await new Payment(client).get({ id: paymentId });
+                try {
+                    const payment = await new Payment(client).get({ id: paymentId });
 
-                if (payment.status === 'approved') {
-                    console.log('💰 Pagamento aprovado:', {
-                        id: payment.id,
-                        valor: payment.transaction_amount,
-                        comprador: payment.payer.email,
-                        método: payment.payment_method_id,
-                    });
-
-                    // Aqui você pode atualizar a base de dados ou outra ação
-                } else {
-                    console.log('⚠️ Pagamento ainda não aprovado:', payment.status);
+                    if (payment.status === 'approved') {
+                        console.log('💰 Pagamento aprovado:', {
+                            id: payment.id,
+                            valor: payment.transaction_amount,
+                            comprador: payment.payer.email,
+                            método: payment.payment_method_id,
+                        });
+                    } else {
+                        console.log('⚠️ Pagamento ainda não aprovado:', payment.status);
+                    }
+                } catch (error) {
+                    console.error('❌ Erro ao buscar pagamento com id:', paymentId);
+                    console.error(error.message || error);
                 }
             }
 

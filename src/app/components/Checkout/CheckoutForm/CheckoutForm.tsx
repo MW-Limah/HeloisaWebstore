@@ -3,7 +3,6 @@
 import styles from './CheckoutForm.module.css';
 import { useCart } from '@/app/components/Cart/CartContext';
 import { useState } from 'react';
-import { useForm } from './FormContext';
 
 interface CheckoutFormProps {
     id: string;
@@ -36,12 +35,6 @@ export default function CheckoutForm({
         email: '',
         address: '',
     });
-    const { checkFormData, checkUpdateFormData } = useForm();
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        checkUpdateFormData(name as keyof typeof checkFormData, value);
-    };
 
     const handleAddToCart = () => {
         if (quantity === 0 || color === '') {

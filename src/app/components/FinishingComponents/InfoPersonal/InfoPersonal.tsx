@@ -2,10 +2,8 @@
 
 import styles from './InfoPersonal.module.css';
 import Link from 'next/link';
-import { useForm } from '@/app/components/Checkout/CheckoutForm/FormContext';
 
 export const InfoPersonal = ({ formData, updateFormData }) => {
-    const { checkFormData, checkUpdateFormData } = useForm();
     return (
         <div className={styles.InfoPersonal}>
             <div className={styles.content}>

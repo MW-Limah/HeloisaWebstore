@@ -27,7 +27,6 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     // — checkoutData lido só no cliente —
     const [checkoutData, setCheckoutData] = useState<any>(null);
     useEffect(() => {
-        // roda só no browser
         const stored = localStorage.getItem('checkoutData');
         setCheckoutData(stored ? JSON.parse(stored) : {});
     }, []);
@@ -59,7 +58,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     );
 
     useEffect(() => {
-        if (!checkoutData) return; // aguarda o carregamento
+        if (!checkoutData) return;
         if (paymentMethod === 'pix') {
             const txId = `TX${Date.now()}HWS`;
             setPixCode(generatePixCode(total, txId));
@@ -83,6 +82,31 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                 .then((d) => d.boletoUrl && setBoletoUrl(d.boletoUrl))
                 .catch(console.error);
         }
+        if (paymentMethod === 'card') {
+            const txId = `TX${Date.now()}HWS`;
+            const meta = {
+                amount: total.toFixed(2),
+                description: 'Pagamento na Heloisa Store',
+                email: checkoutData.email,
+                first_name: checkoutData.nome,
+                last_name: checkoutData.sobrenome,
+                transactionId: txId,
+                paymentMethod: 'card',
+            };
+            fetch('/api/create-payment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(meta),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.payment) {
+                        // Aqui você pode manipular a resposta do pagamento com cartão, por exemplo, exibindo um comprovante ou outra informação
+                        setSentSuccess(true);
+                    }
+                })
+                .catch(console.error);
+        }
     }, [checkoutData, paymentMethod, total, generatePixCode]);
 
     // ============================
@@ -92,7 +116,6 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
         setSending(true);
         setSentSuccess(null);
 
-        // usa o estado carregado (ou pode reler localStorage aqui)
         const data = checkoutData ?? JSON.parse(localStorage.getItem('checkoutData') || '{}');
 
         const payload = {
@@ -136,6 +159,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
             setSending(false);
         }
     };
+
     return (
         <div className={styles.container}>
             <h1>Finalizar Pagamento</h1>

@@ -19,6 +19,8 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     const [sending, setSending] = useState(false);
     const [sentSuccess, setSentSuccess] = useState<boolean | null>(null);
     const [showReturnButton, setShowReturnButton] = useState(false);
+    const [paymentStatus, setPaymentStatus] = useState<string | null>(null); // Status do pagamento
+    const [transactionId, setTransactionId] = useState<string | null>(null); // ID da transação para acompanhar o status
 
     // — carrinho —
     const { getSelectedItems } = useCart();
@@ -27,6 +29,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     // — checkoutData lido só no cliente —
     const [checkoutData, setCheckoutData] = useState<any>(null);
     useEffect(() => {
+        // roda só no browser
         const stored = localStorage.getItem('checkoutData');
         setCheckoutData(stored ? JSON.parse(stored) : {});
     }, []);
@@ -58,10 +61,13 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     );
 
     useEffect(() => {
-        if (!checkoutData) return;
+        if (!checkoutData) return; // aguarda o carregamento
         if (paymentMethod === 'pix') {
             const txId = `TX${Date.now()}HWS`;
+            setTransactionId(txId); // Guardar o ID da transação
+            setPaymentStatus('Gerando código Pix...');
             setPixCode(generatePixCode(total, txId));
+            setPaymentStatus('Pagamento criado e pendente...');
         }
         if (paymentMethod === 'boleto') {
             const txId = `TX${Date.now()}HWS`;
@@ -73,44 +79,61 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                 last_name: checkoutData.sobrenome,
                 transactionId: txId,
             };
+            setTransactionId(txId); // Guardar o ID da transação
+            setPaymentStatus('Gerando boleto...');
             fetch('/api/create-boleto', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(meta),
             })
                 .then((r) => r.json())
-                .then((d) => d.boletoUrl && setBoletoUrl(d.boletoUrl))
-                .catch(console.error);
-        }
-        if (paymentMethod === 'card') {
-            const txId = `TX${Date.now()}HWS`;
-            const meta = {
-                amount: total.toFixed(2),
-                description: 'Pagamento na Heloisa Store',
-                email: checkoutData.email,
-                first_name: checkoutData.nome,
-                last_name: checkoutData.sobrenome,
-                transactionId: txId,
-                paymentMethod: 'card',
-            };
-            fetch('/api/create-payment', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(meta),
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    if (data.payment) {
-                        // Aqui você pode manipular a resposta do pagamento com cartão, por exemplo, exibindo um comprovante ou outra informação
-                        setSentSuccess(true);
+                .then((d) => {
+                    if (d.boletoUrl) {
+                        setBoletoUrl(d.boletoUrl);
+                        setPaymentStatus('Boleto gerado e pronto para pagamento.');
+                    } else {
+                        setPaymentStatus('Falha ao gerar boleto.');
                     }
                 })
-                .catch(console.error);
+                .catch((err) => {
+                    console.error(err);
+                    setPaymentStatus('Erro ao gerar boleto.');
+                });
         }
     }, [checkoutData, paymentMethod, total, generatePixCode]);
 
     // ============================
-    // 2) Confirmação de pagamento
+    // 2) Verificar status de pagamento
+    // ============================
+    const checkPaymentStatus = useCallback(async (txId: string) => {
+        try {
+            const res = await fetch(`/api/check-payment-status?transactionId=${txId}`);
+            const data = await res.json();
+            if (data.status === 'paid') {
+                setPaymentStatus('Pagamento confirmado!');
+            } else {
+                setPaymentStatus('Pagamento ainda pendente...');
+            }
+        } catch (error) {
+            console.error('Erro ao verificar o status do pagamento:', error);
+            setPaymentStatus('Erro ao verificar status do pagamento.');
+        }
+    }, []);
+
+    // Monitorar o status do pagamento a cada 5 segundos (exemplo)
+    useEffect(() => {
+        if (transactionId) {
+            const intervalId = setInterval(() => {
+                checkPaymentStatus(transactionId);
+            }, 5000); // Verifica a cada 5 segundos
+
+            // Limpa o intervalo quando o componente for desmontado
+            return () => clearInterval(intervalId);
+        }
+    }, [transactionId, checkPaymentStatus]);
+
+    // ============================
+    // 3) Confirmação de pagamento
     // ============================
     const handleConfirm = async () => {
         setSending(true);
@@ -211,6 +234,11 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                         <p>Total: R$ {total.toFixed(2)}</p>
                     </div>
                 )}
+
+                {/* === STATUS DE PAGAMENTO === */}
+                <div className={styles.paymentStatus}>
+                    {paymentStatus && <p className={styles.statusMessage}>{paymentStatus}</p>}
+                </div>
 
                 {/* === BOTÃO “FINALIZAR” === */}
                 <div className={styles.confirmPay}>

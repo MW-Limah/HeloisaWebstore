@@ -76,7 +76,7 @@ export default function CheckoutForm({
 
     return (
         <form className={styles.checkoutForm} onSubmit={handleSubmit}>
-            <h2>Check-out</h2>
+            <h2>Detalhes</h2>
             <h3 className={styles.itemTitle}>{title}</h3>
             <p className={styles.itemDescription}>{description}</p>
             {/* 

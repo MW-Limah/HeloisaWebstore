@@ -91,9 +91,9 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
             const res = await fetch(`/api/check-payment-status?transactionId=${txId}`);
             const data = await res.json();
             if (data.status === 'paid') {
-                setPaymentStatus('Pagamento confirmado!');
+                setPaymentStatus('paid');
             } else {
-                setPaymentStatus('Pagamento ainda pendente...');
+                setPaymentStatus('pending');
             }
         } catch (error) {
             setPaymentStatus('Erro ao verificar status do pagamento.');
@@ -196,9 +196,17 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                     </div>
                 )}
 
-                {paymentStatus && <p className={styles.statusMessage}>{paymentStatus}</p>}
+                {paymentStatus && (
+                    <p className={styles.statusMessage}>
+                        {paymentStatus === 'paid' ? 'Pagamento confirmado!' : 'Pagamento ainda pendente...'}
+                    </p>
+                )}
 
-                <button className={styles.ConfirmPay} onClick={handleConfirm} disabled={sending}>
+                <button
+                    className={styles.ConfirmPay}
+                    onClick={handleConfirm}
+                    disabled={sending || paymentStatus !== 'paid'}
+                >
                     {sending ? 'Enviando...' : 'Finalizar pagamento'}
                 </button>
                 {sentSuccess === true && <p className={styles.successMsg}>Dados enviados!</p>}

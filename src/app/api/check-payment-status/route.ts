@@ -33,5 +33,5 @@ export async function GET(req: NextRequest) {
 // Exemplo de função para simular a verificação do status do pagamento
 async function checkPaymentStatus(transactionId: string): Promise<string> {
     // Aqui você faria a verificação real com o serviço de pagamento
-    return 'paid'; // Apenas um exemplo
+    return 'pending'; // Apenas um exemplo
 }

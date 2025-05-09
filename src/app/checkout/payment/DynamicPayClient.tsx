@@ -4,6 +4,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import styles from './DynamicPayClient.module.css';
 import { QRCode } from 'react-qrcode-logo';
+import Image from 'next/image';
 import { useCart } from '@/app/components/Cart/CartContext';
 
 type DynamicPayClientProps = {
@@ -49,8 +50,15 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                 });
                 const data = await res.json();
 
-                if (paymentMethod === 'pix' && data.qrCode) {
-                    setPixCode(data.qrCode);
+                console.log('[create-payment] Resposta da API:', data);
+
+                if (!res.ok) {
+                    console.error('Erro HTTP:', res.status, data);
+                    throw new Error(data?.error || 'Erro desconhecido');
+                }
+
+                if (paymentMethod === 'pix' && (data.qrCode || data.qrBase64)) {
+                    setPixCode(data.qrCode || data.qrBase64);
                     setPaymentStatus('Pagamento criado e pendente...');
                 } else if (paymentMethod === 'boleto' && data.boletoUrl) {
                     setBoletoUrl(data.boletoUrl);
@@ -73,6 +81,10 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
         setPaymentStatus('Iniciando pagamento...');
         createPayment(txId);
     }, [checkoutData, paymentMethod, total, createPayment]);
+
+    useEffect(() => {
+        console.log('pixCode atualizado:', pixCode);
+    }, [pixCode]);
 
     const checkPaymentStatus = useCallback(async (txId: string) => {
         try {
@@ -145,7 +157,16 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
             <div className={styles.content}>
                 {paymentMethod === 'pix' && pixCode && (
                     <>
-                        <QRCode value={pixCode} size={300} />
+                        {pixCode.startsWith('0002') ? (
+                            <QRCode value={pixCode} size={300} />
+                        ) : (
+                            <Image
+                                src={`data:image/png;base64,${pixCode}`}
+                                alt="QR Code Pix"
+                                width={300}
+                                height={300}
+                            />
+                        )}
                         <textarea className={styles.textPix} readOnly value={pixCode} />
                         <button
                             className={styles.CopyPix}

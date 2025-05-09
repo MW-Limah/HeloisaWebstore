@@ -3,7 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
-const { getPaymentStatus } = require('./paymentStatusStore');
+const { getPaymentStatus } = require('../api/payment-status/paymentStatusStore');
 const { MercadoPagoConfig } = require('mercadopago');
 const webhookRoutes = require('./routes/webhook');
 

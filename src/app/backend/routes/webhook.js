@@ -1,6 +1,6 @@
 const express = require('express');
 const { Payment } = require('mercadopago');
-const { setPaymentStatus } = require('../paymentStatusStore');
+const { setPaymentStatus } = require('../../api/payment-status/paymentStatusStore');
 
 module.exports = (client) => {
     const router = express.Router();

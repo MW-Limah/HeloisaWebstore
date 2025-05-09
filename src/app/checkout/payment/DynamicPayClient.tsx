@@ -1,4 +1,3 @@
-// DynamicPayClient.tsx
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
@@ -21,6 +20,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     const [showReturnButton, setShowReturnButton] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
     const [transactionId, setTransactionId] = useState<string | null>(null);
+    const [isPaymentComplete, setIsPaymentComplete] = useState(false);
 
     const { getSelectedItems } = useCart();
     const selectedItems = getSelectedItems();
@@ -50,15 +50,8 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                 });
                 const data = await res.json();
 
-                console.log('[create-payment] Resposta da API:', data);
-
-                if (!res.ok) {
-                    console.error('Erro HTTP:', res.status, data);
-                    throw new Error(data?.error || 'Erro desconhecido');
-                }
-
-                if (paymentMethod === 'pix' && (data.qrCode || data.qrBase64)) {
-                    setPixCode(data.qrCode || data.qrBase64);
+                if (paymentMethod === 'pix' && data.qrCode) {
+                    setPixCode(data.qrCode);
                     setPaymentStatus('Pagamento criado e pendente...');
                 } else if (paymentMethod === 'boleto' && data.boletoUrl) {
                     setBoletoUrl(data.boletoUrl);
@@ -82,18 +75,18 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
         createPayment(txId);
     }, [checkoutData, paymentMethod, total, createPayment]);
 
-    useEffect(() => {
-        console.log('pixCode atualizado:', pixCode);
-    }, [pixCode]);
-
     const checkPaymentStatus = useCallback(async (txId: string) => {
         try {
             const res = await fetch(`/api/check-payment-status?transactionId=${txId}`);
             const data = await res.json();
             if (data.status === 'paid') {
-                setPaymentStatus('paid');
+                setPaymentStatus('Pagamento confirmado!');
+                setIsPaymentComplete(true);
+            } else if (data.status === 'pending') {
+                setPaymentStatus('Pagamento ainda pendente...');
+                setIsPaymentComplete(false);
             } else {
-                setPaymentStatus('pending');
+                setPaymentStatus('Erro ao verificar status do pagamento.');
             }
         } catch (error) {
             setPaymentStatus('Erro ao verificar status do pagamento.');
@@ -102,7 +95,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
 
     useEffect(() => {
         if (transactionId) {
-            const interval = setInterval(() => checkPaymentStatus(transactionId), 10000);
+            const interval = setInterval(() => checkPaymentStatus(transactionId), 5000);
             return () => clearInterval(interval);
         }
     }, [transactionId, checkPaymentStatus]);
@@ -196,19 +189,12 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                     </div>
                 )}
 
-                {paymentStatus && (
-                    <p className={styles.statusMessage}>
-                        {paymentStatus === 'paid' ? 'Pagamento confirmado!' : 'Pagamento ainda pendente...'}
-                    </p>
-                )}
+                {paymentStatus && <p className={styles.statusMessage}>{paymentStatus}</p>}
 
-                <button
-                    className={styles.ConfirmPay}
-                    onClick={handleConfirm}
-                    disabled={sending || paymentStatus !== 'paid'}
-                >
+                <button className={styles.ConfirmPay} onClick={handleConfirm} disabled={sending || !isPaymentComplete}>
                     {sending ? 'Enviando...' : 'Finalizar pagamento'}
                 </button>
+
                 {sentSuccess === true && <p className={styles.successMsg}>Dados enviados!</p>}
                 {sentSuccess === false && <p className={styles.errorMsg}>Erro ao enviar.</p>}
                 {showReturnButton && (

@@ -1,9 +1,9 @@
+// DynamicPayClient.tsx
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
 import styles from './DynamicPayClient.module.css';
 import { QRCode } from 'react-qrcode-logo';
-import { payload as pixPayload } from 'pix-payload';
 import { useCart } from '@/app/components/Cart/CartContext';
 
 type DynamicPayClientProps = {
@@ -11,158 +11,93 @@ type DynamicPayClientProps = {
     total: number;
 };
 
-type CheckoutData = {
-    nome: string;
-    sobrenome: string;
-    email: string;
-    cep: string;
-    bairro: string;
-    rua: string;
-    numero: string;
-};
-
 export default function DynamicPayClient({ paymentMethod, total }: DynamicPayClientProps) {
-    // — estados de UI —
     const [pixCode, setPixCode] = useState<string | null>(null);
     const [boletoUrl, setBoletoUrl] = useState<string | null>(null);
     const [copied, setCopied] = useState(false);
     const [sending, setSending] = useState(false);
     const [sentSuccess, setSentSuccess] = useState<boolean | null>(null);
     const [showReturnButton, setShowReturnButton] = useState(false);
-    const [paymentStatus, setPaymentStatus] = useState<string | null>(null); // Status do pagamento
-    const [transactionId, setTransactionId] = useState<string | null>(null); // ID da transação para acompanhar o status
+    const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
+    const [transactionId, setTransactionId] = useState<string | null>(null);
 
-    // — carrinho —
     const { getSelectedItems } = useCart();
     const selectedItems = getSelectedItems();
 
-    // — checkoutData lido só no cliente —
-    const [checkoutData, setCheckoutData] = useState<CheckoutData | null>(null);
-
+    const [checkoutData, setCheckoutData] = useState<any>(null);
     useEffect(() => {
         const stored = localStorage.getItem('checkoutData');
-        setCheckoutData(stored ? JSON.parse(stored) : null);
+        setCheckoutData(stored ? JSON.parse(stored) : {});
     }, []);
 
-    // ============================
-    // 1) Geração de Pix
-    // ============================
-    const normalize = useCallback((str: string, maxLen: number) => {
-        return str
-            .toUpperCase()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .replace(/[^A-Z0-9 ]/g, '')
-            .substring(0, maxLen);
-    }, []);
+    const createPayment = useCallback(
+        async (txId: string) => {
+            try {
+                const payload = {
+                    amount: total,
+                    description: 'Pagamento na Heloisa Store',
+                    email: checkoutData.email,
+                    first_name: checkoutData.nome,
+                    last_name: checkoutData.sobrenome,
+                    paymentMethod,
+                    transactionId: txId,
+                };
+                const res = await fetch('/api/create-payment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+                const data = await res.json();
 
-    const generatePixCode = useCallback(
-        (amount: number, txId: string) => {
-            const formattedAmount = amount.toFixed(2);
-            const key = 'loja.heloisaofc@gmail.com';
-            const name = normalize('Heloisa Loja Virtual', 25);
-            const city = normalize('Manaus', 15);
-            const transactionId = normalize(txId, 25);
-
-            const value = pixPayload({ key, name, city, amount: Number(formattedAmount), transactionId });
-            return value;
+                if (paymentMethod === 'pix' && data.qrCode) {
+                    setPixCode(data.qrCode);
+                    setPaymentStatus('Pagamento criado e pendente...');
+                } else if (paymentMethod === 'boleto' && data.boletoUrl) {
+                    setBoletoUrl(data.boletoUrl);
+                    setPaymentStatus('Boleto gerado e pronto para pagamento.');
+                } else {
+                    setPaymentStatus('Erro ao gerar pagamento.');
+                }
+            } catch (error) {
+                console.error('Erro ao criar pagamento:', error);
+                setPaymentStatus('Erro ao criar pagamento.');
+            }
         },
-        [normalize]
+        [checkoutData, paymentMethod, total]
     );
 
     useEffect(() => {
         if (!checkoutData) return;
+        const txId = `TX${Date.now()}HWS`;
+        setTransactionId(txId);
+        setPaymentStatus('Iniciando pagamento...');
+        createPayment(txId);
+    }, [checkoutData, paymentMethod, total, createPayment]);
 
-        if (paymentMethod === 'pix') {
-            const txId = `TX${Date.now()}HWS`;
-            setTransactionId(txId);
-            setPaymentStatus('Gerando código Pix...');
-            setPixCode(generatePixCode(total, txId));
-            setPaymentStatus('Pagamento criado e pendente...');
-        }
-
-        if (paymentMethod === 'boleto') {
-            const txId = `TX${Date.now()}HWS`;
-            const meta = {
-                amount: total.toFixed(2),
-                description: 'Pagamento na Heloisa Store',
-                email: checkoutData.email,
-                first_name: checkoutData.nome,
-                last_name: checkoutData.sobrenome,
-                transactionId: txId,
-            };
-            setTransactionId(txId);
-            setPaymentStatus('Gerando boleto...');
-            fetch('/api/create-boleto', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(meta),
-            })
-                .then((r) => r.json())
-                .then((d) => {
-                    if (d.boletoUrl) {
-                        setBoletoUrl(d.boletoUrl);
-                        setPaymentStatus('Boleto gerado e pronto para pagamento.');
-                    } else {
-                        setPaymentStatus('Falha ao gerar boleto.');
-                    }
-                })
-                .catch((err) => {
-                    console.error(err);
-                    setPaymentStatus('Erro ao gerar boleto.');
-                });
-
-            fetch('https://backend-lojaheloisa.onrender.com/webhook', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    type: 'payment',
-                    data: { id: txId },
-                }),
-            })
-                .then((response) => response.json())
-                .then((data) => console.log('Pagamento iniciado:', data))
-                .catch((error) => console.error('Erro ao notificar backend:', error));
-        }
-    }, [checkoutData, paymentMethod, total, generatePixCode]);
-
-    // ============================
-    // 2) Verificar status de pagamento
-    // ============================
     const checkPaymentStatus = useCallback(async (txId: string) => {
         try {
             const res = await fetch(`/api/check-payment-status?transactionId=${txId}`);
             const data = await res.json();
             if (data.status === 'paid') {
                 setPaymentStatus('Pagamento confirmado!');
-            } else if (data.status === 'pending') {
-                setPaymentStatus('Pagamento ainda pendente...');
             } else {
-                setPaymentStatus('Erro ao verificar o status do pagamento.');
+                setPaymentStatus('Pagamento ainda pendente...');
             }
         } catch (error) {
-            console.error('Erro ao verificar o status do pagamento:', error);
             setPaymentStatus('Erro ao verificar status do pagamento.');
         }
     }, []);
 
     useEffect(() => {
         if (transactionId) {
-            const intervalId = setInterval(() => {
-                checkPaymentStatus(transactionId);
-            }, 5000);
-
-            return () => clearInterval(intervalId);
+            const interval = setInterval(() => checkPaymentStatus(transactionId), 5000);
+            return () => clearInterval(interval);
         }
     }, [transactionId, checkPaymentStatus]);
 
-    // ============================
-    // 3) Confirmação de pagamento
-    // ============================
     const handleConfirm = async () => {
         setSending(true);
         setSentSuccess(null);
-
         const data = checkoutData ?? JSON.parse(localStorage.getItem('checkoutData') || '{}');
 
         const payload = {
@@ -194,13 +129,10 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                 body: JSON.stringify(payload),
             });
             const body = await res.text();
-            console.log('[send-email] status:', res.status, 'body:', body);
-
             if (!res.ok) throw new Error(`Status ${res.status}: ${body}`);
             setSentSuccess(true);
             setShowReturnButton(true);
         } catch (err) {
-            console.error('[handleConfirm] erro:', err);
             setSentSuccess(false);
         } finally {
             setSending(false);
@@ -211,75 +143,50 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
         <div className={styles.container}>
             <h1>Finalizar Pagamento</h1>
             <div className={styles.content}>
-                {/* === PIX === */}
                 {paymentMethod === 'pix' && pixCode && (
                     <>
                         <QRCode value={pixCode} size={300} />
-                        <div className={styles.AreaPix}>
-                            <label htmlFor="pixCopyPaste">Pix Copia e Cola</label>
-                            <textarea id="pixCopyPaste" className={styles.textPix} readOnly value={pixCode} />
-                            <button
-                                className={styles.CopyPix}
-                                onClick={() => {
-                                    navigator.clipboard.writeText(pixCode);
-                                    setCopied(true);
-                                    setTimeout(() => setCopied(false), 3000);
-                                }}
-                            >
-                                Copiar código Pix
-                            </button>
-                            {copied && <p className={styles.toast}>Código Pix copiado com sucesso!</p>}
-                        </div>
+                        <textarea className={styles.textPix} readOnly value={pixCode} />
+                        <button
+                            className={styles.CopyPix}
+                            onClick={() => {
+                                navigator.clipboard.writeText(pixCode);
+                                setCopied(true);
+                                setTimeout(() => setCopied(false), 3000);
+                            }}
+                        >
+                            Copiar código Pix
+                        </button>
+                        {copied && <p className={styles.toast}>Código Pix copiado!</p>}
                     </>
                 )}
-                {paymentMethod === 'pix' && <p className={styles.pTotal}>Total: R$ {total.toFixed(2)}</p>}
 
-                {/* === BOLETO === */}
-                {paymentMethod === 'boleto' && (
+                {paymentMethod === 'boleto' && boletoUrl && (
                     <div>
-                        <h2>Pagamento com Boleto</h2>
-                        {boletoUrl ? (
-                            <a href={boletoUrl} target="_blank" rel="noopener noreferrer">
-                                Clique para abrir o boleto
-                            </a>
-                        ) : (
-                            <p>Gerando boleto…</p>
-                        )}
-                        <p>Total: R$ {total.toFixed(2)}</p>
+                        <a href={boletoUrl} target="_blank" rel="noopener noreferrer">
+                            Clique para abrir o boleto
+                        </a>
                     </div>
                 )}
 
-                {/* === CARTÃO === */}
                 {paymentMethod === 'card' && (
                     <div>
-                        <h2>Pagamento com Cartão</h2>
                         <p>Formulário via SDK Mercado Pago aqui.</p>
-                        <p>Total: R$ {total.toFixed(2)}</p>
                     </div>
                 )}
 
-                {/* === STATUS DE PAGAMENTO === */}
-                <div className={styles.paymentStatus}>
-                    {paymentStatus && <p className={styles.statusMessage}>{paymentStatus}</p>}
-                </div>
+                {paymentStatus && <p className={styles.statusMessage}>{paymentStatus}</p>}
 
-                {/* === BOTÃO “FINALIZAR” === */}
-                <div className={styles.confirmPay}>
-                    <button className={styles.ConfirmPay} onClick={handleConfirm} disabled={sending}>
-                        {sending ? 'Enviando...' : 'Finalizar pagamento'}
+                <button className={styles.ConfirmPay} onClick={handleConfirm} disabled={sending}>
+                    {sending ? 'Enviando...' : 'Finalizar pagamento'}
+                </button>
+                {sentSuccess === true && <p className={styles.successMsg}>Dados enviados!</p>}
+                {sentSuccess === false && <p className={styles.errorMsg}>Erro ao enviar.</p>}
+                {showReturnButton && (
+                    <button className={styles.ReturnHome} onClick={() => (window.location.href = '/')}>
+                        Voltar à tela inicial
                     </button>
-                    {sentSuccess === true && (
-                        <p className={styles.successMsg}>Dados enviados! Confira seu e-mail mais tarde.</p>
-                    )}
-                    {sentSuccess === false && (
-                        <p className={styles.errorMsg}>Falha ao enviar dados. Tente novamente.</p>
-                    )}
-                    {showReturnButton && (
-                        <button className={styles.ReturnHome} onClick={() => (window.location.href = '/')}>
-                            Voltar à tela inicial
-                        </button>
-                    )}
-                </div>
+                )}
             </div>
         </div>
     );

@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
         email,
         first_name,
         last_name,
-        paymentMethod, // 'pix', 'card', etc.
+        paymentMethod,
         token,
         issuer_id,
         installments,
@@ -37,12 +37,7 @@ export async function POST(req: NextRequest) {
             transaction_amount: amount,
             description,
             payment_method_id: paymentMethod,
-            payer: {
-                email,
-                first_name,
-                last_name,
-                identification,
-            },
+            payer: { email, first_name, last_name, identification },
         };
 
         if (paymentMethod === 'card') {
@@ -52,18 +47,21 @@ export async function POST(req: NextRequest) {
         }
 
         const response = await payment.create({ body: paymentPayload });
-
         console.log('✅ Pagamento criado com sucesso:', response);
 
-        const qrBase64 =
-            response.point_of_interaction?.transaction_data?.qr_code_base64 ??
-            response.point_of_interaction?.transaction_data?.qr_code ??
-            null;
+        // Extrai separadamente o QR code (texto) e o base64 (imagem)
+        const txData = response.point_of_interaction?.transaction_data;
+        const qrCode = txData?.qr_code ?? null; // Pix Copia-e-Cola
+        const qrBase64 = txData?.qr_code_base64 ?? null; // imagem base64
 
         return NextResponse.json({
             paymentId: response.id,
-            qrBase64,
             status: response.status,
+            // Campos novos:
+            qrCode,
+            qrBase64,
+            // se for boleto:
+            boletoUrl: response.transaction_details?.external_resource_url ?? null,
         });
     } catch (err: any) {
         console.error('❌ Erro na criação do pagamento:', err);

@@ -4,7 +4,6 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 20px;
     color: black;
 }
 .content {
@@ -12,9 +11,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
+
 .AreaPix {
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
 }
@@ -25,19 +26,11 @@
     text-align: center;
     font-size: 16pt;
 }
-.AreaPix textarea {
-    margin: 20px 0;
-    min-height: 50px;
-    background: white;
-    color: #000;
-    padding: 10px;
-    max-height: 150px;
-    resize: none;
-}
 
 .CopyPix {
     padding: 5px;
     margin-bottom: 10px;
+    width: 50%;
     border-radius: 5px;
     cursor: pointer;
     background-color: #00a28e;
@@ -58,26 +51,37 @@
     flex-direction: column;
 }
 .ConfirmPay {
-    padding: 10px;
-    background-color: var(--sd);
+    padding: 5px;
+    margin-bottom: 10px;
     width: 50%;
     border-radius: 5px;
     cursor: pointer;
+    background-color: var(--sd);
+}
+
+.textPix {
+    margin: 15px 0;
+    background: none;
+    color: #000;
+    min-height: 120px;
+    width: 100%;
+    padding: 10px;
+    resize: none;
+    border: 2px solid;
+    max-height: 120px;
 }
 
 .successMsg {
     margin-top: 20px;
 }
 .ReturnHome {
-    margin-top: 1rem;
-    padding: 0.75rem 1.5rem;
-    background-color: #5ab8ab;
-    color: white;
-    border: none;
+    padding: 5px;
+    margin-bottom: 10px;
     width: 50%;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    background-color: var(--sd);
 }
 .ReturnHome:hover {
     background-color: #333;

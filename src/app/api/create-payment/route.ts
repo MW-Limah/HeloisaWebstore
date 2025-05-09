@@ -66,6 +66,6 @@ export async function POST(req: NextRequest) {
     } catch (err: any) {
         console.error('❌ Erro na criação do pagamento:', err);
         if (err.response) console.error('Detalhes do erro HTTP:', err.response);
-        return NextResponse.json({ error: 'Erro ao criar pagamento' }, { status: 500 });
+        return NextResponse.json({ error: 'Erro ao criar pagamento, verifique seu email.' }, { status: 500 });
     }
 }

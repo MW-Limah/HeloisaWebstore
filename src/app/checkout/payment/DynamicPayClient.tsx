@@ -13,15 +13,15 @@ type DynamicPayClientProps = {
 
 export default function DynamicPayClient({ paymentMethod, total }: DynamicPayClientProps) {
     const [pixCode, setPixCode] = useState<string | null>(null);
+    const [pixQrBase64, setPixQrBase64] = useState<string | null>(null);
     const [boletoUrl, setBoletoUrl] = useState<string | null>(null);
     const [copied, setCopied] = useState(false);
     const [sending, setSending] = useState(false);
     const [sentSuccess, setSentSuccess] = useState<boolean | null>(null);
     const [showReturnButton, setShowReturnButton] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
-    const [transactionId, setTransactionId] = useState<string | null>(null);
-    const [isPaymentComplete, setIsPaymentComplete] = useState(false);
     const [paymentId, setPaymentId] = useState<string | null>(null);
+    const [isPaymentComplete, setIsPaymentComplete] = useState(false);
 
     const { getSelectedItems } = useCart();
     const selectedItems = getSelectedItems();
@@ -44,25 +44,33 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                     paymentMethod,
                     transactionId: txId,
                 };
+
                 const res = await fetch('/api/create-payment', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload),
                 });
                 const data = await res.json();
+                console.log('[create-payment]', data);
 
-                if (paymentMethod === 'pix' && data.qrCode) {
-                    setPixCode(data.qrCode);
-                    setPaymentId(data.paymentId);
+                if (!res.ok) {
+                    throw new Error(data.error || 'Erro desconhecido');
+                }
+
+                if (paymentMethod === 'pix') {
+                    // aceita tanto o código texto quanto a imagem base64
+                    if (data.qrCode) setPixCode(data.qrCode);
+                    if (data.qrBase64) setPixQrBase64(data.qrBase64);
+                    if (data.paymentId) setPaymentId(data.paymentId);
                     setPaymentStatus('Pagamento criado e pendente...');
-                } else if (paymentMethod === 'boleto' && data.boletoUrl) {
+                } else if (paymentMethod === 'boleto') {
                     setBoletoUrl(data.boletoUrl);
                     setPaymentStatus('Boleto gerado e pronto para pagamento.');
                 } else {
                     setPaymentStatus('Erro ao gerar pagamento.');
                 }
-            } catch (error) {
-                console.error('Erro ao criar pagamento:', error);
+            } catch (err: any) {
+                console.error('Erro ao criar pagamento:', err);
                 setPaymentStatus('Erro ao criar pagamento.');
             }
         },
@@ -72,15 +80,15 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     useEffect(() => {
         if (!checkoutData) return;
         const txId = `TX${Date.now()}HWS`;
-        setTransactionId(txId);
         setPaymentStatus('Iniciando pagamento...');
         createPayment(txId);
     }, [checkoutData, paymentMethod, total, createPayment]);
 
-    const checkPaymentStatus = useCallback(async (paymentId: string) => {
+    const checkPaymentStatus = useCallback(async (pid: string) => {
         try {
-            const res = await fetch(`https://backend-lojaheloisa.onrender.com/payment-status/${paymentId}`);
+            const res = await fetch(`https://backend-lojaheloisa.onrender.com/payment-status/${pid}`);
             const data = await res.json();
+            console.log('[check-status]', data);
 
             if (data.status === 'paid') {
                 setPaymentStatus('Pagamento confirmado!');
@@ -90,9 +98,10 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                 setIsPaymentComplete(false);
             } else {
                 setPaymentStatus('Status desconhecido.');
+                setIsPaymentComplete(false);
             }
-        } catch (error) {
-            console.error('Erro ao verificar status no backend:', error);
+        } catch (err) {
+            console.error('Erro ao verificar status:', err);
             setPaymentStatus('Erro ao verificar status do pagamento.');
         }
     }, []);
@@ -107,7 +116,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     const handleConfirm = async () => {
         setSending(true);
         setSentSuccess(null);
-        const data = checkoutData ?? JSON.parse(localStorage.getItem('checkoutData') || '{}');
+        const data = checkoutData || JSON.parse(localStorage.getItem('checkoutData') || '{}');
 
         const payload = {
             first_name: data.nome,
@@ -141,7 +150,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
             if (!res.ok) throw new Error(`Status ${res.status}: ${body}`);
             setSentSuccess(true);
             setShowReturnButton(true);
-        } catch (err) {
+        } catch {
             setSentSuccess(false);
         } finally {
             setSending(false);
@@ -152,30 +161,35 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
         <div className={styles.container}>
             <h1>Finalizar Pagamento</h1>
             <div className={styles.content}>
-                {paymentMethod === 'pix' && pixCode && (
+                {paymentMethod === 'pix' && (pixQrBase64 || pixCode) && (
                     <>
-                        {pixCode.startsWith('0002') ? (
-                            <QRCode value={pixCode} size={300} />
-                        ) : (
+                        {pixQrBase64 ? (
                             <Image
-                                src={`data:image/png;base64,${pixCode}`}
+                                src={`data:image/png;base64,${pixQrBase64}`}
                                 alt="QR Code Pix"
                                 width={300}
                                 height={300}
                             />
+                        ) : (
+                            <QRCode value={pixCode!} size={300} />
                         )}
-                        <textarea className={styles.textPix} readOnly value={pixCode} />
-                        <button
-                            className={styles.CopyPix}
-                            onClick={() => {
-                                navigator.clipboard.writeText(pixCode);
-                                setCopied(true);
-                                setTimeout(() => setCopied(false), 3000);
-                            }}
-                        >
-                            Copiar código Pix
-                        </button>
-                        {copied && <p className={styles.toast}>Código Pix copiado!</p>}
+
+                        {pixCode && (
+                            <>
+                                <textarea className={styles.textPix} readOnly value={pixCode} />
+                                <button
+                                    className={styles.CopyPix}
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(pixCode);
+                                        setCopied(true);
+                                        setTimeout(() => setCopied(false), 3000);
+                                    }}
+                                >
+                                    Copiar código Pix
+                                </button>
+                                {copied && <p className={styles.toast}>Código Pix copiado!</p>}
+                            </>
+                        )}
                     </>
                 )}
 

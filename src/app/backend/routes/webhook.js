@@ -31,6 +31,7 @@ module.exports = (client) => {
                             método: payment.payment_method_id,
                             status: payment.status,
                         });
+                        paymentStatusMap.set(payment.id.toString(), 'pending');
                     } else if (payment.status === 'approved') {
                         // Pagamento aprovado
                         console.log('💰 Pagamento aprovado:', {
@@ -39,6 +40,7 @@ module.exports = (client) => {
                             comprador: payment.payer.email,
                             método: payment.payment_method_id,
                         });
+                        paymentStatusMap.set(payment.id.toString(), 'paid');
                     } else {
                         console.log('⚠️ Status do pagamento:', payment.status);
                     }

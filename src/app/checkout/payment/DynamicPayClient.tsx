@@ -21,6 +21,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
     const [transactionId, setTransactionId] = useState<string | null>(null);
     const [isPaymentComplete, setIsPaymentComplete] = useState(false);
+    const [paymentId, setPaymentId] = useState<string | null>(null);
 
     const { getSelectedItems } = useCart();
     const selectedItems = getSelectedItems();
@@ -52,6 +53,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
 
                 if (paymentMethod === 'pix' && data.qrCode) {
                     setPixCode(data.qrCode);
+                    setPaymentId(data.paymentId);
                     setPaymentStatus('Pagamento criado e pendente...');
                 } else if (paymentMethod === 'boleto' && data.boletoUrl) {
                     setBoletoUrl(data.boletoUrl);
@@ -75,10 +77,11 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
         createPayment(txId);
     }, [checkoutData, paymentMethod, total, createPayment]);
 
-    const checkPaymentStatus = useCallback(async (txId: string) => {
+    const checkPaymentStatus = useCallback(async (paymentId: string) => {
         try {
-            const res = await fetch(`/api/check-payment-status?transactionId=${txId}`);
+            const res = await fetch(`https://backend-lojaheloisa.onrender.com/payment-status/${paymentId}`);
             const data = await res.json();
+
             if (data.status === 'paid') {
                 setPaymentStatus('Pagamento confirmado!');
                 setIsPaymentComplete(true);
@@ -86,9 +89,10 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                 setPaymentStatus('Pagamento ainda pendente...');
                 setIsPaymentComplete(false);
             } else {
-                setPaymentStatus('Erro ao verificar status do pagamento.');
+                setPaymentStatus('Status desconhecido.');
             }
         } catch (error) {
+            console.error('Erro ao verificar status no backend:', error);
             setPaymentStatus('Erro ao verificar status do pagamento.');
         }
     }, []);

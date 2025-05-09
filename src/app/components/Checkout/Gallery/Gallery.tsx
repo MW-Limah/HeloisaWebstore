@@ -1,19 +1,32 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import styles from './Gallery.module.css';
+import PopUpImg from './PopUpImg/PopUpImg';
+import { PiMagnifyingGlassPlusBold } from 'react-icons/pi';
 
 type GalleryProps = {
     highlighted: string;
     thumbnails: string[];
-    onImageClick: (src: string) => void;
+    onImageClick?: (src: string) => void;
 };
 
 export default function Gallery({ highlighted, thumbnails, onImageClick }: GalleryProps) {
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+    const [popupSrc, setPopupSrc] = useState(highlighted);
+
+    const handleOpen = (src: string) => {
+        setPopupSrc(src);
+        setIsPopUpOpen(true);
+        onImageClick?.(src);
+    };
+
     const filteredThumbnails = thumbnails.filter((src) => src !== highlighted);
 
     return (
         <div className={styles.gallery}>
+            <PopUpImg src={popupSrc} isOpen={isPopUpOpen} onClose={() => setIsPopUpOpen(false)} />
             <div className={styles.SideContent}>
                 <div className={styles.SideImages}>
                     {filteredThumbnails.map((src, index) => (
@@ -30,7 +43,7 @@ export default function Gallery({ highlighted, thumbnails, onImageClick }: Galle
                 </div>
             </div>
             <div className={styles.ImageFocused}>
-                <div className={styles.imageWrapper}>
+                <div className={styles.imageWrapper} onClick={() => handleOpen(highlighted)}>
                     <Image
                         src={highlighted}
                         alt="Imagem em destaque"
@@ -38,6 +51,9 @@ export default function Gallery({ highlighted, thumbnails, onImageClick }: Galle
                         className={styles.imageResponsive}
                         sizes="(max-width: 768px) 90vw, (max-width: 1200px) 400px, 500px"
                     />
+                    <span className={styles.lupa}>
+                        <PiMagnifyingGlassPlusBold />
+                    </span>
                 </div>
             </div>
         </div>

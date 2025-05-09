@@ -98,11 +98,11 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     }, []);
 
     useEffect(() => {
-        if (transactionId) {
-            const interval = setInterval(() => checkPaymentStatus(transactionId), 5000);
+        if (paymentId) {
+            const interval = setInterval(() => checkPaymentStatus(paymentId), 5000);
             return () => clearInterval(interval);
         }
-    }, [transactionId, checkPaymentStatus]);
+    }, [paymentId, checkPaymentStatus]);
 
     const handleConfirm = async () => {
         setSending(true);

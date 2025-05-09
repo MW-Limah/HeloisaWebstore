@@ -3,7 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
-const paymentStatusMap = new Map();
+const { getPaymentStatus } = require('./paymentStatusStore');
 const { MercadoPagoConfig } = require('mercadopago');
 const webhookRoutes = require('./routes/webhook');
 
@@ -16,12 +16,10 @@ const client = new MercadoPagoConfig({
     accessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN,
 });
 
+// Endpoint de verificação de status
 app.get('/payment-status/:id', (req, res) => {
     const paymentId = req.params.id;
-    const status = paymentStatusMap.get(paymentId);
-    if (!status) {
-        return res.status(404).json({ status: 'unknown' });
-    }
+    const status = getPaymentStatus(paymentId);
     res.json({ status });
 });
 

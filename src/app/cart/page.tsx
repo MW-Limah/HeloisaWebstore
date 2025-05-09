@@ -72,10 +72,17 @@ export default function CartPage() {
                                             className={styles.qtyInput}
                                         />
                                         <p>
-                                            Preço unit.: <strong>R$ {item.price}</strong>
+                                            Preço unit.:{' '}
+                                            <strong>R$ {Number(item.price).toFixed(2).replace('.', ',')}</strong>
                                         </p>
                                         <p>
-                                            Subtotal: <strong>R$ {item.price * item.quantity}</strong>
+                                            Subtotal:{' '}
+                                            <strong>
+                                                R${' '}
+                                                {Number(item.price * item.quantity)
+                                                    .toFixed(2)
+                                                    .replace('.', ',')}
+                                            </strong>
                                         </p>
                                         {'Quero esse'}{' '}
                                         <input
@@ -98,7 +105,7 @@ export default function CartPage() {
                 </ul>
 
                 <div className={styles.summary}>
-                    <h2>Total selecionado: R$ {getSelectedTotal()}</h2>
+                    <h2>Total selecionado: R$ {getSelectedTotal().toFixed(2).replace('.', ',')}</h2>
                     <div className={styles.actions}>
                         <Link href="/checkout">
                             <button className={styles.checkoutBtn} disabled={getSelectedItems().length === 0}>

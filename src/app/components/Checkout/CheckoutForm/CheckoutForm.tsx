@@ -3,6 +3,7 @@
 import styles from './CheckoutForm.module.css';
 import { useCart } from '@/app/components/Cart/CartContext';
 import { useState } from 'react';
+import Link from 'next/link';
 
 interface CheckoutFormProps {
     id: string;
@@ -144,17 +145,17 @@ export default function CheckoutForm({
                 </div>
 
                 <div className={styles.bottomFinish}>
-                    <h3 className={styles.price}>R$ {price}</h3>
+                    <h3 className={styles.price}>R$ {Number(price).toFixed(2).replace('.', ',')}</h3>
 
                     <div className={styles.buttonsWrapper}>
                         <button type="button" className={styles.buttonAddCart} onClick={handleAddToCart}>
                             Adicionar ao carrinho
                         </button>
-                        {/* <Link href={'/cart'}>
+                        <Link href={'/cart'}>
                             <button type="submit" className={styles.buttonFinish}>
                                 Ir para o carrinho
                             </button>
-                        </Link> */}
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -46,7 +46,12 @@ export default function BoxItem() {
                 const { data, error } = await query.order('created_at', { ascending: false });
 
                 if (error) throw error;
-                setItems(data as BoxItemData[]);
+
+                const parsedData = (data as BoxItemData[]).map((item) => ({
+                    ...item,
+                    price: parseFloat(item.price.replace(',', '.')).toFixed(2),
+                }));
+                setItems(parsedData);
             } catch (err: any) {
                 console.error('Erro ao buscar itens:', err.message);
                 setError('Não foi possível carregar os itens.');
@@ -77,6 +82,7 @@ export default function BoxItem() {
         <section className={styles.gridContainer}>
             {items.map((item) => {
                 const [firstImage, secondImage] = item.images;
+
                 return (
                     <article
                         key={item.id}
@@ -105,7 +111,16 @@ export default function BoxItem() {
                             <div className={styles.PriceBuy}>
                                 {item.description && <p className={styles.description}>{item.description}</p>}
                                 <div className={styles.priceSide}>
-                                    {item.price && <p className={styles.price}>R${item.price},00 a unidade</p>}
+                                    {item.price && (
+                                        <p className={styles.price}>
+                                            {Number(item.price).toLocaleString('pt-BR', {
+                                                style: 'currency',
+                                                currency: 'BRL',
+                                            })}{' '}
+                                            a unidade
+                                        </p>
+                                    )}
+
                                     <button className={styles.button}>
                                         <PiShoppingCartLight />
                                     </button>

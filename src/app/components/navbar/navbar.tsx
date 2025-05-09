@@ -74,8 +74,8 @@ export default function Navbar() {
                 </div>
                 <div className={styles.rightContent}>
                     <Link href={'/contato'}>Entre em contato!</Link>
-                    <Link href="/pages/Login">Acessar área Admin</Link>
                     <Cart />
+                    <Link href="/pages/Login">Acessar área Admin</Link>
                 </div>
                 <div className={styles.mobileOnly}>{pathname !== '/cart' && <Cart />}</div>
                 <div className={styles.Bars} onClick={toggleMenu}>

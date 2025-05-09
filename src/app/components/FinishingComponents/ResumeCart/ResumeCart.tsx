@@ -77,7 +77,7 @@ export default function ResumeCart({ formData, paymentMethod, onFinish }: Resume
                         <ul className={styles.priceDetails}>
                             <li>
                                 <h4>Subtotal</h4>
-                                <p>R$ {selectedTotal.toFixed(2)}</p>
+                                <p>R$ {selectedTotal.toFixed(2).replace('.', ',')}</p>
                             </li>
                             <li>
                                 <h4>Taxa de entrega</h4>
@@ -88,7 +88,7 @@ export default function ResumeCart({ formData, paymentMethod, onFinish }: Resume
                         <ul className={styles.priceTotal}>
                             <li>
                                 <h4>TOTAL</h4>
-                                <p>R$ {(selectedTotal + 4.5).toFixed(2)}</p>
+                                <p>R$ {(selectedTotal + 4.5).toFixed(2).replace('.', ',')}</p>
                             </li>
                             <li>
                                 <h4>Método de Pagamento: </h4>

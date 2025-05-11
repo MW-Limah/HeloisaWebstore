@@ -25,23 +25,23 @@ export default function Footer() {
                         <Link href={'#Início'}>Início</Link>
                     </li>
                     <li>
-                        <Link href={'#'}>Promoções</Link>
+                        <Link href={'/cart'}>Seu carrinho de compras</Link>
                     </li>
-                    <li>
+                    {/* <li>
                         <Link href={'#'}>Inscreva-se</Link>
-                    </li>
+                    </li> */}
                 </ul>
                 <ul className={styles.sdBox}>
                     <h2>Suporte</h2>
                     <li>
-                        <Link href={'#'}>Contate-nos</Link>
+                        <Link href={'/contato'}>Contate-nos</Link>
                     </li>
                     <li>
                         <Link href={'/termos-de-uso'}>Termos de Uso</Link>
                     </li>
-                    <li>
+                    {/* <li>
                         <Link href={'#'}>Perguntas Frequentes</Link>
-                    </li>
+                    </li> */}
                 </ul>
                 <div className={styles.containerSocial}>
                     <ul>

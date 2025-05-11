@@ -1,6 +1,6 @@
 'use client';
 import styles from './buttonBack.module.css';
-import { TbArrowBackUp } from 'react-icons/tb';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { useRouter } from 'next/navigation';
 
 export default function ButtonBack() {
@@ -17,7 +17,7 @@ export default function ButtonBack() {
     return (
         <div className={styles.buttonBack}>
             <button onClick={handleBack} className={styles.back}>
-                Voltar à página anterior <TbArrowBackUp />
+                Voltar página <IoMdArrowRoundBack />
             </button>
         </div>
     );

@@ -3,6 +3,7 @@
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import AuthSessionProvider from './SessionProvider';
+import { AuthProvider } from './providers/AuthProvider';
 import { CartProvider } from './components/Cart/CartContext'; // <-- importe o CartProvider
 
 // Fontes
@@ -30,7 +31,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang="pt-BR">
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
                 <AuthSessionProvider>
-                    <CartProvider>{children}</CartProvider>
+                    <AuthProvider>
+                        <CartProvider>{children}</CartProvider>
+                    </AuthProvider>
                 </AuthSessionProvider>
             </body>
         </html>

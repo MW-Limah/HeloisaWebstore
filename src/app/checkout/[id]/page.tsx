@@ -9,6 +9,7 @@ import Gallery from '@/app/components/Checkout/Gallery/Gallery';
 import Comments from '@/app/components/Checkout/Comments/Comments';
 import CheckoutForm from '@/app/components/Checkout/CheckoutForm/CheckoutForm';
 import Loading from '@/app/components/Loading/Loading';
+import Footer from '@/app/components/footer/footer';
 
 interface BoxItemData {
     id: string;
@@ -73,6 +74,7 @@ export default function CheckoutPage() {
                     />
                 </div>
             </div>
+            <Footer></Footer>
         </div>
     );
 }

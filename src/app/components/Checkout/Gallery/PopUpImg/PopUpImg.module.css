@@ -27,8 +27,12 @@
     padding: 1rem;
     border-radius: 8px;
     max-width: 90%;
-    max-height: 90%;
+    max-height: 90vh;
     overflow: auto;
+}
+
+.box img {
+    object-fit: contain;
 }
 
 .closeButton {

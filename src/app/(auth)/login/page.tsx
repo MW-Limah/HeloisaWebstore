@@ -19,28 +19,34 @@ export default function LoginPage() {
     }
     return (
         <div className={styles.content}>
-            <h1 className="text-2xl mb-4">Entrar / Cadastrar</h1>
-            <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={styles.email}
-            />
-            <input
-                type="password"
-                placeholder="Senha"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className={styles.password}
-            />
-            {error && <p className={styles.error}>{error}</p>}
-            <button onClick={handleSignIn} className={styles.btnEnter}>
-                Entrar
-            </button>
-            <button onClick={handleSignUp} className={styles.btnSign}>
-                Cadastrar
-            </button>
+            <form className={styles.form}>
+                <div>
+                    <h1 className="text-2xl mb-4">Entrar / Cadastrar</h1>
+                </div>
+                <div>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className={styles.email}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Senha"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className={styles.password}
+                    />
+                    {error && <p className={styles.error}>{error}</p>}
+                    <button onClick={handleSignIn} className={styles.btnEnter}>
+                        Entrar
+                    </button>
+                    <button onClick={handleSignUp} className={styles.btnSign}>
+                        Cadastrar
+                    </button>
+                </div>
+            </form>
         </div>
     );
 }

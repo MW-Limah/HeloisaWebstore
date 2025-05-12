@@ -1,0 +1,29 @@
+.content {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #000;
+    background-color: white;
+    border-radius: 5px;
+    height: 50%;
+    width: 500px;
+}
+
+.form input {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: 2px solid #000;
+    background: none;
+    width: 80%;
+    padding: 10px;
+}

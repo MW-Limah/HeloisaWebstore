@@ -17,9 +17,9 @@ export default function JustTop() {
     const router = useRouter();
     const handleBack = () => {
         if (window.history.length > 1) {
-            router.back();
+            router.push('/');
         } else {
-            router.push('/'); // fallback para home se não houver página anterior
+            router.push('/');
         }
     };
     const toggleMenu = () => {
@@ -46,6 +46,7 @@ export default function JustTop() {
                     {pathname !== '/cart' && <Cart />}
                 </div>
                 <div className={styles.mobileOnly}>{pathname !== '/cart' && <Cart />}</div>
+                <div className={styles.mobileOnly}>{pathname == '/cart' && <ButtonBack />}</div>
                 <div className={styles.Bars} onClick={toggleMenu}>
                     {isActive ? <IoCloseSharp /> : <FaBars />}
                 </div>

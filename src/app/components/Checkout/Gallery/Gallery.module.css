@@ -141,7 +141,6 @@
 
 @media (max-width: 380px) {
     .SideContent {
-        padding-left: 1rem; /* ou 0, se quiser colado à borda */
         display: flex;
         flex-direction: row;
         align-items: flex-start;

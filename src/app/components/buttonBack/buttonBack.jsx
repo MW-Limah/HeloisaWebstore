@@ -15,10 +15,8 @@ export default function ButtonBack() {
     };
 
     return (
-        <div className={styles.buttonBack}>
-            <button onClick={handleBack} className={styles.back}>
-                Voltar página <IoMdArrowRoundBack />
-            </button>
-        </div>
+        <button className={styles.buttonBack} onClick={handleBack}>
+            Voltar página <IoMdArrowRoundBack />
+        </button>
     );
 }

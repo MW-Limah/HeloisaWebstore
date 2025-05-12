@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 export default function ButtonBack() {
     return (
-        <div className={styles.buttonBack}>
-            <Link href={'/'} className={styles.back}>
+        <Link href={'/'} className={styles.back}>
+            <div className={styles.buttonBack}>
                 Voltar ao início <TbArrowBackUp />
-            </Link>
-        </div>
+            </div>
+        </Link>
     );
 }

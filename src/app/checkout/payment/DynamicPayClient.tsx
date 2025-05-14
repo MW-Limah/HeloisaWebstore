@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import styles from './DynamicPayClient.module.css';
 import { QRCode } from 'react-qrcode-logo';
 import Image from 'next/image';
@@ -23,6 +23,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
     const [paymentId, setPaymentId] = useState<string | null>(null);
     const [isPaymentComplete, setIsPaymentComplete] = useState(false);
+    const emailSentRef = useRef(false);
 
     const { getSelectedItems } = useCart();
     const selectedItems = getSelectedItems();
@@ -33,88 +34,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
         setCheckoutData(stored ? JSON.parse(stored) : {});
     }, []);
 
-    const createPayment = useCallback(
-        async (txId: string) => {
-            try {
-                const payload = {
-                    amount: total,
-                    description: 'Pagamento na Heloisa Store',
-                    email: checkoutData.email,
-                    first_name: checkoutData.nome,
-                    last_name: checkoutData.sobrenome,
-                    paymentMethod,
-                    transactionId: txId,
-                };
-
-                const res = await fetch('/api/create-payment', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload),
-                });
-                const data = await res.json();
-                console.log('[create-payment]', data);
-
-                if (!res.ok) {
-                    throw new Error(data.error || 'Erro desconhecido');
-                }
-
-                if (paymentMethod === 'pix') {
-                    // aceita tanto o código texto quanto a imagem base64
-                    if (data.qrCode) setPixCode(data.qrCode);
-                    if (data.qrBase64) setPixQrBase64(data.qrBase64);
-                    if (data.paymentId) setPaymentId(data.paymentId);
-                    setPaymentStatus('Pagamento criado e pendente...');
-                } else if (paymentMethod === 'boleto') {
-                    setBoletoUrl(data.boletoUrl);
-                    setPaymentStatus('Boleto gerado e pronto para pagamento.');
-                } else {
-                    setPaymentStatus('Erro ao gerar pagamento.');
-                }
-            } catch (err: any) {
-                console.error('Erro ao criar pagamento:', err);
-                setPaymentStatus('Erro ao criar pagamento.');
-            }
-        },
-        [checkoutData, paymentMethod, total]
-    );
-
-    useEffect(() => {
-        if (!checkoutData) return;
-        const txId = `TX${Date.now()}HWS`;
-        setPaymentStatus('Iniciando pagamento...');
-        createPayment(txId);
-    }, [checkoutData, paymentMethod, total, createPayment]);
-
-    const checkPaymentStatus = useCallback(async (pid: string) => {
-        try {
-            const res = await fetch(`https://backend-lojaheloisa.onrender.com/payment-status/${pid}`);
-            const data = await res.json();
-            console.log('[check-status]', data);
-
-            if (data.status === 'paid') {
-                setPaymentStatus('Pagamento confirmado!');
-                setIsPaymentComplete(true);
-            } else if (data.status === 'pending') {
-                setPaymentStatus('Pagamento ainda pendente...');
-                setIsPaymentComplete(false);
-            } else {
-                setPaymentStatus('Status desconhecido.');
-                setIsPaymentComplete(false);
-            }
-        } catch (err) {
-            console.error('Erro ao verificar status:', err);
-            setPaymentStatus('Erro ao verificar status do pagamento.');
-        }
-    }, []);
-
-    useEffect(() => {
-        if (paymentId) {
-            const interval = setInterval(() => checkPaymentStatus(paymentId), 5000);
-            return () => clearInterval(interval);
-        }
-    }, [paymentId, checkPaymentStatus]);
-
-    const handleConfirm = async () => {
+    const handleConfirm = useCallback(async () => {
         setSending(true);
         setSentSuccess(null);
         const data = checkoutData || JSON.parse(localStorage.getItem('checkoutData') || '{}');
@@ -156,7 +76,93 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
         } finally {
             setSending(false);
         }
-    };
+    }, [boletoUrl, checkoutData, paymentMethod, pixCode, selectedItems, total]);
+
+    const checkPaymentStatus = useCallback(
+        async (pid: string) => {
+            try {
+                const res = await fetch(`https://backend-lojaheloisa.onrender.com/payment-status/${pid}`);
+                const data = await res.json();
+                console.log('[check-status]', data);
+
+                if (data.status === 'paid') {
+                    setPaymentStatus('Pagamento confirmado!');
+                    setIsPaymentComplete(true);
+
+                    if (!emailSentRef.current) {
+                        emailSentRef.current = true;
+                        handleConfirm();
+                    }
+                } else if (data.status === 'pending') {
+                    setPaymentStatus('Pagamento ainda pendente...');
+                    setIsPaymentComplete(false);
+                } else {
+                    setPaymentStatus('Status desconhecido.');
+                    setIsPaymentComplete(false);
+                }
+            } catch (err) {
+                console.error('Erro ao verificar status:', err);
+                setPaymentStatus('Erro ao verificar status do pagamento.');
+            }
+        },
+        [handleConfirm]
+    );
+
+    const createPayment = useCallback(
+        async (txId: string) => {
+            try {
+                const payload = {
+                    amount: total,
+                    description: 'Pagamento na Heloisa Store',
+                    email: checkoutData.email,
+                    first_name: checkoutData.nome,
+                    last_name: checkoutData.sobrenome,
+                    paymentMethod,
+                    transactionId: txId,
+                };
+
+                const res = await fetch('/api/create-payment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+                const data = await res.json();
+                console.log('[create-payment]', data);
+
+                if (!res.ok) throw new Error(data.error || 'Erro desconhecido');
+
+                if (paymentMethod === 'pix') {
+                    if (data.qrCode) setPixCode(data.qrCode);
+                    if (data.qrBase64) setPixQrBase64(data.qrBase64);
+                    if (data.paymentId) setPaymentId(data.paymentId);
+                    setPaymentStatus('Pagamento criado e pendente...');
+                } else if (paymentMethod === 'boleto') {
+                    setBoletoUrl(data.boletoUrl);
+                    setPaymentStatus('Boleto gerado e pronto para pagamento.');
+                } else {
+                    setPaymentStatus('Erro ao gerar pagamento.');
+                }
+            } catch (err: any) {
+                console.error('Erro ao criar pagamento:', err);
+                setPaymentStatus('Erro ao criar pagamento.');
+            }
+        },
+        [checkoutData, paymentMethod, total]
+    );
+
+    useEffect(() => {
+        if (!checkoutData) return;
+        const txId = `TX${Date.now()}HWS`;
+        setPaymentStatus('Iniciando pagamento...');
+        createPayment(txId);
+    }, [checkoutData, paymentMethod, total, createPayment]);
+
+    useEffect(() => {
+        if (paymentId) {
+            const interval = setInterval(() => checkPaymentStatus(paymentId), 5000);
+            return () => clearInterval(interval);
+        }
+    }, [paymentId, checkPaymentStatus]);
 
     return (
         <div className={styles.container}>
@@ -219,31 +225,29 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                             </a>
                         </div>
                     )}
-
                     {paymentMethod === 'card' && (
                         <div>
                             <p>Formulário via SDK Mercado Pago aqui.</p>
                         </div>
                     )}
                 </div>
+
                 <div className={styles.statusArea}>
                     {paymentStatus && <p className={styles.statusMessage}>{paymentStatus}</p>}
-
                     <button
                         className={styles.ConfirmPay}
                         onClick={handleConfirm}
-                        disabled={sending || !isPaymentComplete}
+                        disabled={sending || !isPaymentComplete || emailSentRef.current}
                     >
                         {sending ? 'Enviando...' : 'Finalizar pagamento'}
                     </button>
-
                     {sentSuccess === true && <p className={styles.successMsg}>Dados enviados!</p>}
                     {sentSuccess === false && <p className={styles.errorMsg}>Erro ao enviar.</p>}
-                    {showReturnButton && (
+                    {/* {showReturnButton && (
                         <button className={styles.ReturnHome} onClick={() => (window.location.href = '/')}>
                             Voltar à tela inicial
                         </button>
-                    )}
+                    )} */}
                 </div>
             </div>
         </div>

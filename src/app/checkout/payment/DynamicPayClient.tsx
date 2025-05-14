@@ -5,6 +5,7 @@ import styles from './DynamicPayClient.module.css';
 import { QRCode } from 'react-qrcode-logo';
 import Image from 'next/image';
 import { useCart } from '@/app/components/Cart/CartContext';
+import ButtonBack from '@/app/components/buttonBack/buttonBack';
 
 type DynamicPayClientProps = {
     paymentMethod: 'pix' | 'boleto' | 'card';
@@ -159,41 +160,85 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
 
     return (
         <div className={styles.container}>
-            <h1>Finalizar Pagamento</h1>
+            <div className={styles.backbutton}>
+                <ButtonBack />
+            </div>
             <div className={styles.content}>
-                {paymentMethod === 'pix' && (pixQrBase64 || pixCode) && (
-                    <>
-                        {pixQrBase64 ? (
-                            <Image
-                                src={`data:image/png;base64,${pixQrBase64}`}
-                                alt="QR Code Pix"
-                                width={300}
-                                height={300}
-                            />
-                        ) : (
-                            <QRCode value={pixCode!} size={300} />
-                        )}
+                <div className={styles.payMethod}>
+                    {paymentMethod === 'pix' && (pixQrBase64 || pixCode) && (
+                        <>
+                            <div className={styles.qrArea}>
+                                {pixQrBase64 ? (
+                                    <Image
+                                        src={`data:image/png;base64,${pixQrBase64}`}
+                                        alt="QR Code Pix"
+                                        width={300}
+                                        height={300}
+                                    />
+                                ) : (
+                                    <QRCode value={pixCode!} size={300} />
+                                )}
+                            </div>
+                            <div className={styles.pixCode}>
+                                {pixCode && (
+                                    <>
+                                        <div className={styles.Top}>
+                                            <h3>Pague com Pix</h3>
+                                            <p>Capture o QR-code com seu banco, ou copie o código disponibilizado.</p>
+                                            <p>Para o código: </p>
+                                            <ul>
+                                                <li>1. Após copiar, abra o seu banco e procure a área pix.</li>
+                                                <li>
+                                                    2. Cole o código na área da chave pix, se não abrir automaticamente.
+                                                </li>
+                                                <li>3. Verifique seu e-mail.</li>
+                                            </ul>
+                                        </div>
+                                        <div className={styles.textBtn}>
+                                            <textarea readOnly value={pixCode} />
+                                            <button
+                                                onClick={() => {
+                                                    navigator.clipboard.writeText(pixCode);
+                                                    setCopied(true);
+                                                    setTimeout(() => setCopied(false), 3000);
+                                                }}
+                                            >
+                                                Copiar código Pix
+                                            </button>
+                                            {copied && <p className={styles.toast}>Código Pix copiado!</p>}
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </>
+                    )}
+                </div>
+                <div className={styles.statusArea}>
+                    {paymentStatus && <p className={styles.statusMessage}>{paymentStatus}</p>}
 
-                        {pixCode && (
-                            <>
-                                <textarea className={styles.textPix} readOnly value={pixCode} />
-                                <button
-                                    className={styles.CopyPix}
-                                    onClick={() => {
-                                        navigator.clipboard.writeText(pixCode);
-                                        setCopied(true);
-                                        setTimeout(() => setCopied(false), 3000);
-                                    }}
-                                >
-                                    Copiar código Pix
-                                </button>
-                                {copied && <p className={styles.toast}>Código Pix copiado!</p>}
-                            </>
-                        )}
-                    </>
-                )}
+                    <button
+                        className={styles.ConfirmPay}
+                        onClick={handleConfirm}
+                        disabled={sending || !isPaymentComplete}
+                    >
+                        {sending ? 'Enviando...' : 'Finalizar pagamento'}
+                    </button>
 
-                {paymentMethod === 'boleto' && boletoUrl && (
+                    {sentSuccess === true && <p className={styles.successMsg}>Dados enviados!</p>}
+                    {sentSuccess === false && <p className={styles.errorMsg}>Erro ao enviar.</p>}
+                    {showReturnButton && (
+                        <button className={styles.ReturnHome} onClick={() => (window.location.href = '/')}>
+                            Voltar à tela inicial
+                        </button>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+{
+    /*     {paymentMethod === 'boleto' && boletoUrl && (
                     <div>
                         <a href={boletoUrl} target="_blank" rel="noopener noreferrer">
                             Clique para abrir o boleto
@@ -205,22 +250,5 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                     <div>
                         <p>Formulário via SDK Mercado Pago aqui.</p>
                     </div>
-                )}
-
-                {paymentStatus && <p className={styles.statusMessage}>{paymentStatus}</p>}
-
-                <button className={styles.ConfirmPay} onClick={handleConfirm} disabled={sending || !isPaymentComplete}>
-                    {sending ? 'Enviando...' : 'Finalizar pagamento'}
-                </button>
-
-                {sentSuccess === true && <p className={styles.successMsg}>Dados enviados!</p>}
-                {sentSuccess === false && <p className={styles.errorMsg}>Erro ao enviar.</p>}
-                {showReturnButton && (
-                    <button className={styles.ReturnHome} onClick={() => (window.location.href = '/')}>
-                        Voltar à tela inicial
-                    </button>
-                )}
-            </div>
-        </div>
-    );
+                )} */
 }

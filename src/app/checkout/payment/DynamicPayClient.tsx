@@ -212,6 +212,19 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                             </div>
                         </>
                     )}
+                    {paymentMethod === 'boleto' && boletoUrl && (
+                        <div>
+                            <a href={boletoUrl} target="_blank" rel="noopener noreferrer">
+                                Clique para abrir o boleto
+                            </a>
+                        </div>
+                    )}
+
+                    {paymentMethod === 'card' && (
+                        <div>
+                            <p>Formulário via SDK Mercado Pago aqui.</p>
+                        </div>
+                    )}
                 </div>
                 <div className={styles.statusArea}>
                     {paymentStatus && <p className={styles.statusMessage}>{paymentStatus}</p>}
@@ -235,20 +248,4 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
             </div>
         </div>
     );
-}
-
-{
-    /*     {paymentMethod === 'boleto' && boletoUrl && (
-                    <div>
-                        <a href={boletoUrl} target="_blank" rel="noopener noreferrer">
-                            Clique para abrir o boleto
-                        </a>
-                    </div>
-                )}
-
-                {paymentMethod === 'card' && (
-                    <div>
-                        <p>Formulário via SDK Mercado Pago aqui.</p>
-                    </div>
-                )} */
 }

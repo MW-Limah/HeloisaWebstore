@@ -113,3 +113,18 @@
     top: 20px;
     left: 20px;
 }
+
+@media (max-width: 778px) {
+    .payMethod {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .Top ul {
+        margin: 0px;
+    }
+
+    .Top li {
+        margin: 10px 0;
+    }
+}

@@ -108,10 +108,22 @@
     transition: all 0.3s ease;
 }
 
-.backbutton {
+.btnCancel {
     position: absolute;
     top: 20px;
     left: 20px;
+    padding: 10px;
+    border: 1px solid #000;
+    background: rgb(252, 252, 252);
+    color: #000;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.btnCancel:hover {
+    background-color: #ff4b4b;
 }
 
 @media (max-width: 778px) {

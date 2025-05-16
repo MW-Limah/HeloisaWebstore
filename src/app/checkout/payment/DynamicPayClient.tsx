@@ -5,7 +5,7 @@ import styles from './DynamicPayClient.module.css';
 import { QRCode } from 'react-qrcode-logo';
 import Image from 'next/image';
 import { useCart } from '@/app/components/Cart/CartContext';
-import ButtonBack from '@/app/components/buttonBack/buttonBack';
+import { useRouter } from 'next/navigation';
 
 type DynamicPayClientProps = {
     paymentMethod: 'pix' | 'boleto' | 'card';
@@ -24,6 +24,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     const [paymentId, setPaymentId] = useState<string | null>(null);
     const [isPaymentComplete, setIsPaymentComplete] = useState(false);
     const emailSentRef = useRef(false);
+    const router = useRouter();
 
     const { getSelectedItems } = useCart();
     const selectedItems = getSelectedItems();
@@ -166,9 +167,19 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
 
     return (
         <div className={styles.container}>
-            <div className={styles.backbutton}>
-                <ButtonBack />
-            </div>
+            <button
+                className={styles.btnCancel}
+                onClick={() => {
+                    if (paymentId) {
+                        router.push(`/cancel-payment?paymentId=${paymentId}`);
+                    } else {
+                        alert('Pagamento ainda não foi iniciado.');
+                    }
+                }}
+            >
+                Cancelar pagamento
+            </button>
+
             <div className={styles.content}>
                 <div className={styles.payMethod}>
                     {paymentMethod === 'pix' && (pixQrBase64 || pixCode) && (
@@ -243,11 +254,6 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                     </button>
                     {sentSuccess === true && <p className={styles.successMsg}>Dados enviados!</p>}
                     {sentSuccess === false && <p className={styles.errorMsg}>Erro ao enviar.</p>}
-                    {/* {showReturnButton && (
-                        <button className={styles.ReturnHome} onClick={() => (window.location.href = '/')}>
-                            Voltar à tela inicial
-                        </button>
-                    )} */}
                 </div>
             </div>
         </div>

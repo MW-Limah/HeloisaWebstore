@@ -3,7 +3,13 @@
     width: 100%;
     display: flex;
     align-items: center;
+
     justify-content: center;
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 10px;
 }
 
 .form {
@@ -23,6 +29,7 @@
     border-right: none;
     border-top: none;
     border-bottom: 2px solid #000;
+    color: #000;
     background: none;
     width: 80%;
     padding: 10px;

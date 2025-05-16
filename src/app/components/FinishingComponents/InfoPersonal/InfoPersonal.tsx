@@ -94,7 +94,41 @@ export const InfoPersonal = ({ formData, updateFormData }) => {
 
             <div className={styles.Bottom}>
                 <p>
-                    Já tem um cadastro? <Link href="#">Clique aqui</Link>. Isso agiliza o checkout!
+                    Já tem um cadastro?{' '}
+                    <button
+                        type="button"
+                        onClick={async () => {
+                            const {
+                                data: { user },
+                                error: authError,
+                            } = await supabase.auth.getUser();
+
+                            if (authError || !user) {
+                                console.error('Usuário não autenticado.');
+                                return;
+                            }
+
+                            const { data: client, error } = await supabase
+                                .from('clients')
+                                .select('email, first_name, last_name, phone')
+                                .eq('id', user.id)
+                                .single();
+
+                            if (error) {
+                                console.error('Erro ao buscar cliente:', error.message);
+                                return;
+                            }
+
+                            updateFormData('email', client.email || '');
+                            updateFormData('nome', client.first_name || '');
+                            updateFormData('sobrenome', client.last_name || '');
+                            updateFormData('telefone', client.phone || '');
+                        }}
+                        className={styles.loadButton}
+                    >
+                        Clique aqui
+                    </button>
+                    . Isso agiliza o checkout!
                 </p>
             </div>
         </div>

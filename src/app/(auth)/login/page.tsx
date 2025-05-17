@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { supabase } from '@/app/lib/supabase';
+import { useRouter } from 'next/navigation';
 import styles from './login.module.css';
 import ButtonBack from '@/app/components/buttonBack/buttonBack';
 
@@ -12,11 +13,16 @@ export default function LoginPage() {
     const [phone, setPhone] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [isRegistering, setIsRegistering] = useState(false);
+    const router = useRouter();
 
     async function handleSignIn(e: React.FormEvent) {
         e.preventDefault();
         const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) setError(error.message);
+        if (error) {
+            setError(error.message);
+        } else {
+            router.push('/perfil');
+        }
     }
 
     async function handleSignUp(e: React.FormEvent) {

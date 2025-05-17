@@ -57,23 +57,24 @@ export default function LoginPage() {
                     <h1 className="text-2xl mb-4">
                         {isRegistering ? 'Preencha os campos para se cadastrar' : 'Olá, seja bem-vindo!'}
                     </h1>
-
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className={styles.email}
-                        required
-                    />
-                    <input
-                        type="password"
-                        placeholder="Senha"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className={styles.password}
-                        required
-                    />
+                    <div className={styles.inputGroup}>
+                        <label htmlFor="email">Digite seu E-mail</label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className={styles.email}
+                            required
+                        />
+                        <label htmlFor="email">Digite sua senha</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className={styles.password}
+                            required
+                        />
+                    </div>
 
                     {isRegistering && (
                         <>

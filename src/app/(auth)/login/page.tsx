@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { supabase } from '@/app/lib/supabase';
 import styles from './login.module.css';
-import JustTop from '@/app/components/nav/justTop';
+import ButtonBack from '@/app/components/buttonBack/buttonBack';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -51,24 +51,25 @@ export default function LoginPage() {
 
     return (
         <div className={styles.container}>
-            <JustTop />
+            <div className={styles.buttonBack}>
+                <ButtonBack />
+            </div>
             <div className={styles.content}>
                 <form className={styles.form} onSubmit={isRegistering ? handleSignUp : handleSignIn}>
-                    <h1 className="text-2xl mb-4">
-                        {isRegistering ? 'Preencha os campos para se cadastrar' : 'Olá, seja bem-vindo!'}
-                    </h1>
+                    <h2>{isRegistering ? 'Preencha os campos para se cadastrar' : 'Olá, seja bem-vindo!'}</h2>
                     <div className={styles.inputGroup}>
-                        <label htmlFor="email">Digite seu E-mail</label>
                         <input
                             type="email"
+                            placeholder="Digite seu E-mail"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className={styles.email}
                             required
                         />
-                        <label htmlFor="email">Digite sua senha</label>
+
                         <input
                             type="password"
+                            placeholder="Digite sua senha"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className={styles.password}
@@ -108,7 +109,7 @@ export default function LoginPage() {
                     {error && <p className={styles.error}>{error}</p>}
 
                     {!isRegistering ? (
-                        <div className={styles.buttonGroup}>
+                        <div className={styles.buttonContainer}>
                             <button type="submit" className={styles.btnEnter}>
                                 Entrar
                             </button>
@@ -117,9 +118,11 @@ export default function LoginPage() {
                             </button>
                         </div>
                     ) : (
-                        <button type="submit" className={styles.btnSign}>
-                            Cadastrar
-                        </button>
+                        <div className={styles.buttonContainer}>
+                            <button type="submit" className={styles.btnSign}>
+                                Cadastrar
+                            </button>
+                        </div>
                     )}
                 </form>
             </div>

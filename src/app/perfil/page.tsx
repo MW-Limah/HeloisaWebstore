@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/app/lib/supabase';
 import { useRouter } from 'next/navigation';
 import styles from './perfil.module.css';
+import Image from 'next/image';
+import { FaRegEdit } from 'react-icons/fa';
+
 import ButtonBack from '@/app/components/buttonBack/buttonBack';
 
 export default function PerfilPage() {
@@ -40,25 +43,58 @@ export default function PerfilPage() {
 
     return (
         <div className={styles.container}>
+            <div className={styles.buttonBack}>
+                <ButtonBack />
+            </div>
+            {error && <p className={styles.error}>{error}</p>}
             <div className={styles.content}>
-                <h1>Meu Perfil</h1>
-                <div className={styles.profileBox}>
-                    <p>
-                        <strong>Nome:</strong> {userData.first_name}
-                    </p>
-                    <p>
-                        <strong>Sobrenome:</strong> {userData.last_name}
-                    </p>
-                    <p>
-                        <strong>Email:</strong> {userData.email}
-                    </p>
-                    <p>
-                        <strong>Telefone:</strong> {userData.phone}
-                    </p>
-                    <p>
-                        <strong>ID do Usuário:</strong> {userData.id}
-                    </p>
-                </div>
+                <aside className={styles.profile}>
+                    <Image src={'/perfil.png'} width={100} height={100} alt="Sua foto de perfil"></Image>
+                    <div className={styles.sectionSelectImg}>
+                        <h3>Mudar foto de perfil</h3>
+                        <input type="file" />
+                        <FaRegEdit />
+                    </div>
+                </aside>
+                <aside className={styles.infos}>
+                    <h1>Meu perfil</h1>
+                    <div className={styles.dadosPessoais}>
+                        <div className={styles.dataGroup}>
+                            <label>Nome</label>
+                            <input type="text" value={userData.first_name} readOnly />
+                        </div>
+                        <div className={styles.dataGroup}>
+                            <label>Sobrenome</label>
+                            <input type="text" value={userData.last_name} readOnly />
+                        </div>
+                        <div className={styles.dataGroup}>
+                            <label>Email</label>
+                            <input type="text" value={userData.email} readOnly />
+                        </div>
+                        <div className={styles.dataGroup}>
+                            <label>Telefone</label>
+                            <input type="text" value={userData.phone} readOnly />
+                        </div>
+
+                        {/* <div className={styles.dataGroup}>
+                            <label>ID do Usuário</label>
+                            <input type="text" value={userData.id} readOnly />
+                        </div> */}
+
+                        <div className={styles.dataGroup}>
+                            <label>Senha</label>
+                            <input type="password" value={userData.password} readOnly />
+                        </div>
+                        <div className={styles.dataGroup}>
+                            <label>Nova senha</label>
+                            <input type="password" value={userData.password} readOnly />
+                        </div>
+                    </div>
+                    <div className={styles.btnContainer}>
+                        <button>Editar dados</button>
+                        <button>Salvar nova senha</button>
+                    </div>
+                </aside>
             </div>
         </div>
     );

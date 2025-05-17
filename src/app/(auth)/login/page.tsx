@@ -55,7 +55,10 @@ export default function LoginPage() {
                 <ButtonBack />
             </div>
             <div className={styles.content}>
-                <form className={styles.form} onSubmit={isRegistering ? handleSignUp : handleSignIn}>
+                <form
+                    className={`${styles.form} ${isRegistering ? styles.formRegister : ''}`}
+                    onSubmit={isRegistering ? handleSignUp : handleSignIn}
+                >
                     <h2>{isRegistering ? 'Preencha os campos para se cadastrar' : 'Olá, seja bem-vindo!'}</h2>
                     <div className={styles.inputGroup}>
                         <input
@@ -121,6 +124,9 @@ export default function LoginPage() {
                         <div className={styles.buttonContainer}>
                             <button type="submit" className={styles.btnSign}>
                                 Cadastrar
+                            </button>
+                            <button type="button" className={styles.btnBack} onClick={() => setIsRegistering(false)}>
+                                Voltar
                             </button>
                         </div>
                     )}

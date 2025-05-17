@@ -22,6 +22,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow-y: auto;
 }
 
 .form input {
@@ -102,4 +103,9 @@
 
 .btnSign {
     margin-top: 10px;
+}
+
+.formRegister {
+    height: 90vh; /* ou 95vh se ainda estiver apertado */
+    transition: height 0.3s ease;
 }

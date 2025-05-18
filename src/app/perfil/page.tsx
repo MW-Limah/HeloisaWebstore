@@ -6,7 +6,7 @@ import styles from './perfil.module.css';
 import Image from 'next/image';
 import { FaRegEdit } from 'react-icons/fa';
 
-import ButtonBack from '@/app/components/buttonBack/buttonBack';
+import JustTop from '../components/nav/justTop';
 
 export default function PerfilPage() {
     const [userData, setUserData] = useState<any>(null);
@@ -44,16 +44,24 @@ export default function PerfilPage() {
     return (
         <div className={styles.container}>
             <div className={styles.buttonBack}>
-                <ButtonBack />
+                <JustTop />
             </div>
             {error && <p className={styles.error}>{error}</p>}
             <div className={styles.content}>
                 <aside className={styles.profile}>
-                    <Image src={'/perfil.png'} width={100} height={100} alt="Sua foto de perfil"></Image>
+                    <div className={styles.SelectedImg}>
+                        <Image src={'/perfil.png'} width={100} height={100} alt="Sua foto de perfil"></Image>
+                    </div>
                     <div className={styles.sectionSelectImg}>
-                        <h3>Mudar foto de perfil</h3>
-                        <input type="file" />
-                        <FaRegEdit />
+                        <label htmlFor="fupload" className={styles.selectImg}>
+                            Mudar foto
+                            <FaRegEdit className={styles.icon} />
+                        </label>
+                        <input type="file" id="fupload" className={styles.formUp} />
+                    </div>
+                    <div>
+                        <h3>Total de compras</h3>
+                        <div>box</div>
                     </div>
                 </aside>
                 <aside className={styles.infos}>

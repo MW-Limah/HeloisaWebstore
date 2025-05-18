@@ -1,15 +1,9 @@
 .container {
     height: 100vh;
-    color: #000;
-}
-
-.buttonBack {
-    position: absolute;
-    top: 10px;
-    left: 10px;
 }
 
 .content {
+    color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,6 +12,41 @@
 .profile {
     flex: 1;
     width: 100%;
+    height: 100vh;
+    background-color: #e3edff;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px 0;
+}
+
+.profile img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: calc(50% - 0px) calc(50% - -50px);
+}
+
+.sectionSelectImg {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formUp {
+    display: none;
+}
+
+.icon {
+    margin: 0 20px;
+}
+
+.selectImg {
+    cursor: pointer;
+    font-size: 20pt;
+    font-weight: 600;
 }
 
 /* Campo Dados Pessoais */

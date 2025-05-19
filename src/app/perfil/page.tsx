@@ -35,7 +35,7 @@ export default function PerfilPage() {
         }
 
         fetchProfile();
-    }, []);
+    }, [router]);
 
     if (!userData) {
         return <p className={styles.loading}>Carregando...</p>;
@@ -43,7 +43,7 @@ export default function PerfilPage() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.buttonBack}>
+            <div className={styles.top}>
                 <JustTop />
             </div>
             {error && <p className={styles.error}>{error}</p>}

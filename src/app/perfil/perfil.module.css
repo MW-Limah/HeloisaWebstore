@@ -56,20 +56,64 @@
     width: 100%;
     height: 100vh;
     background-color: white;
-    padding: 30px;
+    padding: 2rem 10%;
 }
 
 .infos h1 {
     font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 3rem;
     border-bottom: 2px solid #000;
     max-width: 200px;
+    font-family: var(--font-jost);
+    font-weight: 700;
+}
+
+.infos label {
+    font-size: 16pt;
+    font-weight: 600;
+    color: #000;
 }
 
 .dadosPessoais {
     display: grid;
-    grid-template-columns: repeat(2, 200px);
+    grid-template-columns: repeat(2, 500px);
     grid-template-rows: repeat(3, 1fr);
     gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.dataGroup input {
+    width: 100%;
+    background: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #000;
+    color: #000;
+    padding: 15px 0 5px 10px;
+    font-size: 16pt;
+    margin-bottom: 2rem;
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.btnContainer button {
+    border-radius: 50px;
+    padding: 10px 20px;
+    background-color: var(--links);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btnContainer button:hover {
+    background-color: var(--sd);
 }

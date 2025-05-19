@@ -8,6 +8,7 @@
     --cancel-btn: #d05648;
     --cancel-btn-hover: #bc5044;
     --p-color: #525252;
+    --font-jost: 'Jost', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {

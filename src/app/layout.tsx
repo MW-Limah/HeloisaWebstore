@@ -1,6 +1,6 @@
 // src/app/layout.tsx
 
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist, Geist_Mono, Jost } from 'next/font/google';
 import './globals.css';
 import AuthSessionProvider from './SessionProvider';
 import { AuthProvider } from './providers/AuthProvider';
@@ -10,6 +10,12 @@ import { CartProvider } from './components/Cart/CartContext'; // <-- importe o C
 const geistSans = Geist({
     subsets: ['latin'],
     variable: '--font-geist-sans',
+    display: 'swap',
+});
+
+const jost = Jost({
+    subsets: ['latin'],
+    variable: '--font-jost',
     display: 'swap',
 });
 

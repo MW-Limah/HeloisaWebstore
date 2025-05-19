@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import styles from './perfil.module.css';
 import Image from 'next/image';
 import { FaRegEdit } from 'react-icons/fa';
-
+import Loading from '../components/Loading/Loading';
 import JustTop from '../components/nav/justTop';
 
 export default function PerfilPage() {
@@ -38,7 +38,11 @@ export default function PerfilPage() {
     }, [router]);
 
     if (!userData) {
-        return <p className={styles.loading}>Carregando...</p>;
+        return (
+            <div>
+                <Loading />
+            </div>
+        );
     }
 
     return (
@@ -84,18 +88,19 @@ export default function PerfilPage() {
                             <input type="text" value={userData.phone} readOnly />
                         </div>
 
-                        {/* <div className={styles.dataGroup}>
+                        <div className={styles.dataGroup}>
                             <label>ID do Usuário</label>
                             <input type="text" value={userData.id} readOnly />
-                        </div> */}
-
-                        <div className={styles.dataGroup}>
-                            <label>Senha</label>
-                            <input type="password" value={userData.password} readOnly />
                         </div>
-                        <div className={styles.dataGroup}>
-                            <label>Nova senha</label>
-                            <input type="password" value={userData.password} readOnly />
+                        <div className={styles.passwordContainer}>
+                            <div className={styles.dataGroup}>
+                                <label>Senha</label>
+                                <input type="password" value={userData.password} readOnly />
+                            </div>
+                            <div className={styles.dataGroup}>
+                                <label>Nova senha</label>
+                                <input type="password" value={userData.password} readOnly />
+                            </div>
                         </div>
                     </div>
                     <div className={styles.btnContainer}>

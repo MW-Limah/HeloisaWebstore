@@ -65,7 +65,6 @@ export default function PerfilPage() {
                     </div>
                     <div>
                         <h3>Total de compras</h3>
-                        <div>box</div>
                     </div>
                 </aside>
                 <aside className={styles.infos}>

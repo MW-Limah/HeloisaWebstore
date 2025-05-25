@@ -32,7 +32,30 @@ export default function LoginAdmin() {
         });
 
         if (res.ok) {
-            router.push('/pages/Admin');
+            // ⚠️ Espera sessão atualizar
+            const { data: authData, error: authError } = await supabase.auth.getUser();
+
+            if (authError || !authData.user) {
+                console.error('Erro ao obter usuário autenticado:', authError?.message);
+                return;
+            }
+
+            const { data: profile, error: profileError } = await supabase
+                .from('profiles')
+                .select('role')
+                .eq('id', authData.user.id)
+                .single();
+
+            if (profileError) {
+                console.error('Erro ao buscar perfil:', profileError.message);
+                return;
+            }
+
+            if (profile.role === 'admin') {
+                router.push('/pages/Admin');
+            } else {
+                router.push('/perfil');
+            }
         } else {
             alert('Usuário ou senha incorretos!');
             router.push('/pages/Login');

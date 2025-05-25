@@ -25,7 +25,7 @@ export default function PerfilPage() {
                 return;
             }
 
-            const { data, error } = await supabase.from('clients').select('*').eq('id', user.id).single();
+            const { data, error } = await supabase.from('profiles').select('*').eq('id', user.id).single();
 
             if (error) {
                 setError(error.message);
@@ -72,26 +72,23 @@ export default function PerfilPage() {
                     <div className={styles.dadosPessoais}>
                         <div className={styles.dataGroup}>
                             <label>Nome</label>
-                            <input type="text" value={userData.first_name} readOnly />
+                            <input type="text" value={userData.nome} readOnly />
                         </div>
-                        <div className={styles.dataGroup}>
-                            <label>Sobrenome</label>
-                            <input type="text" value={userData.last_name} readOnly />
-                        </div>
+
                         <div className={styles.dataGroup}>
                             <label>Email</label>
                             <input type="text" value={userData.email} readOnly />
                         </div>
-                        <div className={styles.dataGroup}>
+                        {/*  <div className={styles.dataGroup}>
                             <label>Telefone</label>
                             <input type="text" value={userData.phone} readOnly />
-                        </div>
+                        </div> */}
 
                         <div className={styles.dataGroup}>
                             <label>ID do Usuário</label>
                             <input type="text" value={userData.id} readOnly />
                         </div>
-                        <div className={styles.passwordContainer}>
+                        {/* <div className={styles.passwordContainer}>
                             <div className={styles.dataGroup}>
                                 <label>Senha</label>
                                 <input type="password" value={userData.password} readOnly />
@@ -100,7 +97,7 @@ export default function PerfilPage() {
                                 <label>Nova senha</label>
                                 <input type="password" value={userData.password} readOnly />
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={styles.btnContainer}>
                         <button>Editar dados</button>

@@ -1,69 +1,65 @@
-// src/app/api/auth/[...nextauth]/route.ts
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { supabase } from '@/app/lib/supabase';
-import { supabaseAdmin } from '@/app/lib/supabaseAdmin';
 
 const handler = NextAuth({
     providers: [
         CredentialsProvider({
-            name: 'Admin Login',
+            name: 'Credentials',
             credentials: {
                 email: { label: 'Email', type: 'text' },
                 password: { label: 'Senha', type: 'password' },
             },
-            async authorize(credentials) {
-                if (!credentials?.email || !credentials?.password) {
-                    throw new Error('E-mail e senha são obrigatórios');
-                }
+            authorize: async (credentials) => {
+                console.log('Credenciais recebidas:', credentials);
 
-                const { data, error } = await supabase.auth.signInWithPassword({
-                    email: credentials.email,
-                    password: credentials.password,
-                });
-                if (error || !data.user) {
-                    console.error('Login falhou:', error?.message);
+                const { email, password } = credentials;
+
+                const { data, error } = await supabase.from('profiles').select('*').eq('email', email).single();
+
+                if (error) {
+                    console.error('Erro ao buscar usuário:', error);
                     return null;
                 }
 
-                const { data: profile, error: profileErr } = await supabaseAdmin
-                    .from('profiles')
-                    .select('role, nome')
-                    .eq('id', data.user.id)
-                    .single();
-                if (profileErr || profile.role !== 'admin') {
-                    console.warn('Acesso negado ou erro ao buscar perfil:', profileErr?.message);
+                if (!data) {
+                    console.log('Usuário não encontrado.');
                     return null;
                 }
+
+                if (data.password !== password) {
+                    console.log('Senha incorreta.');
+                    return null;
+                }
+
+                console.log('Login bem-sucedido:', data);
 
                 return {
-                    id: data.user.id,
-                    name: profile.nome,
-                    email: data.user.email,
-                    role: profile.role,
+                    id: data.id,
+                    name: data.nome,
+                    email: data.email,
+                    role: data.role,
                 };
             },
         }),
     ],
-    pages: { signIn: '/login' },
-    session: { strategy: 'jwt' },
     callbacks: {
-        async jwt({ token, user }) {
-            if (user) {
-                token.role = user.role;
-                token.name = user.name;
-            }
-            return token;
-        },
         async session({ session, token }) {
-            if (session.user) {
+            if (token?.role) {
                 session.user.role = token.role;
-                session.user.name = token.name;
             }
             return session;
         },
+        async jwt({ token, user }) {
+            if (user?.role) {
+                token.role = user.role;
+            }
+            return token;
+        },
     },
-    secret: process.env.NEXTAUTH_SECRET,
+    pages: {
+        signIn: '/pages/Login',
+    },
 });
 
 export { handler as GET, handler as POST };

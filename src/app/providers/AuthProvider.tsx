@@ -1,7 +1,7 @@
 // app/providers/AuthProvider.tsx
 'use client';
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../lib/supabase'; // Certifique-se de que o caminho está correto
 
 type AuthContextType = { user: any | null };
 const AuthContext = createContext<AuthContextType>({ user: null });

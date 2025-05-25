@@ -35,7 +35,7 @@ export default function LoginAdmin() {
             router.push('/pages/Admin');
         } else {
             alert('Usuário ou senha incorretos!');
-            router.push('/');
+            router.push('/pages/Login');
         }
     };
 

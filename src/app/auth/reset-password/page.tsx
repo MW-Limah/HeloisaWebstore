@@ -1,54 +1,60 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { supabase } from '@/app/lib/supabase';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { createClient } from '@supabase/supabase-js';
 
 export default function ResetPasswordPage() {
+    const router = useRouter();
+    const [token, setToken] = useState<string | null>(null);
     const [password, setPassword] = useState('');
     const [msg, setMsg] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
+    // 1) Pega o token do fragmento da URL (window.location.hash)
     useEffect(() => {
-        const recoverSession = async () => {
-            if (window.location.hash) {
-                const { error } = await supabase.auth.exchangeCodeForSession(window.location.hash);
-                if (error) {
-                    setMsg('Erro ao recuperar sessão: ' + error.message);
-                }
-            }
-        };
-        recoverSession();
+        // Exemplo: "#access_token=abc123&refresh_token=xyz..."
+        const hash = window.location.hash;
+        if (hash) {
+            const params = new URLSearchParams(hash.substring(1));
+            const t = params.get('access_token');
+            if (t) setToken(t);
+        }
     }, []);
 
-    async function handleReset(e: React.FormEvent) {
-        e.preventDefault();
+    // 2) Cria o supabase com header Authorization se tivermos token
+    const supabaseAuth = token
+        ? createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
+              global: {
+                  headers: { Authorization: `Bearer ${token}` },
+              },
+          })
+        : null;
 
-        if (password.length < 6) {
-            setMsg('A senha deve ter pelo menos 6 caracteres');
+    async function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
+        if (!supabaseAuth) {
+            setMsg('Token de reset ausente ou inválido');
             return;
         }
 
-        setIsLoading(true);
-        const { error } = await supabase.auth.updateUser({ password });
-
+        setLoading(true);
+        const { error } = await supabaseAuth.auth.updateUser({ password });
         if (error) {
-            setMsg(`Erro ao atualizar a senha: ${error.message}`);
+            setMsg(error.message);
         } else {
-            setMsg('Senha atualizada com sucesso!');
-            setTimeout(() => router.push('/pages/Login'), 2000);
+            setMsg('Senha atualizada com sucesso! Redirecionando…');
+            setTimeout(() => router.push('/login'), 2000);
         }
-
-        setIsLoading(false);
+        setLoading(false);
     }
 
     return (
-        <form onSubmit={handleReset} className="flex flex-col gap-4 max-w-md mx-auto mt-10">
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-10 flex flex-col gap-4">
             <h1 className="text-2xl font-bold">Nova senha</h1>
             <input
                 type="password"
-                placeholder="Nova senha"
+                placeholder="Digite a nova senha"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -56,10 +62,10 @@ export default function ResetPasswordPage() {
             />
             <button
                 type="submit"
-                className={`bg-green-600 text-white px-4 py-2 rounded ${isLoading ? 'opacity-50' : ''}`}
-                disabled={isLoading}
+                disabled={!token || loading}
+                className="bg-green-600 text-white p-2 rounded disabled:opacity-50"
             >
-                {isLoading ? 'Atualizando...' : 'Atualizar senha'}
+                {loading ? 'Salvando…' : 'Atualizar senha'}
             </button>
             {msg && <p className="text-sm text-gray-700">{msg}</p>}
         </form>

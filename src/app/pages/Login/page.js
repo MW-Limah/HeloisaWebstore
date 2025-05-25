@@ -87,6 +87,9 @@ export default function LoginAdmin() {
                         >
                             Esqueci minha senha
                         </button>
+                        <button type="button" className={styles.link} onClick={() => router.push('/Cadastro')}>
+                            Cadastrar
+                        </button>
                     </div>
                 </form>
             ) : (

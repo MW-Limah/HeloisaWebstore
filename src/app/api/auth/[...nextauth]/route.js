@@ -4,7 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { supabase } from '@/app/lib/supabase';
 import { supabaseAdmin } from '@/app/lib/supabaseAdmin';
 
-export const authOptions = {
+const handler = NextAuth({
     providers: [
         CredentialsProvider({
             name: 'Admin Login',
@@ -17,7 +17,6 @@ export const authOptions = {
                     throw new Error('E-mail e senha são obrigatórios');
                 }
 
-                // 1) Autentica usuário
                 const { data, error } = await supabase.auth.signInWithPassword({
                     email: credentials.email,
                     password: credentials.password,
@@ -27,23 +26,16 @@ export const authOptions = {
                     return null;
                 }
 
-                // 2) Verifica role no perfil via cliente admin
                 const { data: profile, error: profileErr } = await supabaseAdmin
                     .from('profiles')
                     .select('role, nome')
                     .eq('id', data.user.id)
                     .single();
-                if (profileErr) {
-                    console.error('Erro ao buscar perfil:', profileErr.message);
+                if (profileErr || profile.role !== 'admin') {
+                    console.warn('Acesso negado ou erro ao buscar perfil:', profileErr?.message);
                     return null;
                 }
 
-                if (profile.role !== 'admin') {
-                    console.warn('Acesso negado para usuário não-admin:', data.user.id);
-                    return null;
-                }
-
-                // 3) Retorna dados para sessão
                 return {
                     id: data.user.id,
                     name: profile.nome,
@@ -53,15 +45,8 @@ export const authOptions = {
             },
         }),
     ],
-
-    pages: {
-        signIn: '/login',
-    },
-
-    session: {
-        strategy: 'jwt',
-    },
-
+    pages: { signIn: '/login' },
+    session: { strategy: 'jwt' },
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
@@ -78,9 +63,7 @@ export const authOptions = {
             return session;
         },
     },
-
     secret: process.env.NEXTAUTH_SECRET,
-};
+});
 
-const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

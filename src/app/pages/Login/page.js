@@ -58,7 +58,7 @@ export default function LoginAdmin() {
 
             {!forgotMode ? (
                 <form onSubmit={handleLogin} className={styles.form}>
-                    <h4>Admin</h4>
+                    <h4>Usuário</h4>
                     <input
                         type="text"
                         placeholder="Email"

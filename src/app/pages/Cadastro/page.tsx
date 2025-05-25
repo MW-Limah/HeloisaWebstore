@@ -3,6 +3,7 @@
 
 import { useState } from 'react';
 import styles from './singUp.module.css';
+import ButtonBack from '@/app/components/buttonBack/buttonBack';
 
 export default function CadastroUsuario() {
     const [email, setEmail] = useState('');
@@ -45,6 +46,9 @@ export default function CadastroUsuario() {
 
     return (
         <div className={styles.container}>
+            <div className={styles.buttonBack}>
+                <ButtonBack />
+            </div>
             <form onSubmit={handleSubmit} className={styles.form}>
                 <h1>Cadastrar Novo Usuário</h1>
                 {error && <p className={styles.error}>{error}</p>}
@@ -83,7 +87,7 @@ export default function CadastroUsuario() {
                     className={styles.input}
                 >
                     <option value="client">Usuário</option>
-                    <option value="admin">Administrador</option>
+                    <option value="admin">Gerente</option>
                 </select>
 
                 {role === 'admin' && (

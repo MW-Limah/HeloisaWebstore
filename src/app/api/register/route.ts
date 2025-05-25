@@ -1,16 +1,12 @@
-// app/api/register/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 console.log('[register] SUPABASE_URL:', process.env.SUPABASE_URL);
 console.log('[register] SERVICE_ROLE_KEY set?:', !!process.env.SUPABASE_SERVICE_ROLE_KEY);
 
-const supabaseAdmin = createClient(
-    process.env.SUPABASE_URL!, // ↗️ garanta que esta var existe
-    process.env.SUPABASE_SERVICE_ROLE_KEY! // ↗️ e esta também
-);
+const supabaseAdmin = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
-// faz um select de teste na tabela `profiles`
+// teste opcional
 const { data: test, error: testErr } = await supabaseAdmin.from('profiles').select('id').limit(1);
 console.log('[register] teste select profiles →', { test, testErr });
 
@@ -19,9 +15,10 @@ export async function POST(request: NextRequest) {
         const body = await request.json();
         console.log('[register] payload:', body);
 
-        const { email, password, nome } = body;
-        if (!email || !password || !nome) {
-            return NextResponse.json({ error: 'email, password e nome são obrigatórios.' }, { status: 400 });
+        const { email, password, nome, role } = body;
+
+        if (!email || !password || !nome || !role) {
+            return NextResponse.json({ error: 'email, password, nome e role são obrigatórios.' }, { status: 400 });
         }
 
         // 1) cria usuário no Auth
@@ -29,7 +26,7 @@ export async function POST(request: NextRequest) {
             email,
             password,
             email_confirm: true,
-            user_metadata: { nome, role: 'admin', adm: nome },
+            user_metadata: { nome, role },
         });
 
         if (createErr) {
@@ -37,10 +34,13 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: createErr.message, code: createErr.code }, { status: 400 });
         }
 
-        // 2) cria registro em profiles
-        const { error: profileErr } = await supabaseAdmin
-            .from('profiles')
-            .insert({ id: userData.user.id, role: 'admin', nome, adm: nome });
+        // 2) cria registro na tabela profiles
+        const { error: profileErr } = await supabaseAdmin.from('profiles').insert({
+            id: userData.user.id,
+            nome,
+            role,
+            email, // ✅ Correção aqui
+        });
 
         if (profileErr) {
             console.error('[register] insert profile error:', profileErr);

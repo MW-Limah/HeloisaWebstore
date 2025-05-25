@@ -76,7 +76,9 @@ export default function LoginAdmin() {
                     />
                     <div className={styles.buttonContainer}>
                         <button type="submit">Entrar</button>
-
+                        <button type="button" className={styles.link} onClick={() => router.push('/pages/Cadastro')}>
+                            Cadastrar
+                        </button>
                         <button
                             type="button"
                             className={styles.link}
@@ -86,9 +88,6 @@ export default function LoginAdmin() {
                             }}
                         >
                             Esqueci minha senha
-                        </button>
-                        <button type="button" className={styles.link} onClick={() => router.push('/Cadastro')}>
-                            Cadastrar
                         </button>
                     </div>
                 </form>

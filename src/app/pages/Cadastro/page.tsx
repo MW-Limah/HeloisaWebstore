@@ -1,22 +1,31 @@
-// app/admin/cadastro/page.tsx (ou onde seu formulário esteja)
+// app/admin/cadastro/page.tsx
 'use client';
 
 import { useState } from 'react';
+import styles from './singUp.module.css';
 
-export default function CadastroAdm() {
+export default function CadastroUsuario() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [nome, setNome] = useState('');
+    const [role, setRole] = useState<'admin' | 'client'>('client');
+    const [adminKey, setAdminKey] = useState('');
     const [error, setError] = useState<string | null>(null);
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         setError(null);
 
+        // Verifica se está tentando cadastrar admin sem a senha mestra
+        if (role === 'admin' && adminKey !== process.env.NEXT_PUBLIC_ADMIN_KEY) {
+            setError('Senha de administrador incorreta');
+            return;
+        }
+
         const res = await fetch('/api/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password, nome }),
+            body: JSON.stringify({ email, password, nome, role }),
         });
 
         const json = await res.json();
@@ -26,49 +35,71 @@ export default function CadastroAdm() {
             return;
         }
 
-        // sucesso!
-        alert('Administrador cadastrado com sucesso.');
+        alert(`Usuário ${role === 'admin' ? 'administrador' : 'comum'} cadastrado com sucesso.`);
         setEmail('');
         setPassword('');
         setNome('');
+        setAdminKey('');
+        setRole('client');
     }
+
     return (
-        <div className="max-w-md mx-auto p-6 bg-white rounded shadow">
-            <h1 className="text-2xl mb-4">Cadastrar novo Administrador</h1>
-            <form onSubmit={handleSubmit} className="space-y-4">
-                {error && <p className="text-red-500">{error}</p>}
-                <div>
-                    <label className="block font-medium">Nome</label>
-                    <input
-                        type="text"
-                        value={nome}
-                        onChange={(e) => setNome(e.target.value)}
-                        required
-                        className="w-full border px-3 py-2 rounded"
-                    />
-                </div>
-                <div>
-                    <label className="block font-medium">E-mail</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="w-full border px-3 py-2 rounded"
-                    />
-                </div>
-                <div>
-                    <label className="block font-medium">Senha</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        className="w-full border px-3 py-2 rounded"
-                    />
-                </div>
-                <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-                    Cadastrar novo adm
+        <div className={styles.container}>
+            <form onSubmit={handleSubmit} className={styles.form}>
+                <h1>Cadastrar Novo Usuário</h1>
+                {error && <p className={styles.error}>{error}</p>}
+
+                <label className={styles.label}>Nome</label>
+                <input
+                    type="text"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                    required
+                    className={styles.input}
+                />
+
+                <label className={styles.label}>E-mail</label>
+                <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className={styles.input}
+                />
+
+                <label className={styles.label}>Senha</label>
+                <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className={styles.input}
+                />
+
+                <label className={styles.label}>Tipo de Usuário</label>
+                <select
+                    value={role}
+                    onChange={(e) => setRole(e.target.value as 'admin' | 'client')}
+                    className={styles.input}
+                >
+                    <option value="client">Usuário</option>
+                    <option value="admin">Administrador</option>
+                </select>
+
+                {role === 'admin' && (
+                    <>
+                        <label className={styles.label}>Senha Mestra para Administrador</label>
+                        <input
+                            type="password"
+                            value={adminKey}
+                            onChange={(e) => setAdminKey(e.target.value)}
+                            required
+                            className={styles.input}
+                        />
+                    </>
+                )}
+                <button type="submit" className={styles.btnSignUp}>
+                    Cadastrar
                 </button>
             </form>
         </div>

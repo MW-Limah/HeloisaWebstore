@@ -35,11 +35,13 @@ export async function POST(request: NextRequest) {
         }
 
         // 2) cria registro na tabela profiles
+        // ... após criar o usuário no Auth
+
         const { error: profileErr } = await supabaseAdmin.from('profiles').insert({
             id: userData.user.id,
+            email,
             nome,
             role,
-            email, // ✅ Correção aqui
         });
 
         if (profileErr) {

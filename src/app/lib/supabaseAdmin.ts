@@ -1,7 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseServiceUrl = process.env.SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-// Este arquivo *não* será importado no cliente, apenas em rotas API / server-actions
-export const supabaseAdmin = createClient(supabaseServiceUrl, supabaseServiceKey);
+if (!supabaseUrl || !supabaseKey) {
+    throw new Error('SUPABASE_URL ou SUPABASE_SERVICE_ROLE_KEY não estão definidos nas variáveis de ambiente.');
+}
+
+export const supabaseAdmin = createClient(supabaseUrl, supabaseKey);

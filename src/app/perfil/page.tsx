@@ -9,7 +9,7 @@ import Loading from '../components/Loading/Loading';
 import JustTop from '../components/nav/justTop';
 
 export default function PerfilPage() {
-    const [userData, setUserData] = useState<any>(null);
+    /* const [userData, setUserData] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
@@ -44,13 +44,12 @@ export default function PerfilPage() {
             </div>
         );
     }
-
+ */
     return (
         <div className={styles.container}>
             <div className={styles.top}>
                 <JustTop />
             </div>
-            {error && <p className={styles.error}>{error}</p>}
             <div className={styles.content}>
                 <aside className={styles.profile}>
                     <div className={styles.SelectedImg}>
@@ -72,32 +71,30 @@ export default function PerfilPage() {
                     <div className={styles.dadosPessoais}>
                         <div className={styles.dataGroup}>
                             <label>Nome</label>
-                            <input type="text" value={userData.nome} readOnly />
+                            <input type="text" readOnly />
                         </div>
 
                         <div className={styles.dataGroup}>
                             <label>Email</label>
-                            <input type="text" value={userData.email} readOnly />
+                            <input type="text" readOnly />
                         </div>
-                        {/*  <div className={styles.dataGroup}>
+                        <div className={styles.dataGroup}>
                             <label>Telefone</label>
-                            <input type="text" value={userData.phone} readOnly />
-                        </div> */}
+                            <input type="text" readOnly />
+                        </div>
 
                         <div className={styles.dataGroup}>
                             <label>ID do Usuário</label>
-                            <input type="text" value={userData.id} readOnly />
+                            <input type="text" readOnly />
                         </div>
-                        {/* <div className={styles.passwordContainer}>
-                            <div className={styles.dataGroup}>
-                                <label>Senha</label>
-                                <input type="password" value={userData.password} readOnly />
-                            </div>
-                            <div className={styles.dataGroup}>
-                                <label>Nova senha</label>
-                                <input type="password" value={userData.password} readOnly />
-                            </div>
-                        </div> */}
+                        <div className={styles.dataGroup}>
+                            <label>Senha</label>
+                            <input type="password" readOnly />
+                        </div>
+                        <div className={styles.dataGroup}>
+                            <label>Nova senha</label>
+                            <input type="password" readOnly />
+                        </div>
                     </div>
                     <div className={styles.btnContainer}>
                         <button>Editar dados</button>

@@ -17,10 +17,14 @@ export default function LoginAdmin() {
     const router = useRouter();
 
     useEffect(() => {
-        if (status === 'authenticated') {
-            router.push('/pages/Admin');
+        if (status === 'authenticated' && session?.user?.role) {
+            if (session.user.role === 'admin') {
+                router.push('/pages/Admin');
+            } else {
+                router.push('/perfil');
+            }
         }
-    }, [status, router]);
+    }, [status, session, router]);
 
     const handleLogin = async (e) => {
         e.preventDefault();

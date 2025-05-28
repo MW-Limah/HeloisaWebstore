@@ -1,50 +1,19 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { supabase } from '@/app/lib/supabase';
-import { useRouter } from 'next/navigation';
 import styles from './perfil.module.css';
 import Image from 'next/image';
 import { FaRegEdit } from 'react-icons/fa';
-import Loading from '../components/Loading/Loading';
+import { signOut } from 'next-auth/react';
 import JustTop from '../components/nav/justTop';
+import { TbArrowBackUp } from 'react-icons/tb';
+import { useRouter } from 'next/navigation';
 
 export default function PerfilPage() {
-    /* const [userData, setUserData] = useState<any>(null);
-    const [error, setError] = useState<string | null>(null);
     const router = useRouter();
+    const handleSignOut = async () => {
+        await signOut({ redirect: false });
+        router.push('/'); // Redireciona para a página inicial após o logout
+    };
 
-    useEffect(() => {
-        async function fetchProfile() {
-            const {
-                data: { user },
-                error: authError,
-            } = await supabase.auth.getUser();
-
-            if (authError || !user) {
-                router.push('/');
-                return;
-            }
-
-            const { data, error } = await supabase.from('profiles').select('*').eq('id', user.id).single();
-
-            if (error) {
-                setError(error.message);
-            } else {
-                setUserData(data);
-            }
-        }
-
-        fetchProfile();
-    }, [router]);
-
-    if (!userData) {
-        return (
-            <div>
-                <Loading />
-            </div>
-        );
-    }
- */
     return (
         <div className={styles.container}>
             <div className={styles.top}>
@@ -52,6 +21,11 @@ export default function PerfilPage() {
             </div>
             <div className={styles.content}>
                 <aside className={styles.profile}>
+                    <div className={styles.quitPanel}>
+                        <button className={styles.buttonOut} onClick={handleSignOut}>
+                            Sair <TbArrowBackUp className={styles.back} />
+                        </button>
+                    </div>
                     <div className={styles.SelectedImg}>
                         <Image src={'/perfil.png'} width={100} height={100} alt="Sua foto de perfil"></Image>
                     </div>

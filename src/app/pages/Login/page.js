@@ -54,12 +54,6 @@ export default function LoginAdmin() {
                 console.error('Erro ao buscar perfil:', profileError.message);
                 return;
             }
-
-            if (profile.role === 'admin') {
-                router.push('/pages/Admin');
-            } else {
-                router.push('/perfil');
-            }
         } else {
             alert('Usuário ou senha incorretos!');
             router.push('/pages/Login');

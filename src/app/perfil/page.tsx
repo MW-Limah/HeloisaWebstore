@@ -1,45 +1,42 @@
 'use client';
+
 import { useEffect, useState } from 'react';
+import { useSession, signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { supabase } from '@/app/lib/supabase';
+import JustTop from '../components/nav/justTop';
 import styles from './perfil.module.css';
 import Image from 'next/image';
 import { FaRegEdit } from 'react-icons/fa';
-import { signOut } from 'next-auth/react';
-import JustTop from '../components/nav/justTop';
 import { TbArrowBackUp } from 'react-icons/tb';
-import { useRouter } from 'next/navigation';
-import { supabase } from '@/app/lib/supabase';
 
 export default function PerfilPage() {
+    const { data: session, status } = useSession();
     const router = useRouter();
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [id, setId] = useState('');
 
-    const handleSignOut = async () => {
-        await signOut({ redirect: false });
-        router.push('/');
-    };
-
+    // Redirect to login if not authenticated
     useEffect(() => {
+        if (status === 'unauthenticated') {
+            router.push('/pages/Login');
+        }
+    }, [status, router]);
+
+    // Fetch profile using NextAuth session ID
+    useEffect(() => {
+        if (!session?.user?.id) return;
+
         const fetchProfile = async () => {
-            const {
-                data: { user },
-                error: authError,
-            } = await supabase.auth.getUser();
-
-            if (authError || !user) {
-                console.error('Erro ao obter usuário:', authError?.message);
-                return;
-            }
-
-            const { data: profile, error: profileError } = await supabase
+            const { data: profile, error } = await supabase
                 .from('profiles')
                 .select('nome, email, id')
-                .eq('id', user.id)
+                .eq('id', session.user.id)
                 .single();
 
-            if (profileError) {
-                console.error('Erro ao buscar perfil:', profileError.message);
+            if (error) {
+                console.error('Erro ao buscar perfil:', error.message);
                 return;
             }
 
@@ -49,7 +46,12 @@ export default function PerfilPage() {
         };
 
         fetchProfile();
-    }, []);
+    }, [session?.user?.id]);
+
+    const handleSignOut = async () => {
+        await signOut({ redirect: false });
+        router.push('/');
+    };
 
     return (
         <div className={styles.container}>
@@ -64,7 +66,7 @@ export default function PerfilPage() {
                         </button>
                     </div>
                     <div className={styles.SelectedImg}>
-                        <Image src={'/perfil.png'} width={100} height={100} alt="Sua foto de perfil" />
+                        <Image src="/perfil.png" width={100} height={100} alt="Sua foto de perfil" />
                     </div>
                     <div className={styles.sectionSelectImg}>
                         <label htmlFor="fupload" className={styles.selectImg}>

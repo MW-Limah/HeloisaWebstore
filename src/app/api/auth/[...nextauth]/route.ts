@@ -1,11 +1,10 @@
+// app/api/auth/[...nextauth]/route.ts
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseServer = createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY! // CUIDADO: só use Service Role em ambiente seguro (server-side)
-);
+// Cliente admin (service role) — só no server!
+const supabaseAdmin = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
 const handler = NextAuth({
     providers: [
@@ -13,38 +12,34 @@ const handler = NextAuth({
             name: 'Credentials',
             credentials: {
                 email: { label: 'Email', type: 'text' },
-                password: { label: 'Password', type: 'password' },
+                password: { label: 'Senha', type: 'password' },
             },
-            authorize: async (credentials) => {
-                if (!credentials) return null;
+            async authorize(credentials) {
+                if (!credentials?.email || !credentials.password) return null;
 
-                console.log('Credenciais recebidas:', credentials);
-
-                const { email, password } = credentials;
-
-                const { data: loginData, error: loginError } = await supabaseServer.auth.signInWithPassword({
-                    email,
-                    password,
+                // 1) autentica no Supabase Auth
+                const { data: loginData, error: loginError } = await supabaseAdmin.auth.signInWithPassword({
+                    email: credentials.email,
+                    password: credentials.password,
                 });
-
-                if (loginError || !loginData?.user) {
+                if (loginError || !loginData.user) {
                     console.error('Erro de login:', loginError?.message);
                     return null;
                 }
 
-                const user = loginData.user;
-
-                const { data: profile, error: profileError } = await supabaseServer
+                // 2) busca perfil no Postgres via client admin
+                const { data: profile, error: profileError } = await supabaseAdmin
                     .from('profiles')
                     .select('id, nome, email, role')
-                    .eq('id', user.id)
+                    .eq('id', loginData.user.id)
                     .single();
 
-                if (profileError) {
-                    console.error('Erro ao buscar perfil:', profileError.message);
+                if (profileError || !profile) {
+                    console.error('Erro ao buscar perfil:', profileError?.message);
                     return null;
                 }
 
+                // 3) devolve um "user" simples para o NextAuth
                 return {
                     id: profile.id,
                     name: profile.nome,
@@ -54,26 +49,35 @@ const handler = NextAuth({
             },
         }),
     ],
+
     pages: {
+        // rota do seu formulário de login no App Router
         signIn: '/pages/Login',
     },
+
     session: {
         strategy: 'jwt',
     },
+
     callbacks: {
+        // Sempre que gerar/atualizar o JWT
         async jwt({ token, user }) {
             if (user) {
-                token.role = (user as any).role;
+                token.id = user.id;
+                token.role = user.role;
             }
             return token;
         },
+        // Quando retornar ao cliente a sessão
         async session({ session, token }) {
-            if (token) {
+            if (session.user) {
+                session.user.id = token.id as string;
                 session.user.role = token.role as string;
             }
             return session;
         },
     },
+
     secret: process.env.NEXTAUTH_SECRET,
 });
 

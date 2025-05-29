@@ -32,7 +32,7 @@ const handler = NextAuth({
                     .from('profiles')
                     .select('id, nome, email, role')
                     .eq('id', loginData.user.id)
-                    .single();
+                    .maybeSingle(); // evita erro se não houver exatamente um registro
 
                 if (profileError || !profile) {
                     console.error('Erro ao buscar perfil:', profileError?.message);
@@ -52,7 +52,7 @@ const handler = NextAuth({
 
     pages: {
         // rota do seu formulário de login no App Router
-        signIn: '/pages/Login',
+        signIn: '/login',
     },
 
     session: {
@@ -64,14 +64,19 @@ const handler = NextAuth({
         async jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
+                token.name = user.name;
+                token.email = user.email;
                 token.role = user.role;
             }
             return token;
         },
+
         // Quando retornar ao cliente a sessão
         async session({ session, token }) {
             if (session.user) {
                 session.user.id = token.id as string;
+                session.user.name = token.name as string;
+                session.user.email = token.email as string;
                 session.user.role = token.role as string;
             }
             return session;

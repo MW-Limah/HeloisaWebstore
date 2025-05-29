@@ -2,25 +2,30 @@
 
 import NextAuth from 'next-auth';
 
-// Extende os tipos de sessão, usuário e JWT
+// Estende os tipos da Session e User
 declare module 'next-auth' {
     interface Session {
         user: {
-            name?: string;
-            email?: string;
+            name: string;
+            email: string;
             image?: string;
-            role?: string;
-            id?: string; // ← adiciona o campo `id`
+            role: string;
+            id: string;
         };
     }
 
     interface User {
-        id?: string; // ← idem no User
-        role?: string;
+        id: string;
+        role: string;
     }
+}
 
+// Estende o tipo do JWT
+declare module 'next-auth/jwt' {
     interface JWT {
-        id?: string; // ← e no JWT
-        role?: string;
+        id: string;
+        name: string;
+        email: string;
+        role: string;
     }
 }

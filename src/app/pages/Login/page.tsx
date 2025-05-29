@@ -1,9 +1,8 @@
 'use client';
 
-import { supabase } from '@/app/lib/supabase'; // ← aqui
-import { signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSession, signIn } from 'next-auth/react';
 import { sendPasswordReset } from '@/app/api/actions/send-reset';
 import styles from './LoginAdmin.module.css';
 import ButtonBack from '@/app/components/buttonBack/buttonBack';
@@ -16,53 +15,29 @@ export default function LoginAdmin() {
     const { data: session, status } = useSession();
     const router = useRouter();
 
+    // 1) redireciona assim que a sessão é autenticada
     useEffect(() => {
-        if (status === 'authenticated' && session?.user?.role) {
-            if (session.user.role === 'admin') {
-                router.push('/pages/Admin');
-            } else {
-                router.push('/perfil');
-            }
+        if (status === 'authenticated') {
+            const role = session.user.role;
+            router.push(role === 'admin' ? '/pages/Admin' : '/perfil');
         }
     }, [status, session, router]);
 
+    // 2) apenas chama next-auth signIn
     const handleLogin = async (e) => {
         e.preventDefault();
-
         const res = await signIn('credentials', {
             redirect: false,
             email,
             password: senha,
         });
-
-        if (res.ok) {
-            // ⚠️ Espera sessão atualizar
-            const { data: authData, error: authError } = await supabase.auth.getUser();
-
-            if (authError || !authData.user) {
-                console.error('Erro ao obter usuário autenticado:', authError?.message);
-                return;
-            }
-
-            const { data: profile, error: profileError } = await supabase
-                .from('profiles')
-                .select('role')
-                .eq('id', authData.user.id)
-                .single();
-
-            if (profileError) {
-                console.error('Erro ao buscar perfil:', profileError.message);
-                return;
-            }
-        } else {
+        if (!res.ok) {
             alert('Usuário ou senha incorretos!');
-            router.push('/pages/Login');
         }
     };
 
-    const handleForgotPassword = async (e) => {
+    const handleForgot = async (e) => {
         e.preventDefault();
-
         try {
             const result = await sendPasswordReset(email);
             setMsg(result);
@@ -81,7 +56,7 @@ export default function LoginAdmin() {
                 <form onSubmit={handleLogin} className={styles.form}>
                     <h4>Usuário</h4>
                     <input
-                        type="text"
+                        type="email"
                         placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -113,7 +88,7 @@ export default function LoginAdmin() {
                     </div>
                 </form>
             ) : (
-                <form onSubmit={handleForgotPassword} className={styles.form}>
+                <form onSubmit={handleForgot} className={styles.form}>
                     <h4>Recuperar senha</h4>
                     <input
                         type="email"

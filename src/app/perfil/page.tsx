@@ -24,19 +24,30 @@ export default function PerfilPage() {
         }
     }, [status, router]);
 
-    // Fetch profile using NextAuth session ID
+    // Fetch profile using NextAuth session EMAIL (não ID)
     useEffect(() => {
-        if (!session?.user?.id) return;
+        if (!session?.user?.email) {
+            console.warn('session.user.email não definido');
+            return;
+        }
 
         const fetchProfile = async () => {
+            console.log('Buscando perfil para email:', session.user.email);
+
+            // Busca o perfil pelo email, não pelo id
             const { data: profile, error } = await supabase
                 .from('profiles')
                 .select('nome, email, id')
-                .eq('id', session.user.id)
+                .eq('email', session.user.email)
                 .single();
 
             if (error) {
                 console.error('Erro ao buscar perfil:', error.message);
+                return;
+            }
+
+            if (!profile) {
+                console.error('Perfil não encontrado para email:', session.user.email);
                 return;
             }
 
@@ -46,7 +57,7 @@ export default function PerfilPage() {
         };
 
         fetchProfile();
-    }, [session?.user?.id]);
+    }, [session?.user?.email]);
 
     const handleSignOut = async () => {
         await signOut({ redirect: false });

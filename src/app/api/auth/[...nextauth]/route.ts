@@ -32,7 +32,7 @@ const handler = NextAuth({
                     .from('profiles')
                     .select('id, nome, email, role')
                     .eq('id', loginData.user.id)
-                    .maybeSingle(); // evita erro se não houver exatamente um registro
+                    .single(); // garante que só retorna um registro ou erro
 
                 if (profileError || !profile) {
                     console.error('Erro ao buscar perfil:', profileError?.message);

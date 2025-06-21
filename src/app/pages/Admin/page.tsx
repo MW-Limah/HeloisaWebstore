@@ -147,7 +147,7 @@ export default function AdminPage() {
                                     Deletar item selecionado
                                 </button>
                                 {deleteItemError && <p className={styles.error}>{deleteItemError}</p>}
-                                {deleteItemSuccess && <p className={styles.success}>{deleteItemSuccess}</p>}
+                                {/* {deleteItemSuccess && <p className={styles.success}>{deleteItemSuccess}</p>} */}
                             </div>
                         )}
                     </>

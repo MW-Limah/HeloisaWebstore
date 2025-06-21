@@ -126,7 +126,7 @@ export default function AdminPage() {
                                     className={`${styles.item} ${
                                         selectedItemId === item.id ? styles.selectedItem : ''
                                     }`}
-                                    onClick={() => setSelectedItemId(item.title)}
+                                    onClick={() => setSelectedItemId(item.id)}
                                 >
                                     <strong>{item.title}</strong> — {item.theme} — R$
                                     {Number(item.price).toLocaleString('pt-BR', {
@@ -138,7 +138,10 @@ export default function AdminPage() {
                         {selectedItemId && (
                             <div className={styles.deleteItemContainer}>
                                 <p>
-                                    Item selecionado: <strong>{selectedItemId}</strong>
+                                    Item selecionado:{' '}
+                                    <strong>
+                                        {items.find((item) => item.id === selectedItemId)?.title || 'Desconhecido'}
+                                    </strong>
                                 </p>
                                 <button className={styles.btnDelete} onClick={() => setShowConfirmPopup(true)}>
                                     Deletar item selecionado
@@ -156,7 +159,9 @@ export default function AdminPage() {
                 <div className={styles.popupOverlay}>
                     <div className={styles.popup}>
                         <p>
-                            Tem certeza que deseja deletar o item <strong>{selectedItemId}</strong>?
+                            Tem certeza que deseja deletar o item{' '}
+                            <strong>{items.find((item) => item.id === selectedItemId)?.title || 'Desconhecido'}</strong>
+                            ?
                         </p>
                         <div className={styles.popupButtons}>
                             <button className={styles.btnDelete} onClick={handleDeleteItemConfirmed}>

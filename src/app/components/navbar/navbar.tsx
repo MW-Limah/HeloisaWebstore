@@ -110,38 +110,38 @@ export default function Navbar() {
                 <div className={styles.scrollWrapper}>
                     <ul className={styles.linksMenu} ref={linksRef}>
                         <li>
-                            <a href="#Eletronicos" onClick={handleLinkClick('Eletronicos')}>
+                            <a href="#eletronicos" onClick={handleLinkClick('eletronicos')}>
                                 Eletrônicos
                             </a>
                         </li>
                         <li>
-                            <a href={'#Lacos'} onClick={handleLinkClick('Lacos')}>
+                            <a href={'#lacos'} onClick={handleLinkClick('lacos')}>
                                 Laços
                             </a>
                         </li>
                         <li>
-                            <a href={'#Maquiagens'} onClick={handleLinkClick('Maquiagens')}>
+                            <a href={'#maquiagens'} onClick={handleLinkClick('maquiagens')}>
                                 Maquiagem
                             </a>
                         </li>
                         <li>
-                            <a href={'#Aneis'} onClick={handleLinkClick('Aneis')}>
+                            <a href={'#aneis'} onClick={handleLinkClick('aneis')}>
                                 Anéis
                             </a>
                         </li>
                         <li>
-                            <a href={'#Cordoes'} onClick={handleLinkClick('Cordoes')}>
+                            <a href={'#cordoes'} onClick={handleLinkClick('cordoes')}>
                                 Cordões
                             </a>
                         </li>
 
                         <li>
-                            <a href={'#Brincos'} onClick={handleLinkClick('Brincos')}>
+                            <a href={'#brincos'} onClick={handleLinkClick('brincos')}>
                                 Brincos
                             </a>
                         </li>
                         <li>
-                            <a href={'#Piranhas'} onClick={handleLinkClick('Piranhas')}>
+                            <a href={'#piranhas'} onClick={handleLinkClick('piranhas')}>
                                 Piranhas
                             </a>
                         </li>

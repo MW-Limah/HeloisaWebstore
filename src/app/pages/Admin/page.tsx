@@ -126,7 +126,7 @@ export default function AdminPage() {
                                     className={`${styles.item} ${
                                         selectedItemId === item.id ? styles.selectedItem : ''
                                     }`}
-                                    onClick={() => setSelectedItemId(item.id)}
+                                    onClick={() => setSelectedItemId(item.title)}
                                 >
                                     <strong>{item.title}</strong> — {item.theme} — R$
                                     {Number(item.price).toLocaleString('pt-BR', {

@@ -16,6 +16,15 @@
     transition: all 0.3s ease-in-out;
 }
 
+.selectionTheme {
+    width: 100%;
+    border: none;
+    background: none;
+    color: #333;
+    padding: 10px 5px;
+    border-bottom: 1px solid #000;
+}
+
 .form input,
 .form textarea {
     padding: 14px;

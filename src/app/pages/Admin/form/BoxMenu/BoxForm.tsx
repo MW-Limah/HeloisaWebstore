@@ -62,7 +62,6 @@ export default function BoxForm({ isOpen, onClose }: BoxFormProps) {
                 imageUrls.push(publicUrlData.publicUrl);
             }
 
-            // 🚀 Aqui convertemos corretamente antes do insert:
             const colorsArray = colors.split(',').map((color) => color.trim());
             const quantitiesArray = quantities.includes(',')
                 ? quantities.split(',').map((qty) => parseInt(qty.trim(), 10))
@@ -75,8 +74,8 @@ export default function BoxForm({ isOpen, onClose }: BoxFormProps) {
                     price,
                     description,
                     images: imageUrls,
-                    colors: colorsArray, // ✅ array real aqui
-                    quantities: quantitiesArray, // ✅ array real aqui
+                    colors: colorsArray,
+                    quantities: quantitiesArray,
                 },
             ]);
 
@@ -116,13 +115,21 @@ export default function BoxForm({ isOpen, onClose }: BoxFormProps) {
                         onChange={(e) => setTitle(e.target.value)}
                         required
                     />
-                    <input
-                        type="text"
-                        placeholder="Tema (Que tipo de produto estamos adicionando?)"
+                    <select
+                        className={styles.selectionTheme}
                         value={theme}
-                        onChange={(e) => setTheme(e.target.value.trimEnd())}
+                        onChange={(e) => setTheme(e.target.value)}
                         required
-                    />
+                    >
+                        <option value="">Selecione um tema</option>
+                        <option value="piranhas">Piranhas</option>
+                        <option value="brincos">Brincos</option>
+                        <option value="cordoes">Cordões</option>
+                        <option value="aneis">Anéis</option>
+                        <option value="maquiagens">Maquiagens</option>
+                        <option value="lacos">Laços</option>
+                        <option value="eletronicos">Eletrônicos</option>
+                    </select>
                     <input
                         type="file"
                         accept="image/*"
@@ -144,7 +151,6 @@ export default function BoxForm({ isOpen, onClose }: BoxFormProps) {
                         onChange={(e) => setDescription(e.target.value)}
                     />
 
-                    {/* NOVOS CAMPOS */}
                     <input
                         type="text"
                         placeholder="Cores disponíveis (Separe as cores por vírgula, ex: Vermelho, Azul)"

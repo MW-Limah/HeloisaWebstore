@@ -20,7 +20,22 @@
     margin-bottom: 1rem;
 }
 
-.buttonBack,
+.buttonBack {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 10px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 2px solid #000;
+    transition: all 0.1s ease-in-out;
+}
+
 .buttonOut {
     padding: 15px 25px;
     border: none;

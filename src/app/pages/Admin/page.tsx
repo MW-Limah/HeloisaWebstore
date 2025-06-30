@@ -3,6 +3,7 @@
 import { useSession, signOut } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import styles from './Admin.module.css';
+import Link from 'next/link';
 import Form from './form/form';
 import ButtonBackAll from '@/app/components/buttonBackAll/buttonBack';
 import Loading from '@/app/components/Loading/Loading';
@@ -86,9 +87,9 @@ export default function AdminPage() {
         return (
             <div className={styles.notAuth}>
                 <p className={styles.pOut}>Você não está autenticado {':('}</p>
-                <div className={styles.buttonBack}>
-                    <ButtonBackAll />
-                </div>
+                <Link href={'/pages/Login'} className={styles.buttonBack}>
+                    Voltar ao login
+                </Link>
             </div>
         );
 
@@ -96,7 +97,7 @@ export default function AdminPage() {
         <main className={styles.container}>
             <div className={styles.formHeader}>
                 <div className={styles.buttonContainer}>
-                    <div className={styles.buttonBack}>
+                    <div>
                         <ButtonBackAll />
                     </div>
                     <button className={styles.buttonOut} onClick={() => signOut()}>

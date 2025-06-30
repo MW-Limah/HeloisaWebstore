@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useSession, signIn } from 'next-auth/react';
 import { sendPasswordReset } from '@/app/api/actions/send-reset';
 import styles from './LoginAdmin.module.css';
-import ButtonBack from '@/app/components/buttonBack/buttonBack';
+import ButtonBackAll from '@/app/components/buttonBackAll/buttonBack';
 
 export default function LoginAdmin() {
     const [email, setEmail] = useState('');
@@ -49,7 +49,7 @@ export default function LoginAdmin() {
     return (
         <div className={styles.container}>
             <div className={styles.buttonBack}>
-                <ButtonBack />
+                <ButtonBackAll />
             </div>
 
             {!forgotMode ? (

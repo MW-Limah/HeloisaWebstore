@@ -41,8 +41,8 @@ export default function JustTop() {
                 </div>
                 <div className={styles.rightContent}>
                     <ButtonBack />
-                    <Link href="/pages/Login">Acessar área Admin</Link>
-                    {pathname !== '/contato' && <Link href={'/contato'}>Entre em contato!</Link>}
+                    <Link href="/pages/Login">Entrar/Cadastrar</Link>
+                    {pathname !== '/contato' && <Link href={'/contato'}>Contato</Link>}
                     {pathname !== '/cart' && <Cart />}
                 </div>
                 <div className={styles.mobileOnly}>{pathname !== '/cart' && <Cart />}</div>
@@ -54,13 +54,11 @@ export default function JustTop() {
 
             <div className={`${styles.menuDrawer} ${isActive ? styles.active : ''}`}>
                 <li className={styles.mobileOnly}>
-                    <Link href={'/'}>Voltar ao início</Link>
+                    <ButtonBack />
                 </li>
-                <li className={styles.mobileOnly}>
-                    <Link href={'#'}>Olá, inscreva-se para atualizações</Link>
-                </li>
+
                 <li className={`${styles.mobileOnly} ${styles.Admin}`}>
-                    <Link href="/pages/Login">Acessar área Admin</Link>
+                    <Link href="/pages/Login">Entrar/Cadastrar</Link>
                 </li>
             </div>
         </div>

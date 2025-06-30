@@ -160,6 +160,7 @@
 
     .mobileOnly {
         display: block;
+        font-size: 16pt;
     }
 
     .menuDrawer {

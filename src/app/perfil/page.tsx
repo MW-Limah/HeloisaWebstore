@@ -26,28 +26,24 @@ export default function PerfilPage() {
 
     // Fetch profile using NextAuth session EMAIL (não ID)
     useEffect(() => {
-        if (!session?.user?.email) {
-            console.warn('session.user.email não definido');
-            return;
-        }
+        if (!session?.user?.email) return;
 
         const fetchProfile = async () => {
             console.log('Buscando perfil para email:', session.user.email);
 
-            // Busca o perfil pelo email, não pelo id
             const { data: profile, error } = await supabase
                 .from('profiles')
                 .select('nome, email, id')
                 .eq('email', session.user.email)
-                .single();
+                .eq('role', 'client') // filtra só clientes
+                .maybeSingle(); // aceita 0 ou 1 registro sem erro 406
 
             if (error) {
                 console.error('Erro ao buscar perfil:', error.message);
                 return;
             }
-
             if (!profile) {
-                console.error('Perfil não encontrado para email:', session.user.email);
+                console.warn('Perfil não encontrado para email:', session.user.email);
                 return;
             }
 
@@ -97,7 +93,6 @@ export default function PerfilPage() {
                             <label>Nome</label>
                             <input type="text" value={nome} readOnly />
                         </div>
-
                         <div className={styles.dataGroup}>
                             <label>Email</label>
                             <input type="text" value={email} readOnly />

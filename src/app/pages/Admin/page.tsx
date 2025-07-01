@@ -31,6 +31,30 @@ export default function AdminPage() {
 
     const [showConfirmPopup, setShowConfirmPopup] = useState(false);
 
+    const [deleteId, setDeleteId] = useState('');
+    const [deleteError, setDeleteError] = useState<string | null>(null);
+    const [deleteSuccess, setDeleteSuccess] = useState(false);
+
+    async function handleDelete(e: React.FormEvent) {
+        e.preventDefault();
+        setDeleteError(null);
+        setDeleteSuccess(false);
+
+        const res = await fetch('/api/delete-user', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId: deleteId.trim() }),
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+            setDeleteSuccess(true);
+            setDeleteId('');
+        } else {
+            setDeleteError(data.error || 'Falha desconhecida');
+        }
+    }
+
     async function handleDeleteItemConfirmed() {
         if (!selectedItemId) return;
 
@@ -154,6 +178,26 @@ export default function AdminPage() {
                     </>
                 )}
             </div>
+
+            {/*  <div className={styles.containerForm}>
+                <h2>Deletar usuário</h2>
+                <form onSubmit={handleDelete} className={styles.deleteForm}>
+                    <label htmlFor="deleteId">ID do usuário:</label>
+                    <input
+                        id="deleteId"
+                        type="text"
+                        value={deleteId}
+                        onChange={(e) => setDeleteId(e.target.value)}
+                        placeholder="uuid do usuário"
+                        required
+                    />
+                    <button type="submit" className={styles.btnDelete}>
+                        Apagar
+                    </button>
+                </form>
+                {deleteError && <p className={styles.error}>{deleteError}</p>}
+                {deleteSuccess && <p className={styles.success}>Usuário apagado com sucesso!</p>}
+            </div> */}
 
             {/* Popup de confirmação */}
             {showConfirmPopup && (

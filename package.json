@@ -16,6 +16,7 @@
         "@types/qrcode.react": "^1.0.5",
         "dotenv": "^16.5.0",
         "mercadopago": "^2.5.0",
+        "mongodb": "^6.17.0",
         "next": "15.2.4",
         "next-auth": "^4.24.11",
         "nodemailer": "^6.10.1",

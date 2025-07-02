@@ -3,6 +3,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import styles from './page.module.css';
 import Navbar from './components/navbar/navbar';
 import Header from './components/header/header';
 import Main from './components/main/main';
@@ -26,9 +27,8 @@ export default function Home() {
 
     return (
         <>
-            <div>
-                <h1>Bem‑vindo ao meu site!</h1>
-                <p>Esta página foi visitada {visits ?? '...'} vezes.</p>
+            <div className={styles.visitsContainer}>
+                <p>Visitas: {visits ?? '...'}</p>
             </div>
             <Navbar />
             <Header />

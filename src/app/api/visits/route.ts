@@ -4,18 +4,21 @@ import clientPromise from '@/app/lib/mongodb';
 export async function GET() {
     try {
         const client = await clientPromise;
-        const db = client.db('meu_banco');
+        const db = client.db('heloisa_webstore');
         const collection = db.collection('visitas');
 
         const result = await collection.findOneAndUpdate(
-            { page: 'home' }, // ou qualquer identificador de página
+            { page: 'home' },
             { $inc: { count: 1 } },
-            { upsert: true, returnDocument: 'after' }
+            {
+                upsert: true,
+                returnDocument: 'after' as const, // <- correção para TypeScript
+            }
         );
 
         return NextResponse.json({ count: result.value?.count ?? 1 });
-    } catch (err) {
-        console.error('Erro ao contar visitas:', err);
-        return NextResponse.json({ error: 'Erro no servidor' }, { status: 500 });
+    } catch (error) {
+        console.error('Erro no contador de visitas:', error);
+        return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
     }
 }

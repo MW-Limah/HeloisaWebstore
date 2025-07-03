@@ -18,8 +18,6 @@ export async function GET(req: Request) {
         let count = 1;
 
         if (BLOCKED_IPS.includes(ip)) {
-            console.log(`🛑 IP bloqueado: ${ip}`);
-
             // Apenas busca o contador atual, sem incrementar
             const doc = await collection.findOne({ page: 'home' });
             count = doc?.count ?? 1;

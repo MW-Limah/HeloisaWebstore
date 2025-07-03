@@ -32,11 +32,11 @@ export default function Contato() {
                     <div className={styles.redesSociais}>
                         <ul>
                             <li>
-                                <IoLogoWhatsapp /> 91 1234-5678
+                                <IoLogoWhatsapp /> (92) 9987-5435
                             </li>
-                            <li>
+                            {/* <li>
                                 <FaPinterest /> @heloisaofc
-                            </li>
+                            </li> */}
                             <li>
                                 <RiInstagramFill /> <a href="https://www.instagram.com/hanel.h.h/">hanel.h.h</a>
                             </li>

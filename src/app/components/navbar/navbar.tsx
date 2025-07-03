@@ -85,6 +85,9 @@ export default function Navbar() {
 
             {isActive && (
                 <ul className={`${styles.menuDrawer} ${styles.active}`}>
+                    <li>
+                        <Link href={'/contato'}>Entre em contato!</Link>
+                    </li>
                     <li className={styles.Admin}>
                         <Link href="/pages/Login">Entrar/Cadastrar</Link>
                     </li>

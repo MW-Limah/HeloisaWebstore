@@ -28,8 +28,8 @@ export default function Address({ formData, updateFormData }) {
                 }
             })
             .catch((error) => {
-                alert(error.message);
-                console.error('Erro: ', error);
+                alert('Erro ao buscar endereço, verifique o CEP ou preencha as informações manualmente.');
+                console.error('Erro: teste', error);
             });
     }
 

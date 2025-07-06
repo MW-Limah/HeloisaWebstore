@@ -88,7 +88,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     const getSelectedTotalWithFee = () => {
         const selectedTotal = getSelectedTotal();
-        return selectedTotal > 0 ? selectedTotal + 0 : 0; // Aplica taxa só se houver itens selecionados
+        return selectedTotal > 0 ? selectedTotal + 4.5 : 0; // Aplica taxa só se houver itens selecionados
     };
 
     return (

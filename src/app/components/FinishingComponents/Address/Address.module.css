@@ -1,0 +1,45 @@
+.FormContent {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    background-color: var(--background);
+}
+
+.FormContent input {
+    margin: var(--input-margin);
+    padding: var(--input-padding);
+    color: var(--input-color);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: var(--input-border-width) var(--input-border-style) var(--input-border-color);
+}
+
+.confirmCEP {
+    width: 100%;
+    margin: var(--input-margin);
+    padding: 2px;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #57b49e;
+    transition: all 0.3s ease-in-out;
+}
+
+.confirmCEP:hover {
+    background-color: #4ea68c;
+}
+
+.AddressGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.FormContent p {
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+}

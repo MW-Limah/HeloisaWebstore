@@ -100,10 +100,10 @@ export default function ResumeCart({ formData, paymentMethod, onFinish }: Resume
                             </li>
                         </ul>
                     </div>
-                    <button className={styles.Button} onClick={handleFinish}>
-                        Finalizar compra
-                    </button>
                 </div>
+                <button className={styles.Button} onClick={handleFinish}>
+                    Finalizar compra
+                </button>
             </div>
 
             {/* Popup (sempre definido, mas só aparece quando showPopup=true) */}

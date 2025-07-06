@@ -1,0 +1,35 @@
+.content ul {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0;
+    font-size: 0.7rem;
+}
+
+.content li a {
+    margin: 5px 0;
+    color: var(--links);
+}
+
+.ContentForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.nameInputs {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.ContentForm input {
+    margin: var(--input-margin);
+    padding: var(--input-padding);
+    color: var(--input-color);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: var(--input-border-width) var(--input-border-style) var(--input-border-color);
+}
+.ContentForm input:focus {
+    outline: none;
+}

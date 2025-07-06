@@ -35,8 +35,7 @@ export default function Address({ formData, updateFormData }) {
 
     return (
         <div className={styles.Address}>
-            <h3>Endereço de entrega</h3>
-
+            <h4>Endereço de entrega</h4>
             <form className={styles.FormContent}>
                 <input
                     type="text"
@@ -50,7 +49,6 @@ export default function Address({ formData, updateFormData }) {
                 <h4 className={styles.SectionTitle}>Resumo do Endereço</h4>
                 <div className={styles.AddressGrid}>
                     <div className={styles.FieldGroup}>
-                        <label>Bairro</label>
                         <input
                             type="text"
                             id="bairro"
@@ -60,7 +58,6 @@ export default function Address({ formData, updateFormData }) {
                         />
                     </div>
                     <div className={styles.FieldGroup}>
-                        <label>Rua</label>
                         <input
                             type="text"
                             id="logradouro"
@@ -70,7 +67,6 @@ export default function Address({ formData, updateFormData }) {
                         />
                     </div>
                     <div className={styles.FieldGroup}>
-                        <label>Nº da Casa</label>
                         <input
                             type="text"
                             id="numero"

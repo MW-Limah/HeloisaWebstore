@@ -22,8 +22,16 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    border-radius: 12px;
     padding: 20px;
+}
+
+.form1 {
+    border-radius: 5px 0 0 5px;
+    background-color: #fff;
+}
+.form2 {
+    border-radius: 0 5px 5px 0;
+    background-color: #fff;
 }
 
 /* Responsividade */

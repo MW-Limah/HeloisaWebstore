@@ -9,6 +9,12 @@
     --cancel-btn-hover: #bc5044;
     --p-color: #525252;
     --font-jost: 'Jost', sans-serif;
+    --input-color: #000;
+    --input-padding: 5px 5px;
+    --input-margin: 5px 0;
+    --input-border-width: 1.4px;
+    --input-border-style: solid;
+    --input-border-color: #000;
 }
 
 @media (prefers-color-scheme: dark) {

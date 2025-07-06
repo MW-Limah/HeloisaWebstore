@@ -15,7 +15,7 @@ export default function PayMethods({ onPaymentMethodChange }) {
     return (
         <div className={styles.PayMethods}>
             <div className={styles.content}>
-                <h3>Métodos de pagamento</h3>
+                <h4>Métodos de pagamento</h4>
                 <p className={styles.Subtitle}>Como você prefere fazer o pagamento?</p>
                 <div className={styles.methodRow}>
                     <div className={styles.SelectWrapper}>
@@ -26,11 +26,6 @@ export default function PayMethods({ onPaymentMethodChange }) {
                         </select>
                     </div>
                 </div>
-            </div>
-            <div className={styles.bottom}>
-                <Image width={25} height={25} alt="MasterCard Icone" src="/images/icons/mastercard.png" />
-                <Image width={25} height={25} alt="PayPal Icone" src="/images/icons/paypal.png" />
-                <Image width={25} height={25} alt="Pix Icone" src="/images/icons/pix.png" />
             </div>
         </div>
     );

@@ -54,7 +54,7 @@ export const InfoPersonal = ({ formData, updateFormData }) => {
     return (
         <div className={styles.InfoPersonal}>
             <div className={styles.content}>
-                <h3>Informações pessoais</h3>
+                <h4>Informações pessoais</h4>
                 <ul className={styles.InfoList}>
                     <li>
                         Para saber mais sobre o uso de dados <Link href="/termos-de-uso">clique aqui.</Link>
@@ -68,7 +68,7 @@ export const InfoPersonal = ({ formData, updateFormData }) => {
                         value={formData.email}
                         onChange={(e) => updateFormData('email', e.target.value)}
                     />
-                    <div className={styles.NameInputs}>
+                    <div className={styles.nameInputs}>
                         <input
                             type="text"
                             placeholder="Nome*"
@@ -88,11 +88,10 @@ export const InfoPersonal = ({ formData, updateFormData }) => {
                         value={formData.telefone}
                         onChange={(e) => updateFormData('telefone', e.target.value)}
                     />
-                    <p>Esses dados serão usados apenas para processar entregas.</p>
                 </form>
             </div>
 
-            <div className={styles.Bottom}>
+            {/* <div className={styles.Bottom}>
                 <p>
                     Já tem um cadastro?{' '}
                     <button
@@ -130,7 +129,7 @@ export const InfoPersonal = ({ formData, updateFormData }) => {
                     </button>
                     . Isso agiliza o checkout!
                 </p>
-            </div>
+            </div> */}
         </div>
     );
 };

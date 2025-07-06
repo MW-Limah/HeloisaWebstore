@@ -16,8 +16,8 @@ const slides = [
         id: 2,
         src: '/images/slide2.png',
         alt: 'Slide 2',
-        title: 'Laços de cetim',
-        subtitle: 'O acessório mais fofo para seus cabelos',
+        title: 'Mini Ventiladores',
+        subtitle: 'Fuja do calor com esse mini ventilador incrível',
     },
     {
         id: 3,
@@ -41,7 +41,7 @@ export default function SlideShow() {
                 setCurrent((prev) => (prev + 1) % slides.length);
                 setIsFading(false);
             }, 600); // tempo do fade-out
-        }, 8000);
+        }, 5000);
 
         return () => clearInterval(interval);
     }, []);

@@ -35,6 +35,7 @@ export async function POST(request: Request) {
     <h1>Novo Pedido (${data.paymentMethod.toUpperCase()})</h1>
     <p><strong>Nome:</strong> ${data.first_name} ${data.last_name}</p>
     <p><strong>Email:</strong> ${data.email}</p>
+    <p><strong>Telefone:</strong> ${data.phone}</p>
 
     ${addressHtml}
 
@@ -55,7 +56,7 @@ export async function POST(request: Request) {
     <p><strong>Total:</strong> R$ ${data.total}</p>
     ${data.pixCode ? `<p><strong>Pix Code:</strong> ${data.pixCode}</p>` : ''}
     ${data.boletoUrl ? `<p><strong>Boleto URL:</strong> <a href="${data.boletoUrl}">Link do boleto</a></p>` : ''}
-    <p><strong>Timestamp:</strong> ${data.timestamp}</p>
+    <p><strong>Data:</strong> ${data.timestamp}</p>
   `;
 
     try {

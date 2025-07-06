@@ -1,7 +1,31 @@
+.Address {
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.FormContent input,
+.ContentForm input,
+.SelectWrapper select {
+    font-size: var(--input-font-size);
+}
+
+.confirmCEP {
+    font-size: var(--label-font-size);
+}
+
+.FormContent p,
+.ContentForm p {
+    font-size: var(--text-font-size);
+}
+
+.SectionTitle,
+.Address h4 {
+    font-size: var(--section-title-font-size);
+}
+
 .FormContent {
     display: flex;
     flex-direction: column;
-
     width: 100%;
     background-color: var(--background);
 }
@@ -19,7 +43,7 @@
 .confirmCEP {
     width: 100%;
     margin: var(--input-margin);
-    padding: 2px;
+    padding: 6px;
     text-align: center;
     color: #fff;
     border-radius: 5px;
@@ -42,4 +66,38 @@
 .FormContent p {
     font-size: 0.8rem;
     margin-bottom: 20px;
+}
+
+/* ... estilos já existentes ... */
+
+@media (max-width: 1010px) {
+    .AddressGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .FormContent input {
+        font-size: 1.1rem;
+    }
+
+    .SectionTitle {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 769px) {
+    .FormContent {
+        padding: 0.5rem;
+    }
+
+    .FormContent input {
+        font-size: 1rem;
+    }
+
+    .confirmCEP {
+        font-size: 1rem;
+    }
+
+    .SectionTitle {
+        font-size: 1.2rem;
+    }
 }

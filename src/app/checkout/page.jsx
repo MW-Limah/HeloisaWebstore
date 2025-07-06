@@ -59,7 +59,7 @@ export default function Finishing() {
         <div className={styles.allContent}>
             <JustTop />
             <div className={styles.container}>
-                <h2>Finalizar compra</h2>
+                <h1>Finalizar compra</h1>
                 <p>Preencha os campos abaixo e clique em finalizar compra ✨</p>
                 <div className={styles.content}>
                     <div className={styles.form1}>

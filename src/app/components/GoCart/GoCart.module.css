@@ -4,6 +4,8 @@
     position: relative;
     bottom: 1px;
     font-weight: 600;
+
+    color: #fff;
 }
 
 @media (max-width: 550px) {

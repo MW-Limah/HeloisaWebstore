@@ -1,18 +1,29 @@
+.PayMethods {
+    width: 100%;
+    padding: 10px;
+}
+
+.content h4 {
+    font-size: var(--section-title-font-size);
+    margin-bottom: 0.5rem;
+}
+
+.Subtitle {
+    font-size: var(--text-font-size);
+    color: var(--p-color, #333);
+    margin: 0.5rem 0;
+}
+
 .methodRow {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1rem;
     padding: 0.5rem 0;
 }
 
-.Subtitle {
-    font-size: 1.2rem;
-    color: var(--p-color);
-    margin: 0.5rem 0 0.5rem 0;
-}
-
 .SelectWrapper select {
-    font-size: 1.2rem;
+    font-size: var(--input-font-size);
+    padding: 0.6rem;
+    width: 100%;
 }

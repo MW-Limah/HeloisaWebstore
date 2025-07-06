@@ -1,35 +1,96 @@
+.InfoPersonal {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem;
+}
+
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content h4 {
+    font-size: var(--section-title-font-size);
+    margin-bottom: 1rem;
+}
+
 .content ul {
     list-style: none;
     padding: 0;
     margin: 5px 0;
-    font-size: 0.7rem;
+    font-size: var(--text-font-size);
 }
 
 .content li a {
     margin: 5px 0;
     color: var(--links);
+    text-decoration: underline;
 }
 
 .ContentForm {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+}
+
+.ContentForm input {
+    font-size: var(--input-font-size);
+    margin: var(--input-margin, 10px 0);
+    padding: var(--input-padding, 0.75rem);
+    color: var(--input-color, #000);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: var(--input-border-width, 1.4px) var(--input-border-style, solid) var(--input-border-color, #000);
+    line-height: 1.5;
+}
+
+.ContentForm input:focus {
+    outline: none;
 }
 
 .nameInputs {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 1.2rem;
 }
 
-.ContentForm input {
-    margin: var(--input-margin);
-    padding: var(--input-padding);
-    color: var(--input-color);
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: var(--input-border-width) var(--input-border-style) var(--input-border-color);
+/* ... estilos já existentes ... */
+
+@media (max-width: 1010px) {
+    .ContentForm input {
+        font-size: 1.1rem;
+    }
+
+    .content h4 {
+        font-size: 1.25rem;
+    }
+
+    .nameInputs {
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
-.ContentForm input:focus {
-    outline: none;
+
+@media (max-width: 769px) {
+    .ContentForm {
+        padding: 0.5rem;
+    }
+
+    .ContentForm input {
+        font-size: 1rem;
+    }
+
+    .content h4 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nameInputs {
+        flex-direction: column;
+        gap: 1rem;
+    }
 }

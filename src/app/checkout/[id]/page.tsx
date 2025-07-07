@@ -5,9 +5,9 @@ import { useParams } from 'next/navigation';
 import { supabase } from '@/app/lib/supabase';
 import styles from './checkout.module.css';
 import JustTop from '@/app/components/nav/justTop';
-import Gallery from '@/app/components/Checkout/Gallery/Gallery';
-import Comments from '@/app/components/Checkout/Comments/Comments';
-import CheckoutForm from '@/app/components/Checkout/CheckoutForm/CheckoutForm';
+import Gallery from '@/app/components/details/Gallery/Gallery';
+import Comments from '@/app/components/details/comments/Comments';
+import CheckoutForm from '@/app/components/details/CheckoutForm/CheckoutForm';
 import Loading from '@/app/components/Loading/Loading';
 import Footer from '@/app/components/footer/footer';
 

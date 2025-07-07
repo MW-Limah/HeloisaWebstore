@@ -73,7 +73,7 @@ export default function Navbar() {
                     <Image src={'/logo_1.webp'} width={100} height={100} alt="Logo Principal Heloisa Moda Feminina" />
                 </div>
                 <div className={styles.rightContent}>
-                    <Link href={'/contato'}>Entre em contato!</Link>
+                    <Link href={'/contato'}>Contate-nos</Link>
                     <Cart />
                     <Link href="/pages/Login">Entrar/Cadastrar</Link>
                 </div>
@@ -86,7 +86,7 @@ export default function Navbar() {
             {isActive && (
                 <ul className={`${styles.menuDrawer} ${styles.active}`}>
                     <li>
-                        <Link href={'/contato'}>Entre em contato!</Link>
+                        <Link href={'/contato'}>Contate-nos</Link>
                     </li>
                     <li className={styles.Admin}>
                         <Link href="/pages/Login">Entrar/Cadastrar</Link>

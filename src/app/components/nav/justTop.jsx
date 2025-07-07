@@ -41,9 +41,9 @@ export default function JustTop() {
                 </div>
                 <div className={styles.rightContent}>
                     <ButtonBack />
-                    <Link href="/pages/Login">Entrar/Cadastrar</Link>
-                    {pathname !== '/contato' && <Link href={'/contato'}>Contato</Link>}
+                    {pathname !== '/contato' && <Link href={'/contato'}>Contate-nos</Link>}
                     {pathname !== '/cart' && <Cart />}
+                    <Link href="/pages/Login">Entrar/Cadastrar</Link>
                 </div>
                 <div className={styles.mobileOnly}>{pathname !== '/cart' && <Cart />}</div>
                 <div className={styles.mobileOnly}>{pathname == '/cart' && <ButtonBack />}</div>

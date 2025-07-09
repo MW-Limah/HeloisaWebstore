@@ -9,7 +9,7 @@ export async function GET(req: Request) {
         const ip =
             req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || req.headers.get('x-real-ip') || 'unknown';
 
-        const BLOCKED_IPS = ['127.0.0.1', '::1', '86.142.1.251'];
+        const BLOCKED_IPS = ['127.0.0.1', '::1', '86.142.1.251', '187.86.172.164'];
 
         const client = await clientPromise;
         const db = client.db('heloisa_webstore');

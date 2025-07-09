@@ -17,7 +17,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem; /* reduzido */
 }
 
 .buttonBack {
@@ -64,11 +64,12 @@
 /* Container do Formulário */
 .containerForm {
     width: 100%;
-    max-width: 900px; /* Limita a largura */
+    max-width: 900px;
     border-radius: 8px;
     position: relative;
-    bottom: 200px;
     color: #000;
+    text-align: center;
+    margin-bottom: 0.5rem; /* reduzido */
 }
 
 /* Não autenticado */
@@ -100,13 +101,33 @@
 .itemList {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0px auto;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem; /* reduzido */
+    margin-bottom: 0.5rem; /* reduzido */
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .item {
-    padding: 8px;
-    border-bottom: 1px solid #ccc;
+    width: 100%;
+    padding: 8px 12px; /* reduzido */
+    border-bottom: 1px solid #eee;
     cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    min-height: 40px; /* reduzido */
+    box-sizing: border-box;
+    word-break: break-word;
+}
+
+.item:last-child {
+    border-bottom: none;
 }
 
 .item:hover {
@@ -119,7 +140,7 @@
 }
 
 .deleteItemContainer {
-    margin-top: 12px;
+    margin-top: 6px; /* reduzido */
 }
 
 .success {
@@ -138,7 +159,7 @@
 /* Responsividade */
 @media (max-width: 768px) {
     .buttonContainer {
-        gap: 1rem;
+        gap: 0.5rem; /* reduzido */
     }
 
     .buttonBack {
@@ -157,7 +178,17 @@
     }
 
     .containerForm {
-        width: 90%;
+        width: 100%;
+        text-align: center;
+    }
+    .itemList {
+        max-width: 100%;
+        border-radius: 6px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+    }
+    .item {
+        padding: 7px 7px; /* reduzido */
+        font-size: 1rem;
     }
 }
 
@@ -172,6 +203,15 @@
 
     .containerForm {
         padding: 1rem;
+    }
+    .itemList {
+        max-width: 100vw;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .item {
+        padding: 6px 4px; /* reduzido */
+        font-size: 0.95rem;
     }
 }
 

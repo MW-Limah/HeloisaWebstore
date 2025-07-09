@@ -136,8 +136,8 @@ export default function AdminPage() {
             </div>
 
             <div className={styles.containerForm}>
-                <h2>Itens cadastrados</h2>
                 {loadingItems && <Loading />}
+                <h2>Itens cadastrados</h2>
                 {itemsError && <p className={styles.error}>{itemsError}</p>}
                 {!loadingItems && !itemsError && items.length === 0 && (
                     <p className={styles.info}>Nenhum item cadastrado encontrado.</p>

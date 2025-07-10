@@ -136,10 +136,10 @@ export default function CheckoutForm({
                         </Link>
                     </div>
                     <div className={styles.buttonsPanel}>
-                        <p>Se você não quiser pagar pelo site - Entre em contato com a proprietária</p>
                         <Link href={'/order'}>
                             <button>Encomendar esse produto</button>
                         </Link>
+                        <p>Se você não quiser pagar pelo site, Entre em contato com a proprietária</p>
                     </div>
                 </div>
             </div>

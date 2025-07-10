@@ -128,10 +128,10 @@ export default function AdminPage() {
                         Sair <TbArrowBackUp className={styles.back} />
                     </button>
                 </div>
-                <h1>Bem-vindo, {session.user?.name}</h1>
             </div>
 
             <div className={styles.containerForm}>
+                <h1>Bem-vindo, {session.user?.name}</h1>
                 <Form />
             </div>
 

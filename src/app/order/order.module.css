@@ -5,3 +5,176 @@
     width: 100%;
     height: 100vh;
 }
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 1600px;
+    width: 100%;
+    gap: 2rem;
+    padding: 30px 0;
+    background-color: #fff;
+    height: 100%;
+}
+
+.Details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.details {
+    margin: 25px 0;
+}
+
+.info {
+    margin: 5px 0;
+    display: flex;
+    flex-direction: row;
+    font-size: 14pt;
+    align-items: center;
+}
+
+.details input {
+    font-weight: bold;
+    width: 100%;
+    border: none;
+    padding: 0 8px;
+    font-size: 16pt;
+    outline: none;
+    margin: 0 25px;
+}
+
+.imgWrapper {
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.imgWrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.notice {
+    position: absolute;
+    bottom: 40px;
+    font-size: 15pt;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Detalhes do Cliente */
+
+.clientDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 25px 20px;
+    min-width: 320px;
+    max-width: 420px;
+    width: 100%;
+}
+
+.clientInfo input {
+    margin-top: 20px;
+    border: none;
+    padding: 10px 0;
+    font-size: 16pt;
+    width: 100%;
+    outline: none;
+    border-bottom: 1px solid #222;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.clientInfo input::placeholder {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16pt;
+}
+
+.clientMsg p {
+    font-size: 12pt;
+    font-weight: 600;
+    color: #333;
+    margin-top: 20px;
+    align-self: center;
+}
+.clientMsg label {
+    margin-bottom: 10px;
+    font-size: 14pt;
+    font-weight: 600;
+    color: #000;
+}
+.clientMsg {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.clientMsg textarea {
+    width: 100%;
+    height: 100px;
+    min-height: 200px;
+    padding: 10px;
+    font-size: 16pt;
+    border-radius: 8px;
+    resize: none;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+@media (max-width: 900px) {
+    .content {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        height: auto;
+    }
+
+    .Details {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .details {
+        justify-self: center;
+        max-width: 100%;
+    }
+
+    .clientDetails {
+        margin: 20px 0;
+        max-width: 100%;
+        align-items: center;
+    }
+
+    .clientInfo input {
+        min-width: 60vw;
+        align-items: center;
+    }
+
+    .imgWrapper {
+        max-width: 60%;
+        justify-self: center;
+        height: auto;
+    }
+
+    .imgWrapper img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .clientMsg {
+        width: 80%;
+        margin-top: 20px;
+    }
+
+    .notice {
+        position: static;
+        margin-top: 30px;
+        text-align: center;
+    }
+}

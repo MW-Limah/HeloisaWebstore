@@ -101,11 +101,28 @@
     color: #000;
 }
 
-.bottomFinish {
+.buttonsPanel {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
-    text-align: left;
-    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.buttonsPanel button {
+    background-color: #a7f4e1;
+    border: none;
+    border-radius: 20px;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: black;
+    transition: all 0.3s ease;
+}
+.buttonsPanel button:hover {
+    background-color: #67e6c6;
 }
 
 .buttonsWrapper {

@@ -79,27 +79,6 @@ export default function CheckoutForm({
             <h2>Detalhes</h2>
             <h3 className={styles.itemTitle}>{title}</h3>
             <p className={styles.itemDescription}>{description}</p>
-            {/* 
-           
-            <div className={styles.inputGroup}>
-                <label htmlFor="name">Nome</label>
-                <input type="text" name="name" value={formData.name} onChange={handleChange} />
-            </div>
-
-            <div className={styles.inputGroup}>
-                <label htmlFor="phone">Telefone</label>
-                <input type="text" name="phone" value={formData.phone} onChange={handleChange} />
-            </div>
-
-            <div className={styles.inputGroup}>
-                <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email" value={formData.email} onChange={handleChange} />
-            </div>
-
-            <div className={styles.inputGroup}>
-                <label htmlFor="address">Endereço</label>
-                <input type="text" name="address" id="address" value={formData.address} onChange={handleChange} />
-            </div> */}
 
             {/* Seções movidas para o final */}
             <div className={styles.finishing}>
@@ -146,7 +125,6 @@ export default function CheckoutForm({
 
                 <div className={styles.bottomFinish}>
                     <h3 className={styles.price}>R$ {Number(price).toFixed(2).replace('.', ',')}</h3>
-
                     <div className={styles.buttonsWrapper}>
                         <button type="button" className={styles.buttonAddCart} onClick={handleAddToCart}>
                             Adicionar ao carrinho
@@ -155,6 +133,12 @@ export default function CheckoutForm({
                             <button type="submit" className={styles.buttonFinish}>
                                 Ir para o carrinho
                             </button>
+                        </Link>
+                    </div>
+                    <div className={styles.buttonsPanel}>
+                        <p>Se você não quiser pagar pelo site - Entre em contato com a proprietária</p>
+                        <Link href={'/order'}>
+                            <button>Encomendar esse produto</button>
                         </Link>
                     </div>
                 </div>

@@ -1,51 +1,52 @@
 import styles from './Address.module.css';
 
 export default function Address({ formData, updateFormData }) {
-    function address(event: React.FocusEvent<HTMLInputElement>) {
-        const cep = (event.target as HTMLInputElement).value;
-        updateFormData('cep', cep);
+    function address() {
+        const cep = formData.cep;
 
-        fetch('https://viacep.com.br/ws/' + cep + '/json/')
+        if (!cep || cep.length < 8) {
+            alert('Digite um CEP válido.');
+            return;
+        }
+
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error('Erro ao buscar endereço, tente de novo ou preencha as informações manualmente.');
+                    throw new Error('Erro ao buscar endereço.');
                 }
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
-
-                // Exemplo de preenchimento dos campos, se existirem:
-                const bairroInput = document.getElementById('bairro') as HTMLInputElement;
-                const logradouroInput = document.getElementById('logradouro') as HTMLInputElement;
+                if (data.erro) {
+                    throw new Error('CEP não encontrado.');
+                }
 
                 updateFormData('bairro', data.bairro || '');
                 updateFormData('rua', data.logradouro || '');
-
-                if (bairroInput && logradouroInput) {
-                    bairroInput.value = data.bairro || '';
-                    logradouroInput.value = data.logradouro || '';
-                }
             })
             .catch((error) => {
                 alert('Erro ao buscar endereço, verifique o CEP ou preencha as informações manualmente.');
-                console.error('Erro: teste', error);
+                console.error('Erro:', error);
             });
     }
 
     return (
         <div className={styles.Address}>
             <h4>Endereço de entrega</h4>
-            <form className={styles.FormContent}>
+            <form className={styles.FormContent} onSubmit={(e) => e.preventDefault()}>
                 <input
                     type="text"
                     id="cep"
                     placeholder="Digite seu CEP*"
                     value={formData.cep}
-                    onBlur={address}
-                    onChange={(e) => updateFormData('cep', e.target.value)}
+                    onChange={(e) => {
+                        const valuewithoutSpaces = e.target.value.replace(/\s/g, '');
+                        updateFormData('cep', valuewithoutSpaces);
+                    }}
                 />
-                <label className={styles.confirmCEP}>Confirmar CEP</label>
+                <button className={styles.confirmCEP} type="button" onClick={address}>
+                    Confirmar CEP
+                </button>
                 <h4 className={styles.SectionTitle}>Resumo do Endereço</h4>
                 <div className={styles.AddressGrid}>
                     <div className={styles.FieldGroup}>

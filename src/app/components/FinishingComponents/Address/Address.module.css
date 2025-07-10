@@ -44,13 +44,14 @@
 .confirmCEP {
     width: 100%;
     margin: 10px 0 15px 0;
-    padding: 6px;
+    padding: 8px;
     text-align: center;
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
     background-color: #57b49e;
     transition: all 0.3s ease-in-out;
+    border: none;
 }
 
 .confirmCEP:hover {

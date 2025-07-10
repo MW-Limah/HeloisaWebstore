@@ -4,6 +4,7 @@ import styles from './CheckoutForm.module.css';
 import { useCart } from '@/app/components/Cart/CartContext';
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface CheckoutFormProps {
     id: string;
@@ -56,6 +57,26 @@ export default function CheckoutForm({
         });
 
         alert('Produto adicionado ao carrinho! 🛒');
+    };
+
+    const router = useRouter();
+
+    const handleOrder = () => {
+        if (quantity === 0 || color === '') {
+            alert('Selecione uma quantidade e uma cor antes de continuar.');
+            return;
+        }
+
+        const params = new URLSearchParams({
+            id,
+            title,
+            price,
+            image,
+            quantity: quantity.toString(),
+            color,
+        });
+
+        router.push(`/order?${params.toString()}`);
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -136,9 +157,9 @@ export default function CheckoutForm({
                         </Link>
                     </div>
                     <div className={styles.buttonsPanel}>
-                        <Link href={'/order'}>
-                            <button>Encomendar esse produto</button>
-                        </Link>
+                        <button type="button" onClick={handleOrder}>
+                            Encomendar esse produto
+                        </button>
                         <p>Se você não quiser pagar pelo site, Entre em contato com a proprietária</p>
                     </div>
                 </div>

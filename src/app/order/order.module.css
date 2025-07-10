@@ -22,8 +22,11 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+.details h2 {
+    margin-bottom: 10px;
+}
 .details {
-    margin: 25px 0;
+    margin: 25px 50px;
 }
 
 .info {
@@ -34,12 +37,17 @@
     align-items: center;
 }
 
+.info label {
+    margin-right: -20px;
+    color: #000;
+}
+
 .details input {
     font-weight: bold;
     width: 100%;
     border: none;
     padding: 0 8px;
-    font-size: 16pt;
+    font-size: 12pt;
     outline: none;
     margin: 0 25px;
 }
@@ -74,16 +82,15 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin: 25px 20px;
-    min-width: 320px;
-    max-width: 420px;
+    margin: 25px 0;
+    min-width: 400px;
     width: 100%;
 }
 
 .clientInfo input {
     margin-top: 20px;
     border: none;
-    padding: 10px 0;
+    padding: 12px 0;
     font-size: 16pt;
     width: 100%;
     outline: none;
@@ -131,50 +138,75 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 20px;
+        padding: 20px 10px;
         height: auto;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .Details {
         grid-template-columns: 1fr;
         width: 100%;
+        justify-items: center;
     }
 
     .details {
-        justify-self: center;
+        margin: 20px 0;
+        padding: 0 10px;
+        width: 100%;
         max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .details input {
+        font-size: 1rem;
     }
 
     .clientDetails {
         margin: 20px 0;
-        max-width: 100%;
+        padding: 0 10px;
+        width: 100%;
+        max-width: 600px;
+        box-sizing: border-box;
         align-items: center;
     }
 
     .clientInfo input {
-        min-width: 60vw;
-        align-items: center;
+        width: 100%;
+        margin-top: 15px;
     }
 
     .imgWrapper {
-        max-width: 60%;
-        justify-self: center;
+        width: 100%;
+        max-width: 350px;
         height: auto;
+        margin-top: 20px;
+        justify-self: center;
     }
 
     .imgWrapper img {
-        max-width: 100%;
+        width: 100%;
         height: auto;
+        object-fit: cover;
+        border-radius: 15px;
     }
 
     .clientMsg {
-        width: 80%;
+        width: 100%;
+        padding: 0 10px;
         margin-top: 20px;
+        box-sizing: border-box;
+    }
+
+    .clientMsg textarea {
+        width: 100%;
     }
 
     .notice {
         position: static;
         margin-top: 30px;
         text-align: center;
+        padding: 0 10px;
+        box-sizing: border-box;
     }
 }

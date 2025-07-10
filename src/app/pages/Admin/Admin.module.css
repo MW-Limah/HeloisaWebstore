@@ -17,7 +17,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem; /* reduzido */
 }
 
 .buttonBack {
@@ -64,12 +63,11 @@
 /* Container do Formulário */
 .containerForm {
     width: 100%;
-    max-width: 900px;
+    max-width: 1200px;
     border-radius: 8px;
     position: relative;
     color: #000;
     text-align: center;
-    margin-bottom: 0.5rem; /* reduzido */
 }
 
 /* Não autenticado */
@@ -100,10 +98,9 @@
 }
 .itemList {
     list-style: none;
-    padding: 0;
-    margin: 0px auto;
+    margin: 20px auto;
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
     display: flex;
     flex-direction: column;
     gap: 0.2rem; /* reduzido */
@@ -115,7 +112,7 @@
 
 .item {
     width: 100%;
-    padding: 8px 12px; /* reduzido */
+    padding: 16px 12px; /* reduzido */
     border-bottom: 1px solid #eee;
     cursor: pointer;
     transition: background 0.2s;
@@ -210,8 +207,8 @@
         box-shadow: none;
     }
     .item {
-        padding: 6px 4px; /* reduzido */
-        font-size: 0.95rem;
+        padding: 20px 4px; /* reduzido */
+        font-size: 0.8rem;
     }
 }
 

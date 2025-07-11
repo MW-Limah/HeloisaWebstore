@@ -15,7 +15,6 @@
     gap: 2rem;
     padding: 30px 0;
     background-color: #fff;
-    height: 100%;
 }
 
 .Details {
@@ -66,14 +65,6 @@
     height: 100%;
     object-fit: cover;
     border-radius: 15px;
-}
-
-.notice {
-    position: absolute;
-    bottom: 40px;
-    font-size: 15pt;
-    color: #333;
-    font-weight: 600;
 }
 
 /* Detalhes do Cliente */
@@ -133,80 +124,49 @@
     font-family: 'Times New Roman', Times, serif;
 }
 
-@media (max-width: 900px) {
+.notice {
+    text-align: center;
+    font-size: 12pt;
+    color: #333;
+    font-weight: 600;
+    margin: -30px 0 0 0;
+    background-color: #fff;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
     .content {
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        padding: 20px 10px;
-        height: auto;
-        width: 100%;
-        box-sizing: border-box;
     }
-
     .Details {
         grid-template-columns: 1fr;
+    }
+    .imgWrapper {
+        max-width: 100%;
+        height: auto;
+        padding: 0 2rem;
+    }
+    .clientDetails {
         width: 100%;
-        justify-items: center;
+        padding: 20px 5rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .content {
+        font-size: 0.7rem;
+        text-align: center;
     }
 
     .details {
-        margin: 20px 0;
-        padding: 0 10px;
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
-    .details input {
-        font-size: 1rem;
-    }
-
-    .clientDetails {
-        margin: 20px 0;
-        padding: 0 10px;
-        width: 100%;
-        max-width: 600px;
-        box-sizing: border-box;
-        align-items: center;
-    }
-
-    .clientInfo input {
-        width: 100%;
-        margin-top: 15px;
-    }
-
-    .imgWrapper {
-        width: 100%;
-        max-width: 350px;
-        height: auto;
-        margin-top: 20px;
-        justify-self: center;
-    }
-
-    .imgWrapper img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        border-radius: 15px;
-    }
-
-    .clientMsg {
-        width: 100%;
-        padding: 0 10px;
-        margin-top: 20px;
-        box-sizing: border-box;
-    }
-
-    .clientMsg textarea {
-        width: 100%;
-    }
-
-    .notice {
-        position: static;
-        margin-top: 30px;
-        text-align: center;
-        padding: 0 10px;
-        box-sizing: border-box;
+    .details input,
+    .details label {
+        font-size: 0.9rem;
     }
 }

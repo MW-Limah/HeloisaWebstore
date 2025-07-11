@@ -76,11 +76,10 @@ export default function OrderPage() {
                         </div>
                     </div>
                 </div>
-
-                <span className={styles.notice}>
-                    Ao encomendar um projeto, você estará entrando em contato direto com a proprietária.
-                </span>
             </div>
+            <span className={styles.notice}>
+                Ao encomendar um projeto, você estará entrando em contato direto com a proprietária.
+            </span>
         </div>
     );
 }

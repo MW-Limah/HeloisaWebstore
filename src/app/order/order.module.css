@@ -167,6 +167,13 @@
         align-items: center;
         height: auto;
     }
+
+    .info label,
+    .info input,
+    .info textarea {
+        font-size: 1.4rem;
+    }
+
     .Details {
         grid-template-columns: 1fr;
     }
@@ -192,7 +199,7 @@
     }
 
     .details h2 {
-        font-size: 1.1rem;
+        font-size: 1.3rem;
     }
     .details input,
     .details label {

@@ -112,6 +112,7 @@ export default function OrderPage() {
                                 placeholder="Nome"
                                 value={firstName}
                                 onChange={(e) => setFirstName(e.target.value)}
+                                required
                             />
                         </div>
                         <div className={styles.clientInfo}>
@@ -120,6 +121,7 @@ export default function OrderPage() {
                                 placeholder="Sobrenome"
                                 value={lastName}
                                 onChange={(e) => setLastName(e.target.value)}
+                                required
                             />
                         </div>
                         <div className={styles.clientInfo}>
@@ -128,6 +130,7 @@ export default function OrderPage() {
                                 placeholder="E-mail"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                required
                             />
                         </div>
                         <div className={styles.clientInfo}>
@@ -136,6 +139,7 @@ export default function OrderPage() {
                                 placeholder="Telefone"
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
+                                required
                             />
                         </div>
                         <div className={styles.clientMsg}>

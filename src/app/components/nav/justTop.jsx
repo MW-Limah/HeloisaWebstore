@@ -46,7 +46,6 @@ export default function JustTop() {
                     <Link href="/pages/Login">Entrar/Cadastrar</Link>
                 </div>
                 <div className={styles.mobileOnly}>{pathname !== '/cart' && <Cart />}</div>
-                <div className={styles.mobileOnly}>{pathname == '/cart' && <ButtonBack />}</div>
                 <div className={styles.Bars} onClick={toggleMenu}>
                     {isActive ? <IoCloseSharp /> : <FaBars />}
                 </div>

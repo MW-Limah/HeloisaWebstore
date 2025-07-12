@@ -1,6 +1,9 @@
-// api/visits/route.ts
+// /app/api/visits/route.ts
 import { NextResponse } from 'next/server';
 import clientPromise from '@/app/lib/mongodb';
+import sgMail from '@sendgrid/mail';
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!); // Defina isso em .env.local
 
 export const dynamic = 'force-dynamic';
 
@@ -38,16 +41,24 @@ export async function GET(req: Request) {
             );
         }
 
-        // Incrementa e atualiza
+        // Incrementa contador
         await collection.updateOne({ page: 'home' }, { $inc: { count: 1 } }, { upsert: true });
-
         const doc = await collection.findOne({ page: 'home' });
         count = doc?.count ?? 1;
+
+        // 🚀 Envia e-mail de notificação
+        await sgMail.send({
+            to: 'mwlima.dev@gmail.com', // altere para seu e-mail real
+            from: 'Alerta <loja.heloisaofc@gmail.com>', // remetente verificado no SendGrid
+            subject: '🧭 Novo visitante no site!',
+            text: `Novo visitante detectado no site. IP: ${ip} | Visita nº ${count}`,
+            html: `<p>🎉 Novo visitante no site!</p><p><strong>IP:</strong> ${ip}</p><p><strong>Contador:</strong> ${count}</p>`,
+        });
 
         const response = new NextResponse(
             JSON.stringify({
                 count,
-                debug: `IP ${ip} contado normalmente`,
+                debug: `IP ${ip} contado e e-mail enviado`,
             }),
             {
                 status: 200,
@@ -58,7 +69,7 @@ export async function GET(req: Request) {
             }
         );
 
-        console.log(`🔄 IP contado: ${ip}, novo valor: ${count}`);
+        console.log(`🔄 IP contado: ${ip}, visita nº ${count}, e-mail enviado.`);
 
         return response;
     } catch (err) {

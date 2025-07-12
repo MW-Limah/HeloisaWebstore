@@ -119,7 +119,7 @@
 }
 
 .buttonsPanel button {
-    background-color: #a7f4e1;
+    background-color: var(--confirm-btn);
     border: none;
     border-radius: 20px;
     padding: 0.6rem 1.2rem;

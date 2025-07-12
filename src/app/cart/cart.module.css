@@ -108,16 +108,6 @@
     padding: 4px;
 }
 
-.removeBtn {
-    background: var(--cancel-btn);
-    color: white;
-    border: none;
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
-    cursor: pointer;
-    align-self: flex-end;
-}
-
 .summary {
     background-color: white;
     padding: 1rem 2rem;
@@ -154,6 +144,35 @@
     cursor: pointer;
 }
 
+.orderBtn {
+    background-color: var(--confirm-btn);
+    border: none;
+    border-radius: 20px;
+    padding: 0.4rem 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: black;
+    transition: all 0.3s ease;
+}
+
+.removeBtn {
+    background: var(--cancel-btn);
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btnPanel {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 /* Responsivo para mobile */
 @media (max-width: 768px) {
     .list {
@@ -172,6 +191,27 @@
         width: 50%;
     }
 
+    .btnPanel {
+        display: flex;
+        gap: 1.2rem;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    .check {
+        width: 20px;
+        height: 20px;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .btnPanel button {
+        width: 100%;
+        padding: 0.6rem;
+        font-size: 1rem;
+    }
+
     .item {
         flex-direction: column;
         align-items: center;
@@ -182,7 +222,7 @@
         align-items: center;
     }
 
-    .removeBtn {
+    .orderBtn {
         margin-top: 1rem;
     }
 

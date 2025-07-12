@@ -5,9 +5,11 @@ import JustTop from '../components/nav/justTop';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import ConfirmationModal from '../components/confirmModal/confirmModal';
 
 export default function OrderPage() {
     const searchParams = useSearchParams();
+    const [showModal, setShowModal] = useState(false);
 
     // Detalhes da encomenda
 
@@ -144,15 +146,24 @@ export default function OrderPage() {
                                 onChange={(e) => setMessage(e.target.value)}
                             />
                             <p>Por favor, seja educado.</p>
+                            <p>Iremos responder em breve pelos dados enviados acima.</p>
                         </div>
                         <div className={styles.buttonSend}>
-                            <button onClick={handleSubmit}>Enviar Pedido</button>
-
+                            <button onClick={() => setShowModal(true)}>Enviar Pedido</button>
                             <p>{status}</p>
                         </div>
                     </div>
                 </div>
             </div>
+            {showModal && (
+                <ConfirmationModal
+                    onConfirm={async () => {
+                        setShowModal(false);
+                        await handleSubmit();
+                    }}
+                    onCancel={() => setShowModal(false)}
+                />
+            )}
         </div>
     );
 }

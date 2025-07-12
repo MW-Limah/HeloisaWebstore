@@ -5,6 +5,7 @@ import { useCart } from '@/app/components/Cart/CartContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './cart.module.css';
+import { useRouter } from 'next/navigation';
 import { TbShoppingCartCopy } from 'react-icons/tb';
 
 export default function CartPage() {
@@ -19,6 +20,7 @@ export default function CartPage() {
         getSelectedItems,
         getSelectedTotal,
     } = useCart();
+    const router = useRouter();
 
     if (cart.length === 0) {
         return (
@@ -89,15 +91,42 @@ export default function CartPage() {
                                             type="checkbox"
                                             checked={item.selected}
                                             onChange={() => toggleSelectItem(item.id, item.color)}
+                                            className={styles.check}
                                         />
                                     </div>
 
-                                    <button
-                                        className={styles.removeBtn}
-                                        onClick={() => removeFromCart(item.id, item.color)}
-                                    >
-                                        Remover
-                                    </button>
+                                    <div className={styles.btnPanel}>
+                                        <button
+                                            className={styles.orderBtn}
+                                            type="button"
+                                            onClick={() => {
+                                                if (item.quantity === 0 || !item.color) {
+                                                    alert('Selecione uma quantidade e uma cor antes de continuar.');
+                                                    return;
+                                                }
+
+                                                const params = new URLSearchParams({
+                                                    id: item.id,
+                                                    title: item.title,
+                                                    price: String(item.price),
+                                                    image: item.image,
+                                                    quantity: String(item.quantity),
+                                                    color: item.color,
+                                                });
+
+                                                router.push(`/order?${params.toString()}`);
+                                            }}
+                                        >
+                                            Encomendar
+                                        </button>
+
+                                        <button
+                                            className={styles.removeBtn}
+                                            onClick={() => removeFromCart(item.id, item.color)}
+                                        >
+                                            Remover
+                                        </button>
+                                    </div>
                                 </div>
                             </li>
                         );

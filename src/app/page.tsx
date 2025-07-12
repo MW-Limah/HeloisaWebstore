@@ -1,5 +1,3 @@
-//app/page.tsx
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -14,10 +12,8 @@ export default function Home() {
     const [showWelcome, setShowWelcome] = useState(false);
 
     useEffect(() => {
-        const visited = document.cookie.includes('visited_home=true');
         const dismissed = localStorage.getItem('welcomeDismissed') === 'true';
-
-        if (visited && !dismissed) {
+        if (!dismissed) {
             setShowWelcome(true);
         }
     }, []);
@@ -45,7 +41,7 @@ export default function Home() {
             {showWelcome && (
                 <div className={styles.welcomeOverlay}>
                     <p>
-                        Olá, bem-vindo! Dica: Em smartphones você pode usar a imagem para voltar ou as três barras para
+                        <strong>Dica:</strong> Em smartphones você pode usar a imagem para voltar ou as três barras para
                         navegar pelo site.
                     </p>
                     <button

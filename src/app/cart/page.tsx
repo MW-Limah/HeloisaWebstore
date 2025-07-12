@@ -117,7 +117,7 @@ export default function CartPage() {
                                                 router.push(`/order?${params.toString()}`);
                                             }}
                                         >
-                                            Encomendar
+                                            Reservar
                                         </button>
 
                                         <button

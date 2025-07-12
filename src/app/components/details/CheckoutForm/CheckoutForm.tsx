@@ -157,10 +157,10 @@ export default function CheckoutForm({
                         </Link>
                     </div>
                     <div className={styles.buttonsPanel}>
+                        <p>Você pode reservar esse produto.</p>
                         <button type="button" onClick={handleOrder}>
-                            Encomendar esse produto
+                            Reservar esse produto
                         </button>
-                        <p>Se você não quiser pagar pelo site, Entre em contato com a proprietária</p>
                     </div>
                 </div>
             </div>

@@ -66,7 +66,7 @@ export default function OrderPage() {
             <div className={styles.content}>
                 <div className={styles.Details}>
                     <div className={styles.details}>
-                        <h2>Quero encomendar esse produto</h2>
+                        <h2>Quero reservar esse produto</h2>
 
                         <div className={styles.info}>
                             <label htmlFor="">Produto: </label>

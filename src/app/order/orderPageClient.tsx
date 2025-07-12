@@ -3,10 +3,13 @@
 import styles from './order.module.css';
 import JustTop from '../components/nav/justTop';
 import Image from 'next/image';
+import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 export default function OrderPage() {
     const searchParams = useSearchParams();
+
+    // Detalhes da encomenda
 
     const id = searchParams.get('id') || '';
     const title = searchParams.get('title') || '';
@@ -15,9 +18,49 @@ export default function OrderPage() {
     const quantity = searchParams.get('quantity') || '';
     const color = searchParams.get('color') || '';
 
+    const total = (Number(price) * Number(quantity)).toFixed(2);
+
+    // Detalhes do cliente
+
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [message, setMessage] = useState('');
+    const [status, setStatus] = useState('');
+
+    const handleSubmit = async () => {
+        setStatus('Enviando...');
+        const res = await fetch('/api/send-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id,
+                title,
+                quantity,
+                color,
+                price,
+                total,
+                image,
+                firstName,
+                lastName,
+                email,
+                phone,
+                message,
+            }),
+        });
+
+        if (res.ok) {
+            setStatus('Pedido enviado com sucesso!');
+        } else {
+            setStatus('Erro ao enviar o pedido.');
+        }
+    };
+
     return (
         <div className={styles.container}>
             <JustTop />
+
             <div className={styles.content}>
                 <div className={styles.Details}>
                     <div className={styles.details}>
@@ -41,7 +84,11 @@ export default function OrderPage() {
                         </div>
                         <div className={styles.info}>
                             <label htmlFor="">Valor: </label>
-                            <input type="text" readOnly value={`R$ ${Number(price).toFixed(2).replace('.', ',')}`} />
+                            <input
+                                type="text"
+                                readOnly
+                                value={`R$ ${(Number(price) * Number(quantity)).toFixed(2).replace('.', ',')}`}
+                            />
                         </div>
 
                         <div className={styles.imgWrapper}>
@@ -58,28 +105,54 @@ export default function OrderPage() {
                     <div className={styles.clientDetails}>
                         <h2>Detalhes do cliente</h2>
                         <div className={styles.clientInfo}>
-                            <input type="text" placeholder="Nome" />
+                            <input
+                                type="text"
+                                placeholder="Nome"
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                            />
                         </div>
                         <div className={styles.clientInfo}>
-                            <input type="text" placeholder="Sobrenome" />
+                            <input
+                                type="text"
+                                placeholder="Sobrenome"
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                            />
                         </div>
                         <div className={styles.clientInfo}>
-                            <input type="email" placeholder="E-mail" />
+                            <input
+                                type="email"
+                                placeholder="E-mail"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
                         </div>
                         <div className={styles.clientInfo}>
-                            <input type="tel" placeholder="Telefone" />
+                            <input
+                                type="tel"
+                                placeholder="Telefone"
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                            />
                         </div>
                         <div className={styles.clientMsg}>
                             <label htmlFor="">Mensagem: </label>
-                            <textarea placeholder="Digite sua mensagem aqui" />
+                            <textarea
+                                placeholder="Digite sua mensagem aqui"
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                            />
                             <p>Por favor, seja educado.</p>
+                        </div>
+                        <div className={styles.buttonSend}>
+                            <button onClick={handleSubmit}>Enviar Pedido</button>
+
+                            <p>{status}</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <span className={styles.notice}>
-                Ao encomendar um projeto, você estará entrando em contato direto com a proprietária.
-            </span>
         </div>
     );
 }

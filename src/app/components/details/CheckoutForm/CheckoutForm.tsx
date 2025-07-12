@@ -76,7 +76,7 @@ export default function CheckoutForm({
             color,
         });
 
-        router.push('/error'); // `/order?${params.toString()}`
+        router.push(`/order?${params.toString()}`); //
     };
 
     const handleSubmit = (e: React.FormEvent) => {

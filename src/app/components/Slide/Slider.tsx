@@ -40,7 +40,7 @@ export default function SlideShow() {
             setTimeout(() => {
                 setCurrent((prev) => (prev + 1) % slides.length);
                 setIsFading(false);
-            }, 600); // tempo do fade-out
+            }, 800); // tempo do fade-out
         }, 5000);
 
         return () => clearInterval(interval);
@@ -58,25 +58,51 @@ export default function SlideShow() {
 
     const currentSlide = slides[current];
 
+    const goToPrevious = () => {
+        setIsFading(true);
+        setTimeout(() => {
+            setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+            setIsFading(false);
+        }, 300);
+    };
+
+    const goToNext = () => {
+        setIsFading(true);
+        setTimeout(() => {
+            setCurrent((prev) => (prev + 1) % slides.length);
+            setIsFading(false);
+        }, 300);
+    };
+
     return (
-        <div className={styles.slider}>
-            <div className={styles.imageWrapper}>
-                <Image
-                    src={currentSlide.src}
-                    alt={currentSlide.alt}
-                    fill
-                    priority={current === 0}
-                    sizes="(max-width: 768px) 100vw, 200px"
-                    quality={imageQuality === 'high' ? 75 : 30}
-                    className={`${styles.image} ${isFading ? styles.fadeOut : styles.fadeIn}`}
-                />
+        <div className={styles.container}>
+            <button onClick={goToPrevious} className={styles.tulipicon} aria-label="Slide anterior">
+                <Image src={'/images/icons/tulip1.png'} width={100} height={100} alt="Anterior" />
+            </button>
+            <div className={styles.sliderContainer}>
+                <div className={styles.slider}>
+                    <div className={styles.imageWrapper}>
+                        <Image
+                            src={currentSlide.src}
+                            alt={currentSlide.alt}
+                            fill
+                            priority={current === 0}
+                            sizes="(max-width: 768px) 100vw, 250px"
+                            quality={imageQuality === 'high' ? 75 : 30}
+                            className={`${styles.image} ${isFading ? styles.fadeOut : ''}`}
+                        />
+                    </div>
+                    <div className={styles.overlay}>
+                        <h2 className={`${styles.title} ${isFading ? styles.fadeOut : ''}`}>{currentSlide.title}</h2>
+                        <p className={`${styles.subtitle} ${isFading ? styles.fadeOut : ''}`}>
+                            {currentSlide.subtitle}
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div className={styles.overlay}>
-                <h2 className={`${styles.title} ${isFading ? styles.fadeOut : styles.fadeIn}`}>{currentSlide.title}</h2>
-                <p className={`${styles.subtitle} ${isFading ? styles.fadeOut : styles.fadeIn}`}>
-                    {currentSlide.subtitle}
-                </p>
-            </div>
+            <button onClick={goToNext} className={styles.tulipicon} aria-label="Próximo slide">
+                <Image src={'/images/icons/tulip2.png'} width={100} height={100} alt="Próximo" />
+            </button>
         </div>
     );
 }

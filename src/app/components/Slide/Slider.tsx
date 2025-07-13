@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import styles from './Slider.module.css';
 
@@ -29,21 +29,16 @@ const slides = [
 ];
 
 export default function SlideShow() {
+    const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const [current, setCurrent] = useState(0);
     const [imageQuality, setImageQuality] = useState<'low' | 'high'>('high');
     const [isFading, setIsFading] = useState(false);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setIsFading(true);
-
-            setTimeout(() => {
-                setCurrent((prev) => (prev + 1) % slides.length);
-                setIsFading(false);
-            }, 800); // tempo do fade-out
-        }, 5000);
-
-        return () => clearInterval(interval);
+        resetInterval();
+        return () => {
+            if (intervalRef.current) clearInterval(intervalRef.current);
+        };
     }, []);
 
     // Qualidade de imagem (opcional)
@@ -56,6 +51,17 @@ export default function SlideShow() {
         });
     }, []);
 
+    const resetInterval = () => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+        intervalRef.current = setInterval(() => {
+            setIsFading(true);
+            setTimeout(() => {
+                setCurrent((prev) => (prev + 1) % slides.length);
+                setIsFading(false);
+            }, 600);
+        }, 5000);
+    };
+
     const currentSlide = slides[current];
 
     const goToPrevious = () => {
@@ -64,6 +70,7 @@ export default function SlideShow() {
             setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
             setIsFading(false);
         }, 300);
+        resetInterval();
     };
 
     const goToNext = () => {
@@ -72,12 +79,13 @@ export default function SlideShow() {
             setCurrent((prev) => (prev + 1) % slides.length);
             setIsFading(false);
         }, 300);
+        resetInterval();
     };
 
     return (
         <div className={styles.container}>
             <button onClick={goToPrevious} className={styles.tulipicon} aria-label="Slide anterior">
-                <Image src={'/images/icons/tulip1.png'} width={100} height={100} alt="Anterior" />
+                <Image src="/images/icons/tulip1.png" width={100} height={100} alt="Anterior" />
             </button>
             <div className={styles.sliderContainer}>
                 <div className={styles.slider}>
@@ -101,7 +109,7 @@ export default function SlideShow() {
                 </div>
             </div>
             <button onClick={goToNext} className={styles.tulipicon} aria-label="Próximo slide">
-                <Image src={'/images/icons/tulip2.png'} width={100} height={100} alt="Próximo" />
+                <Image src="/images/icons/tulip2.png" width={100} height={100} alt="Próximo" />
             </button>
         </div>
     );

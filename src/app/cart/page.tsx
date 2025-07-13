@@ -5,10 +5,13 @@ import { useCart } from '@/app/components/Cart/CartContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './cart.module.css';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { TbShoppingCartCopy } from 'react-icons/tb';
 
 export default function CartPage() {
+    const [showNotice, setShowNotice] = useState(true); // sempre mostra ao entrar
+
     const {
         cart,
         addToCart,
@@ -20,6 +23,7 @@ export default function CartPage() {
         getSelectedItems,
         getSelectedTotal,
     } = useCart();
+
     const router = useRouter();
 
     if (cart.length === 0) {
@@ -32,6 +36,10 @@ export default function CartPage() {
             </div>
         );
     }
+
+    const handleDismiss = () => {
+        setShowNotice(false);
+    };
 
     return (
         <div className={styles.container}>
@@ -136,12 +144,11 @@ export default function CartPage() {
                 <div className={styles.summary}>
                     <h2>Total selecionado: R$ {getSelectedTotal().toFixed(2).replace('.', ',')}</h2>
                     <div className={styles.actions}>
-                        <Link href="/error">
-                            {/* error */}
+                        {/* <Link href="/error">
                             <button className={styles.checkoutBtn} disabled={getSelectedItems().length === 0}>
                                 Ir para Checkout
                             </button>
-                        </Link>
+                        </Link> */}
 
                         <button className={styles.clearBtn} onClick={clearCart}>
                             Limpar Carrinho
@@ -149,6 +156,29 @@ export default function CartPage() {
                     </div>
                 </div>
             </div>
+
+            {showNotice && (
+                <div className={styles.noticeOverlay}>
+                    <p>
+                        <strong>Aviso:</strong> No momento, estamos corrigindo um erro com relação ao checkout. Por
+                        favor, utilize a opção Reservar caso deseje continuar.
+                    </p>
+                    <button
+                        onClick={handleDismiss}
+                        style={{
+                            marginTop: '0.5rem',
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            backgroundColor: '#365b6d',
+                            color: '#fff',
+                            border: 'none',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        Ok
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

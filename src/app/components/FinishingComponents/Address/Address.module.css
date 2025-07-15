@@ -72,13 +72,14 @@
 
 /* ... estilos já existentes ... */
 
-@media (max-width: 1010px) {
+@media (max-width: 900px) {
     .AddressGrid {
         grid-template-columns: 1fr;
     }
 
     .FormContent input {
         font-size: 1.1rem;
+        min-width: 100%;
     }
 
     .SectionTitle {

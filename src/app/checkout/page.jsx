@@ -56,20 +56,18 @@ export default function Finishing() {
     };
 
     return (
-        <div className={styles.allContent}>
+        <div className={styles.container}>
             <JustTop />
-            <div className={styles.container}>
+            <div className={styles.content}>
                 <h1>Finalizar compra</h1>
                 <p>Preencha os campos abaixo e clique em finalizar compra ✨</p>
-                <div className={styles.content}>
-                    <div className={styles.form1}>
-                        <InfoPersonal formData={formData} updateFormData={updateFormData} />
-                        <Address formData={formData} updateFormData={updateFormData} />
-                        <PayMethods onPaymentMethodChange={setPaymentMethod} />
-                    </div>
-                    <div className={styles.form2}>
-                        <ResumeCart formData={formData} paymentMethod={paymentMethod} onFinish={handleFinish} />
-                    </div>
+                <div className={styles.form1}>
+                    <InfoPersonal formData={formData} updateFormData={updateFormData} />
+                    <Address formData={formData} updateFormData={updateFormData} />
+                    <PayMethods onPaymentMethodChange={setPaymentMethod} />
+                </div>
+                <div className={styles.form2}>
+                    <ResumeCart formData={formData} paymentMethod={paymentMethod} onFinish={handleFinish} />
                 </div>
             </div>
         </div>

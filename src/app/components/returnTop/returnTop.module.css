@@ -1,0 +1,28 @@
+.returnTop {
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    border-radius: 50%;
+    background-color: var(--sd);
+    border: none;
+    color: #fff;
+    padding: 12px 14px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}

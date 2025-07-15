@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
+import ReturnTop from './components/returnTop/returnTop';
 import Navbar from './components/navbar/navbar';
 import Header from './components/header/header';
 import Main from './components/main/main';
@@ -62,6 +63,9 @@ export default function Home() {
             )}
             <div className={styles.visitsContainer}>
                 <p>Visitas: {visits ?? '...'}</p>
+            </div>
+            <div>
+                <ReturnTop />
             </div>
             <Navbar />
             <Header />

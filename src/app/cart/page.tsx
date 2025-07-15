@@ -8,6 +8,7 @@ import styles from './cart.module.css';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { TbShoppingCartCopy } from 'react-icons/tb';
+import ReturnTop from '../components/returnTop/returnTop';
 
 export default function CartPage() {
     const [showNotice, setShowNotice] = useState(false); // sempre mostra ao entrar
@@ -45,6 +46,7 @@ export default function CartPage() {
         <div className={styles.container}>
             <JustTop />
             <div className={styles.content}>
+                <ReturnTop />
                 <ul className={styles.list}>
                     {cart.map((item) => {
                         const colorImage =

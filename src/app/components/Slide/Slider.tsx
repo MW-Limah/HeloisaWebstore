@@ -26,6 +26,13 @@ const slides = [
         title: 'Brilho labial',
         subtitle: 'Brilho intenso para seus lábios',
     },
+    {
+        id: 4,
+        src: '/images/slide4.png',
+        alt: 'Slide 4',
+        title: 'Kit Pincéis de Maquiagem',
+        subtitle: 'Pincéis novos para suas  próximas obras de artes.',
+    },
 ];
 
 export default function SlideShow() {

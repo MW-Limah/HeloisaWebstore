@@ -111,8 +111,8 @@
 }
 
 @media (max-width: 480px) {
-    .container {
-        padding: 0 100px;
+    .sliderContainer {
+        padding: 1rem;
     }
 
     .imageWrapper {

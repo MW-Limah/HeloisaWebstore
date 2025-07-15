@@ -245,13 +245,20 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
 
                 <div className={styles.statusArea}>
                     {paymentStatus && <p className={styles.statusMessage}>{paymentStatus}</p>}
-                    <button
-                        className={styles.ConfirmPay}
-                        onClick={handleConfirm}
-                        disabled={sending || !isPaymentComplete || emailSentRef.current}
-                    >
-                        {sending ? 'Enviando...' : 'Finalizar pagamento'}
-                    </button>
+                    {sentSuccess ? (
+                        <button className={styles.ConfirmPay} onClick={() => router.push('/')}>
+                            Voltar à loja
+                        </button>
+                    ) : (
+                        <button
+                            className={styles.ConfirmPay}
+                            onClick={handleConfirm}
+                            disabled={sending || !isPaymentComplete || emailSentRef.current}
+                        >
+                            {sending ? 'Enviando...' : 'Pendente'}
+                        </button>
+                    )}
+
                     {sentSuccess === true && <p className={styles.successMsg}>Dados enviados!</p>}
                     {sentSuccess === false && <p className={styles.errorMsg}>Erro ao enviar.</p>}
                 </div>

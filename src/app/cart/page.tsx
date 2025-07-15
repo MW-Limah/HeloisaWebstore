@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { TbShoppingCartCopy } from 'react-icons/tb';
 
 export default function CartPage() {
-    const [showNotice, setShowNotice] = useState(true); // sempre mostra ao entrar
+    const [showNotice, setShowNotice] = useState(false); // sempre mostra ao entrar
 
     const {
         cart,
@@ -144,11 +144,11 @@ export default function CartPage() {
                 <div className={styles.summary}>
                     <h2>Total selecionado: R$ {getSelectedTotal().toFixed(2).replace('.', ',')}</h2>
                     <div className={styles.actions}>
-                        {/* <Link href="/error">
+                        <Link href="/checkout">
                             <button className={styles.checkoutBtn} disabled={getSelectedItems().length === 0}>
                                 Ir para Checkout
                             </button>
-                        </Link> */}
+                        </Link>
 
                         <button className={styles.clearBtn} onClick={clearCart}>
                             Limpar Carrinho

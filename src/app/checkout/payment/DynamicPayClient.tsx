@@ -216,6 +216,11 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                 onClick={() => {
                     if (paymentId) {
                         router.push(`/cancel-payment?paymentId=${paymentId}`);
+                        localStorage.removeItem('transactionId');
+                        localStorage.removeItem('paymentId');
+                        localStorage.removeItem('pixCode');
+                        localStorage.removeItem('pixQrBase64');
+                        localStorage.removeItem('boletoUrl');
                     } else {
                         alert('Pagamento ainda não foi iniciado.');
                     }

@@ -23,6 +23,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
     const [paymentId, setPaymentId] = useState<string | null>(null);
     const [isPaymentComplete, setIsPaymentComplete] = useState(false);
+    const [showCancelConfirm, setShowCancelConfirm] = useState(false);
     const emailSentRef = useRef(false);
     const router = useRouter();
 
@@ -84,8 +85,6 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
             try {
                 const res = await fetch(`https://backend-lojaheloisa.onrender.com/payment-status/${pid}`);
                 const data = await res.json();
-                console.log('[check-status]', data);
-
                 if (data.status === 'paid') {
                     setPaymentStatus('Pagamento confirmado!');
                     setIsPaymentComplete(true);
@@ -106,7 +105,6 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                     setIsPaymentComplete(false);
                 }
             } catch (err) {
-                console.error('Erro ao verificar status:', err);
                 setPaymentStatus('Erro ao verificar status do pagamento.');
             }
         },
@@ -132,7 +130,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                     body: JSON.stringify(payload),
                 });
                 const data = await res.json();
-                console.log('[create-payment]', data);
+                if (!res.ok) throw new Error(data.error || 'Erro desconhecido');
 
                 if (data.paymentId) {
                     setPaymentId(data.paymentId);
@@ -151,28 +149,17 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                     localStorage.setItem('boletoUrl', data.boletoUrl);
                 }
 
-                if (!res.ok) throw new Error(data.error || 'Erro desconhecido');
-
                 if (paymentMethod === 'pix') {
-                    if (data.qrCode) setPixCode(data.qrCode);
-                    if (data.qrBase64) setPixQrBase64(data.qrBase64);
-                    if (data.paymentId) setPaymentId(data.paymentId);
                     setPaymentStatus('Pagamento criado e pendente...');
                 } else if (paymentMethod === 'boleto') {
-                    setBoletoUrl(data.boletoUrl);
                     setPaymentStatus('Boleto gerado e pronto para pagamento.');
-                } else {
-                    setPaymentStatus('Erro ao gerar pagamento.');
                 }
-            } catch (err: any) {
-                console.error('Erro ao criar pagamento:', err);
+            } catch {
                 setPaymentStatus('Erro ao criar pagamento.');
             }
         },
         [checkoutData, paymentMethod, total]
     );
-
-    // Gerar pagamento
 
     useEffect(() => {
         if (!checkoutData) return;
@@ -211,23 +198,37 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
 
     return (
         <div className={styles.container}>
-            <button
-                className={styles.btnCancel}
-                onClick={() => {
-                    if (paymentId) {
-                        router.push(`/cancel-payment?paymentId=${paymentId}`);
-                        localStorage.removeItem('transactionId');
-                        localStorage.removeItem('paymentId');
-                        localStorage.removeItem('pixCode');
-                        localStorage.removeItem('pixQrBase64');
-                        localStorage.removeItem('boletoUrl');
-                    } else {
-                        alert('Pagamento ainda não foi iniciado.');
-                    }
-                }}
-            >
+            <button className={styles.btnCancel} onClick={() => setShowCancelConfirm(true)}>
                 Cancelar pagamento
             </button>
+
+            {showCancelConfirm && (
+                <div className={styles.confirmCancelBox}>
+                    <div className={styles.confirmActions}>
+                        <p>Tem certeza que deseja cancelar este pagamento?</p>
+                        <button
+                            onClick={() => {
+                                localStorage.removeItem('transactionId');
+                                localStorage.removeItem('paymentId');
+                                localStorage.removeItem('pixCode');
+                                localStorage.removeItem('pixQrBase64');
+                                localStorage.removeItem('boletoUrl');
+                                if (paymentId) {
+                                    localStorage.removeItem(`emailSent:${paymentId}`);
+                                }
+                                setShowCancelConfirm(false);
+                                router.push('/');
+                            }}
+                            className={styles.confirmBtn}
+                        >
+                            Confirmar cancelamento
+                        </button>
+                        <button onClick={() => setShowCancelConfirm(false)} className={styles.cancelBtn}>
+                            Voltar
+                        </button>
+                    </div>
+                </div>
+            )}
 
             <div className={styles.content}>
                 <div className={styles.payMethod}>

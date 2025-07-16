@@ -90,7 +90,11 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                     setPaymentStatus('Pagamento confirmado!');
                     setIsPaymentComplete(true);
 
-                    if (!emailSentRef.current) {
+                    const emailSentKey = `emailSent:${pid}`;
+                    const alreadySent = localStorage.getItem(emailSentKey);
+
+                    if (!alreadySent) {
+                        localStorage.setItem(emailSentKey, 'true');
                         emailSentRef.current = true;
                         handleConfirm();
                     }
@@ -130,6 +134,23 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                 const data = await res.json();
                 console.log('[create-payment]', data);
 
+                if (data.paymentId) {
+                    setPaymentId(data.paymentId);
+                    localStorage.setItem('paymentId', data.paymentId);
+                }
+                if (data.qrCode) {
+                    setPixCode(data.qrCode);
+                    localStorage.setItem('pixCode', data.qrCode);
+                }
+                if (data.qrBase64) {
+                    setPixQrBase64(data.qrBase64);
+                    localStorage.setItem('pixQrBase64', data.qrBase64);
+                }
+                if (data.boletoUrl) {
+                    setBoletoUrl(data.boletoUrl);
+                    localStorage.setItem('boletoUrl', data.boletoUrl);
+                }
+
                 if (!res.ok) throw new Error(data.error || 'Erro desconhecido');
 
                 if (paymentMethod === 'pix') {
@@ -151,9 +172,32 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
         [checkoutData, paymentMethod, total]
     );
 
+    // Gerar pagamento
+
     useEffect(() => {
         if (!checkoutData) return;
-        const txId = `TX${Date.now()}HWS`;
+
+        const storedTxId = localStorage.getItem('transactionId');
+        const storedPaymentId = localStorage.getItem('paymentId');
+        const storedPixCode = localStorage.getItem('pixCode');
+        const storedPixQrBase64 = localStorage.getItem('pixQrBase64');
+        const storedBoletoUrl = localStorage.getItem('boletoUrl');
+
+        if (storedPaymentId) {
+            setPaymentId(storedPaymentId);
+            if (storedPixCode) setPixCode(storedPixCode);
+            if (storedPixQrBase64) setPixQrBase64(storedPixQrBase64);
+            if (storedBoletoUrl) setBoletoUrl(storedBoletoUrl);
+            setPaymentStatus('Retomando pagamento anterior...');
+            return;
+        }
+
+        let txId = storedTxId;
+        if (!txId) {
+            txId = `TX${Date.now()}HWS`;
+            localStorage.setItem('transactionId', txId);
+        }
+
         setPaymentStatus('Iniciando pagamento...');
         createPayment(txId);
     }, [checkoutData, paymentMethod, total, createPayment]);
@@ -246,7 +290,15 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                 <div className={styles.statusArea}>
                     {paymentStatus && <p className={styles.statusMessage}>{paymentStatus}</p>}
                     {sentSuccess ? (
-                        <button className={styles.ConfirmPay} onClick={() => router.push('/')}>
+                        <button
+                            className={styles.ConfirmPay}
+                            onClick={() => {
+                                localStorage.removeItem('checkoutData');
+                                localStorage.removeItem('transactionId');
+                                if (paymentId) localStorage.removeItem(`emailSent:${paymentId}`);
+                                router.push('/');
+                            }}
+                        >
                             Voltar à loja
                         </button>
                     ) : (

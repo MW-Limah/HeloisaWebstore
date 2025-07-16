@@ -1,3 +1,5 @@
+// Compras
+
 import { NextResponse } from 'next/server';
 import sgMail from '@sendgrid/mail';
 
@@ -32,7 +34,7 @@ export async function POST(request: Request) {
 
     // Mescle no corpo principal:
     const htmlBody = `
-    <h1>Novo Pedido (${data.paymentMethod.toUpperCase()})</h1>
+    <h1>Nova compra via (${data.paymentMethod.toUpperCase()})</h1>
     <p><strong>Nome:</strong> ${data.first_name} ${data.last_name}</p>
     <p><strong>Email:</strong> ${data.email}</p>
     <p><strong>Telefone:</strong> ${data.phone}</p>

@@ -13,7 +13,7 @@ export async function POST(req: Request) {
         const msg = {
             to: 'loja.heloisaofc@gmail.com', // Altere para seu email real
             from: 'Pedidos <mwlima.dev@gmail.com>', // Deve ser um remetente verificado no SendGrid
-            subject: `Novo pedido de ${firstName} ${lastName}`,
+            subject: `Nova reserva para ${firstName} ${lastName}`,
             html: `
                 <h2>Informações do Produto</h2>
                 <p><strong>Produto:</strong> ${title}</p>

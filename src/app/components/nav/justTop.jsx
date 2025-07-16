@@ -43,7 +43,7 @@ export default function JustTop() {
                     <ButtonBack />
                     {pathname !== '/contato' && <Link href={'/contato'}>Contate-nos</Link>}
                     {pathname !== '/cart' && <Cart />}
-                    <Link href="/pages/Login">Entrar/Cadastrar</Link>
+                    <Link href="/pages/Login">Área ADM</Link>
                 </div>
                 <div className={styles.mobileOnly}>{pathname !== '/cart' && <Cart />}</div>
                 <div className={styles.Bars} onClick={toggleMenu}>

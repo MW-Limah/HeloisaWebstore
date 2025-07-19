@@ -54,6 +54,9 @@
     align-items: center;
     justify-content: center;
     border-radius: 15px;
+    touch-action: none; /* evita gestos padrão (scroll, zoom) */
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .image {
@@ -89,10 +92,34 @@
     will-change: transform;
 }
 
+.loadingOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    z-index: 1200;
+}
+
 @media (max-width: 650px) {
     .box {
         width: 90vw;
+        min-height: 90vw; /* mantém formato quadrado */
         height: auto;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    .imageContainer {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        min-height: 90vw; /* mesma proporção do box */
     }
 
     .controls {
@@ -103,13 +130,22 @@
     .closeButton {
         top: 0.25rem;
         right: 0.25rem;
+        z-index: 1200; /* garante que o botão de fechar fique acima dos controles */
     }
 }
 
 @media (max-width: 400px) {
     .box {
         width: 95vw;
+        min-height: 95vw;
         height: auto;
+        padding: 10px;
+    }
+
+    .imageContainer {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        min-height: 95vw;
     }
 
     .controls {

@@ -4,7 +4,8 @@ import styles from './PopUpImg.module.css';
 import Image from 'next/image';
 import { IoMdCloseCircle } from 'react-icons/io';
 import { AiOutlineZoomIn, AiOutlineZoomOut } from 'react-icons/ai';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import Loading from '@/app/components/Loading/Loading';
 
 type PopUpImgProps = {
     src: string;
@@ -17,6 +18,14 @@ export default function PopUpImg({ src, isOpen, onClose }: PopUpImgProps) {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const lastPosition = useRef({ x: 0, y: 0 });
     const dragging = useRef(false);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (isOpen) {
+            setLoading(true);
+            resetZoom();
+        }
+    }, [src, isOpen]);
 
     const resetZoom = () => {
         setZoom(1);
@@ -39,12 +48,12 @@ export default function PopUpImg({ src, isOpen, onClose }: PopUpImgProps) {
 
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!dragging.current || zoom <= 1) return;
+        e.preventDefault(); // <-- evita seleção e rolagem
         setPosition({
             x: e.clientX - lastPosition.current.x,
             y: e.clientY - lastPosition.current.y,
         });
     };
-
     const handleMouseUp = () => {
         dragging.current = false;
     };
@@ -62,6 +71,7 @@ export default function PopUpImg({ src, isOpen, onClose }: PopUpImgProps) {
 
     const handleTouchMove = (e: React.TouchEvent) => {
         if (!dragging.current || zoom <= 1) return;
+        e.preventDefault(); // <-- evita rolagem da página no touch drag
         const touch = e.touches[0];
         setPosition({
             x: touch.clientX - lastPosition.current.x,
@@ -74,6 +84,10 @@ export default function PopUpImg({ src, isOpen, onClose }: PopUpImgProps) {
     };
 
     if (!isOpen) return null;
+
+    const handleImageLoad = () => {
+        setLoading(false);
+    };
 
     return (
         <div
@@ -93,6 +107,12 @@ export default function PopUpImg({ src, isOpen, onClose }: PopUpImgProps) {
                 >
                     <IoMdCloseCircle size={24} />
                 </button>
+                {loading && (
+                    <div className={styles.loadingOverlay}>
+                        <Loading />
+                        {/* Aqui você pode colocar um spinner CSS ou SVG */}
+                    </div>
+                )}
 
                 <div className={styles.controls}>
                     <button onClick={zoomOut} disabled={zoom <= 1}>
@@ -128,6 +148,7 @@ export default function PopUpImg({ src, isOpen, onClose }: PopUpImgProps) {
                             alt="Imagem em pop-up"
                             className={styles.image}
                             draggable={false}
+                            onLoadingComplete={handleImageLoad} // <-- adicione aqui
                         />
                     </div>
                 </div>

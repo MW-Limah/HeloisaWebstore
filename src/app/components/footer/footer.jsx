@@ -39,20 +39,17 @@ export default function Footer() {
                     <li>
                         <Link href={'/termos-de-uso'}>Termos de Uso</Link>
                     </li>
-                    {/* <li>
-                        <Link href={'#'}>Perguntas Frequentes</Link>
-                    </li> */}
                 </ul>
                 <div className={styles.containerSocial}>
                     <ul>
                         <h3>Redes Sociais</h3>
                         <div className={styles.redesSociais}>
-                            <a>
+                            <a href="https://api.whatsapp.com/send/?phone=559299875435&text=Ol%C3%A1+tenho+interesse+nesse+produto%3A+TITULOAQUI&type=phone_number&app_absent=0">
                                 <IoLogoWhatsapp />
                             </a>
-                            <a>
+                            {/* <a>
                                 <FaPinterest />
-                            </a>
+                            </a> */}
                             <a href={'https://www.instagram.com/hanel.h.h/'} target="_blank" rel="noopener noreferrer">
                                 <RiInstagramFill />
                             </a>

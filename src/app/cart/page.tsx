@@ -12,6 +12,11 @@ import ReturnTop from '../components/returnTop/returnTop';
 
 export default function CartPage() {
     const [showNotice, setShowNotice] = useState(false); // sempre mostra ao entrar
+    const [confirmCleanCart, setConfirmCleanCart] = useState(false);
+
+    useEffect(() => {
+        console.log('ConfirmCleanCart:', confirmCleanCart);
+    }, [confirmCleanCart]);
 
     const {
         cart,
@@ -152,12 +157,34 @@ export default function CartPage() {
                             </button>
                         </Link>
 
-                        <button className={styles.clearBtn} onClick={clearCart}>
+                        <button className={styles.clearBtn} onClick={() => setConfirmCleanCart(true)}>
                             Limpar Carrinho
                         </button>
                     </div>
                 </div>
             </div>
+
+            {confirmCleanCart && (
+                <div className={styles.confirmCleanbox}>
+                    <div className={styles.confirmActions}>
+                        <h3>Tem certeza que deseja limpar o carrinho?</h3>
+                        <div className={styles.btnPanelPopUp}>
+                            <button
+                                className={styles.confirmBtn}
+                                onClick={() => {
+                                    clearCart();
+                                    setConfirmCleanCart(false);
+                                }}
+                            >
+                                Sim
+                            </button>
+                            <button className={styles.cancelBtn} onClick={() => setConfirmCleanCart(false)}>
+                                Não
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {showNotice && (
                 <div className={styles.noticeOverlay}>

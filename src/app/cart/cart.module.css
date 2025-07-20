@@ -252,3 +252,61 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 9999;
 }
+
+.confirmCleanbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 5rem;
+    z-index: 1000;
+}
+
+.confirmActions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnPanelPopUp {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.confirmBtn,
+.cancelBtn {
+    padding: 5px 40px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.confirmBtn {
+    background-color: var(--confirm-btn);
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+.cancelBtn {
+    background-color: var(--cancel-btn);
+    color: white;
+}
+
+.cancelBtn:hover {
+    background-color: #e74c3c;
+}
+
+.confirmBtn:hover {
+    background-color: #65ddbf;
+}

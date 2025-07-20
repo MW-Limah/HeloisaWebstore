@@ -37,7 +37,7 @@ export default function CartPage() {
             <div className={styles.empty}>
                 <h1>Seu carrinho está vazio 😢</h1>
                 <Link href="/">
-                    Continuar comprando <TbShoppingCartCopy />
+                    Comprar algo <TbShoppingCartCopy />
                 </Link>
             </div>
         );

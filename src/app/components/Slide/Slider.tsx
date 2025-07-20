@@ -91,9 +91,9 @@ export default function SlideShow() {
 
     return (
         <div className={styles.container}>
-            {/*  <button onClick={goToPrevious} className={styles.tulipicon} aria-label="Slide anterior">
+            <button onClick={goToPrevious} className={styles.tulipicon} aria-label="Slide anterior">
                 <Image src="/images/icons/tulip1.png" width={100} height={100} alt="Anterior" />
-            </button> */}
+            </button>
             <div className={styles.sliderContainer}>
                 <div className={styles.slider}>
                     <div className={styles.imageWrapper}>
@@ -115,9 +115,9 @@ export default function SlideShow() {
                     </div>
                 </div>
             </div>
-            {/*  <button onClick={goToNext} className={styles.tulipicon} aria-label="Próximo slide">
+            <button onClick={goToNext} className={styles.tulipicon} aria-label="Próximo slide">
                 <Image src="/images/icons/tulip2.png" width={100} height={100} alt="Próximo" />
-            </button> */}
+            </button>
         </div>
     );
 }

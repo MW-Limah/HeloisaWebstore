@@ -151,7 +151,8 @@ export default function CartPage() {
                 <div className={styles.summary}>
                     <h2>Total selecionado: R$ {getSelectedTotal().toFixed(2).replace('.', ',')}</h2>
                     <div className={styles.actions}>
-                        <Link href="/error">
+                        <Link href="/checkout">
+                            {/* checkout / error */}
                             <button className={styles.checkoutBtn} disabled={getSelectedItems().length === 0}>
                                 Ir para Checkout
                             </button>

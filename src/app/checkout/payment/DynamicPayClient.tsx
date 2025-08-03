@@ -1,5 +1,6 @@
 'use client';
 
+import { supabase } from '@/app/lib/supabase';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import styles from './DynamicPayClient.module.css';
 import { QRCode } from 'react-qrcode-logo';
@@ -17,7 +18,6 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
     const [pixQrBase64, setPixQrBase64] = useState<string | null>(null);
     const [boletoUrl, setBoletoUrl] = useState<string | null>(null);
     const [copied, setCopied] = useState(false);
-    const [sending, setSending] = useState(false);
     const [sentSuccess, setSentSuccess] = useState<boolean | null>(null);
     const [showReturnButton, setShowReturnButton] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
@@ -36,49 +36,22 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
         setCheckoutData(stored ? JSON.parse(stored) : {});
     }, []);
 
-    const handleConfirm = useCallback(async () => {
-        setSending(true);
-        setSentSuccess(null);
-        const data = checkoutData || JSON.parse(localStorage.getItem('checkoutData') || '{}');
-
-        const payload = {
-            first_name: data.nome,
-            last_name: data.sobrenome,
-            email: data.email,
-            total: total.toFixed(2),
-            paymentMethod,
-            pixCode,
-            boletoUrl,
-            timestamp: new Date().toISOString(),
-            cep: data.cep,
-            bairro: data.bairro,
-            rua: data.rua,
-            numero: data.numero,
-            items: selectedItems.map((item) => ({
-                id: item.id,
-                title: item.title,
-                quantity: item.quantity,
-                color: item.color,
-                price: item.price,
-            })),
-        };
-
-        try {
-            const res = await fetch('/api/send-email', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-            });
-            const body = await res.text();
-            if (!res.ok) throw new Error(`Status ${res.status}: ${body}`);
-            setSentSuccess(true);
-            setShowReturnButton(true);
-        } catch {
-            setSentSuccess(false);
-        } finally {
-            setSending(false);
-        }
-    }, [boletoUrl, checkoutData, paymentMethod, pixCode, selectedItems, total]);
+    const saveReceipt = useCallback(async () => {
+        await supabase.from('receipts').insert([
+            {
+                customer_name: `${checkoutData.nome} ${checkoutData.sobrenome}`,
+                customer_email: checkoutData.email,
+                customer_phone: checkoutData.telefone,
+                cep: checkoutData.cep,
+                bairro: checkoutData.bairro,
+                rua: checkoutData.rua,
+                numero: checkoutData.numero,
+                total,
+                payment_method: paymentMethod,
+                items: selectedItems,
+            },
+        ]);
+    }, [checkoutData, paymentMethod, selectedItems, total]);
 
     const checkPaymentStatus = useCallback(
         async (pid: string) => {
@@ -95,7 +68,7 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                     if (!alreadySent) {
                         localStorage.setItem(emailSentKey, 'true');
                         emailSentRef.current = true;
-                        handleConfirm();
+                        await saveReceipt(); // salva recibo
                     }
                 } else if (data.status === 'pending') {
                     setPaymentStatus('Pagamento ainda pendente...');
@@ -108,8 +81,25 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                 setPaymentStatus('Erro ao verificar status do pagamento.');
             }
         },
-        [handleConfirm]
+        [saveReceipt]
     );
+
+    const finalizePayment = () => {
+        localStorage.removeItem('checkoutData');
+        localStorage.removeItem('transactionId');
+        localStorage.removeItem('paymentId');
+        localStorage.removeItem('pixCode');
+        localStorage.removeItem('pixQrBase64');
+        localStorage.removeItem('boletoUrl');
+        if (paymentId) {
+            localStorage.removeItem(`emailSent:${paymentId}`);
+        }
+
+        setPaymentId(null);
+        setPaymentStatus(null);
+        setIsPaymentComplete(false);
+        router.push('/');
+    };
 
     const createPayment = useCallback(
         async (txId: string) => {
@@ -308,12 +298,8 @@ export default function DynamicPayClient({ paymentMethod, total }: DynamicPayCli
                             Voltar à loja
                         </button>
                     ) : (
-                        <button
-                            className={styles.ConfirmPay}
-                            onClick={handleConfirm}
-                            disabled={sending || !isPaymentComplete || emailSentRef.current}
-                        >
-                            {sending ? 'Enviando...' : 'Pendente'}
+                        <button className={styles.ConfirmPay} onClick={finalizePayment} disabled={!isPaymentComplete}>
+                            {isPaymentComplete ? 'Voltar à loja' : 'Aguardando pagamento'}
                         </button>
                     )}
 

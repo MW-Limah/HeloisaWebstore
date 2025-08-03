@@ -81,7 +81,7 @@ export default function ResumeCart({ formData, paymentMethod, onFinish }: Resume
                             </li>
                             <li>
                                 <h4>Taxa de entrega</h4>
-                                <p>R$ 4,50</p>
+                                <p>R$ 2,50</p>
                             </li>
                         </ul>
 

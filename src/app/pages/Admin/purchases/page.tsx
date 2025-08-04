@@ -7,6 +7,7 @@ import styles from './requests.module.css';
 import ButtonBack from '@/app/components/buttonBack/buttonBack';
 import Loading from '@/app/components/Loading/Loading';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Receipt {
     id: string;
@@ -99,7 +100,9 @@ export default function RequestsPanel() {
 
     return (
         <div className={styles.container}>
-            <ButtonBack />
+            <div className={styles.header}>
+                <ButtonBack />
+            </div>
             <div className={styles.content}>
                 <h2>Painel de Solicitações</h2>
                 <div className={styles.shoppings}>
@@ -111,52 +114,87 @@ export default function RequestsPanel() {
                                     <h4>Informações do produto</h4>
                                     {receipt.items?.map((item: any, i: number) => (
                                         <div key={i}>
-                                            <div>
-                                                <strong>Produto:</strong> {item.title}
-                                            </div>
-                                            <div>
-                                                <strong>ID:</strong> {item.id}
-                                            </div>
-                                            <div>
-                                                <strong>Qtd.:</strong> {item.quantity}
-                                            </div>
-                                            <div>
-                                                <strong>Cor:</strong> {item.color}
-                                            </div>
-                                            <div>
-                                                <strong>Preço:</strong> R$ {item.price}
-                                            </div>
+                                            <ul>
+                                                <li>
+                                                    <label>Produto:</label>
+                                                    <div className={styles.detail}>{item.title}</div>
+                                                </li>
+                                                <li>
+                                                    <label>Código:</label>
+                                                    <div className={styles.detail}>{item.id}</div>
+                                                </li>
+                                                <li>
+                                                    <label>Quantidade: </label>
+                                                    <div className={styles.detail}>{item.quantity}</div>
+                                                </li>
+                                                <li>
+                                                    <label>Cor: </label>
+                                                    <div className={styles.detail}>{item.color}</div>
+                                                </li>
+                                                <li>
+                                                    <label>Preço: </label>
+                                                    <div className={styles.detail}>R$ {item.price}</div>
+                                                </li>
+
+                                                <li>
+                                                    <label>Imagem</label>
+                                                    <div className={styles.imageWrapper}>
+                                                        <Image
+                                                            className={styles.Img}
+                                                            src={item.image}
+                                                            width={150}
+                                                            height={150}
+                                                            alt={item.title}
+                                                        ></Image>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
                                     ))}
-                                    <div>
-                                        <strong>Total:</strong> R$ {receipt.total}
+                                    <div className={styles.Total}>
+                                        <label>Total (Valor +Taxa):</label>
+                                        <div className={styles.TotalValue}>R$ {receipt.total}</div>
                                     </div>
                                 </div>
                                 <div>
                                     <h4>Cliente</h4>
-                                    <div>
-                                        <strong>Nome:</strong> {receipt.customer_name}
-                                    </div>
-                                    <div>
-                                        <strong>Email:</strong> {receipt.customer_email}
-                                    </div>
-                                    <div>
-                                        <strong>Telefone:</strong> {receipt.customer_phone}
-                                    </div>
+                                    <ul>
+                                        <li>
+                                            <label>Nome:</label>
+                                            <div className={styles.detail}>{receipt.customer_name}</div>
+                                        </li>
+                                        <li>
+                                            <label>Email:</label>
+                                            <div className={styles.detail}>{receipt.customer_email}</div>
+                                        </li>
+                                        <li>
+                                            <label>Telefone:</label>
+                                            <div className={styles.detail}>{receipt.customer_phone}</div>
+                                        </li>
+                                    </ul>
                                 </div>
                                 <div>
                                     <h4>Endereço</h4>
-                                    <div>
-                                        <strong>CEP:</strong> {receipt.cep}
-                                    </div>
-                                    <div>
-                                        <strong>Bairro:</strong> {receipt.bairro}
-                                    </div>
-                                    <div>
-                                        <strong>Rua:</strong> {receipt.rua}
-                                    </div>
-                                    <div>
-                                        <strong>Número:</strong> {receipt.numero}
+                                    <ul>
+                                        <li>
+                                            <label>CEP:</label>
+                                            <div className={styles.detail}>{receipt.cep}</div>
+                                        </li>
+                                        <li>
+                                            <label>Bairro:</label>
+                                            <div className={styles.detail}>{receipt.bairro}</div>
+                                        </li>
+                                        <li>
+                                            <label>Rua:</label>
+                                            <div className={styles.detail}>{receipt.rua}</div>
+                                        </li>
+                                        <li>
+                                            <label>Número:</label>
+                                            <div className={styles.detail}>{receipt.numero}</div>
+                                        </li>
+                                    </ul>
+                                    <div className={styles.date}>
+                                        <h4>Data: {receipt.created_at}</h4>
                                     </div>
                                 </div>
                             </div>

@@ -166,6 +166,8 @@
 /* Responsividade */
 @media (max-width: 768px) {
     .containerForm {
+        width: 100%;
+        text-align: center;
         margin-bottom: -8rem;
     }
     .containerForm h1 {
@@ -188,11 +190,6 @@
 
     .formHeader h1 {
         font-size: 1.5rem;
-    }
-
-    .containerForm {
-        width: 100%;
-        text-align: center;
     }
 
     .containerFormItem {

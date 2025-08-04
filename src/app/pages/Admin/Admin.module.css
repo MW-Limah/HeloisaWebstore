@@ -8,10 +8,6 @@
     padding: 1rem;
 }
 
-.containerForm h1 {
-    margin-bottom: 2rem;
-}
-
 .formHeader {
     width: 100%;
     text-align: center;
@@ -169,6 +165,12 @@
 
 /* Responsividade */
 @media (max-width: 768px) {
+    .containerForm {
+        margin-bottom: -8rem;
+    }
+    .containerForm h1 {
+        margin-bottom: -8rem;
+    }
     .buttonContainer {
         gap: 0.5rem; /* reduzido */
     }

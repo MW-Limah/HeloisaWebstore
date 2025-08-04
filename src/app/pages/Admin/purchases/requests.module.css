@@ -44,12 +44,6 @@
     font-size: 16pt;
 }
 
-.requestCard {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-}
-
 /* Não autenticado */
 
 .notAuth {
@@ -96,7 +90,7 @@
 /* Dados de recibos */
 
 .requestCard {
-    background-color: #e9e9e9;
+    background: linear-gradient(-45deg, #d9d9ff, #e3edff, #e3edff);
     padding: 20px;
     display: flex;
     border-radius: 15px;
@@ -145,12 +139,23 @@
     margin-left: 10px;
 }
 
+.ImageContainer {
+    margin: 50px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.imageWrapper label {
+    font-size: 14pt;
+    font-weight: bold;
+}
 .imageWrapper {
     width: 200px;
-    height: 100px;
+    height: 120px;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .Img {
@@ -160,32 +165,86 @@
     margin-top: 10px;
 }
 
-@media (max-width: 1220px) {
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+        align-items: center;
+    }
+
+    .header {
+        position: static;
+        margin-bottom: 20px;
+        align-self: flex-start;
+    }
+
+    .content {
+        width: 100%;
+        padding: 20px 15px;
+    }
+
+    .requests {
+        width: 100%;
+    }
+
     .requestCard {
         flex-direction: column;
         align-items: center;
+        width: 100%;
+        padding: 15px;
     }
+
     .requestCard ul {
         width: 100%;
-        text-align: center;
     }
 
     .requestCard ul li {
-        margin: 5px 0;
-        min-width: 250px;
-        display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
+        text-align: left;
+        margin: 10px 0;
     }
-    .Total {
-        flex-direction: column;
-        align-items: center;
+
+    .requestCard ul li label {
+        width: auto;
+        margin-bottom: 5px;
     }
 
     .detail {
-        margin-top: 10px;
+        margin-left: 0;
+        width: 100%;
     }
+
     .imageWrapper {
-        margin: 30px 0;
+        width: 100%;
+        height: auto;
+    }
+
+    .Img {
+        width: 100%;
+        height: auto;
+    }
+
+    .Total {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .TotalValue {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+
+    .date h4 {
+        font-size: 12pt;
+    }
+
+    .notAuth {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .buttonBack {
+        position: static;
+        margin-top: 20px;
     }
 }

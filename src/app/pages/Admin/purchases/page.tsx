@@ -135,20 +135,19 @@ export default function RequestsPanel() {
                                                     <label>Preço: </label>
                                                     <div className={styles.detail}>R$ {item.price}</div>
                                                 </li>
-
-                                                <li>
-                                                    <label>Imagem</label>
-                                                    <div className={styles.imageWrapper}>
-                                                        <Image
-                                                            className={styles.Img}
-                                                            src={item.image}
-                                                            width={150}
-                                                            height={150}
-                                                            alt={item.title}
-                                                        ></Image>
-                                                    </div>
-                                                </li>
                                             </ul>
+                                            <div className={styles.ImageContainer}>
+                                                <div className={styles.imageWrapper}>
+                                                    <label>Imagem</label>
+                                                    <Image
+                                                        className={styles.Img}
+                                                        src={item.image}
+                                                        width={150}
+                                                        height={180}
+                                                        alt={item.title}
+                                                    ></Image>
+                                                </div>
+                                            </div>
                                         </div>
                                     ))}
                                     <div className={styles.Total}>

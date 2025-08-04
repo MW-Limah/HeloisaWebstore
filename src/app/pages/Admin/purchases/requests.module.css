@@ -24,7 +24,7 @@
 
 .requests {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
     gap: 20px;
     align-items: center;
     justify-content: center;
@@ -34,4 +34,103 @@
 
 .requests h4 {
     font-size: 16pt;
+}
+
+.requestCard {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+/* Não autenticado */
+
+.notAuth {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pOut {
+    color: #000;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.notAuth button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 5px 20px;
+    font-size: 14pt;
+    border-radius: 10px;
+    border: none;
+    background-color: #fff;
+    color: #000;
+}
+
+.buttonBack {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 10px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 2px solid #000;
+    transition: all 0.1s ease-in-out;
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.modalContentLarge {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90vw;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.modalCloseBtn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 0.3rem 0.7rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
 }

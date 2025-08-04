@@ -17,41 +17,40 @@ const handler = NextAuth({
             async authorize(credentials) {
                 if (!credentials?.email || !credentials.password) return null;
 
-                // 1) autentica no Supabase Auth
                 const { data: loginData, error: loginError } = await supabaseAdmin.auth.signInWithPassword({
                     email: credentials.email,
                     password: credentials.password,
                 });
+
                 if (loginError || !loginData.user) {
                     console.error('Erro de login:', loginError?.message);
                     return null;
                 }
 
-                // 2) busca perfil no Postgres via client admin
                 const { data: profile, error: profileError } = await supabaseAdmin
                     .from('profiles')
                     .select('id, nome, email, role')
                     .eq('id', loginData.user.id)
-                    .single(); // garante que só retorna um registro ou erro
+                    .single();
 
                 if (profileError || !profile) {
                     console.error('Erro ao buscar perfil:', profileError?.message);
                     return null;
                 }
 
-                // 3) devolve um "user" simples para o NextAuth
                 return {
                     id: profile.id,
                     name: profile.nome,
                     email: profile.email,
                     role: profile.role,
+                    accessToken: loginData.session.access_token,
+                    refreshToken: loginData.session.refresh_token,
                 };
             },
         }),
     ],
 
     pages: {
-        // rota do seu formulário de login no App Router
         signIn: '/login',
     },
 
@@ -60,18 +59,18 @@ const handler = NextAuth({
     },
 
     callbacks: {
-        // Sempre que gerar/atualizar o JWT
         async jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
                 token.name = user.name;
                 token.email = user.email;
                 token.role = user.role;
+                token.accessToken = user.accessToken;
+                token.refreshToken = user.refreshToken;
             }
             return token;
         },
 
-        // Quando retornar ao cliente a sessão
         async session({ session, token }) {
             if (session.user) {
                 session.user.id = token.id as string;
@@ -79,6 +78,10 @@ const handler = NextAuth({
                 session.user.email = token.email as string;
                 session.user.role = token.role as string;
             }
+
+            session.accessToken = token.accessToken as string;
+            session.refreshToken = token.refreshToken as string;
+
             return session;
         },
     },

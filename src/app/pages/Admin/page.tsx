@@ -24,6 +24,7 @@ export default function AdminPage() {
     const [items, setItems] = useState<BoxItemData[]>([]);
     const [itemsError, setItemsError] = useState<string | null>(null);
     const [loadingItems, setLoadingItems] = useState<boolean>(true);
+    const [showRequestsModal, setShowRequestsModal] = useState(false);
 
     const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
     const [deleteItemError, setDeleteItemError] = useState<string | null>(null);

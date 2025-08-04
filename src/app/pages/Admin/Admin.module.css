@@ -8,6 +8,10 @@
     padding: 1rem;
 }
 
+.containerForm h1 {
+    margin-bottom: 2rem;
+}
+
 .formHeader {
     width: 100%;
     text-align: center;
@@ -64,6 +68,16 @@
 .containerForm {
     width: 100%;
     max-width: 1200px;
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    color: #000;
+    text-align: center;
+}
+.containerFormItem {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 2rem;
     border-radius: 8px;
     position: relative;
     color: #000;
@@ -178,6 +192,12 @@
         width: 100%;
         text-align: center;
     }
+
+    .containerFormItem {
+        margin-top: 200px;
+        width: 100%;
+        text-align: center;
+    }
     .itemList {
         max-width: 100%;
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
@@ -220,6 +240,8 @@
 
 .popupOverlay {
     position: fixed;
+    height: 100vh;
+    width: 100vw;
     top: 0;
     left: 0;
     right: 0;
@@ -271,4 +293,25 @@
 
 .btnCancel:hover {
     background: #868e96;
+}
+
+/* Item List details */
+.itemDetailsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inlineDelete {
+    margin: 10px 0;
+}
+
+.itemDetailsList li {
+    margin: 0 8px;
+    font-size: 0.9rem;
+    color: #000;
 }

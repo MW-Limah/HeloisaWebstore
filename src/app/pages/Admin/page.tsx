@@ -135,7 +135,7 @@ export default function AdminPage() {
                 <Form />
             </div>
 
-            <div className={styles.containerForm}>
+            <div className={styles.containerFormItem}>
                 {loadingItems && <Loading />}
                 <h2>Itens cadastrados</h2>
                 {itemsError && <p className={styles.error}>{itemsError}</p>}
@@ -146,35 +146,41 @@ export default function AdminPage() {
                     <>
                         <ul className={styles.itemList}>
                             {items.map((item) => (
-                                <li
-                                    key={item.id}
-                                    className={`${styles.item} ${
-                                        selectedItemId === item.id ? styles.selectedItem : ''
-                                    }`}
-                                    onClick={() => setSelectedItemId(item.id)}
-                                >
-                                    <strong>{item.title}</strong> — {item.theme} — R$
-                                    {Number(item.price).toLocaleString('pt-BR', {
-                                        minimumFractionDigits: 2,
-                                    })}
+                                <li key={item.id} className={styles.itemWrapper}>
+                                    <div
+                                        className={`${styles.item} ${
+                                            selectedItemId === item.id ? styles.selectedItem : ''
+                                        }`}
+                                        onClick={() => setSelectedItemId(item.id)}
+                                    >
+                                        <ul className={styles.itemDetailsList}>
+                                            <li>
+                                                <strong>{item.title}</strong>
+                                            </li>
+                                            <li>Classe: {item.theme}</li>
+                                            <li>
+                                                Valor: R$
+                                                {Number(item.price).toLocaleString('pt-BR', {
+                                                    minimumFractionDigits: 2,
+                                                })}
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    {selectedItemId === item.id && (
+                                        <div className={styles.inlineDelete}>
+                                            <button
+                                                className={styles.btnDelete}
+                                                onClick={() => setShowConfirmPopup(true)}
+                                            >
+                                                Deletar
+                                            </button>
+                                            {deleteItemError && <p className={styles.error}>{deleteItemError}</p>}
+                                        </div>
+                                    )}
                                 </li>
                             ))}
                         </ul>
-                        {selectedItemId && (
-                            <div className={styles.deleteItemContainer}>
-                                <p>
-                                    Item selecionado:{' '}
-                                    <strong>
-                                        {items.find((item) => item.id === selectedItemId)?.title || 'Desconhecido'}
-                                    </strong>
-                                </p>
-                                <button className={styles.btnDelete} onClick={() => setShowConfirmPopup(true)}>
-                                    Deletar item selecionado
-                                </button>
-                                {deleteItemError && <p className={styles.error}>{deleteItemError}</p>}
-                                {/* {deleteItemSuccess && <p className={styles.success}>{deleteItemSuccess}</p>} */}
-                            </div>
-                        )}
                     </>
                 )}
             </div>
@@ -207,6 +213,9 @@ export default function AdminPage() {
                             Tem certeza que deseja deletar o item{' '}
                             <strong>{items.find((item) => item.id === selectedItemId)?.title || 'Desconhecido'}</strong>
                             ?
+                        </p>
+                        <p className={styles.itemIdInfo}>
+                            ID do item: <code>{selectedItemId}</code>
                         </p>
                         <div className={styles.popupButtons}>
                             <button className={styles.btnDelete} onClick={handleDeleteItemConfirmed}>

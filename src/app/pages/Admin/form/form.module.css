@@ -1,8 +1,6 @@
 .page {
-    height: 50vh;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 .container {
@@ -45,7 +43,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1rem;
 }
 
 .optionsList li h4 {

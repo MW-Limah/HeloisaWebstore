@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/app/lib/supabase';
 import styles from './requests.module.css';
+import ButtonBack from '@/app/components/buttonBack/buttonBack';
 
 export default function RequestsPanel() {
     const [receipts, setReceipts] = useState<any[]>([]);
@@ -20,6 +21,7 @@ export default function RequestsPanel() {
 
     return (
         <div className={styles.container}>
+            <ButtonBack />
             <div className={styles.content}>
                 <h2>Painel de Solicitações</h2>
                 <div className={styles.shoppings}>

@@ -34,7 +34,7 @@ export default function Form() {
                     <div className={styles.leftSide}>
                         <ul className={styles.optionsList}>
                             <li>
-                                <h4>Ver compras</h4>
+                                <h4>Ver recibos</h4>
                                 <Link href="/pages/Admin/purchases">
                                     <button>➔</button>
                                 </Link>

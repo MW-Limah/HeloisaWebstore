@@ -34,21 +34,21 @@ export default function Form() {
                     <div className={styles.leftSide}>
                         <ul className={styles.optionsList}>
                             <li>
-                                <h4>Ver recibos</h4>
+                                <h4 className={styles.option}>Ver recibos</h4>
                                 <Link href="/pages/Admin/purchases">
                                     <button>➔</button>
                                 </Link>
                             </li>
                             <li>
-                                <h4>Caixa de Items</h4>
+                                <h4 className={styles.option}>Caixa de Items</h4>
                                 <button onClick={() => setIsBoxFormOpen(true)}>➔</button>
                             </li>
                             {/*  <li>
-                                <h4>Linha de Items</h4>
+                                <h4  className={styles.option}>Linha de Items</h4>
                                 <button onClick={() => setActiveComponent('line')}>➔</button>
                             </li>
                             <li>
-                                <h4>Editar Slides</h4>
+                                <h4  className={styles.option}>Editar Slides</h4>
                                 <button onClick={() => setActiveComponent('slides')}>➔</button>
                             </li> */}
                         </ul>

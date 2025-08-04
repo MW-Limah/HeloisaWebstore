@@ -2,7 +2,7 @@
 
 import styles from './form.module.css';
 import { useState } from 'react';
-import Router from 'next/navigation';
+import Link from 'next/link';
 import LineMenu from './LineMenu/LineMenu';
 import BoxMenu from './BoxMenu/BoxForm';
 import Slides from './Slides/Slides';
@@ -12,12 +12,6 @@ type ComponentOption = 'line' | 'box' | 'slides' | null;
 export default function Form() {
     const [activeComponent, setActiveComponent] = useState<ComponentOption>(null);
     const [isBoxFormOpen, setIsBoxFormOpen] = useState(false);
-
-    const router = Router.useRouter();
-
-    const goToPurchases = () => {
-        router.push('/pages/Admin/purchases');
-    };
 
     const renderComponent = () => {
         switch (activeComponent) {
@@ -41,7 +35,9 @@ export default function Form() {
                         <ul className={styles.optionsList}>
                             <li>
                                 <h4>Ver compras</h4>
-                                <button onClick={() => goToPurchases()}>➔</button>
+                                <Link href="/pages/Admin/purchases">
+                                    <button>➔</button>
+                                </Link>
                             </li>
                             <li>
                                 <h4>Caixa de Items</h4>

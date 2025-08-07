@@ -8,6 +8,9 @@ import ButtonBack from '@/app/components/buttonBack/buttonBack';
 import Loading from '@/app/components/Loading/Loading';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+const Reservations = dynamic(() => import('@/app/pages/Admin/reservations/reservations'), { ssr: false });
 
 interface Receipt {
     id: string;
@@ -193,12 +196,16 @@ export default function RequestsPanel() {
                                         </li>
                                     </ul>
                                     <div className={styles.date}>
-                                        <h4>Data: {receipt.created_at}</h4>
+                                        <h4>{new Date(receipt.created_at).toLocaleString()}</h4>
                                     </div>
                                 </div>
                             </div>
                         ))}
                         {receipts.length === 0 && <p>Nenhum recibo encontrado.</p>}
+                    </div>
+                    <div className={styles.reservations}>
+                        <h3>Reservas</h3>
+                        <Reservations />
                     </div>
                 </div>
             </div>

@@ -6,11 +6,13 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ConfirmationModal from '../components/confirmModal/confirmModal';
+import { createClient } from '@supabase/supabase-js';
 
 export default function OrderPage() {
     const searchParams = useSearchParams();
     const [showModal, setShowModal] = useState(false);
 
+    const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
     // Detalhes da encomenda
 
     const id = searchParams.get('id') || '';
@@ -33,29 +35,28 @@ export default function OrderPage() {
 
     const handleSubmit = async () => {
         setStatus('Enviando...');
-        const res = await fetch('/api/send-order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                id,
-                title,
-                quantity,
+        const { error } = await supabase.from('reservations').insert([
+            {
+                product_id: id,
+                product_title: title,
+                product_image: image,
+                quantity: Number(quantity),
                 color,
-                price,
-                total,
-                image,
-                firstName,
-                lastName,
+                price: Number(price),
+                total: Number(total),
+                first_name: firstName,
+                last_name: lastName,
                 email,
                 phone,
                 message,
-            }),
-        });
+            },
+        ]);
 
-        if (res.ok) {
-            setStatus('Pedido enviado com sucesso!');
+        if (error) {
+            console.error(error);
+            setStatus('Erro ao enviar a reserva.');
         } else {
-            setStatus('Erro ao enviar o pedido.');
+            setStatus('Reserva enviada com sucesso!');
         }
     };
 

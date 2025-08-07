@@ -1,0 +1,135 @@
+.requests {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    gap: 20px;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.requests h4 {
+    font-size: 16pt;
+}
+
+.requestCard {
+    background: linear-gradient(-45deg, #d9d9ff, #e3edff, #e3edff);
+    padding: 20px;
+    display: flex;
+    border-radius: 15px;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.2);
+    justify-content: center;
+    gap: 25px;
+}
+
+.requestCard ul {
+    list-style: none;
+}
+.requestCard ul li {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+.requestCard ul li label {
+    font-weight: bold;
+    width: 120px;
+}
+
+.detail {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 2px solid #000000;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.ImageContainer {
+    margin: 50px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.imageWrapper label {
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+.imageWrapper {
+    width: 200px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.Img {
+    object-fit: contain;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.date h4 {
+    margin-top: 20px;
+    font-size: 14pt;
+    color: #333;
+}
+
+@media (max-width: 600px) {
+    .InfoClientes {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        margin: 10px 0;
+        padding: 0 8px;
+    }
+
+    .requests {
+        width: 100%;
+    }
+
+    .requestCard {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 15px;
+    }
+
+    .requestCard ul {
+        width: 100%;
+        padding: 0 8px;
+    }
+
+    .requestCard ul li {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        margin: 10px 0;
+    }
+
+    .requestCard ul li label {
+        width: auto;
+        margin-bottom: 5px;
+    }
+
+    .detail {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .imageWrapper {
+        width: 100%;
+        height: auto;
+    }
+
+    .Img {
+        width: 100%;
+        height: auto;
+    }
+    .date h4 {
+        font-size: 12pt;
+    }
+}

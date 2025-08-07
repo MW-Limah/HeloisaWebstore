@@ -116,21 +116,23 @@ export default function BoxItem() {
                     >
                         <Link href={`/checkout/${item.id}`}>
                             <div className={styles.boxItem}>
-                                {firstImage && (
-                                    <Image
-                                        src={firstImage}
-                                        alt={`Imagem do item ${item.title}`}
-                                        fill
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                        quality={70}
-                                        loading="lazy"
-                                        style={{ objectFit: 'cover', objectPosition: 'center' }}
-                                    />
-                                )}
+                                <div className={styles.imageWrapper}>
+                                    {firstImage && (
+                                        <Image
+                                            src={firstImage}
+                                            alt={`Imagem do item ${item.title}`}
+                                            width={200}
+                                            height={250}
+                                            quality={100}
+                                            loading="lazy"
+                                            style={{ objectFit: 'cover', objectPosition: 'center' }}
+                                        />
+                                    )}
+                                </div>
                             </div>
 
                             <div className={styles.boxMenutitle}>
-                                <h2>{item.title}</h2>
+                                <h3>{item.title}</h3>
                             </div>
 
                             <div className={styles.PriceBuy}>

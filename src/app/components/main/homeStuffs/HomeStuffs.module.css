@@ -3,14 +3,13 @@
 /* Container do Grid */
 .gridContainer {
     display: grid;
-    grid-template-columns: repeat(4, minmax(300px, 600px));
+    grid-template-columns: repeat(4, minmax(350px, 200px));
     justify-content: center;
     align-items: center;
-    gap: 1.5rem;
+    gap: 0.5rem;
     margin: 2rem auto;
     padding: 2rem;
     flex-wrap: wrap;
-    background-color: #fff;
     border-radius: 15px;
 }
 
@@ -55,18 +54,6 @@
     align-items: center;
 }
 
-.boxMenutitle h2 {
-    font-family: 'Bree Serif', serif;
-    font-size: 1.8rem;
-    font-weight: 500;
-    color: #222;
-    margin: 0;
-    line-height: 1.2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
 /* Container do preço + descrição */
 .PriceBuy {
     padding: 0 1.5rem;
@@ -83,12 +70,12 @@
     font-weight: 500;
     line-height: 1.5;
     margin-bottom: 1rem;
-    display: -webkit-box;
-    line-clamp: 3;
+    line-clamp: 3; /* número de linhas */
+    max-width: 100%;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    max-height: 10vh;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* Preço + botão */
@@ -118,6 +105,21 @@
 .button:hover {
     transform: scale(1.05);
 }
+
+.imageWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageWrapper img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
 /* Responsividade */
 
 @media (max-width: 1600px) {
@@ -125,8 +127,8 @@
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
 
-    .boxMenutitle h2 {
-        font-size: 1.8rem;
+    .boxMenutitle h3 {
+        font-size: 1.2rem;
     }
 
     .price {
@@ -143,8 +145,8 @@
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 
-    .boxMenutitle h2 {
-        font-size: 1.7rem;
+    .boxMenutitle h3 {
+        font-size: 0.9rem;
     }
 
     .price {
@@ -158,7 +160,7 @@
 
 @media (max-width: 786px) {
     .gridContainer {
-        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        grid-template-columns: repeat(2, minmax(auto, 175px));
         padding: 1rem;
     }
 
@@ -167,28 +169,30 @@
     }
 
     .boxMenutitle {
-        padding: 1rem;
+        padding: 0.9rem;
+        margin: 0;
     }
 
     .PriceBuy {
-        padding: 1rem;
+        padding: 0 1rem 1rem 1rem;
     }
 
-    .boxMenutitle h2 {
-        font-size: 1rem;
+    .boxMenutitle h3 {
+        font-size: 0.8rem;
+        margin-bottom: -10px;
     }
 
     .price {
-        font-size: 1.1rem;
-        font-weight: 600;
+        font-size: 0.95rem;
     }
 
     .description {
+        margin: 0;
         font-size: 0.95rem;
     }
 
     .button {
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
 }
 

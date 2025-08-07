@@ -107,7 +107,7 @@ export default function HomeStuffs() {
                             </div>
 
                             <div className={styles.boxMenutitle}>
-                                <h2>{item.title}</h2>
+                                <h3>{item.title}</h3>
                             </div>
 
                             <div className={styles.PriceBuy}>

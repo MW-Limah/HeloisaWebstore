@@ -6,11 +6,12 @@
     grid-template-columns: repeat(4, minmax(300px, 600px));
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
-    padding: 1rem;
-    max-width: 1800px;
-    margin: 0 auto;
+    gap: 1.5rem;
+    margin: 2rem auto;
+    padding: 2rem;
     flex-wrap: wrap;
+    background-color: #fff;
+    border-radius: 15px;
 }
 
 .gridContainer:has(> *:only-child) {
@@ -86,6 +87,7 @@
     line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    max-height: 10vh;
     text-overflow: ellipsis;
 }
 
@@ -154,9 +156,9 @@
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 786px) {
     .gridContainer {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
         padding: 1rem;
     }
 
@@ -173,11 +175,12 @@
     }
 
     .boxMenutitle h2 {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .price {
         font-size: 1.1rem;
+        font-weight: 600;
     }
 
     .description {
@@ -220,11 +223,4 @@
     100% {
         transform: rotate(360deg);
     }
-}
-
-.groupBox {
-    display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(4, minmax(375px, 600px));
-    gap: 1rem;
 }

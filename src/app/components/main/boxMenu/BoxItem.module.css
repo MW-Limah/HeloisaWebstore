@@ -3,14 +3,13 @@
 /* Container do Grid */
 .gridContainer {
     display: grid;
-    grid-template-columns: repeat(4, minmax(300px, 600px));
+    grid-template-columns: repeat(4, minmax(450px, 200px));
     justify-content: center;
     align-items: center;
-    gap: 1.5rem;
+    gap: 0.5rem;
     margin: 2rem auto;
     padding: 2rem;
     flex-wrap: wrap;
-    background-color: #fff;
     border-radius: 15px;
 }
 

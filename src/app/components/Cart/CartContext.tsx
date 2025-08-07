@@ -13,9 +13,10 @@ export interface CartItem {
     maxQuantity: number;
     selected: boolean;
 }
-
 interface CartContextType {
     cart: CartItem[];
+    retiradaNaLoja: boolean; // ✅ novo
+    setRetiradaNaLoja: (value: boolean) => void; // ✅ novo
     addToCart: (item: CartItem) => void;
     removeFromCart: (id: string, color: string) => void;
     updateQuantity: (id: string, color: string, quantity: number) => void;
@@ -31,6 +32,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
     const [cart, setCart] = useState<CartItem[]>([]);
+    const [retiradaNaLoja, setRetiradaNaLoja] = useState(false);
 
     // LocalStorage
     useEffect(() => {
@@ -88,13 +90,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     const getSelectedTotalWithFee = () => {
         const selectedTotal = getSelectedTotal();
-        return selectedTotal > 0 ? selectedTotal + 2.5 : 0; // Aplica taxa só se houver itens selecionados
+        const taxa = retiradaNaLoja ? 0 : 2.5;
+        return selectedTotal > 0 ? selectedTotal + taxa : 0;
     };
 
     return (
         <CartContext.Provider
             value={{
                 cart,
+                retiradaNaLoja,
+                setRetiradaNaLoja,
                 addToCart,
                 removeFromCart,
                 updateQuantity,
@@ -103,7 +108,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
                 toggleSelectItem,
                 getSelectedItems,
                 getSelectedTotal,
-                getSelectedTotalWithFee, // 👈 Adiciona aqui
+                getSelectedTotalWithFee,
             }}
         >
             {children}

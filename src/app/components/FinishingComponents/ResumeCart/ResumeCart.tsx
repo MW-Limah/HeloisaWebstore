@@ -1,4 +1,3 @@
-// src/app/checkout/components/ResumeCart.tsx
 'use client';
 
 import { useCart } from '@/app/components/Cart/CartContext';
@@ -23,39 +22,35 @@ export type ResumeCartProps = {
 };
 
 export default function ResumeCart({ formData, paymentMethod, onFinish }: ResumeCartProps) {
-    const { getSelectedItems, getSelectedTotal } = useCart();
+    const { getSelectedItems, getSelectedTotal, getSelectedTotalWithFee, retiradaNaLoja, setRetiradaNaLoja } =
+        useCart();
+
     const [showPopup, setShowPopup] = useState(false);
     const router = useRouter();
     const selectedItems = getSelectedItems();
     const selectedTotal = getSelectedTotal();
-
-    const taxa = 5;
-    const valorTotalComTaxa = selectedTotal + taxa;
+    const taxa = retiradaNaLoja ? 0 : 2.5;
+    const valorTotalComTaxa = getSelectedTotalWithFee(); // ✅ usa o contexto central
 
     const handleFinish = () => {
-        // Store the total amount in localStorage
         const checkoutData = {
             ...formData,
             total: valorTotalComTaxa,
+            retiradaNaLoja,
         };
         localStorage.setItem('checkoutData', JSON.stringify(checkoutData));
-
-        // Navigate to payment page
         router.push('/checkout/payment');
     };
 
     return (
         <div className={styles.ResumeCart}>
             <div className={styles.Content}>
-                {/* Título apenas em mobile */}
                 <h3 className={styles.cartTitle}>Conteúdo do carrinho</h3>
 
-                {/* Botão só em mobile */}
                 <button className={styles.ViewCartBtn} onClick={() => setShowPopup(true)}>
                     Ver conteúdo do carrinho
                 </button>
 
-                {/* Itens normais (desktop) */}
                 <div className={styles.itemsResume}>
                     {selectedItems.map((item) => (
                         <div key={`${item.id}-${item.color}`} className={styles.item}>
@@ -70,7 +65,6 @@ export default function ResumeCart({ formData, paymentMethod, onFinish }: Resume
                     ))}
                 </div>
 
-                {/* Sticky footer com detalhes e botão */}
                 <div className={styles.priceDetails}>
                     <div className={styles.Details}>
                         <h3>Detalhes da compra</h3>
@@ -81,14 +75,14 @@ export default function ResumeCart({ formData, paymentMethod, onFinish }: Resume
                             </li>
                             <li>
                                 <h4>Taxa de entrega</h4>
-                                <p>R$ 2,50</p>
+                                <p>R$ {retiradaNaLoja ? '0,00' : '2,50'}</p>
                             </li>
                         </ul>
 
                         <ul className={styles.priceTotal}>
                             <li>
                                 <h4>TOTAL</h4>
-                                <p>R$ {(selectedTotal + 4.5).toFixed(2).replace('.', ',')}</p>
+                                <p>R$ {getSelectedTotalWithFee().toFixed(2).replace('.', ',')}</p>
                             </li>
                             <li>
                                 <h4>Método de Pagamento: </h4>
@@ -100,13 +94,25 @@ export default function ResumeCart({ formData, paymentMethod, onFinish }: Resume
                             </li>
                         </ul>
                     </div>
+
+                    {/* ✅ Checkbox de retirada na loja */}
+                    <div className={styles.CheckboxRetirada}>
+                        <input
+                            type="checkbox"
+                            id="retirada"
+                            checked={retiradaNaLoja}
+                            onChange={(e) => setRetiradaNaLoja(e.target.checked)}
+                        />
+                        <label htmlFor="retirada">Buscar produto na loja (sem taxa)</label>
+                    </div>
                 </div>
+
                 <button className={styles.Button} onClick={handleFinish}>
                     Finalizar compra
                 </button>
             </div>
 
-            {/* Popup (sempre definido, mas só aparece quando showPopup=true) */}
+            {/* Popup dos itens (sem alteração) */}
             {showPopup && (
                 <div className={styles.PopupOverlay} onClick={() => setShowPopup(false)}>
                     <div className={styles.Popup} onClick={(e) => e.stopPropagation()}>

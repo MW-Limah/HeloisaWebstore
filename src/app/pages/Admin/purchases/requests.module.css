@@ -171,6 +171,15 @@
         align-items: center;
     }
 
+    .InfoClientes {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        margin: 10px 0;
+        padding: 0 8px;
+    }
+
     .header {
         position: static;
         margin-bottom: 20px;
@@ -195,6 +204,7 @@
 
     .requestCard ul {
         width: 100%;
+        padding: 0 8px;
     }
 
     .requestCard ul li {

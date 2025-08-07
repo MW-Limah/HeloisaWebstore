@@ -155,7 +155,7 @@ export default function RequestsPanel() {
                                         <div className={styles.TotalValue}>R$ {receipt.total}</div>
                                     </div>
                                 </div>
-                                <div>
+                                <div className={styles.InfoClientes}>
                                     <h4>Cliente</h4>
                                     <ul>
                                         <li>

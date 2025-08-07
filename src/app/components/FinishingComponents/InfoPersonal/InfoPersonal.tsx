@@ -67,6 +67,7 @@ export const InfoPersonal = ({ formData, updateFormData }) => {
                         placeholder="E-mail*"
                         value={formData.email}
                         onChange={(e) => updateFormData('email', e.target.value)}
+                        required
                     />
                     <div className={styles.nameInputs}>
                         <input
@@ -74,12 +75,14 @@ export const InfoPersonal = ({ formData, updateFormData }) => {
                             placeholder="Nome*"
                             value={formData.nome}
                             onChange={(e) => updateFormData('nome', e.target.value)}
+                            required
                         />
                         <input
                             type="text"
                             placeholder="Sobrenome*"
                             value={formData.sobrenome}
                             onChange={(e) => updateFormData('sobrenome', e.target.value)}
+                            required
                         />
                     </div>
                     <input
@@ -87,6 +90,8 @@ export const InfoPersonal = ({ formData, updateFormData }) => {
                         placeholder="Telefone*"
                         value={formData.telefone}
                         onChange={(e) => updateFormData('telefone', e.target.value)}
+                        required
+                        pattern="^\(?[1-9]{2}\)?\s?9?\d{4}-?\d{4}$"
                     />
                 </form>
             </div>

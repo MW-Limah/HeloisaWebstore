@@ -107,6 +107,11 @@ export default function Navbar() {
                 <div className={styles.scrollWrapper}>
                     <ul className={styles.linksMenu} ref={linksRef}>
                         <li>
+                            <a href="#homestuffs" onClick={handleLinkClick('homestuffs')}>
+                                Casa e decoração
+                            </a>
+                        </li>
+                        <li>
                             <a href="#eletronicos" onClick={handleLinkClick('eletronicos')}>
                                 Eletrônicos
                             </a>

@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+
+/* Container do Grid */
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(300px, 600px));
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 2rem auto;
+    padding: 2rem;
+    flex-wrap: wrap;
+    background-color: #fff;
+    border-radius: 15px;
+}
+
+.gridContainer:has(> *:only-child) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 450px));
+    justify-content: center;
+}
+
+/* Card do Item */
+.boxContent {
+    background-color: #ffffff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    text-align: left;
+    padding-bottom: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.boxContent:hover {
+    transform: scale(1.01);
+}
+
+/* Imagem principal */
+.boxItem {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: #f7f7f7;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+/* Título */
+.boxMenutitle {
+    padding: 1rem 1.5rem 0 1.5rem;
+    height: 60px; /* espaço fixo pro título */
+    display: flex;
+    align-items: center;
+}
+
+.boxMenutitle h2 {
+    font-family: 'Bree Serif', serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #222;
+    margin: 0;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Container do preço + descrição */
+.PriceBuy {
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+/* Descrição com limite de 3 linhas */
+.description {
+    font-size: 1rem;
+    color: #666;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-height: 10vh;
+    text-overflow: ellipsis;
+}
+
+/* Preço + botão */
+.priceSide {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; /* empurra para o final */
+}
+
+.price {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #333;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.button {
+    border: none;
+    background: none;
+    color: #ff479f;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.button:hover {
+    transform: scale(1.05);
+}
+/* Responsividade */
+
+@media (max-width: 1600px) {
+    .gridContainer {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .boxMenutitle h2 {
+        font-size: 1.8rem;
+    }
+
+    .price {
+        font-size: 1.5rem;
+    }
+
+    .button {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .gridContainer {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .boxMenutitle h2 {
+        font-size: 1.7rem;
+    }
+
+    .price {
+        font-size: 1.3rem;
+    }
+
+    .button {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 786px) {
+    .gridContainer {
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        padding: 1rem;
+    }
+
+    .boxContent {
+        padding: 0;
+    }
+
+    .boxMenutitle {
+        padding: 1rem;
+    }
+
+    .PriceBuy {
+        padding: 1rem;
+    }
+
+    .boxMenutitle h2 {
+        font-size: 1rem;
+    }
+
+    .price {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .description {
+        font-size: 0.95rem;
+    }
+
+    .button {
+        font-size: 1.5rem;
+    }
+}
+
+.loading {
+    position: fixed; /* ← sobrepõe todo o conteúdo */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    font-size: 15pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.08);
+    z-index: 6; /* acima de tudo */
+}
+
+.loading::before {
+    content: '';
+    width: 60px;
+    height: 60px;
+    border: 6px solid #fcfcfc;
+    border-top-color: #b1dafc; /* cor do spinner */
+    border-radius: 50%;
+    animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

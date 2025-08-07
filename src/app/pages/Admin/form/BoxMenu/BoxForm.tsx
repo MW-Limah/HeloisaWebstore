@@ -129,6 +129,7 @@ export default function BoxForm({ isOpen, onClose }: BoxFormProps) {
                         <option value="maquiagens">Maquiagens</option>
                         <option value="lacos">Laços</option>
                         <option value="eletronicos">Eletrônicos</option>
+                        <option value="homestuffs">Casa e decoração</option> {/* Nova categoria */}
                     </select>
                     <input
                         type="file"

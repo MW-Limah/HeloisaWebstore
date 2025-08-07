@@ -154,7 +154,7 @@ export default function RequestsPanel() {
                                         </div>
                                     ))}
                                     <div className={styles.Total}>
-                                        <label>Total (Valor +Taxa):</label>
+                                        <label>Total:</label>
                                         <div className={styles.TotalValue}>R$ {receipt.total}</div>
                                     </div>
                                 </div>

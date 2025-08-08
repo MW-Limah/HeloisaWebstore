@@ -125,7 +125,7 @@
 
 /* Telas grandes: pode aumentar o card máximo */
 @media (min-width: 1630px) {
-    :root {
+    .gridContainer:root {
         --card-max: 320px;
     }
     .price {
@@ -135,7 +135,7 @@
 
 /* Tablet */
 @media (max-width: 1024px) {
-    :root {
+    .gridContainer:root {
         --card-min: 180px;
         --card-max: 240px;
         --gutter: 0.75rem;

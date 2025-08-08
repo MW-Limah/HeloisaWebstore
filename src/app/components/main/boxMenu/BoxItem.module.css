@@ -58,7 +58,7 @@
 .imageWrapper {
     width: 100%;
     height: 100%;
-    display: grid;
+    display: flex;
     place-items: center;
 }
 .imageWrapper img {

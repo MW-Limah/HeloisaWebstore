@@ -160,8 +160,8 @@ export default function BoxItem({ filterTheme }: BoxItemProps) {
                                         <Image
                                             src={firstImage}
                                             alt={`Imagem do item ${item.title}`}
-                                            width={200}
-                                            height={250}
+                                            width={180}
+                                            height={220}
                                             quality={100}
                                             loading="lazy"
                                             style={{ objectFit: 'cover', objectPosition: 'center' }}

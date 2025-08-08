@@ -1,15 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
 
+.gridContainer:root {
+    --gutter: 0.75rem;
+    --card-min: 200px;
+    --card-max: 280px;
+    --container-max: 1400px;
+}
+
 .gridContainer {
+    box-sizing: border-box;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(var(--card-min), var(--card-max)));
     gap: var(--gutter);
-    justify-content: center; /* centraliza as colunas quando sobram espaços */
-    align-items: start; /* cards começam alinhados no topo */
+    justify-content: center;
+    align-items: start;
     width: min(100%, var(--container-max));
     margin-inline: auto;
     padding-inline: 1rem;
-    border-radius: 15px;
+    gap: 1rem;
 }
 
 /* Opcional: com 1 item, mantém centralizado (já fica com justify-content:center) */
@@ -64,7 +72,8 @@
 /* Título */
 .boxMenutitle {
     padding: 1rem 1.25rem 0 1.25rem;
-    min-height: 56px; /* espaço consistente pro título */
+
+    min-height: 60px; /* espaço consistente pro título */
     display: flex;
     align-items: center;
 }
@@ -155,7 +164,9 @@
 @media (max-width: 900px) {
     .gridContainer {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        justify-content: center; /* mantém centralizado */
+        width: 100%;
+        max-width: 100%;
+        padding-inline: 0.75rem;
     }
 
     .boxContent {
@@ -169,7 +180,7 @@
         padding: 0 1rem 1rem;
     }
     .boxMenutitle h3 {
-        font-size: 0.95rem;
+        font-size: 1rem;
     }
     .price {
         font-size: 1rem;
@@ -184,25 +195,27 @@
 }
 
 /* <= 400px: 1 item por linha */
-@media (max-width: 400px) {
+@media (max-width: 550px) {
     .gridContainer {
         grid-template-columns: repeat(1, minmax(0, 1fr));
+        width: 100%;
+        max-width: 80%;
         padding-inline: 0.5rem;
-        overflow-x: hidden; /* evita scroll lateral */
+        overflow-x: hidden;
+        gap: 0.5rem;
     }
 
     .gridContainer > * {
         max-width: 100%;
     }
 
-    .boxMenutitle {
-        padding: 0.5rem;
+    .boxMenutitle h3,
+    .description {
+        font-size: 1em;
     }
-    .boxMenutitle h3 {
-        font-size: 0.85rem;
-    }
+
     .price {
-        font-size: 0.95rem;
+        font-size: 1.3rem;
     }
     .button {
         font-size: 1.4rem;

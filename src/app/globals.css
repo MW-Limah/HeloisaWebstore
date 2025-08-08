@@ -20,10 +20,6 @@
     --label-font-size: 1rem;
     --text-font-size: 0.95rem;
     --section-title-font-size: 1.3rem;
-    --gutter: 0.75rem;
-    --card-min: 200px; /* largura mínima do card */
-    --card-max: 280px; /* largura máxima do card (fixa/limitada) */
-    --container-max: 1400px;
 }
 
 html,

@@ -4,20 +4,19 @@
     --gutter: 0.75rem;
     --card-min: 200px;
     --card-max: 280px;
-    --container-max: 1400px;
+    --container-max: 1200px;
 }
 
 .gridContainer {
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(var(--card-min), var(--card-max)));
-    gap: var(--gutter);
+    grid-template-columns: repeat(4, minmax(350px, 1fr));
     justify-content: center;
+    margin-right: 6rem;
     align-items: start;
-    width: min(100%, var(--container-max));
-    margin-inline: auto;
     padding-inline: 1rem;
     gap: 1rem;
+    margin-bottom: 2rem;
 }
 
 /* Opcional: com 1 item, mantém centralizado (já fica com justify-content:center) */

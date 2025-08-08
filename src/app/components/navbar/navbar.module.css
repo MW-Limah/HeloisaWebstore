@@ -133,6 +133,7 @@
 @media (max-width: 899px) {
     .Bars {
         display: block;
+        z-index: 16;
     }
     .arrow {
         display: none;
@@ -175,7 +176,7 @@
         height: 100vh;
         padding: 80px 20px 20px;
         background-color: rgba(76, 139, 170, 0.95);
-        z-index: 4;
+        z-index: 15;
         transition: left 0.3s ease-in-out;
     }
 

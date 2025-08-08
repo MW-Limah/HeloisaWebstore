@@ -65,19 +65,20 @@
 
 /* Descrição com limite de 3 linhas */
 .description {
-    font-size: 1rem;
-    color: #666;
+    font-size: 1.1rem;
+    color: #555;
     font-weight: 500;
     line-height: 1.5;
-    margin-bottom: 1rem;
-    line-clamp: 3; /* número de linhas */
+    height: 50px;
     max-width: 100%;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    display: -webkit-box; /* necessário para o clamp */
+    -webkit-line-clamp: 2; /* número mínimo/máximo de linhas */
+    line-clamp: 2; /* padrão para compatibilidade */
+    -webkit-box-orient: vertical; /* orientação vertical */
+    overflow: hidden; /* corta o excesso */
+    text-overflow: ellipsis; /* adiciona "..." */
+    white-space: normal; /* permite quebra de linha */
 }
-
 /* Preço + botão */
 .priceSide {
     display: flex;
@@ -160,7 +161,7 @@
 
 @media (max-width: 786px) {
     .gridContainer {
-        grid-template-columns: repeat(2, minmax(auto, 175px));
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         padding: 1rem;
     }
 
@@ -178,12 +179,11 @@
     }
 
     .boxMenutitle h3 {
-        font-size: 0.8rem;
-        margin-bottom: -10px;
+        font-size: 0.9rem;
     }
 
     .price {
-        font-size: 0.95rem;
+        font-size: 1rem;
     }
 
     .description {
@@ -192,7 +192,7 @@
     }
 
     .button {
-        font-size: 1rem;
+        font-size: 1.6rem;
     }
 }
 

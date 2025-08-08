@@ -64,6 +64,7 @@
         padding: 10px 14px;
         font-size: 1.5rem;
         border: none;
+        margin-left: 10px;
         border-radius: 8px;
         color: #000;
         font-weight: 600;
@@ -77,6 +78,7 @@
     }
 
     .filterToggleIn {
+        background: none;
         justify-content: flex-end;
     }
 

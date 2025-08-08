@@ -104,7 +104,7 @@ export default function Navbar() {
                     </button>
                 )}
 
-                <div className={styles.scrollWrapper}>
+                {/*   <div className={styles.scrollWrapper}>
                     <ul className={styles.linksMenu} ref={linksRef}>
                         <li>
                             <a href="#homestuffs" onClick={handleLinkClick('homestuffs')}>
@@ -153,7 +153,7 @@ export default function Navbar() {
                             </a>
                         </li>
                     </ul>
-                </div>
+                </div> */}
 
                 {showArrows && (
                     <button

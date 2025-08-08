@@ -1,0 +1,37 @@
+.filter {
+    width: 200px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filter h3 {
+    font-size: 16pt;
+    margin-bottom: 10px;
+}
+
+.filter ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+}
+
+.filter button {
+    width: 100%;
+    text-align: left;
+    padding: 8px;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.filter button:hover {
+    background: #f0f0f0;
+}

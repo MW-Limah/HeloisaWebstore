@@ -19,6 +19,10 @@
     align-items: center;
 }
 
+.buttonBackAll2 {
+    z-index: 999;
+}
+
 .buttonBack {
     position: absolute;
     top: 20px;

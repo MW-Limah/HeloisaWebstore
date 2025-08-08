@@ -122,7 +122,7 @@ export default function AdminPage() {
         <main className={styles.container}>
             <div className={styles.formHeader}>
                 <div className={styles.buttonContainer}>
-                    <div>
+                    <div className={styles.buttonBackAll2}>
                         <ButtonBackAll />
                     </div>
                     <button className={styles.buttonOut} onClick={() => signOut()}>

@@ -1,4 +1,5 @@
 .filter {
+    z-index: 15;
     width: 200px;
     background: #fff;
     border-radius: 8px;

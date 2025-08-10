@@ -13,15 +13,16 @@
     position: relative;
     min-height: 1px;
 }
+/* filtro real */
 .filterInner {
-    position: static;
-    width: 20px;
+    /* largura padrão — pode ser sobrescrita inline */
+    width: 240px;
+    box-sizing: border-box;
+    transition: box-shadow 0.12s ease, transform 0.12s ease;
+    will-change: top, left, transform;
 }
 .fixed {
-    position: fixed;
-    top: 20px;
-    left: var(--filter-left, 40px);
-    z-index: 10;
+    border-radius: 6px;
 }
 
 .content {

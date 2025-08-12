@@ -6,8 +6,7 @@ export default function GoCart() {
     return (
         <div className={styles.GoCart}>
             <Link className={styles.GoCartlink} href={'/cart'}>
-                <p>Ir ao</p>
-                <PiShoppingCartFill className={styles.GoCartIcon} />
+                Carrinho <PiShoppingCartFill className={styles.GoCartIcon} />
             </Link>
         </div>
     );

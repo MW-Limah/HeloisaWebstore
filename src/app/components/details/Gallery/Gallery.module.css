@@ -109,15 +109,15 @@
     .SideContent {
         display: flex;
         flex-direction: row;
-        justify-content: flex-start; /* alinhamento horizontal ao início */
+        justify-content: center; /* alinhamento horizontal ao início */
         width: 100%;
-        padding-left: 22px;
     }
 
     .SideImages {
+        display: flex;
         flex-direction: row;
-        justify-content: flex-start; /* alinha as imagens à esquerda */
-        align-items: flex-start; /* alinha ao topo */
+        align-items: flex-start;
+        justify-content: center;
         width: auto;
     }
 
@@ -144,7 +144,6 @@
     .SideContent {
         display: flex;
         flex-direction: row;
-        align-items: flex-start;
         padding: 0;
     }
     .gallery {

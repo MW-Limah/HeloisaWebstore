@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/app/lib/supabase';
-import JustTop from '../components/nav/justTop';
+import Navbar from '../components/navbar/navbar';
 import styles from './perfil.module.css';
 import Image from 'next/image';
 import { FaRegEdit } from 'react-icons/fa';
@@ -63,7 +63,7 @@ export default function PerfilPage() {
     return (
         <div className={styles.container}>
             <div className={styles.top}>
-                <JustTop />
+                <Navbar />
             </div>
             <div className={styles.content}>
                 <aside className={styles.profile}>

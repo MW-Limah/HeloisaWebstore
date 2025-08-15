@@ -20,6 +20,8 @@ export default function PopUpImg({ src, isOpen, onClose }: PopUpImgProps) {
     const dragging = useRef(false);
     const [loading, setLoading] = useState(true);
 
+    const containerRef = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
         if (isOpen) {
             setLoading(true);
@@ -48,40 +50,57 @@ export default function PopUpImg({ src, isOpen, onClose }: PopUpImgProps) {
 
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!dragging.current || zoom <= 1) return;
-        e.preventDefault(); // <-- evita seleção e rolagem
+        e.preventDefault();
         setPosition({
             x: e.clientX - lastPosition.current.x,
             y: e.clientY - lastPosition.current.y,
         });
     };
+
     const handleMouseUp = () => {
         dragging.current = false;
     };
 
-    // 🤳 Touch handlers
-    const handleTouchStart = (e: React.TouchEvent) => {
-        if (zoom <= 1) return;
-        const touch = e.touches[0];
-        dragging.current = true;
-        lastPosition.current = {
-            x: touch.clientX - position.x,
-            y: touch.clientY - position.y,
+    // 📱 Touch handlers (não passivos)
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        const handleTouchStart = (e: TouchEvent) => {
+            if (zoom <= 1) return;
+            const touch = e.touches[0];
+            dragging.current = true;
+            lastPosition.current = {
+                x: touch.clientX - position.x,
+                y: touch.clientY - position.y,
+            };
         };
-    };
 
-    const handleTouchMove = (e: React.TouchEvent) => {
-        if (!dragging.current || zoom <= 1) return;
-        e.preventDefault(); // <-- evita rolagem da página no touch drag
-        const touch = e.touches[0];
-        setPosition({
-            x: touch.clientX - lastPosition.current.x,
-            y: touch.clientY - lastPosition.current.y,
-        });
-    };
+        const handleTouchMove = (e: TouchEvent) => {
+            if (!dragging.current || zoom <= 1) return;
+            e.preventDefault(); // agora permitido
+            const touch = e.touches[0];
+            setPosition({
+                x: touch.clientX - lastPosition.current.x,
+                y: touch.clientY - lastPosition.current.y,
+            });
+        };
 
-    const handleTouchEnd = () => {
-        dragging.current = false;
-    };
+        const handleTouchEnd = () => {
+            dragging.current = false;
+        };
+
+        // ✅ Registrando com passive: false
+        container.addEventListener('touchstart', handleTouchStart, { passive: false });
+        container.addEventListener('touchmove', handleTouchMove, { passive: false });
+        container.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+        return () => {
+            container.removeEventListener('touchstart', handleTouchStart);
+            container.removeEventListener('touchmove', handleTouchMove);
+            container.removeEventListener('touchend', handleTouchEnd);
+        };
+    }, [zoom, position.x, position.y]);
 
     if (!isOpen) return null;
 
@@ -110,7 +129,6 @@ export default function PopUpImg({ src, isOpen, onClose }: PopUpImgProps) {
                 {loading && (
                     <div className={styles.loadingOverlay}>
                         <Loading />
-                        {/* Aqui você pode colocar um spinner CSS ou SVG */}
                     </div>
                 )}
 
@@ -125,13 +143,11 @@ export default function PopUpImg({ src, isOpen, onClose }: PopUpImgProps) {
 
                 <div
                     className={styles.imageContainer}
+                    ref={containerRef}
                     onMouseDown={handleMouseDown}
                     onMouseMove={handleMouseMove}
                     onMouseUp={handleMouseUp}
                     onMouseLeave={handleMouseUp}
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
                 >
                     <div
                         className={styles.zoomWrapper}
@@ -148,7 +164,7 @@ export default function PopUpImg({ src, isOpen, onClose }: PopUpImgProps) {
                             alt="Imagem em pop-up"
                             className={styles.image}
                             draggable={false}
-                            onLoadingComplete={handleImageLoad} // <-- adicione aqui
+                            onLoadingComplete={handleImageLoad}
                         />
                     </div>
                 </div>

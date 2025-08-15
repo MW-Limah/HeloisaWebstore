@@ -30,14 +30,16 @@ export default function JustTop() {
         <div className={styles.navbar}>
             <div className={styles.topContent}>
                 <div className={styles.leftContent}>
-                    <button className={styles.back__} onClick={handleBack}>
-                        <Image
-                            src={'/logo_1.webp'}
-                            width={100}
-                            height={100}
-                            alt="Logo Principal Heloisa Moda Feminina"
-                        />
-                    </button>
+                    <div className={styles.imageWrapper}>
+                        <button className={styles.backImg} onClick={handleBack}>
+                            <Image
+                                src={'/logo_1.webp'}
+                                width={100}
+                                height={100}
+                                alt="Logo Principal Heloisa Moda Feminina"
+                            />
+                        </button>
+                    </div>
                 </div>
                 <div className={styles.rightContent}>
                     <ButtonBack />
@@ -51,15 +53,20 @@ export default function JustTop() {
                 </div>
             </div>
 
-            <div className={`${styles.menuDrawer} ${isActive ? styles.active : ''}`}>
-                <li className={styles.mobileOnly}>
-                    <ButtonBack />
+            <ul className={`${styles.menuDrawer} ${isActive ? styles.active : ''}`}>
+                <li>
+                    <Link href={'/'}>Início</Link>
                 </li>
-
-                <li className={`${styles.mobileOnly} ${styles.Admin}`}>
-                    <Link href="/pages/Login">Entrar/Cadastrar</Link>
+                <li>
+                    <Link href={'/cart'}>Carrinho</Link>
                 </li>
-            </div>
+                <li>
+                    <Link href={'/contato'}>Contato</Link>
+                </li>
+                <li>
+                    <Link href="/pages/Login">Administrador</Link>
+                </li>
+            </ul>
         </div>
     );
 }

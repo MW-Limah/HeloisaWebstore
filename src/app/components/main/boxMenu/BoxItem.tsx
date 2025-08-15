@@ -183,7 +183,6 @@ export default function BoxItem({ filterTheme }: BoxItemProps) {
                                                 style: 'currency',
                                                 currency: 'BRL',
                                             })}{' '}
-                                            a unidade
                                         </p>
                                     )}
 

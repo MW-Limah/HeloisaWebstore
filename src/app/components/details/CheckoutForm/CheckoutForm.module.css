@@ -247,6 +247,7 @@
 @media (max-width: 400px) {
     .checkoutForm {
         padding: 0.8rem;
+        margin-left: 8px;
     }
 
     .itemTitle {

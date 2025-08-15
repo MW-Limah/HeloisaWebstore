@@ -1,15 +1,10 @@
+/* === Estrutura geral === */
 .navbar {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #365b6d;
+    background-color: var(--fst);
     color: #fff;
-}
-
-.back__ {
-    background: none;
-    border: none;
-    cursor: pointer;
 }
 
 .topContent {
@@ -25,69 +20,122 @@
     align-items: center;
 }
 
-.rightContent {
+/* === Barra de rolagem horizontal com setas === */
+.scrollContainer {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 20px;
-    font-weight: 600;
-    font-size: 16pt;
+    width: 100%;
 }
+
+.scrollWrapper {
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 60px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.backImg {
+    background: none;
+    border: none;
+}
+
+/* === Ícone do menu (hambúrguer) === */
 .Bars {
     display: none;
-    cursor: pointer;
     font-size: 1.8rem;
-    color: white;
-}
-
-.ButtonBack {
+    cursor: pointer;
     z-index: 5;
 }
-/* Drawer lateral apenas para conteúdos extras no mobile */
-.menuDrawer {
+
+/* === Área de links e interações principais === */
+.rightContent {
+    display: flex;
+    gap: 20px;
+    font-size: 16pt;
+    font-weight: 600;
+}
+
+/* === Menu de links rolável === */
+.linksMenu {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 40px;
+    padding: 10px 30px 10px 60px;
+    width: 100%;
+    list-style: none;
+    background-color: var(--sd);
+    color: var(--text-color);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    justify-content: center;
+}
+
+.linksMenu::-webkit-scrollbar {
     display: none;
 }
 
+.linksMenu li {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    list-style: none;
+}
+
+.linksMenu li a {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: white;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+/* === Responsivo: Mobile === */
 .mobileOnly {
     display: none;
 }
 
-.Admin {
-    margin-left: 20px;
-    font-weight: bold;
+.menuDrawer {
+    display: none;
 }
 
-.back {
-    border: 2px solid #000;
-    background-color: white;
-    color: #000;
-    border-radius: 15px;
-    font-size: 12pt;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s ease;
-}
-
-.back:hover {
-    background: none;
-    color: #fff;
+.navbar ul li {
+    list-style: none;
+    font-size: 1.2rem;
 }
 
 @media (max-width: 899px) {
+    .navbar {
+        display: flex;
+        align-items: center;
+    }
     .Bars {
         display: block;
-        z-index: 5;
+        z-index: 16;
+        align-self: center;
     }
     .arrow {
         display: none;
     }
-    .scrollContainer {
-        overflow-x: auto;
+
+    .imageWrapper {
+        width: 100%;
+    }
+
+    .imageWrapper img {
+        width: 80px;
+        height: 80px;
     }
 
     .rightContent {
         display: none;
+    }
+
+    .scrollWrapper {
+        scroll-padding-left: 200px;
+        width: 100%;
     }
 
     .mobileOnly {
@@ -97,24 +145,24 @@
     .menuDrawer {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
         position: fixed;
         top: 0;
         left: -100%;
+        width: 80%;
         height: 100vh;
-        width: 100%;
-        background-color: rgba(76, 139, 170, 0.95);
-        padding: 80px 20px 20px 20px;
-        z-index: 4;
-        transition: left 0.3s ease-in-out;
+        padding: 80px 25px 20px;
+        background-color: #fff;
+        color: #333;
+        z-index: 15;
+        transition: left 0.3s ease-in;
+    }
+
+    .menuDrawer li a {
+        font-size: 14pt;
     }
 
     .menuDrawer.active {
         left: 0;
-    }
-
-    .Admin {
-        margin-left: 0;
-        margin-top: 10px;
     }
 }

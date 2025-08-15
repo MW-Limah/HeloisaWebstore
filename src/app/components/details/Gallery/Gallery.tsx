@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './Gallery.module.css';
 import PopUpImg from './PopUpImg/PopUpImg';
@@ -15,6 +15,18 @@ type GalleryProps = {
 export default function Gallery({ highlighted, thumbnails, onImageClick }: GalleryProps) {
     const [isPopUpOpen, setIsPopUpOpen] = useState(false);
     const [popupSrc, setPopupSrc] = useState(highlighted);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Detecta tamanho da tela
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        handleResize(); // executa na montagem
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const handleOpen = (src: string) => {
         setPopupSrc(src);
@@ -36,7 +48,7 @@ export default function Gallery({ highlighted, thumbnails, onImageClick }: Galle
                             width={200}
                             height={200}
                             alt={`Miniatura ${index + 1}`}
-                            onClick={() => onImageClick(src)}
+                            onClick={() => onImageClick?.(src)}
                             className={styles.thumbnail}
                         />
                     ))}
@@ -47,7 +59,7 @@ export default function Gallery({ highlighted, thumbnails, onImageClick }: Galle
                     <Image
                         src={highlighted}
                         alt="Imagem em destaque"
-                        fill
+                        {...(isMobile ? { width: 400, height: 400 } : { fill: true })}
                         className={styles.imageResponsive}
                         sizes="(max-width: 768px) 90vw, (max-width: 1200px) 400px, 500px"
                     />

@@ -9,7 +9,6 @@
     align-items: center;
     min-height: 20px;
     height: 6%;
-    z-index: 1000;
 }
 
 .footer h2 {
@@ -22,7 +21,6 @@
 .containerImg,
 .containerSocial {
     width: 100%;
-    z-index: 1000;
     display: flex;
     margin: 0;
 }
@@ -46,7 +44,6 @@
     flex-wrap: wrap;
     justify-content: space-between; /* Espaça os itens de forma equilibrada */
     align-items: center; /* Centraliza verticalmente os itens dentro do container */
-    z-index: 999;
 }
 .fstBox {
     width: 25%;

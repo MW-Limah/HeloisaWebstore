@@ -63,6 +63,7 @@
         justify-content: center;
         align-items: center;
         padding: 10px 14px;
+        margin-bottom: -10px;
         font-size: 1.5rem;
         border: none;
         margin-left: 10px;
@@ -85,11 +86,12 @@
 
     /* Drawer lateral (padrão fechado: translateX(-100%)) */
     .filterDrawer {
+        margin-top: 40px;
         position: fixed;
         top: 0;
         left: 0;
         height: 100dvh;
-        width: min(86vw, 340px);
+        width: min(80vw, 340px);
         transform: translateX(-100%);
         transition: transform 0.28s ease-in-out;
         background: #fff; /* similar ao seu navbar mobile */

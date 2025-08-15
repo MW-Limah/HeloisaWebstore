@@ -1,6 +1,6 @@
 'use client';
 
-import JustTop from '../components/nav/justTop';
+import Navbar from '../components/navbar/navbar';
 import { useCart } from '@/app/components/Cart/CartContext';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -49,7 +49,7 @@ export default function CartPage() {
 
     return (
         <div className={styles.container}>
-            <JustTop />
+            <Navbar />
             <div className={styles.content}>
                 <ReturnTop />
                 <ul className={styles.list}>

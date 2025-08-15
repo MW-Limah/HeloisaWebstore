@@ -1,7 +1,7 @@
 // src/app/checkout/Finishing/page.tsx
 'use client';
 
-import JustTop from '../components/nav/justTop';
+import Navbar from '../components/navbar/navbar';
 import { useCart } from '@/app/components/Cart/CartContext'; // <-- importe o hook
 import { InfoPersonal } from '../components/FinishingComponents/InfoPersonal/InfoPersonal';
 import Address from '../components/FinishingComponents/Address/Address';
@@ -57,7 +57,7 @@ export default function Finishing() {
 
     return (
         <div className={styles.container}>
-            <JustTop />
+            <Navbar />
             <div className={styles.content}>
                 <h1>Finalizar compra</h1>
                 <p>Preencha os campos abaixo e clique em finalizar compra ✨</p>

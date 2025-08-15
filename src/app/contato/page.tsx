@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './contato.module.css';
-import JustTop from '@/app/components/nav/justTop';
+import Navbar from '@/app/components/navbar/navbar';
 import { RiInstagramFill } from 'react-icons/ri';
 import { IoLogoWhatsapp } from 'react-icons/io';
 import { FaPinterest } from 'react-icons/fa';
@@ -40,7 +40,7 @@ export default function Contato() {
 
     return (
         <div className={styles.container}>
-            <JustTop />
+            <Navbar />
             <div className={styles.content}>
                 {/* Formulário de e-mail */}
                 <div className={styles.form}>

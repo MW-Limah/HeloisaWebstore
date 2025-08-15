@@ -15,7 +15,7 @@
     max-width: 100%;
     width: 600px;
     height: auto; /* ajuste para altura automática */
-    margin: 0 auto; /* centraliza horizontalmente */
+    margin: 120px 10px 0 70px;
     padding: 2rem;
 }
 .itemTitle {
@@ -80,11 +80,17 @@
 
 .finishItem {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 1rem;
+    font-weight: 600;
+    width: 100%;
+}
+
+.section {
+    display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    font-weight: bold;
-    flex: 1;
-    min-width: 120px;
 }
 
 .labell {
@@ -99,6 +105,7 @@
     font-weight: bold;
     font-size: 0.9rem;
     color: #000;
+    min-width: 250px;
 }
 
 .buttonsPanel p {
@@ -130,7 +137,7 @@
     transition: all 0.3s ease;
 }
 .buttonsPanel button:hover {
-    background-color: #67e6c6;
+    background-color: #53c5a9;
 }
 
 .buttonsWrapper {
@@ -146,31 +153,13 @@
     font-weight: bold;
 }
 
-.buttonFinish {
-    background-color: #f8a7b4;
-    border: none;
-    border-radius: 20px;
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    color: black;
-    align-self: flex-end;
-    margin-top: 1rem;
-}
-
-.buttonFinish:hover {
-    background-color: #ff6f91;
-    transition: all 0.3s ease;
-}
-
 /* CheckoutForm.module.css */
 
 .buttonAddCart {
     background-color: #f8d2a7;
     border: none;
     border-radius: 20px;
-    padding: 0.6rem 1.2rem;
+    padding: 0.6rem 1rem;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
@@ -184,19 +173,11 @@
     transition: all 0.3s ease;
 }
 
-@media (max-width: 1300px) {
-    .checkoutForm {
-        width: 500px;
-        margin-left: -1%;
-    }
-}
-
 @media (max-width: 900px) {
     .checkoutForm {
-        width: 90%;
-        padding: 1.5rem;
+        width: 500px;
+        margin: 120px auto 0 auto; /* Sempre no centro */
     }
-
     .itemTitle {
         font-size: 20pt;
     }
@@ -216,8 +197,12 @@
 
 @media (max-width: 600px) {
     .checkoutForm {
-        width: 95%;
-        padding: 1rem;
+        width: 100%;
+        padding: 1rem 2rem;
+    }
+
+    .finishItem {
+        flex-direction: column;
     }
 
     .itemTitle {
@@ -227,20 +212,19 @@
     .itemDescription {
         font-size: 11pt;
     }
+    .price {
+        text-align: center;
+    }
 
     .topFinish {
         flex-direction: column;
     }
 
     .buttonsWrapper {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .buttonFinish,
-    .buttonAddCart {
         width: 100%;
-        text-align: center;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
     }
 }
 
@@ -258,11 +242,10 @@
         font-size: 1.3rem;
     }
 
-    .finishItem select {
-        font-size: 0.85rem;
-    }
-
     .inputGroup input {
         font-size: 0.9rem;
+    }
+    .finishItem select {
+        max-width: 45%;
     }
 }

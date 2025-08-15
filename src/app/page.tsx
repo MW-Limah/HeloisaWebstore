@@ -39,28 +39,6 @@ export default function Home() {
 
     return (
         <>
-            {showWelcome && (
-                <div className={styles.welcomeOverlay}>
-                    <p>
-                        <strong>Dica:</strong> Em smartphones você pode usar a imagem para voltar ou as três barras para
-                        navegar pelo site.
-                    </p>
-                    <button
-                        onClick={handleDismiss}
-                        style={{
-                            marginTop: '0.5rem',
-                            padding: '4px 8px',
-                            borderRadius: '4px',
-                            backgroundColor: '#365b6d',
-                            color: '#fff',
-                            border: 'none',
-                            cursor: 'pointer',
-                        }}
-                    >
-                        Ok
-                    </button>
-                </div>
-            )}
             <div className={styles.visitsContainer}>
                 <p>Visitas: {visits ?? '...'}</p>
             </div>

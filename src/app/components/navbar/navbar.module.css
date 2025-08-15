@@ -5,6 +5,8 @@
     flex-direction: column;
     background-color: var(--fst);
     color: #fff;
+    z-index: 999;
+    position: fixed;
 }
 
 .topContent {
@@ -36,28 +38,6 @@
     -webkit-overflow-scrolling: touch;
 }
 
-.arrow {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    padding: 0 10px;
-    font-size: 2.2rem;
-    background-color: #289dd2;
-    border: none;
-    color: white;
-    cursor: pointer;
-    user-select: none;
-    z-index: 10;
-    transition: opacity 0.3s ease;
-}
-
-.leftArrow {
-    left: 0;
-}
-.rightArrow {
-    right: 0;
-}
-
 /* === Ícone do menu (hambúrguer) === */
 .Bars {
     display: none;
@@ -66,47 +46,17 @@
     z-index: 5;
 }
 
-/* === Área de links e interações principais === */
 .rightContent {
     display: flex;
-    gap: 20px;
-    font-size: 16pt;
-    font-weight: 600;
-}
-
-/* === Menu de links rolável === */
-.linksMenu {
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 40px;
-    padding: 10px 30px 10px 60px;
+    align-items: center;
+    justify-content: flex-end;
     width: 100%;
+}
+
+.rightContent ul {
+    display: flex;
     list-style: none;
-    background-color: var(--sd);
-    color: var(--text-color);
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    justify-content: center;
-}
-
-.linksMenu::-webkit-scrollbar {
-    display: none;
-}
-
-.linksMenu li {
-    flex: 0 0 auto;
-    scroll-snap-align: start;
-    list-style: none;
-}
-
-.linksMenu li a {
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: white;
-    white-space: nowrap;
-    text-decoration: none;
+    gap: 10px;
 }
 
 /* === Responsivo: Mobile === */
@@ -120,6 +70,12 @@
 
 .navbar ul li {
     list-style: none;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.icon {
+    margin-right: 5px;
     font-size: 1.2rem;
 }
 
@@ -166,7 +122,7 @@
         position: fixed;
         top: 0;
         left: -100%;
-        width: 80%;
+        width: min(80vw, 340px);
         height: 100vh;
         padding: 80px 25px 20px;
         background-color: #fff;
@@ -175,11 +131,26 @@
         transition: left 0.3s ease-in;
     }
 
+    .menuDrawer {
+        margin-right: 5px;
+    }
+
     .menuDrawer li a {
         font-size: 14pt;
     }
 
     .menuDrawer.active {
         left: 0;
+    }
+
+    .navbar ul li {
+        list-style: none;
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
+
+    .icon {
+        margin-right: 5px;
+        font-size: 1.2rem;
     }
 }

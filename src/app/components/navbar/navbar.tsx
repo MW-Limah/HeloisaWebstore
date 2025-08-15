@@ -1,22 +1,29 @@
 'use client';
 
-import styles from './navbar.module.css';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
-import { FaBars } from 'react-icons/fa';
+import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import Image from 'next/image';
 import { IoCloseSharp } from 'react-icons/io5';
-import { usePathname } from 'next/navigation';
-import Cart from '@/app/components/GoCart/GoCart';
+import { IoMdArrowRoundBack } from 'react-icons/io';
+import { FaUser, FaBars, FaHome } from 'react-icons/fa';
+import { MdConnectWithoutContact } from 'react-icons/md';
+import { PiShoppingCartFill } from 'react-icons/pi';
+import styles from './navbar.module.css';
 
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
     const linksRef = useRef<HTMLUListElement | null>(null);
-    const [showArrows, setShowArrows] = useState(false);
     const pathname = usePathname();
+    const router = useRouter();
 
     const toggleMenu = () => {
         setIsActive((prev) => !prev);
+    };
+
+    const handleBack = (e: React.MouseEvent) => {
+        e.preventDefault();
+        router.back();
     };
 
     // Fecha ao clicar fora
@@ -40,34 +47,9 @@ export default function Navbar() {
         }
     }, []);
 
-    // Detecta overflow para mostrar setas
-    useEffect(() => {
-        const el = linksRef.current;
-        if (!el) return;
-
-        const checkOverflow = () => {
-            setShowArrows(el.scrollWidth > el.clientWidth);
-        };
-
-        let resizeTimeout: NodeJS.Timeout;
-        const handleResize = () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(checkOverflow, 200);
-        };
-
-        checkOverflow();
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    const handleLinkClick = (hash: string) => (e: React.MouseEvent) => {
-        e.preventDefault();
-        if (window.location.hash === `#${hash}`) {
-            window.dispatchEvent(new HashChangeEvent('hashchange'));
-        } else {
-            window.location.hash = hash;
-        }
-    };
+    const renderHome = pathname !== '/';
+    const renderCart = pathname !== '/cart';
+    const renderContact = pathname !== '/contato';
 
     return (
         <nav className={styles.navbar} id="Início">
@@ -84,31 +66,96 @@ export default function Navbar() {
                 </div>
 
                 <div className={styles.rightContent}>
-                    <Link href={'/contato'}>Contato</Link>
-                    <Cart />
-                    <Link href="/pages/Login">Administrador</Link>
-                </div>
+                    <ul>
+                        <li style={{ marginRight: '10px' }}>
+                            <a href="#" onClick={handleBack}>
+                                <IoMdArrowRoundBack className={styles.icon} />
+                                Voltar página
+                            </a>
+                        </li>
 
-                <div className={styles.mobileOnly}>{pathname !== '/cart' && <Cart />}</div>
+                        {renderHome && (
+                            <li>
+                                <Link href={'/'}>
+                                    <FaHome className={styles.icon} />
+                                    Início
+                                </Link>
+                            </li>
+                        )}
+
+                        {renderCart && (
+                            <li>
+                                <Link href={'/cart'}>
+                                    <PiShoppingCartFill className={styles.icon} />
+                                    Carrinho
+                                </Link>
+                            </li>
+                        )}
+
+                        {renderContact && (
+                            <li>
+                                <Link href={'/contato'}>
+                                    <MdConnectWithoutContact className={styles.icon} />
+                                    Contato
+                                </Link>
+                            </li>
+                        )}
+
+                        <li>
+                            <Link href="/pages/Login">
+                                <FaUser className={styles.icon} />
+                                Administrador
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
 
                 <div className={styles.Bars} onClick={toggleMenu}>
                     {isActive ? <IoCloseSharp /> : <FaBars />}
                 </div>
             </div>
 
-            {/* Mantém sempre no DOM */}
+            {/* Drawer */}
             <ul className={`${styles.menuDrawer} ${isActive ? styles.active : ''}`}>
-                <li>
-                    <Link href={'/'}>Início</Link>
+                <li style={{ marginBottom: '10px' }}>
+                    <a href="#" onClick={handleBack}>
+                        <IoMdArrowRoundBack className={styles.icon} />
+                        Voltar página
+                    </a>
                 </li>
+
+                {renderHome && (
+                    <li>
+                        <Link href={'/'}>
+                            <FaHome className={styles.icon} />
+                            Início
+                        </Link>
+                    </li>
+                )}
+
+                {renderCart && (
+                    <li>
+                        <Link href={'/cart'}>
+                            <PiShoppingCartFill className={styles.icon} />
+                            Carrinho
+                        </Link>
+                    </li>
+                )}
+
+                {renderContact && (
+                    <li>
+                        <Link href={'/contato'}>
+                            <MdConnectWithoutContact className={styles.icon} />
+                            Contato
+                        </Link>
+                    </li>
+                )}
+
                 <li>
-                    <Link href={'/cart'}>Carrinho</Link>
-                </li>
-                <li>
-                    <Link href={'/contato'}>Contato</Link>
-                </li>
-                <li>
-                    <Link href="/pages/Login">Administrador</Link>
+                    <Link href="/pages/Login">
+                        <FaUser className={styles.icon} />
+                        Administrador
+                    </Link>
                 </li>
             </ul>
         </nav>

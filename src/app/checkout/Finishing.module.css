@@ -1,11 +1,7 @@
 .container {
     display: flex;
     flex-direction: column;
-    text-align: center;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto; /* garante centralização horizontal do container */
+    height: 100vh;
 }
 
 .content {
@@ -15,7 +11,7 @@
     padding: 0.5rem 1rem;
     background-color: #fff;
     border-radius: 0.5rem;
-    margin: 1rem auto; /* centraliza o conteúdo horizontalmente */
+    margin: 130px auto; /* centraliza o conteúdo horizontalmente */
 }
 
 @media (max-width: 900px) {

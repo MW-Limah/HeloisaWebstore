@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './order.module.css';
-import JustTop from '../components/nav/justTop';
+import Navbar from '../components/navbar/navbar';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -62,8 +62,7 @@ export default function OrderPage() {
 
     return (
         <div className={styles.container}>
-            <JustTop />
-
+            <Navbar />
             <div className={styles.content}>
                 <div className={styles.Details}>
                     <div className={styles.details}>

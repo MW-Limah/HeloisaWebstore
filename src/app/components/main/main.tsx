@@ -34,7 +34,6 @@ export default function Main() {
     // cálculo e controle de posição (fixed / absolute / normal)
     useEffect(() => {
         if (isMobile) {
-            // reset styles when mobile
             const f = filterRef.current;
             const p = phRef.current;
             if (f) {
@@ -42,6 +41,9 @@ export default function Main() {
                 f.style.top = '';
                 f.style.left = '';
                 f.style.width = '';
+                f.style.transform = '';
+                f.style.bottom = '';
+                f.style.right = '';
             }
             if (p) p.style.height = '';
             setMode('normal');
@@ -49,8 +51,9 @@ export default function Main() {
             return;
         }
 
-        const topOffset = 20; // distância do topo quando fixo
-        const bottomBuffer = 8; // histerese (evita flicker)
+        const topOffset = 20; // distância do topo no modo fixed
+        const fixedExtraOffset = 50; // ✅ margem extra ao virar fixed
+        const bottomBuffer = 8; // histerese
 
         const update = () => {
             const ph = phRef.current;
@@ -61,64 +64,51 @@ export default function Main() {
                 return;
             }
 
-            // medidas estáveis
             const scrollY = window.scrollY || window.pageYOffset;
             const phRect = ph.getBoundingClientRect();
             const mainRect = main.getBoundingClientRect();
-            const fHeight = ph.offsetHeight; // placeholder tem mesma altura do filtro
-            const phTopAbs = phRect.top + scrollY; // posição absoluta do placeholder
+            const fHeight = ph.offsetHeight;
+            const phTopAbs = phRect.top + scrollY;
             const mainTopAbs = mainRect.top + scrollY;
             const mainHeight = main.offsetHeight;
 
-            // footer (se existir) para evitar que o filter entre no footer
             const footerEl = document.querySelector('footer') as HTMLElement | null;
             const footerRect = footerEl ? footerEl.getBoundingClientRect() : null;
             const footerTopAbs = footerRect ? footerRect.top + scrollY : mainTopAbs + mainHeight;
 
-            // limite em que o filtro deve parar (posição absoluta do scrollY onde começa "atBottom")
-            // queremos que quando scrollY >= bottomLimit, o filtro fique posicionado logo acima do footerTopAbs - topOffset
-            const bottomLimit = footerTopAbs - fHeight - topOffset;
+            // ✅ considera também o extra ao calcular o limite inferior
+            const bottomLimit = footerTopAbs - fHeight - (topOffset + fixedExtraOffset);
 
-            // thresholds com buffer/histerese para evitar alternância rápida
-            const enterFixedAt = phTopAbs - topOffset; // quando começa a fixar
-            const leaveFixedAt = bottomLimit - bottomBuffer; // quando o fixed ainda é válido
+            const enterFixedAt = phTopAbs - (topOffset + fixedExtraOffset);
+            const leaveFixedAt = bottomLimit - bottomBuffer;
             const enterAbsoluteAt = bottomLimit - bottomBuffer / 2;
 
             let newMode: Mode = 'normal';
-            if (scrollY >= enterAbsoluteAt) {
-                newMode = 'absolute';
-            } else if (scrollY >= enterFixedAt && scrollY <= leaveFixedAt) {
-                newMode = 'fixed';
-            } else {
-                newMode = 'normal';
-            }
+            if (scrollY >= enterAbsoluteAt) newMode = 'absolute';
+            else if (scrollY >= enterFixedAt && scrollY <= leaveFixedAt) newMode = 'fixed';
+            else newMode = 'normal';
 
-            // só atualiza estado se mudou (reduz re-renders)
             if (newMode !== lastModeRef.current) {
                 setMode(newMode);
                 lastModeRef.current = newMode;
             }
 
-            // garante placeholder com mesma altura — evita jump
             ph.style.height = `${fHeight}px`;
 
-            // aplica estilos inline de forma estável
-            const leftViewport = Math.round(phRect.left); // posição na viewport (px)
-            const leftRelativeToMain = Math.round(phRect.left - mainRect.left); // px relativo ao main
-
+            const leftViewport = Math.round(phRect.left);
+            const leftRelativeToMain = Math.round(phRect.left - mainRect.left);
             const widthPx = Math.round(phRect.width);
 
             if (newMode === 'fixed') {
                 f.style.position = 'fixed';
-                f.style.top = `${topOffset}px`;
+                f.style.top = `${topOffset + fixedExtraOffset}px`; // ✅ aplica os 50px
                 f.style.left = `${leftViewport}px`;
                 f.style.width = `${widthPx}px`;
                 f.style.transform = 'none';
                 f.style.bottom = '';
                 f.style.right = '';
             } else if (newMode === 'absolute') {
-                // calcular top absoluto desejado (logo acima do footer menos topOffset)
-                const desiredTopAbs = footerTopAbs - topOffset - fHeight;
+                const desiredTopAbs = footerTopAbs - (topOffset + fixedExtraOffset) - fHeight; // ✅ idem aqui
                 const topRelativeToMain = Math.round(desiredTopAbs - mainTopAbs);
 
                 f.style.position = 'absolute';
@@ -129,7 +119,6 @@ export default function Main() {
                 f.style.bottom = '';
                 f.style.right = '';
             } else {
-                // normal: remover estilos que alteram fluxo
                 f.style.position = '';
                 f.style.top = '';
                 f.style.left = '';
@@ -137,7 +126,7 @@ export default function Main() {
                 f.style.transform = '';
                 f.style.bottom = '';
                 f.style.right = '';
-                ph.style.height = ''; // deixa o fluxo natural
+                ph.style.height = '';
             }
 
             tickingRef.current = false;
@@ -150,7 +139,6 @@ export default function Main() {
             }
         };
 
-        // initial
         update();
         window.addEventListener('scroll', onScrollOrResize, { passive: true });
         window.addEventListener('resize', onScrollOrResize);

@@ -87,6 +87,7 @@
     /* Drawer lateral (padrão fechado: translateX(-100%)) */
     .filterDrawer {
         position: fixed;
+        margin-top: 60px;
         top: 0;
         left: 0;
         height: 100dvh;

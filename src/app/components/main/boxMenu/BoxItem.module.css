@@ -106,6 +106,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
+    height: 50px;
 }
 
 /* Preço + botão */
@@ -113,6 +114,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     margin-top: auto;
 }
 .price {
@@ -194,7 +196,9 @@
     .description {
         font-size: 0.95rem;
         margin: 0;
+        height: 50px;
     }
+
     .button {
         font-size: 1.6rem;
     }
@@ -224,6 +228,10 @@
     .boxMenutitle h3,
     .description {
         font-size: 1em;
+    }
+
+    .description {
+        height: 50px;
     }
 
     .price {

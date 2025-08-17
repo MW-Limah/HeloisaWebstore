@@ -117,7 +117,8 @@
 }
 .price {
     font-size: 1.35rem;
-    color: #333;
+    color: #272727;
+    font-weight: 600;
     font-family: 'Times New Roman', Times, serif;
 }
 .button {
@@ -241,7 +242,7 @@
     }
 
     .boxMenutitle {
-        padding: 6px;
+        padding: 10px;
         margin-top: -10px;
         margin-bottom: -10px;
     }
@@ -260,12 +261,12 @@
     }
 
     .PriceBuy {
-        padding: 6px;
+        padding: 10px;
     }
 
     .description {
         font-size: 0.9rem;
-        margin-top: -10px;
+        margin-top: -15px;
     }
 
     .priceSide {

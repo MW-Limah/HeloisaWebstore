@@ -48,6 +48,7 @@ export default function Navbar() {
     }, []);
 
     const renderHome = pathname !== '/';
+    const renderReturn = pathname !== '/';
     const renderCart = pathname !== '/cart';
     const renderContact = pathname !== '/contato';
 
@@ -67,12 +68,14 @@ export default function Navbar() {
 
                 <div className={styles.rightContent}>
                     <ul>
-                        <li style={{ marginRight: '10px' }}>
-                            <a href="#" onClick={handleBack}>
-                                <IoMdArrowRoundBack className={styles.icon} />
-                                Voltar página
-                            </a>
-                        </li>
+                        {renderReturn && (
+                            <li style={{ marginRight: '10px' }}>
+                                <a href="#" onClick={handleBack}>
+                                    <IoMdArrowRoundBack className={styles.icon} />
+                                    Voltar página
+                                </a>
+                            </li>
+                        )}
 
                         {renderHome && (
                             <li>
@@ -117,12 +120,14 @@ export default function Navbar() {
 
             {/* Drawer */}
             <ul className={`${styles.menuDrawer} ${isActive ? styles.active : ''}`}>
-                <li style={{ marginBottom: '10px' }}>
-                    <a href="#" onClick={handleBack}>
-                        <IoMdArrowRoundBack className={styles.icon} />
-                        Voltar página
-                    </a>
-                </li>
+                {renderHome && (
+                    <li style={{ marginBottom: '10px' }}>
+                        <a href="#" onClick={handleBack}>
+                            <IoMdArrowRoundBack className={styles.icon} />
+                            Voltar página
+                        </a>
+                    </li>
+                )}
 
                 {renderHome && (
                     <li>

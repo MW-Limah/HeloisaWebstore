@@ -15,12 +15,11 @@
 }
 /* filtro real */
 .filterInner {
-    /* largura padrão — pode ser sobrescrita inline */
-    margin-top: 120px;
     width: 240px;
     box-sizing: border-box;
     transition: box-shadow 0.12s ease, transform 0.12s ease;
     will-change: top, left, transform;
+    z-index: 998;
 }
 .fixed {
     border-radius: 6px;

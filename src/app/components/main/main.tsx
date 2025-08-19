@@ -34,7 +34,6 @@ export default function Main() {
     // cálculo e controle de posição (fixed / absolute / normal)
     useEffect(() => {
         if (isMobile) {
-            // reset styles when mobile
             const f = filterRef.current;
             const p = phRef.current;
             if (f) {
@@ -49,8 +48,16 @@ export default function Main() {
             return;
         }
 
-        const topOffset = 20; // distância do topo quando fixo
-        const bottomBuffer = 8; // histerese (evita flicker)
+        // mede a altura da navbar fixa e adiciona um espaçamento (gap)
+        const getHeaderOffset = () => {
+            const nb = document.querySelector('.navbar') as HTMLElement | null;
+            const h = nb ? nb.getBoundingClientRect().height : 0;
+            const gap = 12; // respiro mínimo entre navbar e filtro
+            const extraMargin = 120; // simula o antigo margin-top
+            return h + gap + extraMargin;
+        };
+        const bottomGap = 12; // respiro antes do footer
+        const hysteresis = 8; // evita flicker
 
         const update = () => {
             const ph = phRef.current;
@@ -61,28 +68,28 @@ export default function Main() {
                 return;
             }
 
-            // medidas estáveis
+            const headerOffset = getHeaderOffset();
             const scrollY = window.scrollY || window.pageYOffset;
             const phRect = ph.getBoundingClientRect();
             const mainRect = main.getBoundingClientRect();
-            const fHeight = ph.offsetHeight; // placeholder tem mesma altura do filtro
-            const phTopAbs = phRect.top + scrollY; // posição absoluta do placeholder
+            const fHeight = f.offsetHeight || ph.offsetHeight; // altura do filtro
+            const phTopAbs = phRect.top + scrollY;
             const mainTopAbs = mainRect.top + scrollY;
             const mainHeight = main.offsetHeight;
 
-            // footer (se existir) para evitar que o filter entre no footer
             const footerEl = document.querySelector('footer') as HTMLElement | null;
             const footerRect = footerEl ? footerEl.getBoundingClientRect() : null;
             const footerTopAbs = footerRect ? footerRect.top + scrollY : mainTopAbs + mainHeight;
 
-            // limite em que o filtro deve parar (posição absoluta do scrollY onde começa "atBottom")
-            // queremos que quando scrollY >= bottomLimit, o filtro fique posicionado logo acima do footerTopAbs - topOffset
-            const bottomLimit = footerTopAbs - fHeight - topOffset;
+            // limite inferior absoluto (ponto do scroll em que o filtro deve "colar" acima do footer)
+            const bottomLimit = footerTopAbs - fHeight - bottomGap;
 
-            // thresholds com buffer/histerese para evitar alternância rápida
-            const enterFixedAt = phTopAbs - topOffset; // quando começa a fixar
-            const leaveFixedAt = bottomLimit - bottomBuffer; // quando o fixed ainda é válido
-            const enterAbsoluteAt = bottomLimit - bottomBuffer / 2;
+            // quando começa a fixar, DESCONTANDO a navbar fixa + gap
+            const enterFixedAt = phTopAbs - headerOffset;
+
+            // thresholds com histerese
+            const leaveFixedAt = bottomLimit - hysteresis;
+            const enterAbsoluteAt = bottomLimit - hysteresis / 2;
 
             let newMode: Mode = 'normal';
             if (scrollY >= enterAbsoluteAt) {
@@ -93,43 +100,38 @@ export default function Main() {
                 newMode = 'normal';
             }
 
-            // só atualiza estado se mudou (reduz re-renders)
             if (newMode !== lastModeRef.current) {
                 setMode(newMode);
                 lastModeRef.current = newMode;
             }
 
-            // garante placeholder com mesma altura — evita jump
+            // mantém o espaço no fluxo para evitar "jump"
             ph.style.height = `${fHeight}px`;
 
-            // aplica estilos inline de forma estável
-            const leftViewport = Math.round(phRect.left); // posição na viewport (px)
-            const leftRelativeToMain = Math.round(phRect.left - mainRect.left); // px relativo ao main
-
+            const leftViewport = Math.round(phRect.left);
+            const leftRelativeToMain = Math.round(phRect.left - mainRect.left);
             const widthPx = Math.round(phRect.width);
 
             if (newMode === 'fixed') {
                 f.style.position = 'fixed';
-                f.style.top = `${topOffset}px`;
+                f.style.top = `${headerOffset}px`; // <-- AGORA abaixo da navbar
                 f.style.left = `${leftViewport}px`;
                 f.style.width = `${widthPx}px`;
                 f.style.transform = 'none';
                 f.style.bottom = '';
                 f.style.right = '';
             } else if (newMode === 'absolute') {
-                // calcular top absoluto desejado (logo acima do footer menos topOffset)
-                const desiredTopAbs = footerTopAbs - topOffset - fHeight;
-                const topRelativeToMain = Math.round(desiredTopAbs - mainTopAbs);
+                const desiredTopAbs = footerTopAbs - bottomGap - fHeight;
+                const topRelativeToMain = Math.max(0, Math.round(desiredTopAbs - mainTopAbs));
 
                 f.style.position = 'absolute';
-                f.style.top = `${Math.max(0, topRelativeToMain)}px`;
+                f.style.top = `${topRelativeToMain}px`;
                 f.style.left = `${leftRelativeToMain}px`;
                 f.style.width = `${widthPx}px`;
                 f.style.transform = 'none';
                 f.style.bottom = '';
                 f.style.right = '';
             } else {
-                // normal: remover estilos que alteram fluxo
                 f.style.position = '';
                 f.style.top = '';
                 f.style.left = '';
@@ -137,7 +139,7 @@ export default function Main() {
                 f.style.transform = '';
                 f.style.bottom = '';
                 f.style.right = '';
-                ph.style.height = ''; // deixa o fluxo natural
+                ph.style.height = '';
             }
 
             tickingRef.current = false;
@@ -150,7 +152,6 @@ export default function Main() {
             }
         };
 
-        // initial
         update();
         window.addEventListener('scroll', onScrollOrResize, { passive: true });
         window.addEventListener('resize', onScrollOrResize);

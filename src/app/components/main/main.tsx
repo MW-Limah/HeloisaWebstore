@@ -56,7 +56,7 @@ export default function Main() {
             const extraMargin = 120; // simula o antigo margin-top
             return h + gap + extraMargin;
         };
-        const bottomGap = 12; // respiro antes do footer
+        const bottomGap = 30; // respiro antes do footer
         const hysteresis = 8; // evita flicker
 
         const update = () => {

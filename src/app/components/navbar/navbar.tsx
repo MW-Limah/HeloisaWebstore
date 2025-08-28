@@ -95,14 +95,14 @@ export default function Navbar() {
                             </li>
                         )}
 
-                        {renderContact && (
+                        {/* {renderContact && (
                             <li>
                                 <Link href={'/contato'}>
                                     <MdConnectWithoutContact className={styles.icon} />
                                     Contato
                                 </Link>
                             </li>
-                        )}
+                        )} */}
 
                         <li>
                             <Link href="/pages/Login">
@@ -147,14 +147,14 @@ export default function Navbar() {
                     </li>
                 )}
 
-                {renderContact && (
+                {/*  {renderContact && (
                     <li>
                         <Link href={'/contato'}>
                             <MdConnectWithoutContact className={styles.icon} />
                             Contato
                         </Link>
                     </li>
-                )}
+                )} */}
 
                 <li>
                     <Link href="/pages/Login">

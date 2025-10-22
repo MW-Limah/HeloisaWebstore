@@ -32,7 +32,7 @@ export default function Navbar() {
             if (e.matches) {
                 setLogoSrc('/Mobile.png');
             } else {
-                setLogoSrc('/PC2_1.png');
+                setLogoSrc('/PC.png');
             }
         };
 

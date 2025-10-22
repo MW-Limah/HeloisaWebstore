@@ -30,9 +30,9 @@ export default function Navbar() {
 
         const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
             if (e.matches) {
-                setLogoSrc('/Ativo16.png');
+                setLogoSrc('/Mobile.png');
             } else {
-                setLogoSrc('/pc.png');
+                setLogoSrc('/PC2_1.png');
             }
         };
 

@@ -4,11 +4,12 @@
     display: flex;
     justify-content: space-between; /* distribui esquerda, centro e direita */
     align-items: center;
+    flex-direction: column;
     background-color: var(--fst);
     color: #fff;
     z-index: 999;
     position: fixed;
-    padding: 10px 20px;
+    padding: 20px 20px;
 }
 
 .leftContent {
@@ -28,8 +29,8 @@
 
 .imageWrapper {
     position: relative;
-    width: 200px; /* controla o tamanho da logo */
-    height: 110px; /* proporcional à largura */
+    width: 250px; /* controla o tamanho da logo */
+    height: 200px; /* proporcional à largura */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,9 +49,8 @@
 }
 
 .rightContent {
-    position: absolute; /* joga o conteúdo para a direita */
     display: flex;
-    right: 50px;
+    margin-top: 2rem;
 }
 
 .rightContent ul {
@@ -71,7 +71,6 @@
 .navbar ul li {
     list-style: none;
     font-size: 1.4rem;
-    font-weight: 600;
 }
 
 .icon {
@@ -83,6 +82,8 @@
     .navbar {
         display: flex;
         align-items: center;
+        flex-direction: row;
+        padding: 10px 10px;
     }
     .Bars {
         display: block;
@@ -99,7 +100,7 @@
 
     .imageWrapper {
         width: 175px;
-        height: 80px;
+        height: 100px;
     }
     .imageWrapper img {
         width: 80px;

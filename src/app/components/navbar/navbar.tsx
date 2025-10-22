@@ -54,48 +54,42 @@ export default function Navbar() {
 
     return (
         <nav className={styles.navbar} id="Início">
-            <div className={styles.topContent}>
-                <div className={styles.leftContent}>
-                    <div className={styles.imageWrapper}>
-                        <Image
-                            src={'/logo_1.webp'}
-                            width={100}
-                            height={100}
-                            alt="Logo Principal Heloisa Moda Feminina"
-                        />
-                    </div>
+            <div className={styles.leftContent}>
+                <div className={styles.imageWrapper}>
+                    <Image src={'/logo_1.png'} fill alt="Logo Principal Heloisa Moda Feminina" />
                 </div>
+            </div>
 
-                <div className={styles.rightContent}>
-                    <ul>
-                        {renderReturn && (
-                            <li style={{ marginRight: '10px' }}>
-                                <a href="#" onClick={handleBack}>
-                                    <IoMdArrowRoundBack className={styles.icon} />
-                                    Voltar página
-                                </a>
-                            </li>
-                        )}
+            <div className={styles.rightContent}>
+                <ul>
+                    {renderReturn && (
+                        <li style={{ marginRight: '10px' }}>
+                            <a href="#" onClick={handleBack}>
+                                <IoMdArrowRoundBack className={styles.icon} />
+                                Voltar página
+                            </a>
+                        </li>
+                    )}
 
-                        {renderHome && (
-                            <li>
-                                <Link href={'/'}>
-                                    <FaHome className={styles.icon} />
-                                    Início
-                                </Link>
-                            </li>
-                        )}
+                    {renderHome && (
+                        <li>
+                            <Link href={'/'}>
+                                <FaHome className={styles.icon} />
+                                Início
+                            </Link>
+                        </li>
+                    )}
 
-                        {renderCart && (
-                            <li>
-                                <Link href={'/cart'}>
-                                    <PiShoppingCartFill className={styles.icon} />
-                                    Carrinho
-                                </Link>
-                            </li>
-                        )}
+                    {renderCart && (
+                        <li>
+                            <Link href={'/cart'}>
+                                <PiShoppingCartFill className={styles.icon} />
+                                Carrinho
+                            </Link>
+                        </li>
+                    )}
 
-                        {/* {renderContact && (
+                    {/* {renderContact && (
                             <li>
                                 <Link href={'/contato'}>
                                     <MdConnectWithoutContact className={styles.icon} />
@@ -104,18 +98,17 @@ export default function Navbar() {
                             </li>
                         )} */}
 
-                        <li>
-                            <Link href="/pages/Login">
-                                <FaUser className={styles.icon} />
-                                Administrador
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
+                    <li>
+                        <Link href="/pages/Login">
+                            <FaUser className={styles.icon} />
+                            Administrador
+                        </Link>
+                    </li>
+                </ul>
+            </div>
 
-                <div className={styles.Bars} onClick={toggleMenu}>
-                    {isActive ? <IoCloseSharp /> : <FaBars />}
-                </div>
+            <div className={styles.Bars} onClick={toggleMenu}>
+                {isActive ? <IoCloseSharp /> : <FaBars />}
             </div>
 
             {/* Drawer */}

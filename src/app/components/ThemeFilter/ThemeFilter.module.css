@@ -1,8 +1,8 @@
 .filter {
     z-index: 15;
-    width: 200px;
+    width: 270px;
     background: #fff;
-    border-radius: 8px;
+    border-radius: 0 8px 8px 0;
     padding: 15px;
 }
 

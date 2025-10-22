@@ -7,26 +7,44 @@ import Image from 'next/image';
 import { IoCloseSharp } from 'react-icons/io5';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { FaUser, FaBars, FaHome } from 'react-icons/fa';
-import { MdConnectWithoutContact } from 'react-icons/md';
 import { PiShoppingCartFill } from 'react-icons/pi';
 import styles from './navbar.module.css';
 
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
+    const [logoSrc, setLogoSrc] = useState('/pc.png'); // ✅ imagem padrão
     const linksRef = useRef<HTMLUListElement | null>(null);
     const pathname = usePathname();
     const router = useRouter();
 
-    const toggleMenu = () => {
-        setIsActive((prev) => !prev);
-    };
+    const toggleMenu = () => setIsActive((prev) => !prev);
 
     const handleBack = (e: React.MouseEvent) => {
         e.preventDefault();
         router.back();
     };
 
-    // Fecha ao clicar fora
+    // ✅ Função que detecta largura da tela e muda a imagem
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 899px)');
+
+        const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
+            if (e.matches) {
+                setLogoSrc('/mobile.png');
+            } else {
+                setLogoSrc('/pc.png');
+            }
+        };
+
+        // Executa uma vez no carregamento
+        handleChange(mediaQuery);
+
+        // Escuta mudanças de tamanho de tela
+        mediaQuery.addEventListener('change', handleChange);
+        return () => mediaQuery.removeEventListener('change', handleChange);
+    }, []);
+
+    // Fecha o menu ao clicar fora
     useEffect(() => {
         const closeMenu = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
@@ -34,7 +52,6 @@ export default function Navbar() {
                 setIsActive(false);
             }
         };
-
         document.addEventListener('click', closeMenu);
         return () => document.removeEventListener('click', closeMenu);
     }, [isActive]);
@@ -42,21 +59,19 @@ export default function Navbar() {
     // Scroll inicial
     useEffect(() => {
         const el = linksRef.current;
-        if (el) {
-            el.scrollLeft = el.scrollWidth;
-        }
+        if (el) el.scrollLeft = el.scrollWidth;
     }, []);
 
     const renderHome = pathname !== '/';
     const renderReturn = pathname !== '/';
     const renderCart = pathname !== '/cart';
-    const renderContact = pathname !== '/contato';
 
     return (
         <nav className={styles.navbar} id="Início">
             <div className={styles.leftContent}>
                 <div className={styles.imageWrapper}>
-                    <Image src={'/logo_1.png'} fill alt="Logo Principal Heloisa Moda Feminina" />
+                    {/* ✅ Troca automática entre pc.png e mobile.png */}
+                    <Image src={logoSrc} fill alt="Logo Principal Heloisa Moda Feminina" />
                 </div>
             </div>
 
@@ -88,15 +103,6 @@ export default function Navbar() {
                             </Link>
                         </li>
                     )}
-
-                    {/* {renderContact && (
-                            <li>
-                                <Link href={'/contato'}>
-                                    <MdConnectWithoutContact className={styles.icon} />
-                                    Contato
-                                </Link>
-                            </li>
-                        )} */}
 
                     <li>
                         <Link href="/pages/Login">
@@ -139,15 +145,6 @@ export default function Navbar() {
                         </Link>
                     </li>
                 )}
-
-                {/*  {renderContact && (
-                    <li>
-                        <Link href={'/contato'}>
-                            <MdConnectWithoutContact className={styles.icon} />
-                            Contato
-                        </Link>
-                    </li>
-                )} */}
 
                 <li>
                     <Link href="/pages/Login">

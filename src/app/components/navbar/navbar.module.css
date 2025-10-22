@@ -93,6 +93,10 @@
         display: none;
     }
 
+    .leftContent {
+        justify-content: flex-start;
+    }
+
     .imageWrapper {
         width: 120px;
         height: 70px;

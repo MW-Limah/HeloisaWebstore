@@ -102,6 +102,11 @@ export default function Navbar() {
             return;
         }
 
+        if (pathname !== '/') {
+            setShowNavbar(false);
+            return;
+        }
+
         const handleScroll = () => {
             const atTop = window.scrollY <= 0;
             setShowNavbar(atTop);
@@ -109,7 +114,7 @@ export default function Navbar() {
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [isMobile]);
+    }, [isMobile, pathname]);
 
     const renderHome = pathname !== '/';
     const renderReturn = pathname !== '/';

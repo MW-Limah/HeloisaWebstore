@@ -204,7 +204,8 @@
 
     .Bars {
         display: block;
-        margin-left: 30px;
+        position: relative;
+        left: 40%;
     }
 
     .navbar {

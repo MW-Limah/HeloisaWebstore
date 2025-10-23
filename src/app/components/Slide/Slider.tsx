@@ -5,13 +5,13 @@ import Image from 'next/image';
 import styles from './Slider.module.css';
 
 const slides = [
-    {
+    /* {
         id: 1,
         src: '/images/slide1.png',
         alt: 'Slide 1',
         title: 'Brincos artesanais',
         subtitle: 'Feitos para refletir a beleza natural',
-    },
+    }, */
     {
         id: 2,
         src: '/images/slide2.png',

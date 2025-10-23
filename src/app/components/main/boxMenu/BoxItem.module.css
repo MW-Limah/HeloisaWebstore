@@ -12,10 +12,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     justify-content: center;
-    margin-right: 6rem;
-    align-items: start;
+    align-items: center;
     padding-inline: 1rem;
-    width: min(100%, var(--container-max));
     gap: 0.5rem;
     margin-bottom: 2rem;
 }

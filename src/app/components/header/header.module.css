@@ -1,3 +1,9 @@
 .header {
     margin: 20rem 5rem 10rem 5rem;
 }
+
+@media (max-width: 899px) {
+    .header {
+        margin: 10rem 2rem 2rem 2rem;
+    }
+}

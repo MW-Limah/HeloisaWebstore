@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Belleza&display=swap');
+
+.paginationContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: -1.5rem 0;
+    background-color: #fff;
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    padding: 1rem 0;
+    position: relative;
+    top: -5px;
+}
+
+.paginationBtn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    margin: 0 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: translateY(6);
+}
+
+.paginationBtn:hover {
+    transform: translateY(2);
+}
+
+.paginationCounter {
+    font-weight: 600;
+    font-size: 1.5rem;
+    font-family: 'Belleza', sans-serif;
+}
+
+@media (max-width: 900px) {
+    .paginationContainer {
+        gap: 0.5rem;
+        padding: 2rem 0 0 0;
+    }
+    .paginationBtn {
+        font-size: 1.5rem;
+        margin: 0 1rem;
+    }
+
+    .paginationCounter {
+        font-size: 1.5rem;
+    }
+}

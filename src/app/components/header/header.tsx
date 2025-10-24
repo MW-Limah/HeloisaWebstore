@@ -1,12 +1,12 @@
 'use client';
 
-import SlideShow from '@/app/components/Slide/Slider'; // ajuste o caminho se necessário
 import styles from './header.module.css';
+import Banners from '@/app/components/banners/banners';
 
 export default function Header() {
     return (
         <header className={styles.header}>
-            <SlideShow />
+            <Banners />
         </header>
     );
 }

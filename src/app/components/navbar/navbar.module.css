@@ -188,10 +188,6 @@
     font-size: 1.5rem;
 }
 
-/* ============================= */
-/* ======== RESPONSIVIDADE ===== */
-/* ============================= */
-
 /* ===== RESPONSIVIDADE ===== */
 @media (max-width: 899px) {
     .top ul.desktopOnly {

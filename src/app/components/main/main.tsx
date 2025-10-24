@@ -2,7 +2,6 @@
 
 import styles from './main.module.css';
 import BoxMenu from './boxMenu/BoxItem';
-import HomeStuffs from './homeStuffs/homeStuffs';
 import ThemeFilter from '../ThemeFilter/ThemeFilter';
 import { useEffect, useRef, useState } from 'react';
 import { RiFilterLine, RiFilterOffLine } from 'react-icons/ri';
@@ -233,7 +232,6 @@ export default function Main() {
 
             <div className={styles.content}>
                 <BoxMenu />
-                <HomeStuffs filterTheme={selectedTheme} />
             </div>
         </main>
     );

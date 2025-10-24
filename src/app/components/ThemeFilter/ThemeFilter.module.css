@@ -9,6 +9,7 @@
 .filter h3 {
     font-size: 16pt;
     margin-bottom: 10px;
+    font-family: var(--font-glacial);
 }
 
 .filter ul {

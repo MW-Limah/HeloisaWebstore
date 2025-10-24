@@ -8,6 +8,14 @@ import Header from './components/header/header';
 import Main from './components/main/main';
 import Footer from './components/footer/footer';
 
+import { register } from 'swiper/element/bundle';
+
+register();
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
 export default function Home() {
     const [visits, setVisits] = useState<number | null>(null);
     const [showWelcome, setShowWelcome] = useState(false);

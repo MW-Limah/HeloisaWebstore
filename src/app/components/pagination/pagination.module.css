@@ -35,7 +35,7 @@
 @media (max-width: 768px) {
     .paginationContainer {
         justify-self: center;
-        max-width: 100%;
+        max-width: 90%;
         padding: 0.5rem;
         gap: 0.5rem;
         margin-top: -0.5rem;

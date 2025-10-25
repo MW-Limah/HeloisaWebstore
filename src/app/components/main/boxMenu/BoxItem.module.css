@@ -1,13 +1,10 @@
-.container {
-    max-width: 1500px;
-}
 .gridContainer {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
     justify-content: center;
     align-items: center;
-    margin: 1rem 5rem;
-    padding: 1rem 1.5rem;
+    margin: 1rem;
+    padding: 1.5rem;
     width: auto;
     gap: 1rem;
     background-color: #fff;

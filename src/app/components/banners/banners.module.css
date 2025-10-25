@@ -3,3 +3,14 @@
     height: 500px;
     object-fit: cover;
 }
+
+@media (max-width: 1450px) {
+    .sliderItems {
+        height: 350px;
+    }
+}
+@media (max-width: 956px) {
+    .sliderItems {
+        height: 250px;
+    }
+}

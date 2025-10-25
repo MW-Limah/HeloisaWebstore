@@ -230,7 +230,7 @@ export default function Main() {
                 </>
             )}
 
-            <div className={styles.content}>
+            <div className={styles.content} id="griditems">
                 <BoxMenu />
             </div>
         </main>

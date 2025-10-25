@@ -95,39 +95,59 @@ export default function Navbar() {
         setIsActive(false);
     };
 
-    // ✅ Mostra/esconde navbar SOMENTE no desktop
     useEffect(() => {
-        if (isMobile) {
-            setShowNavbar(true);
-            return;
-        }
-
-        if (pathname !== '/') {
-            setShowNavbar(false);
-            return;
-        }
-
         const handleScroll = () => {
-            const atTop = window.scrollY <= 0;
-            setShowNavbar(atTop);
+            const currentScroll = window.scrollY;
+
+            // Se não for a página principal → sempre meia-recolhida (classe halfHide)
+            if (pathname !== '/') {
+                setShowNavbar(false);
+                lastScrollY.current = currentScroll;
+                return;
+            }
+
+            // Só expande se estivermos perto do topo
+            if (currentScroll < 250) {
+                setShowNavbar(true);
+            } else {
+                // Em qualquer posição abaixo de 100px, mantém recolhida
+                setShowNavbar(false);
+            }
+
+            lastScrollY.current = currentScroll;
         };
 
-        window.addEventListener('scroll', handleScroll);
+        // chama uma vez para aplicar estado inicial corretamente
+        handleScroll();
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [isMobile, pathname]);
+    }, [pathname]);
 
     const renderHome = pathname !== '/';
     const renderReturn = pathname !== '/';
     const renderCart = pathname !== '/cart';
 
     return (
-        <nav className={`${styles.navbar} ${showNavbar ? styles.show : styles.hide}`}>
+        <nav
+            className={`${styles.navbar} ${
+                pathname !== '/'
+                    ? styles.halfHide // 👈 demais páginas
+                    : showNavbar
+                    ? styles.show // 👈 home no topo
+                    : styles.hide // 👈 home rolada
+            }`}
+        >
             {/* TOPO */}
             <div className={styles.top}>
                 <ul className={styles.desktopOnly}>
-                    <li>
-                        Pesquisar <FaMagnifyingGlass />
-                    </li>
+                    {renderReturn && <li onClick={handleBack}>Voltar página</li>}
+                    <li>Pesquisar</li>
+                    {renderCart && (
+                        <li>
+                            <Link href={'/cart'}>Carrinho</Link>
+                        </li>
+                    )}
                     <li>Login / Registrar</li>
                 </ul>
 

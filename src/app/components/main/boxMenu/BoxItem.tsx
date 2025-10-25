@@ -29,6 +29,22 @@ export default function BoxItem({ filterTheme }: BoxItemProps) {
     const [filteredTheme, setFilteredTheme] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage = 10;
+    // 🔹 Faz rolagem suave apenas quando o usuário clica na paginação
+    const [pageChangedByUser, setPageChangedByUser] = useState(false);
+
+    useEffect(() => {
+        if (!pageChangedByUser) return; // 👈 só executa se veio de clique
+
+        const gridElement = document.getElementById('griditems');
+        if (gridElement) {
+            gridElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // depois da rolagem, reseta o estado
+        setPageChangedByUser(false);
+    }, [currentPage, pageChangedByUser]);
 
     // 🔹 Escuta hash quando filterTheme não for passado
     useEffect(() => {
@@ -91,43 +107,39 @@ export default function BoxItem({ filterTheme }: BoxItemProps) {
         setCurrentPage(1);
     }, [filterTheme, filteredTheme]);
 
-    // 🔹 Faz rolagem suave para o topo do grid sempre que a página muda
     useEffect(() => {
+        if (!pageChangedByUser) return; // 👈 só executa se veio de clique
+
         const gridElement = document.getElementById('griditems');
         if (gridElement) {
             gridElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    }, [currentPage]);
+
+        // depois da rolagem, reseta o estado
+        setPageChangedByUser(false);
+    }, [currentPage, pageChangedByUser]);
 
     if (loading) return <Loading />;
     if (error) return <p>{error}</p>;
     if (!items.length) return <p>Nenhum item encontrado.</p>;
 
     return (
-        <div
-            id="griditems"
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '1rem',
-                paddingTop: '5rem',
-            }}
-        >
+        <div className={styles.container}>
             {/* === Paginação Superior=== */}
+            {/* === Grid com limite de altura === */}
             {totalPages > 1 && (
                 <Pagination
                     currentPage={currentPage}
                     totalPages={totalPages}
                     onPageChange={(page) => {
                         const newPage = Math.min(Math.max(page, 1), totalPages);
+                        setPageChangedByUser(true); // 👈 marca que o usuário clicou
                         setCurrentPage(newPage);
                     }}
                 />
             )}
-            {/* === Grid com limite de altura === */}
             <section className={styles.gridContainer}>
                 {currentItems.map((item) => (
                     <article key={item.id} className={styles.boxContent}>
@@ -145,15 +157,14 @@ export default function BoxItem({ filterTheme }: BoxItemProps) {
                                     )}
                                 </div>
                             </div>
+                            <div className={styles.details}>
+                                <div className={styles.title}>
+                                    <h3>{item.title}</h3>
+                                </div>
 
-                            <div className={styles.boxMenutitle}>
-                                <h3>{item.title}</h3>
-                            </div>
-
-                            <div className={styles.PriceBuy}>
                                 {item.description && <p className={styles.description}>{item.description}</p>}
-                                <div className={styles.priceSide}>
-                                    <p className={styles.price}>
+                                <div className={styles.priceAndButton}>
+                                    <p>
                                         {Number(item.price).toLocaleString('pt-BR', {
                                             style: 'currency',
                                             currency: 'BRL',
@@ -175,6 +186,7 @@ export default function BoxItem({ filterTheme }: BoxItemProps) {
                     totalPages={totalPages}
                     onPageChange={(page) => {
                         const newPage = Math.min(Math.max(page, 1), totalPages);
+                        setPageChangedByUser(true); // 👈 marca que o usuário clicou
                         setCurrentPage(newPage);
                     }}
                 />

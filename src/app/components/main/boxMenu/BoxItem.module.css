@@ -1,40 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
-
-.gridContainer:root {
-    --gutter: 0.75rem;
-    --card-min: 200px;
-    --card-max: 280px;
-    --container-max: 1400px;
+.container {
+    max-width: 1500px;
 }
-
 .gridContainer {
-    box-sizing: border-box;
     display: grid;
-    grid-template-columns: repeat(4, minmax(300px, 250px));
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
     justify-content: center;
     align-items: center;
+    margin: 1rem 5rem;
+    padding: 1rem 1.5rem;
     width: auto;
-    padding: 1rem;
-    gap: 0.5rem;
+    gap: 1rem;
     background-color: #fff;
-
-    max-height: 1500px;
-    overflow-y: hidden;
+    overflow: hidden;
+    border-radius: 15px;
 }
 
-/* Opcional: com 1 item, mantém centralizado (já fica com justify-content:center) */
-.gridContainer:has(> *:only-child) {
-    grid-template-columns: repeat(1, minmax(var(--card-min), var(--card-max)));
-}
-
-.gridContainer:has(> *:nth-child(2):last-child) {
-    grid-template-columns: repeat(2, minmax(250px, 350px));
-    justify-content: flex-start;
-}
-
-/* =========================
-   Card do Item
-   ========================= */
 .boxContent {
     background: #fff;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
@@ -52,55 +32,48 @@
     transform: scale(1.01);
 }
 
-/* Imagem principal */
 .boxItem {
     position: relative;
     width: 100%;
-    aspect-ratio: 1 / 1;
-    background: #f7f7f7;
+    aspect-ratio: 1/1;
     overflow: hidden;
-    transition: transform 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .imageWrapper {
     width: 100%;
     height: 100%;
-    display: flex;
-    place-items: center;
 }
+
 .imageWrapper img {
     width: 100%;
     height: 100%;
+    object-fit: contain;
     transition: transform 0.3s ease;
-    object-fit: cover;
-    object-position: center;
 }
 
-/* Título */
-.boxMenutitle {
-    padding: 1rem 1.25rem 0 1.25rem;
-    min-height: 60px; /* espaço consistente pro título */
-    display: flex;
-    align-items: center;
+/* Detalhes */
+
+.details {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2rem 4rem 2rem;
+    padding: 1rem 0;
 }
 
-/* Container do preço + descrição */
-.PriceBuy {
-    padding: 0 1.25rem;
-    display: flex;
-    flex-direction: column;
-    font-weight: normal;
-    justify-content: flex-end;
-    flex-grow: 1;
+.title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
 }
 
-/* Descrição (clamp em 2 linhas) */
 .description {
     font-size: 1.05rem;
     color: #555;
     font-weight: 500;
     line-height: 1.5;
-    max-width: 100%;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
@@ -111,20 +84,16 @@
     height: 50px;
 }
 
-/* Preço + botão */
-.priceSide {
+.priceAndButton {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    margin-top: auto;
-}
-.price {
-    font-size: 1.35rem;
+    font-size: 1.5rem;
+    font-weight: 700;
     color: #272727;
-    font-weight: 600;
     font-family: 'Times New Roman', Times, serif;
 }
+
 .button {
     border: none;
     background: none;
@@ -137,179 +106,16 @@
     transform: scale(1.05);
 }
 
-/* =========================
-   Responsividade
-   ========================= */
-
-/* Telas grandes: pode aumentar o card máximo */
-@media (min-width: 1630px) {
-    .gridContainer:root {
-        --card-max: 320px;
-    }
-
-    .price {
-        font-size: 1.5rem;
-    }
-}
-
-/* Tablet */
-@media (max-width: 1024px) {
-    .gridContainer:root {
-        --card-min: 180px;
-        --card-max: 240px;
-        --gutter: 0.75rem;
-    }
-    .boxMenutitle h3 {
-        font-size: 1rem;
-    }
-    .price {
-        font-size: 1.2rem;
-    }
-    .button {
-        font-size: 1.6rem;
-    }
-}
-
-/* <= 900px: sempre 3 itens por linha */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
     .gridContainer {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        width: 100%;
-        max-width: 100%;
-        padding-inline: 0.75rem;
+        grid-template-columns: repeat(2, minmax(10rem, 1fr));
+        margin: 1rem 2rem;
     }
+}
 
-    .boxContent {
-        padding: 0;
-    }
-    .boxMenutitle {
-        padding: 0.9rem;
+@media (max-width: 450px) {
+    .gridContainer {
+        grid-template-columns: repeat(1, minmax(10rem, 1fr));
         margin: 0;
-    }
-    .PriceBuy {
-        padding: 0 1rem 1rem;
-    }
-    .boxMenutitle h3 {
-        font-size: 1rem;
-    }
-    .price {
-        font-size: 1rem;
-    }
-    .description {
-        font-size: 0.95rem;
-        margin: 0;
-        height: 50px;
-    }
-
-    .button {
-        font-size: 1.6rem;
-    }
-}
-
-/* <= 400px: 1 item por linha */
-@media (max-width: 600px) {
-    .gridContainer {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        width: 100%;
-        padding-inline: 0.5rem;
-        overflow-x: hidden;
-        gap: 0.5rem;
-        margin-inline: auto;
-    }
-
-    .gridContainer:has(> *:nth-child(2):last-child) {
-        grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
-        justify-content: flex-start;
-    }
-
-    .gridContainer > * {
-        max-width: 100%;
-    }
-
-    .boxMenutitle h3,
-    .description {
-        font-size: 1em;
-    }
-
-    .description {
-        height: 50px;
-    }
-
-    .price {
-        font-size: 1.3rem;
-    }
-    .button {
-        font-size: 1.4rem;
-    }
-}
-
-@media (max-width: 400px) {
-    .gridContainer {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    }
-
-    .boxMenutitle {
-        padding: 10px;
-        margin-top: -10px;
-        margin-bottom: -10px;
-    }
-
-    .boxMenutitle h3 {
-        font-size: 0.95rem;
-        max-width: 100%;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        word-break: break-all;
-        text-overflow: ellipsis;
-        white-space: normal;
-    }
-
-    .PriceBuy {
-        padding: 10px;
-    }
-
-    .description {
-        font-size: 0.9rem;
-        margin-top: -15px;
-    }
-
-    .priceSide {
-        margin-top: 5px;
-    }
-
-    .price {
-        font-size: 1.1rem;
-    }
-}
-
-/* =========================
-   Overlay de Loading
-   ========================= */
-.loading {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    font-size: 15pt;
-    display: grid;
-    place-items: center;
-    background-color: rgba(0, 0, 0, 0.08);
-    z-index: 6;
-}
-.loading::before {
-    content: '';
-    width: 60px;
-    height: 60px;
-    border: 6px solid #fcfcfc;
-    border-top-color: #b1dafc;
-    border-radius: 50%;
-    animation: loading 1s linear infinite;
-}
-@keyframes loading {
-    to {
-        transform: rotate(360deg);
     }
 }

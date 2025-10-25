@@ -37,6 +37,7 @@ export default function Banners() {
                 navigation={true}
                 className={styles.mySwiper}
                 loop={true}
+                autoplay={{ delay: 5000 }}
             >
                 {data.map((item) => (
                     <SwiperSlide key={item.id}>

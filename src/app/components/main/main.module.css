@@ -37,14 +37,7 @@
         display: flex;
         flex-direction: column;
         gap: 16px;
-        margin: 0 1rem 1.25rem; /* troquei as margens negativas por margens normais */
     }
-
-    .content {
-        margin: 0 -10px; /* remove as margens negativas que causavam overflow */
-        width: 100%;
-    }
-
     /* Esconde o placeholder; drawer assume no mobile */
     .filterPlaceholder {
         display: none;

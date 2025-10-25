@@ -25,8 +25,6 @@ export default function Banners() {
     const data = [
         { id: 1, image: '/images/banners/banner1.png', alt: 'Banner 1' },
         { id: 2, image: '/images/banners/banner2.png', alt: 'Banner 2' },
-        { id: 3, image: '/images/banners/banner3.png', alt: 'Banner 3' },
-        { id: 4, image: '/images/banners/banner4.jpg', alt: 'Banner 4' },
     ];
 
     return (

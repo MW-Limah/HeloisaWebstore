@@ -109,13 +109,11 @@
 @media (max-width: 768px) {
     .gridContainer {
         grid-template-columns: repeat(2, minmax(10rem, 1fr));
-        margin: 1rem 2rem;
     }
 }
 
 @media (max-width: 450px) {
     .gridContainer {
         grid-template-columns: repeat(1, minmax(10rem, 1fr));
-        margin: 0;
     }
 }

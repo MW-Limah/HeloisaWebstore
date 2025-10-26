@@ -9,8 +9,7 @@ import { IoMdArrowRoundBack } from 'react-icons/io';
 import { FaBars, FaHome } from 'react-icons/fa';
 import { HiShoppingCart } from 'react-icons/hi';
 import { CgProfile } from 'react-icons/cg';
-import { PiMagnifyingGlassFill } from 'react-icons/pi';
-
+import { RiAdminFill } from 'react-icons/ri';
 import styles from './navbar.module.css';
 
 interface Theme {
@@ -33,9 +32,10 @@ const themes: Theme[] = [
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
     const [logoSrc, setLogoSrc] = useState('/PC.png');
-    const [showNavbar, setShowNavbar] = useState(true);
+    const [showNavbar, setShowNavbar] = useState<true | false | 'half' | 'hideFull'>(true);
+
     const [isMobile, setIsMobile] = useState(false);
-    const [activeHash, setActiveHash] = useState<string | null>(null); // ← corrigido
+    const [activeHash, setActiveHash] = useState<string | null>(null);
 
     const router = useRouter();
     const pathname = usePathname();
@@ -54,7 +54,7 @@ export default function Navbar() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // ✅ Define hash inicial apenas no cliente (corrige hydration mismatch)
+    // ✅ Define hash inicial
     useEffect(() => {
         setActiveHash(window.location.hash.replace('#', ''));
     }, []);
@@ -78,10 +78,9 @@ export default function Navbar() {
         return () => document.removeEventListener('click', closeMenu);
     }, [isActive]);
 
-    // ✅ Controla hash manualmente e faz scroll até os items
+    // ✅ Controla hash manualmente e faz scroll
     const handleHash = (id: string) => {
         setActiveHash(id);
-
         if (id) {
             window.location.hash = id;
         } else {
@@ -91,32 +90,36 @@ export default function Navbar() {
                 window.dispatchEvent(new HashChangeEvent('hashchange'));
             }, 0);
         }
-
-        // 👇 Fechar menu no mobile
         setIsActive(false);
-
-        // 👇 Rolar suavemente até os items
         setTimeout(() => {
             const grid = document.getElementById('griditems');
             if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 200);
     };
 
-    // ✅ Mostrar/esconder barra conforme scroll
     useEffect(() => {
         const handleScroll = () => {
             const currentScroll = window.scrollY;
+            const scrollingUp = currentScroll < lastScrollY.current;
 
+            // Fora da home → sempre halfHide
             if (pathname !== '/') {
-                setShowNavbar(false);
+                setShowNavbar('half');
                 lastScrollY.current = currentScroll;
                 return;
             }
 
+            // No topo
             if (currentScroll < 100) {
                 setShowNavbar(true);
-            } else {
+            }
+            // Rolando para cima → hide (parcial)
+            else if (scrollingUp) {
                 setShowNavbar(false);
+            }
+            // Rolando para baixo → hideFull (100%)
+            else {
+                setShowNavbar('hideFull');
             }
 
             lastScrollY.current = currentScroll;
@@ -131,69 +134,78 @@ export default function Navbar() {
     const renderReturn = pathname !== '/';
     const renderCart = pathname !== '/cart';
 
-    // 🚫 Evita renderizar antes do estado do cliente existir (corrige 100% hydration)
     if (activeHash === null) return null;
+
+    // 🧩 Escolha da classe principal baseada nas novas regras
+    const navbarClass =
+        pathname !== '/'
+            ? styles.halfHide // telas diferentes de "/"
+            : showNavbar === true
+            ? styles.show
+            : styles.hide;
 
     return (
         <nav
             className={`${styles.navbar} ${
-                pathname !== '/' ? styles.halfHide : showNavbar ? styles.show : styles.hide
+                pathname !== '/'
+                    ? styles.halfHide
+                    : showNavbar === true
+                    ? styles.show
+                    : showNavbar === 'half'
+                    ? styles.halfHide
+                    : showNavbar === false
+                    ? styles.hide
+                    : styles.hideFull
             }`}
         >
-            {/* TOPO */}
-            <div className={styles.top}>
-                <ul className={styles.desktopOnly}>
-                    {renderHome && (
-                        <li>
-                            <Link href="/">
-                                Início
-                                <FaHome className={styles.icon} />
-                            </Link>
-                        </li>
-                    )}
-                    {renderReturn && (
-                        <li
-                            onClick={(e) => {
-                                e.preventDefault();
-                                router.back();
-                            }}
-                        >
-                            <IoMdArrowRoundBack />
-                            Voltar página
-                        </li>
-                    )}
-                    <li>
-                        Pesquisar
-                        <PiMagnifyingGlassFill />
-                    </li>
-                    {renderCart && (
-                        <li>
-                            <Link href="/cart">Carrinho</Link>
-                            <HiShoppingCart />
-                        </li>
-                    )}
-                    <li>
-                        Login / Registrar
-                        <CgProfile />
-                    </li>
-                </ul>
+            {/* ====== TOPO ====== */}
+            {!(pathname === '/' && showNavbar === 'half') && (
+                <div className={styles.top}>
+                    <ul className={styles.desktopOnly}>
+                        {renderHome && (
+                            <li>
+                                <Link href="/">
+                                    Início
+                                    <FaHome />
+                                </Link>
+                            </li>
+                        )}
+                        {renderReturn && (
+                            <li
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    router.back();
+                                }}
+                            >
+                                <IoMdArrowRoundBack />
+                                Voltar página
+                            </li>
+                        )}
+                        {renderCart && (
+                            <li>
+                                <Link href="/cart">Carrinho</Link>
+                                <HiShoppingCart />
+                            </li>
+                        )}
+                    </ul>
 
-                {isMobile && (
-                    <div className={styles.Bars} onClick={() => setIsActive((prev) => !prev)}>
-                        {isActive ? <IoCloseSharp /> : <FaBars />}
-                    </div>
-                )}
-            </div>
+                    {isMobile && (
+                        <div className={styles.Bars} onClick={() => setIsActive((prev) => !prev)}>
+                            {isActive ? <IoCloseSharp /> : <FaBars />}
+                        </div>
+                    )}
+                </div>
+            )}
 
-            {/* LOGO */}
+            {/* ====== LOGO ====== */}
             <div className={styles.middle}>
                 <div className={styles.imageWrapper}>
                     <Image src={logoSrc} fill alt="Logo Principal Heloisa Moda Feminina" />
                 </div>
             </div>
 
-            {/* LINKS PRINCIPAIS */}
-            {!isMobile && (
+            {/* ====== LINKS PRINCIPAIS ====== */}
+            {pathname === '/' && !isMobile && (
                 <div className={styles.bottom}>
                     <ul>
                         {themes.map((t) => (
@@ -214,7 +226,7 @@ export default function Navbar() {
                 </div>
             )}
 
-            {/* MENU RETRÁTIL */}
+            {/* ====== MENU RETRÁTIL ====== */}
             <ul className={`${styles.menuDrawer} ${isActive ? styles.active : ''}`}>
                 <li>Pesquisar</li>
                 {renderReturn && (
@@ -224,26 +236,31 @@ export default function Navbar() {
                             router.back();
                         }}
                     >
-                        <IoMdArrowRoundBack className={styles.icon} />
+                        <IoMdArrowRoundBack />
                         Voltar página
                     </li>
                 )}
                 {renderHome && (
                     <li>
                         <Link href="/">
-                            <FaHome className={styles.icon} />
+                            <FaHome />
                             Início
                         </Link>
                     </li>
                 )}
                 {renderCart && (
                     <li>
+                        <HiShoppingCart />
                         <Link href="/cart">Carrinho</Link>
                     </li>
                 )}
-                <li>Login / Registrar</li>
+                <li>
+                    <CgProfile />
+                    Login / Registrar
+                </li>
                 {renderCart && (
                     <li>
+                        <RiAdminFill />
                         <Link href="/pages/Admin">Administradores</Link>
                     </li>
                 )}

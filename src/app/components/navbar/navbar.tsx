@@ -7,7 +7,10 @@ import Image from 'next/image';
 import { IoCloseSharp } from 'react-icons/io5';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { FaBars, FaHome } from 'react-icons/fa';
-import { FaMagnifyingGlass } from 'react-icons/fa6';
+import { HiShoppingCart } from 'react-icons/hi';
+import { CgProfile } from 'react-icons/cg';
+import { PiMagnifyingGlassFill } from 'react-icons/pi';
+
 import styles from './navbar.module.css';
 
 interface Theme {
@@ -32,19 +35,11 @@ export default function Navbar() {
     const [logoSrc, setLogoSrc] = useState('/PC.png');
     const [showNavbar, setShowNavbar] = useState(true);
     const [isMobile, setIsMobile] = useState(false);
-    const [activeHash, setActiveHash] = useState<string>(() =>
-        typeof window !== 'undefined' ? location.hash.replace('#', '') : ''
-    );
+    const [activeHash, setActiveHash] = useState<string | null>(null); // ← corrigido
 
     const router = useRouter();
     const pathname = usePathname();
     const lastScrollY = useRef(0);
-
-    const toggleMenu = () => setIsActive((prev) => !prev);
-    const handleBack = (e: React.MouseEvent) => {
-        e.preventDefault();
-        router.back();
-    };
 
     // ✅ Detecta se é mobile e troca logo
     useEffect(() => {
@@ -59,6 +54,18 @@ export default function Navbar() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    // ✅ Define hash inicial apenas no cliente (corrige hydration mismatch)
+    useEffect(() => {
+        setActiveHash(window.location.hash.replace('#', ''));
+    }, []);
+
+    // ✅ Atualiza estado quando hash muda
+    useEffect(() => {
+        const onHash = () => setActiveHash(window.location.hash.replace('#', ''));
+        window.addEventListener('hashchange', onHash);
+        return () => window.removeEventListener('hashchange', onHash);
+    }, []);
+
     // ✅ Fecha menu ao clicar fora
     useEffect(() => {
         const closeMenu = (e: MouseEvent) => {
@@ -71,17 +78,9 @@ export default function Navbar() {
         return () => document.removeEventListener('click', closeMenu);
     }, [isActive]);
 
-    // ✅ Atualiza estado quando hash muda
-    useEffect(() => {
-        const onHash = () => setActiveHash(location.hash.replace('#', ''));
-        window.addEventListener('hashchange', onHash);
-        return () => window.removeEventListener('hashchange', onHash);
-    }, []);
-
-    // ✅ Controla hash manualmente
+    // ✅ Controla hash manualmente e faz scroll até os items
     const handleHash = (id: string) => {
         setActiveHash(id);
-        if (typeof window === 'undefined') return;
 
         if (id) {
             window.location.hash = id;
@@ -92,34 +91,38 @@ export default function Navbar() {
                 window.dispatchEvent(new HashChangeEvent('hashchange'));
             }, 0);
         }
+
+        // 👇 Fechar menu no mobile
         setIsActive(false);
+
+        // 👇 Rolar suavemente até os items
+        setTimeout(() => {
+            const grid = document.getElementById('griditems');
+            if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 200);
     };
 
+    // ✅ Mostrar/esconder barra conforme scroll
     useEffect(() => {
         const handleScroll = () => {
             const currentScroll = window.scrollY;
 
-            // Se não for a página principal → sempre meia-recolhida (classe halfHide)
             if (pathname !== '/') {
                 setShowNavbar(false);
                 lastScrollY.current = currentScroll;
                 return;
             }
 
-            // Só expande se estivermos perto do topo
-            if (currentScroll < 250) {
+            if (currentScroll < 100) {
                 setShowNavbar(true);
             } else {
-                // Em qualquer posição abaixo de 100px, mantém recolhida
                 setShowNavbar(false);
             }
 
             lastScrollY.current = currentScroll;
         };
 
-        // chama uma vez para aplicar estado inicial corretamente
         handleScroll();
-
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, [pathname]);
@@ -128,32 +131,55 @@ export default function Navbar() {
     const renderReturn = pathname !== '/';
     const renderCart = pathname !== '/cart';
 
+    // 🚫 Evita renderizar antes do estado do cliente existir (corrige 100% hydration)
+    if (activeHash === null) return null;
+
     return (
         <nav
             className={`${styles.navbar} ${
-                pathname !== '/'
-                    ? styles.halfHide // 👈 demais páginas
-                    : showNavbar
-                    ? styles.show // 👈 home no topo
-                    : styles.hide // 👈 home rolada
+                pathname !== '/' ? styles.halfHide : showNavbar ? styles.show : styles.hide
             }`}
         >
             {/* TOPO */}
             <div className={styles.top}>
                 <ul className={styles.desktopOnly}>
-                    {renderReturn && <li onClick={handleBack}>Voltar página</li>}
-                    <li>Pesquisar</li>
-                    {renderCart && (
+                    {renderHome && (
                         <li>
-                            <Link href={'/cart'}>Carrinho</Link>
+                            <Link href="/">
+                                Início
+                                <FaHome className={styles.icon} />
+                            </Link>
                         </li>
                     )}
-                    <li>Login / Registrar</li>
+                    {renderReturn && (
+                        <li
+                            onClick={(e) => {
+                                e.preventDefault();
+                                router.back();
+                            }}
+                        >
+                            <IoMdArrowRoundBack />
+                            Voltar página
+                        </li>
+                    )}
+                    <li>
+                        Pesquisar
+                        <PiMagnifyingGlassFill />
+                    </li>
+                    {renderCart && (
+                        <li>
+                            <Link href="/cart">Carrinho</Link>
+                            <HiShoppingCart />
+                        </li>
+                    )}
+                    <li>
+                        Login / Registrar
+                        <CgProfile />
+                    </li>
                 </ul>
 
-                {/* Ícone do menu hambúrguer */}
                 {isMobile && (
-                    <div className={styles.Bars} onClick={toggleMenu}>
+                    <div className={styles.Bars} onClick={() => setIsActive((prev) => !prev)}>
                         {isActive ? <IoCloseSharp /> : <FaBars />}
                     </div>
                 )}
@@ -188,18 +214,23 @@ export default function Navbar() {
                 </div>
             )}
 
-            {/* MENU RETRÁTIL (Drawer) */}
+            {/* MENU RETRÁTIL */}
             <ul className={`${styles.menuDrawer} ${isActive ? styles.active : ''}`}>
                 <li>Pesquisar</li>
                 {renderReturn && (
-                    <li onClick={handleBack}>
+                    <li
+                        onClick={(e) => {
+                            e.preventDefault();
+                            router.back();
+                        }}
+                    >
                         <IoMdArrowRoundBack className={styles.icon} />
                         Voltar página
                     </li>
                 )}
                 {renderHome && (
                     <li>
-                        <Link href={'/'}>
+                        <Link href="/">
                             <FaHome className={styles.icon} />
                             Início
                         </Link>
@@ -207,14 +238,13 @@ export default function Navbar() {
                 )}
                 {renderCart && (
                     <li>
-                        <Link href={'/cart'}>Carrinho</Link>
+                        <Link href="/cart">Carrinho</Link>
                     </li>
                 )}
-                {/* 🔽 Adicionados no menu retrátil */}
                 <li>Login / Registrar</li>
                 {renderCart && (
                     <li>
-                        <Link href={'/pages/Admin'}>Administradores</Link>
+                        <Link href="/pages/Admin">Administradores</Link>
                     </li>
                 )}
             </ul>

@@ -1,7 +1,9 @@
 'use client';
 
-import styles from './ThemeFilter.module.css';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import styles from './ThemeFilter.module.css';
+import { FiFilter, FiX } from 'react-icons/fi';
 
 interface Theme {
     id: string;
@@ -26,39 +28,70 @@ interface ThemeFilterProps {
 
 export default function ThemeFilter({ onSelectTheme }: ThemeFilterProps) {
     const router = useRouter();
+    const [isOpen, setIsOpen] = useState(false);
+    const [isFixed, setIsFixed] = useState(false);
+
+    // Detecta o scroll para alternar entre "relative" e "fixed"
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 150) {
+                setIsFixed(true);
+            } else {
+                setIsFixed(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const handleClick = (id: string) => {
         onSelectTheme(id);
 
         if (typeof window !== 'undefined') {
             if (id) {
-                // seta o hash normalmente
                 window.location.hash = id;
             } else {
-                // limpa hash
                 history.replaceState(null, '', window.location.pathname + window.location.search);
-
-                // ✅ força revalidação dos componentes (Next)
                 router.refresh();
-
-                // ✅ e notifica quem ouve hash (mesmo sem hash ter “mudado”)
                 setTimeout(() => {
                     window.dispatchEvent(new HashChangeEvent('hashchange'));
                 }, 0);
             }
         }
+
+        setIsOpen(false); // fecha o drawer
     };
 
     return (
-        <aside className={styles.filter}>
-            <h3>Filtrar por Tema</h3>
-            <ul>
-                {themes.map((theme) => (
-                    <li key={theme.id}>
-                        <button onClick={() => handleClick(theme.id)}>{theme.label}</button>
-                    </li>
-                ))}
-            </ul>
-        </aside>
+        <>
+            {/* Botão fixo/relativo */}
+            <button
+                className={`${styles.drawerToggle} ${isFixed ? styles.fixed : styles.relative}`}
+                onClick={() => setIsOpen(true)}
+            >
+                <FiFilter size={22} />
+            </button>
+
+            {/* Painel Drawer */}
+            <aside className={`${styles.filterDrawer} ${isOpen ? styles.open : ''}`}>
+                <div className={styles.drawerHeader}>
+                    <h3>Filtrar por Tema</h3>
+                    <button className={styles.closeBtn} onClick={() => setIsOpen(false)}>
+                        <FiX size={20} />
+                    </button>
+                </div>
+
+                <ul>
+                    {themes.map((theme) => (
+                        <li key={theme.id}>
+                            <button onClick={() => handleClick(theme.id)}>{theme.label}</button>
+                        </li>
+                    ))}
+                </ul>
+            </aside>
+
+            {isOpen && <div className={styles.backdrop} onClick={() => setIsOpen(false)} />}
+        </>
     );
 }

@@ -46,7 +46,7 @@ export default function Navbar() {
         const handleResize = () => {
             const mobile = window.innerWidth <= 899;
             setIsMobile(mobile);
-            setLogoSrc(mobile ? '/mobi.png' : '/PC.png');
+            setLogoSrc(mobile ? '/Logo_Mobile.png' : '/Logo_PC.png');
         };
 
         handleResize();

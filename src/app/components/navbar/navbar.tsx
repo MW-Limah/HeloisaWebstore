@@ -31,7 +31,7 @@ const themes: Theme[] = [
 
 export default function Navbar() {
     const [isActive, setIsActive] = useState(false);
-    const [logoSrc, setLogoSrc] = useState('/PC.png');
+    const [logoSrc, setLogoSrc] = useState('/Logo_PC.png');
     const [showNavbar, setShowNavbar] = useState<true | false | 'half' | 'hideFull'>(true);
 
     const [isMobile, setIsMobile] = useState(false);

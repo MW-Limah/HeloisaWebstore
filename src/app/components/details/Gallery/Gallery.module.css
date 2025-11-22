@@ -1,7 +1,7 @@
 .gallery {
     display: grid;
     grid-template-columns: 100px 1fr;
-    margin: 150px 0 20px;
+    margin: 00px 0 20px;
     align-items: start;
 }
 
@@ -147,6 +147,6 @@
         padding: 0;
     }
     .gallery {
-        margin: 90px 0;
+        margin: 0px 0;
     }
 }

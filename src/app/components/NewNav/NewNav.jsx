@@ -54,7 +54,7 @@ export default function NewNav() {
                                 <Link href="/about">Sobre</Link>
                             </li>
                             <li>
-                                <Link href="/conato">Contato</Link>
+                                <Link href="/contato">Contato</Link>
                             </li>
                             <li>
                                 <Link href="/pages/Login">ADM</Link>
@@ -85,7 +85,7 @@ export default function NewNav() {
                         </Link>
                     </li>
                     <li>
-                        <Link href="/contact" onClick={() => setDrawerOpen(false)}>
+                        <Link href="/contato" onClick={() => setDrawerOpen(false)}>
                             Contato
                         </Link>
                     </li>

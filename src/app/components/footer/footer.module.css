@@ -1,5 +1,4 @@
 .footer {
-    padding: 4% 3%;
     font-size: 14pt;
     background-color: white;
     color: black;
@@ -7,8 +6,6 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    min-height: 20px;
-    height: 6%;
 }
 
 .footer h2 {
@@ -18,28 +15,35 @@
     font-family: 'Times New Roman', Times, serif;
 }
 
-.containerImg,
-.containerSocial {
+.containerImg {
+    height: 120px;
+    padding: 1rem;
     width: 100%;
-    display: flex;
-    margin: 0;
-}
-
-.containerSocial {
-    margin-top: 20px;
     align-items: center;
-    justify-content: flex-end;
-}
-
-.redesSociais {
+    justify-content: flex-start;
     display: flex;
-    align-items: center;
+}
+.sdboxRedes {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: space-around;
-    font-size: 2.2rem;
+    gap: 1rem;
+    margin-top: 10px;
+    width: 100%;
+    margin-right: 10rem;
+}
+
+.redes {
+    font-size: 2rem;
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
 }
 
 /* Container */
 .footer .container {
+    padding: 0 1rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between; /* Espaça os itens de forma equilibrada */
@@ -91,10 +95,5 @@
 
     .container ul > p {
         margin-bottom: 5px;
-    }
-
-    .redesSociais {
-        justify-content: flex-start;
-        margin: 0 20px;
     }
 }

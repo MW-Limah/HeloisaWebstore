@@ -15,7 +15,7 @@
     max-width: 100%;
     width: 600px;
     height: auto; /* ajuste para altura automática */
-    margin: 120px 10px 0 70px;
+    margin: 0px 10px 0 70px;
     padding: 2rem;
 }
 .itemTitle {
@@ -176,7 +176,7 @@
 @media (max-width: 900px) {
     .checkoutForm {
         width: 500px;
-        margin: 120px auto 0 auto; /* Sempre no centro */
+        margin: 0px auto 0 auto; /* Sempre no centro */
     }
     .itemTitle {
         font-size: 20pt;

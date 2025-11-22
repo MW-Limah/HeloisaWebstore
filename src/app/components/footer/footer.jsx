@@ -9,7 +9,7 @@ export default function Footer() {
     return (
         <footer className={styles.footer}>
             <div className={styles.containerImg}>
-                <Image src="/logo_2.png" width={100} height={100} alt="Logo" />
+                <Image src="/Logo_SD.png" width={250} height={80} alt="Logo Para Footer" />
             </div>
             <div className={styles.container}>
                 <ul className={styles.fstBox}>
@@ -40,22 +40,21 @@ export default function Footer() {
                         <Link href={'/termos-de-uso'}>Termos de Uso</Link>
                     </li>
                 </ul>
-                <div className={styles.containerSocial}>
-                    <ul>
-                        <h3>Redes Sociais</h3>
-                        <div className={styles.redesSociais}>
-                            <a href="https://api.whatsapp.com/send/?phone=559299875435&text=Ol%C3%A1+tenho+interesse+nesse+produto%3A+TITULOAQUI&type=phone_number&app_absent=0">
-                                <IoLogoWhatsapp />
-                            </a>
-                            {/* <a>
-                                <FaPinterest />
-                            </a> */}
-                            <a href={'https://www.instagram.com/hanel.h.h/'} target="_blank" rel="noopener noreferrer">
-                                <RiInstagramFill />
-                            </a>
-                        </div>
-                    </ul>
-                </div>
+
+                <ul className={styles.sdboxRedes}>
+                    <h2>Redes Sociais</h2>
+                    <div className={styles.redes}>
+                        <a href="https://api.whatsapp.com/send/?phone=559299875435&text=Ol%C3%A1+tenho+interesse+nesse+produto%3A+TITULOAQUI&type=phone_number&app_absent=0">
+                            <IoLogoWhatsapp />
+                        </a>
+                        <a>
+                            <FaPinterest />
+                        </a>
+                        <a href={'https://www.instagram.com/hanel.h.h/'} target="_blank" rel="noopener noreferrer">
+                            <RiInstagramFill />
+                        </a>
+                    </div>
+                </ul>
             </div>
         </footer>
     );

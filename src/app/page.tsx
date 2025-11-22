@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import ReturnTop from './components/returnTop/returnTop';
-import Navbar from './components/navbar/navbar';
+/* import Navbar from './components/navbar/navbar'; */
+import NewNav from './components/NewNav/NewNav';
 import Header from './components/header/header';
 import Main from './components/main/main';
 import Footer from './components/footer/footer';
@@ -53,7 +54,8 @@ export default function Home() {
             <div>
                 <ReturnTop />
             </div>
-            <Navbar />
+            {/* <Navbar /> */}
+            <NewNav />
             <Header />
             <Main />
             <Footer />

@@ -34,7 +34,7 @@ export default function ThemeFilter({ onSelectTheme }: ThemeFilterProps) {
     // Detecta o scroll para alternar entre "relative" e "fixed"
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 150) {
+            if (window.scrollY > 450) {
                 setIsFixed(true);
             } else {
                 setIsFixed(false);
@@ -70,7 +70,7 @@ export default function ThemeFilter({ onSelectTheme }: ThemeFilterProps) {
                 className={`${styles.drawerToggle} ${isFixed ? styles.fixed : styles.relative}`}
                 onClick={() => setIsOpen(true)}
             >
-                <FiFilter size={22} />
+                <FiFilter size={25} />
             </button>
 
             {/* Painel Drawer */}

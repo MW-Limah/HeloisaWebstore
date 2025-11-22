@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Jost } from 'next/font/google';
+import { Geist, Geist_Mono, Urbanist, Merriweather_Sans } from 'next/font/google';
 import './globals.css';
 import { ClientProviders } from '@/app/ClienteProviders';
 
@@ -8,15 +8,21 @@ const geistSans = Geist({
     display: 'swap',
 });
 
-const jost = Jost({
+const Merriweather = Merriweather_Sans({
     subsets: ['latin'],
-    variable: '--font-jost',
+    variable: '--merriweather',
     display: 'swap',
 });
 
 const geistMono = Geist_Mono({
     subsets: ['latin'],
     variable: '--font-geist-mono',
+    display: 'swap',
+});
+
+const urbanist = Urbanist({
+    subsets: ['latin'],
+    variable: '--font-urbanist',
     display: 'swap',
 });
 
@@ -29,7 +35,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="pt-BR">
-            <body className={`${geistSans.variable} ${geistMono.variable}`}>
+            <body
+                className={`${geistSans.variable} ${geistMono.variable} ${Merriweather.variable} ${urbanist.variable}`}
+            >
                 <ClientProviders>{children}</ClientProviders>
             </body>
         </html>

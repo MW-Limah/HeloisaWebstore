@@ -127,19 +127,6 @@ export default function BoxItem({ filterTheme }: BoxItemProps) {
 
     return (
         <div className={styles.container}>
-            {/* === Paginação Superior=== */}
-            {/* === Grid com limite de altura === */}
-            {totalPages > 1 && (
-                <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={(page) => {
-                        const newPage = Math.min(Math.max(page, 1), totalPages);
-                        setPageChangedByUser(true); // 👈 marca que o usuário clicou
-                        setCurrentPage(newPage);
-                    }}
-                />
-            )}
             <section className={styles.gridContainer}>
                 {currentItems.map((item) => (
                     <article key={item.id} className={styles.boxContent}>
@@ -161,8 +148,8 @@ export default function BoxItem({ filterTheme }: BoxItemProps) {
                                 <div className={styles.title}>
                                     <h3>{item.title}</h3>
                                 </div>
-
-                                {item.description && <p className={styles.description}>{item.description}</p>}
+                                {/* 
+                                {item.description && <p className={styles.description}>{item.description}</p>} */}
                                 <div className={styles.priceAndButton}>
                                     <p>
                                         {Number(item.price).toLocaleString('pt-BR', {

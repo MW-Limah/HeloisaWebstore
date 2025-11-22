@@ -4,12 +4,15 @@
     --sd: #024669;
     --links: #54baec;
     --white: #f8f8f8;
-    --text-black: #333;
+    --text-black: #8b8b8b;
     --confirm-btn: #3becc0;
     --cancel-btn: #d05648;
     --cancel-btn-hover: #bc5044;
     --p-color: #525252;
-    --font-jost: 'Jost', sans-serif;
+    --verdana: 'Verdana, Geneva, Tahoma, sans-serif';
+    --urbanist: 'Urbanist', sans-serif;
+    --geist: 'Geist Mono', monospace;
+    --merriweather: 'Merriweather Sans', sans-serif;
     --input-color: #000;
     --input-padding: 5px 5px;
     --input-margin: 5px 0;
@@ -37,7 +40,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: linear-gradient(180deg, #b5b4ff, #e3edff, #e3edff);
+    background: #fff;
 }
 
 * {

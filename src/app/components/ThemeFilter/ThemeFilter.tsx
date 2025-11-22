@@ -66,6 +66,7 @@ export default function ThemeFilter({ onSelectTheme }: ThemeFilterProps) {
 
     return (
         <>
+            <h2 className={styles.title}>Seção de Produtos</h2>
             {/* Botão fixo/relativo */}
             <button
                 className={`${styles.drawerToggle} ${isFixed ? styles.fixed : styles.relative}`}
@@ -74,6 +75,16 @@ export default function ThemeFilter({ onSelectTheme }: ThemeFilterProps) {
                 <FiFilter size={25} />
             </button>
 
+            {/* Painel Fixo Desktop */}
+            <aside className={styles.MenuDesktop}>
+                <ul>
+                    {themes.map((theme) => (
+                        <li key={theme.id}>
+                            <button onClick={() => handleClick(theme.id)}>{theme.label}</button>
+                        </li>
+                    ))}
+                </ul>
+            </aside>
             {/* Painel Drawer */}
             <aside className={`${styles.filterDrawer} ${isOpen ? styles.open : ''}`}>
                 <div className={styles.drawerHeader}>

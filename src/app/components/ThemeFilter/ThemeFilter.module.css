@@ -1,3 +1,42 @@
+/* Desktop Menu */
+.title {
+    margin-top: 1rem;
+    margin-left: 2.5rem;
+    font-size: 2rem;
+    font-family: var(--urbanist);
+}
+.MenuDesktop {
+    margin: 1rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 5px 0;
+    gap: 10px;
+}
+
+.MenuDesktop ul {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 15px;
+}
+
+.MenuDesktop button {
+    font-family: var(--merriweather);
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    color: var(--text-black);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+/* Mobile Menu */
 .drawerToggle {
     right: 20px;
     background: var(--fst);
@@ -111,8 +150,18 @@
     z-index: 90;
 }
 
+@media (max-width: 950px) {
+    .MenuDesktop {
+        display: none;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+}
+
 /* Apenas em mobile */
-@media (min-width: 801px) {
+@media (min-width: 950px) {
     .drawerToggle,
     .filterDrawer,
     .backdrop {

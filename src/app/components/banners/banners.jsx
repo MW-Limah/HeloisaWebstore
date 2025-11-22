@@ -3,6 +3,11 @@
 import { useState, useEffect } from 'react';
 import styles from './banners.module.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import 'swiper/css/autoplay';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 export default function Banners() {
     const data = [
@@ -29,10 +34,10 @@ export default function Banners() {
     return (
         <div className={styles.banners}>
             <Swiper
+                modules={[Navigation, Pagination, Autoplay]}
                 slidesPerView={1}
-                pagination={{ clickable: true, type: 'bullets' }}
-                navigation={true}
-                className={styles.mySwiper}
+                navigation
+                pagination={{ clickable: true }}
                 loop={true}
                 autoplay={{ delay: 5000 }}
             >

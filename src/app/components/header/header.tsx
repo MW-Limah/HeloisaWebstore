@@ -8,11 +8,6 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <Banners />
-            <ThemeFilter
-                onSelectTheme={(themeId) => {
-                    console.log('Tema selecionado no Header:', themeId);
-                }}
-            />
         </header>
     );
 }

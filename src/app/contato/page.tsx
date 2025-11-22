@@ -2,6 +2,7 @@
 
 import styles from './contato.module.css';
 import Navbar from '@/app/components/navbar/navbar';
+import NewNav from '../components/NewNav/NewNav';
 import { RiInstagramFill } from 'react-icons/ri';
 import { IoLogoWhatsapp } from 'react-icons/io';
 import { FaPinterest } from 'react-icons/fa';
@@ -40,7 +41,7 @@ export default function Contato() {
 
     return (
         <div className={styles.container}>
-            <Navbar />
+            <NewNav />
             <div className={styles.content}>
                 {/* Formulário de e-mail */}
                 <div className={styles.form}>

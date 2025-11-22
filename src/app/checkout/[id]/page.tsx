@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { supabase } from '@/app/lib/supabase';
 import styles from './checkout.module.css';
-import Navbar from '@/app/components/navbar/navbar';
+import NewNav from '@/app/components/NewNav/NewNav';
 import Gallery from '@/app/components/details/Gallery/Gallery';
 import Comments from '@/app/components/details/Comments/Comments';
 import CheckoutForm from '@/app/components/details/CheckoutForm/CheckoutForm';
@@ -55,7 +55,7 @@ export default function CheckoutPage() {
 
     return (
         <div className={styles.container}>
-            <Navbar />
+            <NewNav />
             <div className={styles.content}>
                 <div className={styles.leftSide}>
                     <Gallery highlighted={highlighted} thumbnails={thumbnails} onImageClick={handleImageClick} />

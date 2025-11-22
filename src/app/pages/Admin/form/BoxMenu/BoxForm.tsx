@@ -125,6 +125,7 @@ export default function BoxForm({ isOpen, onClose }: BoxFormProps) {
                         <option value="piranhas">Piranhas</option>
                         <option value="brincos">Brincos</option>
                         <option value="cordoes">Cordões</option>
+                        <option value="pulseiras">Pulseiras</option>
                         <option value="aneis">Anéis</option>
                         <option value="maquiagens">Maquiagens</option>
                         <option value="lacos">Laços</option>

@@ -16,6 +16,7 @@ const themes: Theme[] = [
     { id: 'lacos', label: 'Laços' },
     { id: 'maquiagens', label: 'Maquiagem' },
     { id: 'aneis', label: 'Anéis' },
+    { id: 'pulseiras', label: 'Pulseiras' },
     { id: 'cordoes', label: 'Cordões' },
     { id: 'brincos', label: 'Brincos' },
     { id: 'piranhas', label: 'Piranhas' },

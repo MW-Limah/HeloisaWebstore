@@ -20,7 +20,6 @@ export default function LatestReleases() {
 
     useEffect(() => {
         const fetchReleases = async () => {
-            setLoading(true);
             try {
                 const { data, error } = await supabase
                     .from('box-items')
@@ -32,13 +31,13 @@ export default function LatestReleases() {
 
                 const parsed = data.map((item: ReleaseItem) => ({
                     ...item,
-                    price: Number((item.price ?? '0').toString().replace(',', '.')).toFixed(2),
+                    price: Number(item.price.replace(',', '.')).toFixed(2),
                 }));
 
                 setItems(parsed);
-            } catch (err: any) {
-                setError('Erro ao carregar últimos lançamentos.');
+            } catch (err) {
                 console.error(err);
+                setError('Erro ao carregar últimos lançamentos.');
             } finally {
                 setLoading(false);
             }
@@ -60,30 +59,33 @@ export default function LatestReleases() {
             <article className={styles.bottom}>
                 <div className={styles.releases}>
                     {items.map((item) => (
-                        <div key={item.id}>
+                        <article key={item.id} className={styles.boxContent}>
                             <Link href={`/checkout/${item.id}`}>
-                                <div className={styles.ImageWrapper}>
-                                    {item.images?.[0] && (
-                                        <Image
-                                            src={item.images[0]}
-                                            alt={item.title}
-                                            width={750}
-                                            height={750}
-                                            style={{ objectFit: 'cover' }}
-                                        />
-                                    )}
+                                <div className={styles.boxItem}>
+                                    <div className={styles.imageWrapper}>
+                                        {item.images?.[0] && (
+                                            <Image
+                                                src={item.images[0]}
+                                                alt={item.title}
+                                                width={750}
+                                                height={750}
+                                                style={{ objectFit: 'cover' }}
+                                            />
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className={styles.details}>
+                                    <h3>{item.title}</h3>
+                                    <p>
+                                        {Number(item.price).toLocaleString('pt-BR', {
+                                            style: 'currency',
+                                            currency: 'BRL',
+                                        })}
+                                    </p>
                                 </div>
                             </Link>
-
-                            <h3>{item.title}</h3>
-
-                            <p>
-                                {Number(item.price).toLocaleString('pt-BR', {
-                                    style: 'currency',
-                                    currency: 'BRL',
-                                })}
-                            </p>
-                        </div>
+                        </article>
                     ))}
                 </div>
             </article>

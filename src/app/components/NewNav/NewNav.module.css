@@ -82,7 +82,7 @@
 }
 
 .drawer ul li a {
-    color: var(--text-black);
+    color: #121212;
     font-size: 1.2rem;
     text-decoration: none;
 }

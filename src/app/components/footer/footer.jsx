@@ -8,9 +8,6 @@ import { FaPinterest } from 'react-icons/fa';
 export default function Footer() {
     return (
         <footer className={styles.footer}>
-            <div className={styles.containerImg}>
-                <Image src="/Logo_SD.png" width={250} height={80} alt="Logo Para Footer" />
-            </div>
             <div className={styles.container}>
                 <ul className={styles.fstBox}>
                     <h2>Quem sou eu</h2>
@@ -55,6 +52,9 @@ export default function Footer() {
                         </a>
                     </div>
                 </ul>
+            </div>
+            <div className={styles.containerImg}>
+                <Image src="/Logo_Mobile.png" width={250} height={140} alt="Logo Para Footer" />
             </div>
         </footer>
     );

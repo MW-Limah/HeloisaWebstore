@@ -1,12 +1,12 @@
 .returnTop {
     position: fixed;
-    bottom: 50px;
-    right: 20px;
+    bottom: 150px;
+    right: 15px;
     border-radius: 50%;
-    background-color: var(--fst);
+    background-color: var(--sd);
     border: none;
     color: #fff;
-    padding: 12px 14px;
+    padding: 10px 12px;
     font-size: 24px;
     cursor: pointer;
     z-index: 1000;

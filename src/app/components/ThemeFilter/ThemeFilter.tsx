@@ -66,7 +66,9 @@ export default function ThemeFilter({ onSelectTheme }: ThemeFilterProps) {
 
     return (
         <>
-            <h2 className={styles.title}>Seção de Produtos</h2>
+            <h2 className={styles.title} id="griditems">
+                Seção de Produtos
+            </h2>
             {/* Botão fixo/relativo */}
             <button
                 className={`${styles.drawerToggle} ${isFixed ? styles.fixed : styles.relative}`}

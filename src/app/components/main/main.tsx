@@ -7,7 +7,7 @@ import ThemeFilter from '../ThemeFilter/ThemeFilter';
 
 export default function Main() {
     return (
-        <main className={styles.Main} id="griditems">
+        <main className={styles.Main}>
             <div className={styles.content}>
                 <LatestReleases />
                 <ThemeFilter

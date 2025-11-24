@@ -61,18 +61,22 @@
 
 /* Igual ao BoxItem */
 .boxItem {
+    border: 2px solid var(--links);
+    padding: 0.5rem;
     border-radius: 5px;
     position: relative;
     width: 100%;
     overflow: hidden;
-    aspect-ratio: 1/1;
+    aspect-ratio: 2/2;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 15px;
 }
 
 /* Wrapper real da imagem */
 .imageWrapper {
+    border-radius: 10px;
     width: 100%;
     height: 100%;
     overflow: hidden;
